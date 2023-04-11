@@ -1,0 +1,7 @@
+ssh-keygen -t rsa -C "kashif.delvi@maersk.com" -f "github-maersk"
+ssh-keygen -t rsa -C "casprian@gmail.com" -f "github-casprian"
+ssh-keygen -t rsa -C "kashif.delvi@checkedspot.com" -f "github-checkedspot"
+
+ssh-add --apple-use-keychain ~/.ssh/github-maersk
+ssh-add --apple-use-keychain ~/.ssh/github-casprian
+ssh-add --apple-use-keychain ~/.ssh/github-checkedspot
