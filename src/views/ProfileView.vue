@@ -18,6 +18,7 @@ import { reactive,provide } from 'vue';
 
 const show = reactive({
     "dashboard": true,
+    "profile": false,
     "myproperties": false,
     "addproperty": false,
 })

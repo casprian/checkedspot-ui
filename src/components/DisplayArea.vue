@@ -1,16 +1,10 @@
 <template>
-  <!-- Projects options Display -->
-  <div>
-    <v-sheet v-if="show?.profile" class="pa-0 ma-0">
-      <profile-display />
-    </v-sheet>
-
-  </div>
-
-  <!-- ProjectX Options Display -->
   <div>
     <v-sheet v-if="show?.dashboard" class="pa-0 ma-0">
       <dashboard-display />
+    </v-sheet>
+    <v-sheet v-if="show?.profile" class="pa-0 ma-0">
+      <profile-display />
     </v-sheet>
     <v-sheet v-if="show?.myproperties" class="pa-0 ma-0">
       <my-properties-display />

@@ -17,12 +17,10 @@
                     <v-list-item elevation="6" class="mt-3" active-color="primary" rounded="shaped" prepend-icon="mdi-gavel" title="Admin"></v-list-item>
                 </v-list> -->
                 <v-list class="px-9 py-3" theme="dark">
-                    <v-list-item v-for="(item, i) in items" :key="i" :value="item" variant="elevated"
-                        active-color="grey-lighten-1" rounded="shaped" elevation="6" class="mt-4" @click="$emit('activewindow', item.name)">
+                    <v-list-item v-for="(item, i) in items" :key="i" :value="item" :disabled="item.disable" variant="elevated" active-color="grey-lighten-1" rounded="shaped" elevation="6" class="mt-4" @click="$emit('activewindow', item.name)">
                         <template v-slot:prepend>
                             <v-icon :icon="item.icon"></v-icon>
                         </template>
-
                         <template v-slot:title>
                             <div class="text-button-1">{{ item.text }}</div>
                         </template>
@@ -45,13 +43,11 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue';
 const items = reactive([
-    { name: 'dashboard', text: 'Dashboard', icon: 'mdi-view-dashboard' },
-    { name: 'profile',  text: 'Profile', icon: 'mdi-account' },
-    { name: 'myproperties',  text: 'My Properties', icon: 'mdi-view-list' },
-    { name: 'addproperty',  text: 'Add Property', icon: 'mdi-plus' },
+    { name: 'dashboard', text: 'Dashboard', icon: 'mdi-view-dashboard', disable: false},
+    { name: 'profile',  text: 'Profile', icon: 'mdi-account', disable: true},
+    { name: 'myproperties',  text: 'My Properties', icon: 'mdi-view-list', disable: false},
+    { name: 'addproperty',  text: 'Add Property', icon: 'mdi-plus', disable: false},
 ])
-const props = defineProps(['tab'])
-const drawertab = ref(props.tab);
 </script>
 
 <style scoped>
