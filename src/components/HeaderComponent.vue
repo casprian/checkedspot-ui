@@ -1,6 +1,6 @@
 <template>
   <v-container fluid class="p0 m0">
-  
+
     <v-row no-gutters>
       <v-col>
         <div class="video-container">
@@ -11,6 +11,7 @@
           />
           Your browser does not support the video tag.
         </video>
+
         <property-filter/>
       </div>
     </v-col>
@@ -21,7 +22,6 @@
 
 <script lang="ts" setup>
   import PropertyFilter  from '@/components/PropertyFilter.vue';
-  
 </script>
 
 <style scoped>
