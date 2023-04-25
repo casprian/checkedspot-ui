@@ -32,7 +32,7 @@
     })
     // console.log(property)
     onMounted(() => {
-        axios.get('http://localhost:8080/property', 
+        axios.get('https://apicheckedspot.azurewebsites.net/property', 
         {
             params: {
                 propertyId : route?.params?.propertyId,
@@ -41,6 +41,7 @@
                 Authorization : `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJlbWFpbCI6ImRrQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiMTIzNEBBc2RmIn0sImlhdCI6MTY4MjQxMDYzNX0.jtfxkFxDZtnGhOLqjfJkXifAG79sMTePpmMGC03BGj8`
             }
         }).then((response) => {
+            console.log(response)
             property.data = response?.data?.data;
         }).catch((error) => {
             console.log(error);

@@ -105,7 +105,7 @@ onMounted(() => {
     // let data;
     console.log(formData);
     axios
-        .get(`http://localhost:8080/property/getAllProperties`, formData)
+        .get(`https://apicheckedspot.azurewebsites.net/property/getAllProperties`, formData)
         .then((response) => {
             propertiesData.data = response.data.data;
             // console.log("response.data : ", response?.data?.data)

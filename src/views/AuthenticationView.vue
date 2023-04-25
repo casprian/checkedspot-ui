@@ -138,7 +138,7 @@ const token = ref(null);
 const retrySignIn = ref(false);
 function authenticateUser() {
     axios
-        .post("http://localhost:8080/user/login", {
+        .post("https://apicheckedspot.azurewebsites.net/user/login", {
             email: userDetail.email,
             password: userDetail.password,
         })
