@@ -14,7 +14,7 @@
                 <v-container style="position: absolute; bottom: 0;">
                     <v-row class="d-flex justify-space-between">
                         <v-col cols="auto">
-                            <div class="text-grey-lighten-5 text-h6">₹ {{ property.cost }}</div>
+                            <div class="text-grey-lighten-5 text-h6">₹ {{ property.cost ? property.cost : 0 }}</div>
                         </v-col>
                         <v-col cols="auto">
                             <v-row no-gutters>
@@ -45,7 +45,7 @@
                         </v-card-title>
                         <v-card-text class="px-4 py-0">
                             <v-icon size="16" class="mt-n1 mr-2" icon="mdi-map-marker" color="grey-darken-2"></v-icon>
-                            <span class="text-body-1 text-grey-darken-2">{{ property.location }}</span>
+                            <span class="text-body-1 text-grey-darken-2">{{ property.location ? property.location : Bangalore }}</span>
                         </v-card-text>
                     </v-col>
                     <v-col cols="12" class="px-4 py-3">
