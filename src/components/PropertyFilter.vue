@@ -60,6 +60,7 @@
                   <v-tabs v-model="tab" color="deep-purple-accent-4" align-tabs="center">
                     <v-tab :value="1">Rent</v-tab>
                     <v-tab :value="3">Buy</v-tab>
+                    <v-tab disabled :value="4">Sell</v-tab>
                   </v-tabs>
                   <v-window v-model="tab">
                     <v-window-item v-for="n in 3" :key="n" :value="n">

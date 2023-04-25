@@ -13,7 +13,7 @@
       <v-btn v-if="!hastoken" @click="openSignInPage" prepend-icon="mdi-magnify" variant="outlined" class="ml-2">
         Login
       </v-btn>
-      <v-btn @click="router.push('/profile')" prepend-icon="mdi-dots-vertical" variant="outlined" class="ml-2">
+      <v-btn disabled @click="router.push('/profile')" prepend-icon="mdi-dots-vertical" variant="outlined" class="ml-2">
         Add/Manage Properties
       </v-btn>
     </template>

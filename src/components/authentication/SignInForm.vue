@@ -98,9 +98,9 @@
 </template>
 
 <script lang="ts" setup>
-import SignUpForm from '@/components/authentication/SignUpForm.vue';
-import axios from 'axios';
 import { reactive, ref } from 'vue';
+import api from "@/data/api/index.js";
+
 const signUpModel = ref(false);
 const userDetail = reactive({
     email: "",
@@ -111,29 +111,23 @@ const signInModel = ref(false);
 const token = ref(null);
 const retrySignIn = ref(false);
 
-function authenticateUser() {
-    axios.post('http://localhost:8080/user/login',{
+async function authenticateUser() {
+    const res = await api.user.login({
         email: userDetail.email,
-        password: userDetail.password
-    }).then((response) => {
-        console.log(response);
-        if(response?.data?.token){
-            token.value=response?.data?.token;
-            signInModel.value = false;
-        }else {
-            token.value = null;            
-            signInModel.value = true;
-        }
-    }).catch((error) => {
-        console.log(error)
-    })
-
+        password: userDetail.password}
+    );
+    if(res?.data.token){
+        token.value=res?.data?.token;
+        signInModel.value = false;
+    } else {
+        token.value = null;            
+        signInModel.value = true;
+    }
     if(signInModel.value === true) {
         retrySignIn.value = true;
     }else {
         retrySignIn.value = false;
     }
-
 }
 
 </script>
