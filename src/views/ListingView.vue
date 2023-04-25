@@ -51,7 +51,8 @@
 import PropertyCard from '@/components/PropertyCard.vue'
 import { onMounted, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
-import axios from "axios";
+import api from "@/data/api/index.js";
+
 const route = useRoute();
 
 const items = reactive([
@@ -79,7 +80,7 @@ const selectedItem = ref(sortItems[0]);
 let propertiesData = reactive({ data: [] });
 const propertyFilterObj = reactive({ ...route?.params });
 
-onMounted(() => {
+onMounted(async () => {
     const formData = {
         params: {
             verified: propertyFilterObj?.verified,
@@ -104,7 +105,11 @@ onMounted(() => {
     // }
     // let data;
     console.log(formData);
-    axios
+
+    const res = await api.property.getProperties(formData);
+    propertiesData.data = res.data;
+
+    /*axios
         .get(`https://apicheckedspot.azurewebsites.net/property/getAllProperties`, formData)
         .then((response) => {
             propertiesData.data = response.data.data;
@@ -112,13 +117,13 @@ onMounted(() => {
         })
         .catch((error) => {
             console.log(error);
-        });
+        });*/
 });
 
 </script>
 
 <style scoped>
-.cardCont:hover {
-    cursor: pointer; 
-}
+    .cardCont:hover {
+        cursor: pointer; 
+    }
 </style>
