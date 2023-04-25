@@ -40,26 +40,7 @@
         <v-row no-gutters class="px-sm-14">
             <v-col class="px-2 my-2 px-md-4 my-md-4" v-for="(data, index) in propertiesData?.data" cols="12" md="6" lg="4"
                 :key="index">
-                <!-- <v-card
-              prepend-icon="mdi-home"
-              color="secondary"
-              variant="outlined"
-              width="100%"
-              height="400px"
-              image=""
-              loading="black"
-              :title="'Property For: ' + data?.propertyStatus"
-              :subtitle="'Location: ' + data?.location"
-              :text="
-                'cost: ' + data.cost + ' ' + ' Total Area: ' + data.totalArea
-              "
-            >
-                <template v-slot:image>
-                    <v-img src="https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"></v-img>
-                </template>
-            </v-card> -->
-
-                <property-card :property="data" />
+                <property-card :property="data"/>
             </v-col>
         </v-row>
 
@@ -107,7 +88,7 @@ onMounted(() => {
             areaFrom: propertyFilterObj?.areaFrom,
             areaTo: propertyFilterObj?.areaTo,
             costFrom: propertyFilterObj?.costFrom,
-            costTo: propertyFilterObj?.costTo,
+            costTo: propertyFilterObj?.costTo
         },
     };
     // const formData = {
@@ -136,4 +117,8 @@ onMounted(() => {
 
 </script>
 
-<style scoped></style>
+<style scoped>
+.cardCont:hover {
+    cursor: pointer; 
+}
+</style>
