@@ -189,29 +189,6 @@ export default {
 };
 </script>
 
-<script lang="ts" setup>
-// import { reactive } from 'vue';
-    // import { useRouter } from 'vue-router';
-    // import axios from 'axios';
-
-    // const formData = reactive({
-    //     verified: true,
-
-    // })
-
-    // const router = useRouter();
-    // function loadProperty() {
-    //     // axios.get(`http://localhost:8080/property/getAllProperties?verified=veriied&`)
-    //     // .then((response) => {
-    //     //     console.log(response)
-    //     // })
-    //     // .catch((error) => {
-    //     //     console.log(error)
-    //     // })
-    //     router.push('/listing');
-    // }
-</script>
-
 
 <style scoped>
 .filterContainer {

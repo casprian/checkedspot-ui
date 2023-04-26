@@ -21,15 +21,24 @@
                 <v-progress-linear color="pink-accent-3" indeterminate rounded height="10"></v-progress-linear>
             </v-col>
         </v-row>
-
+{{ JSON.stringify(pageNumber) }}
+        <v-row no-gutters class="px-sm-14 py-5 d-flex justify-center align-center">
+            <v-col cols="5">
+                <div class="text-center">
+                    <v-pagination @click="getAllProperty" v-model="pageNumber" :length="noOfPage" prev-icon="mdi-menu-left"
+                        next-icon="mdi-menu-right"></v-pagination>
+                </div>
+            </v-col>
+        </v-row>
     </v-container>
 </template>
 
 <script lang="ts" setup>
 import PropertyCard from '@/components/PropertyCard.vue'
-import { onMounted, reactive, ref } from "vue";
+import { computed, onMounted, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
-import api from "@/data/api/index.js";
+// import api from "@/data/api/index.js";
+import axios from 'axios';
 
 const route = useRoute();
 
@@ -57,8 +66,15 @@ const selectedItem = ref(sortItems[0]);
 
 let propertiesData = reactive({ data: null });
 const propertyFilterObj = reactive({ ...route?.params });
+const pageNumber = ref(1)
+const limit = ref(10);
+const noOfPage = ref(1);
+const noOfData = ref(0);
+const noOfDataComputed =  computed(() => {
+    return noOfData.value;
+})
 
-onMounted(async () => {
+function getAllProperty() {
     const formData = {
         params: {
             verified: propertyFilterObj?.verified,
@@ -67,19 +83,46 @@ onMounted(async () => {
             areaFrom: propertyFilterObj?.areaFrom,
             areaTo: propertyFilterObj?.areaTo,
             costFrom: propertyFilterObj?.costFrom,
-            costTo: propertyFilterObj?.costTo
+            costTo: propertyFilterObj?.costTo,
+            limit: limit.value,
+            pageNumber: pageNumber.value,
         },
     };
-    const res = await api.property.getProperties(formData);
-    propertiesData.data = res.data;
+    // const res = await api.property.getProperties(formData);
+    axios.get('http://localhost:8080/property/getAllProperties', formData)
+        .then((res) => {
+            propertiesData.data = res?.data?.data;
+            noOfData.value = res?.data?.noOfdata;
+            noOfPage.value = Math.ceil(noOfDataComputed.value/limit.value);
+        }).catch((err) => {
+            console.log(err);
+        })
+}
+// onMounted(async () => {
+//     const formData = {
+//         params: {
+//             verified: propertyFilterObj?.verified,
+//             location: propertyFilterObj?.location,
+//             propertyStatus: propertyFilterObj?.propertyStatus,
+//             areaFrom: propertyFilterObj?.areaFrom,
+//             areaTo: propertyFilterObj?.areaTo,
+//             costFrom: propertyFilterObj?.costFrom,
+//             costTo: propertyFilterObj?.costTo
+//         },
+//     };
+//     const res = await api.property.getProperties(formData);
+//     propertiesData.data = res.data;
+// });
+onMounted(async () => {
+    getAllProperty();
 });
-
 </script>
 
 <style scoped>
 .cardCont:hover {
     cursor: pointer;
 }
+
 .loader {
     position: absolute;
     top: 50%;
