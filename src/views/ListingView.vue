@@ -94,6 +94,8 @@ function getAllProperty() {
             propertiesData.data = res?.data?.data;
             noOfData.value = res?.data?.noOfdata;
             noOfPage.value = Math.ceil(noOfDataComputed.value/limit.value);
+            console.log(noOfPage.value)
+            console.log(res)
         }).catch((err) => {
             console.log(err);
         })
