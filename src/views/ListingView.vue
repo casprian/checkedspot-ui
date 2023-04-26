@@ -9,6 +9,15 @@
                 </v-breadcrumbs>
             </v-col>
         </v-row>
+
+        <v-row no-gutters class="px-sm-14 py-5 d-flex justify-center align-center">
+            <v-col cols="5">
+                <div class="text-center">
+                    <v-pagination @click="getAllProperty" v-model="pageNumber" :length="noOfPage" prev-icon="mdi-menu-left"
+                        next-icon="mdi-menu-right"></v-pagination>
+                </div>
+            </v-col>
+        </v-row>
         <!-- property cards Section -->
         <v-row no-gutters class="px-sm-14">
             <v-col class="px-2 my-2 px-md-4 my-md-4" v-for="(data, index) in propertiesData?.data" cols="12" md="6" lg="4"
@@ -21,7 +30,7 @@
                 <v-progress-linear color="pink-accent-3" indeterminate rounded height="10"></v-progress-linear>
             </v-col>
         </v-row>
-{{ JSON.stringify(pageNumber) }}
+
         <v-row no-gutters class="px-sm-14 py-5 d-flex justify-center align-center">
             <v-col cols="5">
                 <div class="text-center">

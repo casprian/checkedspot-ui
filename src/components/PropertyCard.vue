@@ -45,7 +45,7 @@
                         </v-card-title>
                         <v-card-text class="px-4 py-0">
                             <v-icon size="16" class="mt-n1 mr-2" icon="mdi-map-marker" color="grey-darken-2"></v-icon>
-                            <span class="text-body-1 text-grey-darken-2">{{ property.location ? property.location : Bangalore }}</span>
+                            <span class="text-body-1 text-grey-darken-2">{{ property.location ? property.location : "Bangalore" }}</span>
                         </v-card-text>
                     </v-col>
                     <v-col cols="12" class="px-4 py-3">
@@ -97,13 +97,11 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 const router = useRouter();
 
 defineProps(['property'])
 
-const show = ref(false)
 </script>
 
 <style scoped>
