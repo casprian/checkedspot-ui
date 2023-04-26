@@ -13,13 +13,13 @@
         <v-row no-gutters class="px-sm-14">
             <v-col class="px-2 my-2 px-md-4 my-md-4" v-for="(data, index) in propertiesData?.data" cols="12" md="6" lg="4"
                 :key="index">
-                <property-card :property="data"/>
+                <property-card :property="data" />
             </v-col>
         </v-row>
-        <v-row no-gutters class="px-sm-14">
-            <h1 v-if="!propertiesData?.data">
-                ....Loading
-            </h1>
+        <v-row v-if="!propertiesData?.data" no-gutters class="px-sm-14">
+            <v-col cols="4" class="loader">
+                <v-progress-linear color="pink-accent-3" indeterminate rounded height="10"></v-progress-linear>
+            </v-col>
         </v-row>
 
     </v-container>
@@ -77,7 +77,13 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-    .cardCont:hover {
-        cursor: pointer; 
-    }
+.cardCont:hover {
+    cursor: pointer;
+}
+.loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 </style>

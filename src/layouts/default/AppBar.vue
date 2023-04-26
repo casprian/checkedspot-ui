@@ -2,7 +2,7 @@
   <v-app-bar :elevation="2" density="compact">
 
     <template v-slot:prepend>
-      <v-img width="200px" height="100px" src="../../assets/logocheckedspot.png" />
+      <v-img @click="router.push('/')" class="logo" width="200px" height="100px" src="../../assets/logocheckedspot.png" />
     </template>
 
 
@@ -12,6 +12,9 @@
       </v-btn>
       <v-btn v-if="!hastoken" @click="openSignInPage" prepend-icon="mdi-magnify" variant="outlined" class="ml-2">
         Login
+      </v-btn>
+      <v-btn v-else @click="deleteToken" variant="outlined" class="ml-2">
+        Logout
       </v-btn>
       <v-btn disabled @click="router.push('/profile')" prepend-icon="mdi-dots-vertical" variant="outlined" class="ml-2">
         Add/Manage Properties
@@ -34,4 +37,14 @@ if (token) {
   hastoken.value = true;
 }
 
+function deleteToken() {
+  sessionStorage.removeItem('token')
+}
+
 </script>
+
+<style scoped>
+.logo {
+  cursor: pointer;
+}
+</style>

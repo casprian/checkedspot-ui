@@ -148,7 +148,7 @@ function authenticateUser() {
                 sessionStorage.setItem("token", response?.data?.token);
                 token.value = response?.data?.token;
                 retrySignIn.value = false;
-                router.back();
+                router.push('/');
             } else {
                 token.value = null;
                 retrySignIn.value = true;
