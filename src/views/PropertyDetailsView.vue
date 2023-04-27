@@ -544,7 +544,7 @@
                                                 color="pink-accent-3"></v-rating>
                                         </v-col>
                                         <v-col cols="12" sm="5" class="d-flex justify-start align-center justify-sm-end">
-                                            <button class="uploadBtn" style="background-color: red;">
+                                            <button class="uploadBtn">
                                                 <label class="input-group-text" for="inputGroupFile">Upload Photos</label>
                                                 <input type="file" class="form-control" id="inputGroupFile"
                                                     style="width:0px;">
@@ -748,7 +748,7 @@ const reviews = reactive([
     color: white;
 }
 
-.uploadBtn:focus {
+.uploadBtn > label:hover {
     cursor: pointer;
 }
 </style>
