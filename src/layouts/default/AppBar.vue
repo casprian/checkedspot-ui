@@ -7,13 +7,13 @@
 
 
     <template v-slot:append>
-      <v-btn prepend-icon="mdi-vuetify" variant="outlined" class="ml-2">
+      <v-btn prepend-icon="mdi-phone-classic" variant="outlined" class="ml-2">
         Contact
       </v-btn>
-      <v-btn v-if="!hastoken" @click="openSignInPage" prepend-icon="mdi-magnify" variant="outlined" class="ml-2">
+      <v-btn v-if="!hastoken" @click="openSignInPage" prepend-icon="mdi-login" variant="outlined" class="ml-2">
         Login
       </v-btn>
-      <v-btn v-else @click="deleteToken" variant="outlined" class="ml-2">
+      <v-btn v-else @click="deleteToken" prepend-icon="mdi-logout" variant="outlined" class="ml-2">
         Logout
       </v-btn>
       <v-btn disabled @click="router.push('/profile')" prepend-icon="mdi-dots-vertical" variant="outlined" class="ml-2">

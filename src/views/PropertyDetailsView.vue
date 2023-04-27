@@ -8,9 +8,9 @@
         <v-row v-else no-gutters class="px-sm-10">
             <v-col cols="12" md="8" class="pr-0 pr-md-3">
                 <v-row no-gutters class="mb-10">
-                    <v-col cols="9">
-                        <div class="d-flex justify-start align-center">
-                            <div class="text-h6 text-md-h5 font-weight-medium">
+                    <v-col cols="12" sm="9">
+                        <div class="d-flex justify-space-between align-center justify-sm-start">
+                            <div class="text-h6 text-sm-h5 font-weight-medium">
                                 Checkedspot Property
                             </div>
                             <div>
@@ -33,7 +33,7 @@
                             }}</span>
                         </div>
                     </v-col>
-                    <v-col cols="3" class="d-flex flex-column align-end">
+                    <v-col cols="12" sm="3" class="d-flex flex-column align-start align-sm-end">
                         <div class="text-h6 text-md-h5 font-weight-medium text-pink-accent-3">
                             ₹ {{ property?.data?.cost ? property?.data?.cost : 0 }}
                         </div>
@@ -47,33 +47,35 @@
                 <v-row no-gutters class="mb-8">
                     <v-col cols="12">
                         <v-card class="rounded-0 px-2 pb-4 pt-2" elevation="2">
-                            <v-card-item class="titleCont mb-5">
+                            <v-card-item class="titleCont mb-3">
                                 <v-card-title class="title">Gallery</v-card-title>
                             </v-card-item>
 
-                            <v-carousel height="400" show-arrows="hover"
-                                delimiter-icon="mdi-vuetify" progress continuous hide-delimiter-background>
-                                <!-- <template v-slot:prev="{ props }">
-                                    <v-btn variant="elevated" color="success" @click="props.onClick">Previous slide</v-btn>
-                                </template>
-                                <template v-slot:next="{ props }">
-                                    <v-btn variant="elevated" color="info" @click="props.onClick">Next slide</v-btn>
-                                </template> -->
-                                <v-carousel-item v-for="(slide, i) in slides" :key="i">
-                                    <v-sheet :color="colors[i]" height="100%">
-                                        <div class="d-flex fill-height justify-center align-center">
-                                            <div class="text-h2">
-                                                {{ slide }} Slide
+                            <v-card-item>                                
+                                <v-carousel height="400" show-arrows="hover" delimiter-icon="mdi-vuetify" progress continuous
+                                    hide-delimiter-background>
+                                    <!-- <template v-slot:prev="{ props }">
+                                        <v-btn variant="elevated" color="success" @click="props.onClick">Previous slide</v-btn>
+                                    </template>
+                                    <template v-slot:next="{ props }">
+                                        <v-btn variant="elevated" color="info" @click="props.onClick">Next slide</v-btn>
+                                    </template> -->
+                                    <v-carousel-item v-for="(slide, i) in slides" :key="i">
+                                        <v-sheet :color="colors[i]" height="100%">
+                                            <div class="d-flex fill-height justify-center align-center">
+                                                <div class="text-h2">
+                                                    {{ slide }} Slide
+                                                </div>
                                             </div>
-                                        </div>
-                                        <template v-slot:placeholder>
-                                            <v-row>
-                                                <v-col cols="12" height="100px" class="bg-red"> kafds</v-col>
-                                            </v-row>
-                                        </template>
-                                    </v-sheet>
-                                </v-carousel-item>
-                            </v-carousel>
+                                            <template v-slot:placeholder>
+                                                <v-row>
+                                                    <v-col cols="12" height="100px" class="bg-red"> kafds</v-col>
+                                                </v-row>
+                                            </template>
+                                        </v-sheet>
+                                    </v-carousel-item>
+                                </v-carousel>
+                            </v-card-item>
                         </v-card>
                     </v-col>
                 </v-row>
@@ -266,38 +268,41 @@
                                 </v-card-title>
                                 <v-card-text class="pa-0">
                                     <v-row no-gutters>
-                                        <v-col cols="6" sm="6"
+                                        <v-col cols="12" sm="6"
                                             class="pa-0 d-flex justiy-center align-center text-grey-darken-2">
                                             <div class="text-body-2 font-weight-medium">
                                                 Education Mandarin
                                                 <span class="text-body-2 font-weight-normal">(15.61 miles)</span>
                                             </div>
                                         </v-col>
-                                        <v-col cols="6" sm="6" class="pa-0 ma-0">
+                                        <v-col cols="12" sm="6"
+                                            class="pa-0 ma-sm-0 ml-n2 d-flex justify-start align-center justify-sm-end">
                                             <rating />
                                         </v-col>
                                     </v-row>
                                     <v-row no-gutters>
-                                        <v-col cols="6" sm="6"
+                                        <v-col cols="12" sm="6"
                                             class="pa-0 d-flex justiy-center align-center text-grey-darken-2">
                                             <div class="text-body-2 font-weight-medium">
                                                 Marry's Education
                                                 <span class="text-body-2 font-weight-normal">(15.23 miles)</span>
                                             </div>
                                         </v-col>
-                                        <v-col cols="6" sm="6" class="pa-0 ma-0">
+                                        <v-col cols="12" sm="6"
+                                            class="pa-0 ma-sm-0 ml-n2 d-flex justify-start align-center justify-sm-end">
                                             <rating />
                                         </v-col>
                                     </v-row>
                                     <v-row no-gutters>
-                                        <v-col cols="6" sm="6"
+                                        <v-col cols="12" sm="6"
                                             class="pa-0 d-flex justiy-center align-center text-grey-darken-2">
                                             <div class="text-body-2 font-weight-medium">
                                                 The Kaplan
                                                 <span class="text-body-2 font-weight-normal">(15.16 miles)</span>
                                             </div>
                                         </v-col>
-                                        <v-col cols="6" sm="6" class="pa-0 ma-0">
+                                        <v-col cols="12" sm="6"
+                                            class="pa-0 ma-sm-0 ml-n2 d-flex justify-start align-center justify-sm-end">
                                             <rating />
                                         </v-col>
                                     </v-row>
@@ -309,38 +314,41 @@
                                 </v-card-title>
                                 <v-card-text class="pa-0">
                                     <v-row no-gutters>
-                                        <v-col cols="6" sm="6"
+                                        <v-col cols="12" sm="6"
                                             class="pa-0 d-flex justiy-center align-center text-grey-darken-2">
                                             <div class="text-body-2 font-weight-medium">
                                                 Education Mandarin
                                                 <span class="text-body-2 font-weight-normal">(15.61 miles)</span>
                                             </div>
                                         </v-col>
-                                        <v-col cols="6" sm="6" class="pa-0 ma-0">
+                                        <v-col cols="12" sm="6"
+                                            class="pa-0 ma-sm-0 ml-n2 d-flex justify-start align-center justify-sm-end">
                                             <rating />
                                         </v-col>
                                     </v-row>
                                     <v-row no-gutters>
-                                        <v-col cols="6" sm="6"
+                                        <v-col cols="12" sm="6"
                                             class="pa-0 d-flex justiy-center align-center text-grey-darken-2">
                                             <div class="text-body-2 font-weight-medium">
                                                 Marry's Education
                                                 <span class="text-body-2 font-weight-normal">(15.23 miles)</span>
                                             </div>
                                         </v-col>
-                                        <v-col cols="6" sm="6" class="pa-0 ma-0">
+                                        <v-col cols="12" sm="6"
+                                            class="pa-0 ma-sm-0 ml-n2 d-flex justify-start align-center justify-sm-end">
                                             <rating />
                                         </v-col>
                                     </v-row>
                                     <v-row no-gutters>
-                                        <v-col cols="6" sm="6"
+                                        <v-col cols="12" sm="6"
                                             class="pa-0 d-flex justiy-center align-center text-grey-darken-2">
                                             <div class="text-body-2 font-weight-medium">
                                                 The Kaplan
                                                 <span class="text-body-2 font-weight-normal">(15.16 miles)</span>
                                             </div>
                                         </v-col>
-                                        <v-col cols="6" sm="6" class="pa-0 ma-0">
+                                        <v-col cols="12" sm="6"
+                                            class="pa-0 ma-sm-0 ml-n2 d-flex justify-start align-center justify-sm-end">
                                             <rating />
                                         </v-col>
                                     </v-row>
@@ -352,38 +360,41 @@
                                 </v-card-title>
                                 <v-card-text class="pa-0">
                                     <v-row no-gutters>
-                                        <v-col cols="6" sm="6"
+                                        <v-col cols="12" sm="6"
                                             class="pa-0 d-flex justiy-center align-center text-grey-darken-2">
                                             <div class="text-body-2 font-weight-medium">
                                                 Education Mandarin
                                                 <span class="text-body-2 font-weight-normal">(15.61 miles)</span>
                                             </div>
                                         </v-col>
-                                        <v-col cols="6" sm="6" class="pa-0 ma-0">
+                                        <v-col cols="12" sm="6"
+                                            class="pa-0 ma-sm-0 ml-n2 d-flex justify-start align-center justify-sm-end">
                                             <rating />
                                         </v-col>
                                     </v-row>
                                     <v-row no-gutters>
-                                        <v-col cols="6" sm="6"
+                                        <v-col cols="12" sm="6"
                                             class="pa-0 d-flex justiy-center align-center text-grey-darken-2">
                                             <div class="text-body-2 font-weight-medium">
                                                 Marry's Education
                                                 <span class="text-body-2 font-weight-normal">(15.23 miles)</span>
                                             </div>
                                         </v-col>
-                                        <v-col cols="6" sm="6" class="pa-0 ma-0">
+                                        <v-col cols="12" sm="6"
+                                            class="pa-0 ma-sm-0 ml-n2 d-flex justify-start align-center justify-sm-end">
                                             <rating />
                                         </v-col>
                                     </v-row>
                                     <v-row no-gutters>
-                                        <v-col cols="6" sm="6"
+                                        <v-col cols="12" sm="6"
                                             class="pa-0 d-flex justiy-center align-center text-grey-darken-2">
                                             <div class="text-body-2 font-weight-medium">
                                                 The Kaplan
                                                 <span class="text-body-2 font-weight-normal">(15.16 miles)</span>
                                             </div>
                                         </v-col>
-                                        <v-col cols="6" sm="6" class="pa-0 ma-0">
+                                        <v-col cols="12" sm="6"
+                                            class="pa-0 ma-sm-0 ml-n2 d-flex justify-start align-center justify-sm-end">
                                             <rating />
                                         </v-col>
                                     </v-row>
@@ -476,7 +487,7 @@
                 </v-row>
 
                 <!-- Reviews -->
-                <v-row no-gutters class="mb-8">
+                <v-row no-gutters class="mb-1">
                     <v-col cols="12">
                         <v-card class="rounded-0 px-2 pb-4 pt-2" elevation="2">
                             <v-card-item class="titleCont mb-5">
@@ -485,24 +496,79 @@
 
                             <v-row no-gutters class="px-4">
                                 <v-col cols="12">
-                                    <v-row no-gutters class="d-flex justify-space-between my-3" v-for="(item, index) in reviews" :key="index">
-                                        <v-col cols="12" sm="2" class="pa-2">
-                                            <v-avatar class="mx-2" size="90" color="grey-darken-3"
+                                    <v-row no-gutters class="d-flex justify-space-between my-3"
+                                        v-for="(item, index) in reviews" :key="index">
+                                        <v-col cols="12" sm="2" class="">
+                                            <v-avatar size="90" color="grey-darken-3"
                                                 image="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"></v-avatar>
                                         </v-col>
-                                        <v-col cols="12" sm="10" class="pl-4 pb-7">
-                                            <v-row no-gutters>
-                                                <v-col class="pb-7">
+                                        <v-col cols="12" sm="9" class="pb-7">
+                                            <v-row no-gutters class="pb-2 pb-sm-7">
+                                                <v-col cols="12" sm="6">
                                                     <div class="text-h6 text-pink-accent-3 pb-1">{{ item.name }}</div>
-                                                    <div class="text-body-1 text-grey-darken-2">{{ item.dateOfReview }}</div>
+                                                    <div class="text-body-1 text-grey-darken-2">{{ item.dateOfReview }}
+                                                    </div>
                                                 </v-col>
-                                                <v-col class="d-flex justify-end">
-                                                    <div class="text-body-1"><rating :rate="item.rating"/></div>
+                                                <v-col cols="12" sm="6" class="d-flex justify-start justify-sm-end ml-n2">
+                                                    <div class="text-body-1">
+                                                        <rating :rate="item.rating" />
+                                                    </div>
                                                 </v-col>
                                             </v-row>
                                             <v-row no-gutters>
                                                 <div>{{ item.review }}</div>
                                             </v-row>
+                                        </v-col>
+                                    </v-row>
+                                </v-col>
+                            </v-row>
+                        </v-card>
+                    </v-col>
+                </v-row>
+
+                <!-- Review Form -->
+                <v-row no-gutters class="mb-8">
+                    <v-col cols="12">
+                        <v-card class="rounded-0 px-2 pb-4 pt-2" elevation="2">
+                            <v-card-item class="titleCont mb-5">
+                                <v-card-title class="title">Add Review</v-card-title>
+                            </v-card-item>
+
+                            <v-row no-gutters class="px-4">
+                                <v-col cols="12">
+                                    <v-row no-gutters>
+                                        <v-col cols="12" sm="7">
+                                            <div class="text-body-1">Your rating sor this listing</div>
+                                            <v-rating class="rating pa-0 ma-0" v-model="rating" hover half-increments
+                                                density="comfortable" active-color="pink-accent-3"
+                                                color="pink-accent-3"></v-rating>
+                                        </v-col>
+                                        <v-col cols="12" sm="5" class="d-flex justify-start align-center justify-sm-end">
+                                            <button class="uploadBtn"  style="background-color: red;">
+                                                <label class="input-group-text" for="inputGroupFile">Upload Photos</label>
+                                                <input type="file" class="form-control" id="inputGroupFile"
+                                                    style="width:0px;">
+                                            </button>
+                                        </v-col>
+                                    </v-row>
+                                    <v-row no-gutters>
+                                        <v-col cols="12" class="py-6" >
+                                            <v-text-field hide-details="auto" density="comfortable" label="First Name" variant="outlined"
+                                                placeholder="John" type="text"></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12">
+                                            <v-text-field hide-details="auto" density="comfortable" label="Last Name" variant="outlined"
+                                                placeholder="Wick" type="text"></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" class="py-6" >
+                                            <v-text-field hide-details="auto" density="comfortable" label="Email address" variant="outlined"
+                                                placeholder="johnwick@gmail.com" type="email"></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12">
+                                            <v-textarea variant="outlined" label="Review" placeholder="review"></v-textarea>
+                                        </v-col>
+                                        <v-col cols="12">
+                                            <v-btn variant="flat" color="pink-accent-3">Submit Review</v-btn>
                                         </v-col>
                                     </v-row>
                                 </v-col>
@@ -580,6 +646,7 @@ const pdStyle01 = ref("text-body-1 font-weight-medium text-grey-darken-2");
 const pdStyle02 = ref("text-body-1 text-grey-darken-1");
 
 const route = useRoute();
+const rating = ref(3.5)
 const costPerSqFt = ref(0);
 const property = reactive({
     data: null,
@@ -677,5 +744,13 @@ const reviews = reactive([
     object-fit: cover;
     width: 100%;
     height: auto;
+}
+
+.uploadBtn {
+    background-color: #F50057;
+    padding: 5px 25px;
+    border-radius: 20px;
+    font-weight: 500;
+    color: white;
 }
 </style>
