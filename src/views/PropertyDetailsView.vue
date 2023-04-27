@@ -51,9 +51,9 @@
                                 <v-card-title class="title">Gallery</v-card-title>
                             </v-card-item>
 
-                            <v-card-item>                                
-                                <v-carousel height="400" show-arrows="hover" delimiter-icon="mdi-vuetify" progress continuous
-                                    hide-delimiter-background>
+                            <v-card-item>
+                                <v-carousel height="400" show-arrows="hover" delimiter-icon="mdi-vuetify" progress
+                                    continuous hide-delimiter-background>
                                     <!-- <template v-slot:prev="{ props }">
                                         <v-btn variant="elevated" color="success" @click="props.onClick">Previous slide</v-btn>
                                     </template>
@@ -544,7 +544,7 @@
                                                 color="pink-accent-3"></v-rating>
                                         </v-col>
                                         <v-col cols="12" sm="5" class="d-flex justify-start align-center justify-sm-end">
-                                            <button class="uploadBtn"  style="background-color: red;">
+                                            <button class="uploadBtn" style="background-color: red;">
                                                 <label class="input-group-text" for="inputGroupFile">Upload Photos</label>
                                                 <input type="file" class="form-control" id="inputGroupFile"
                                                     style="width:0px;">
@@ -552,17 +552,18 @@
                                         </v-col>
                                     </v-row>
                                     <v-row no-gutters>
-                                        <v-col cols="12" class="py-6" >
-                                            <v-text-field hide-details="auto" density="comfortable" label="First Name" variant="outlined"
-                                                placeholder="John" type="text"></v-text-field>
+                                        <v-col cols="12" class="py-6">
+                                            <v-text-field hide-details="auto" density="comfortable" label="First Name"
+                                                variant="outlined" placeholder="John" type="text"></v-text-field>
                                         </v-col>
                                         <v-col cols="12">
-                                            <v-text-field hide-details="auto" density="comfortable" label="Last Name" variant="outlined"
-                                                placeholder="Wick" type="text"></v-text-field>
+                                            <v-text-field hide-details="auto" density="comfortable" label="Last Name"
+                                                variant="outlined" placeholder="Wick" type="text"></v-text-field>
                                         </v-col>
-                                        <v-col cols="12" class="py-6" >
-                                            <v-text-field hide-details="auto" density="comfortable" label="Email address" variant="outlined"
-                                                placeholder="johnwick@gmail.com" type="email"></v-text-field>
+                                        <v-col cols="12" class="py-6">
+                                            <v-text-field hide-details="auto" density="comfortable" label="Email address"
+                                                variant="outlined" placeholder="johnwick@gmail.com"
+                                                type="email"></v-text-field>
                                         </v-col>
                                         <v-col cols="12">
                                             <v-textarea variant="outlined" label="Review" placeholder="review"></v-textarea>
@@ -637,10 +638,10 @@
 </template>
 
 <script lang="ts" setup>
+import api from '@/data/api/index.js';
 import Rating from "@/components/Rating.vue";
 import { onMounted, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
-import axios from "axios";
 
 const pdStyle01 = ref("text-body-1 font-weight-medium text-grey-darken-2");
 const pdStyle02 = ref("text-body-1 text-grey-darken-1");
@@ -652,40 +653,33 @@ const property = reactive({
     data: null,
 });
 // console.log(property)
-onMounted(() => {
-    axios
-        .get("http://localhost:8080/property", {
-            params: {
-                propertyId: route?.params?.propertyId,
-            },
-        })
-        .then((response) => {
-            console.log(response);
-            property.data = response?.data?.data;
-            costPerSqFt.value = Math.ceil(
-                response?.data?.data?.cost / response?.data?.data?.totalArea
-            );
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+async function propertydata() {
+    const res = await api?.property?.getProperty({
+        params: {
+            propertyId: route?.params?.propertyId,
+        },
+    })
+console.log(res)
+    property.data = res?.data;
+    costPerSqFt.value = Math.ceil(res?.data?.cost / res?.data?.totalArea);
+}
+onMounted(async () => {
+    await propertydata();
 });
-
 const slides = reactive([
     'First',
     'Second',
     'Third',
     'Fourth',
     'Fifth',
-])
+]);
 const colors = reactive([
     'red',
     'blue',
     'yellow',
     'orange',
     'purple',
-])
-
+]);
 const reviews = reactive([
     {
         name: "Vivek",
@@ -708,7 +702,7 @@ const reviews = reactive([
         photos: [],
         rating: 3,
     },
-])
+]);
 </script>
 
 <style scoped>
@@ -752,5 +746,9 @@ const reviews = reactive([
     border-radius: 20px;
     font-weight: 500;
     color: white;
+}
+
+.uploadBtn:focus {
+    cursor: pointer;
 }
 </style>

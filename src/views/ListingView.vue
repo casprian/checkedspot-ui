@@ -43,11 +43,10 @@
 </template>
 
 <script lang="ts" setup>
+import api from "@/data/api/index.js";
 import PropertyCard from '@/components/PropertyCard.vue'
 import { computed, onMounted, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
-// import api from "@/data/api/index.js";
-import axios from 'axios';
 
 const route = useRoute();
 
@@ -79,11 +78,11 @@ const pageNumber = ref(1)
 const limit = ref(10);
 const noOfPage = ref(1);
 const noOfData = ref(0);
-const noOfDataComputed =  computed(() => {
+const noOfDataComputed = computed(() => {
     return noOfData.value;
 })
 
-function getAllProperty() {
+async function getAllProperty() {
     const formData = {
         params: {
             verified: propertyFilterObj?.verified,
@@ -97,33 +96,14 @@ function getAllProperty() {
             pageNumber: pageNumber.value,
         },
     };
-    // const res = await api.property.getProperties(formData);
-    axios.get('http://localhost:8080/property/getAllProperties', formData)
-        .then((res) => {
-            propertiesData.data = res?.data?.data;
-            noOfData.value = res?.data?.noOfdata;
-            noOfPage.value = Math.ceil(noOfDataComputed.value/limit.value);
-            console.log(noOfPage.value)
-            console.log(res)
-        }).catch((err) => {
-            console.log(err);
-        })
+
+    const res = await api.property.getProperties(formData);
+    // console.log(res)
+    propertiesData.data = res?.data;
+    noOfData.value = res?.noOfdata;
+    noOfPage.value = Math.ceil(noOfDataComputed.value / limit.value);
 }
-// onMounted(async () => {
-//     const formData = {
-//         params: {
-//             verified: propertyFilterObj?.verified,
-//             location: propertyFilterObj?.location,
-//             propertyStatus: propertyFilterObj?.propertyStatus,
-//             areaFrom: propertyFilterObj?.areaFrom,
-//             areaTo: propertyFilterObj?.areaTo,
-//             costFrom: propertyFilterObj?.costFrom,
-//             costTo: propertyFilterObj?.costTo
-//         },
-//     };
-//     const res = await api.property.getProperties(formData);
-//     propertiesData.data = res.data;
-// });
+
 onMounted(async () => {
     getAllProperty();
 });

@@ -3,8 +3,18 @@ import call from "../../axios/client";
 const getProperties = async (params) => {
     try {
         const baseURL = "/property/getAllProperties";
+        const response = await call('get',baseURL,params);
+        return {status: 200, data: response?.data, noOfdata: response?.noOfdata};
+    }catch(e) {
+        return {error: true, status: e?.response?.status, message: e?.response?.data?.message};
+    }
+};
+
+const getProperty = async (params) => {
+    try {
+        const baseURL = "/property";
         const response = await call('get',baseURL,params)
-        return {status: 200, data: response.data};
+        return {status: 200, data: response?.data};
     }catch(e) {
         return {error: true, status: e?.response?.status, message: e?.response?.data?.message};
     }
@@ -12,4 +22,5 @@ const getProperties = async (params) => {
 
 export default {
     getProperties,
+    getProperty,
 };

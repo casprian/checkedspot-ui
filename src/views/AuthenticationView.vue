@@ -1,9 +1,9 @@
 <template>
-    <v-container class="bg-background" style="height: calc(100vh - 48px)" fluid>
-        <v-row v-if="login" no-gutters justify="center">
+    <v-container class="bg-background"  style="height: auto" fluid>
+        <v-row v-if="login" no-gutters justify="center" :class="loader===true ? 'blurCont': ''">
             <v-col cols="11">
                 <v-sheet>
-                    <div class="text-h5 py-6 bg-background">Sign In</div>
+                    <div class="text-h5 py-6 bg-background">Login</div>
                     <v-container fluid class="bg-background">
                         <v-row>
                             <v-col cols="12">
@@ -52,7 +52,7 @@
             </v-col>
         </v-row>
 
-        <v-row v-if="signup" no-gutters justify="center">
+        <v-row v-if="signup" no-gutters justify="center" :class="loader===true ? 'blurCont': ''">
             <v-col cols="11">
                 <v-sheet>
                     <div class="text-h5 py-6 bg-background">Sign Up</div>
@@ -81,8 +81,12 @@
                                 <small>*indicates required field</small>
                             </v-col>
                         </v-row>
-                        <div v-if="welcome" class="text-h5 my-6 text-green">Welcome!!! You have successfully signed up <br>Login by clicking login button below</div>
-                        <div v-if="failed" class="text-h5 my-6 text-red">Error!!! Please Enter valid data to register <br/><small class="text-caption">{{ errormessage }}</small></div>
+                        <div v-if="welcome" class="text-h5 my-6 text-green">Welcome!!! You have successfully signed up
+                            <br>Login by clicking login button below
+                        </div>
+                        <div v-if="failed" class="text-h5 my-6 text-red">Error!!! Please Enter valid data to register
+                            <br /><small class="text-body-2">{{ errormessage }}</small>
+                        </div>
                         <v-row no-gutters justify="center">
                             <v-col cols="auto">
                                 <v-btn @click="createUser" class="ma-3" density="default" prepend-icon="mdi-account"
@@ -110,11 +114,15 @@
                     </v-container>
                 </v-sheet>
             </v-col>
-        </v-row>
-    </v-container>
+        </v-row>        
+    </v-container>    
+    <div v-if="loader" class="loaderCont">
+        <v-progress-circular :size="40" indeterminate color="pink-accent-3"></v-progress-circular>
+    </div>
 </template>
 
 <script lang="ts" setup>
+import api from '@/data/api/index.js';
 import axios from "axios";
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
@@ -134,52 +142,69 @@ function changeForm() {
     signup.value = !signup.value;
 }
 
+const loader = ref(false);
 const token = ref(null);
 const retrySignIn = ref(false);
-function authenticateUser() {
-    axios
-        .post("https://apicheckedspot.azurewebsites.net/user/login", {
-            email: userDetail.email,
-            password: userDetail.password,
-        })
-        .then((response) => {
-            console.log(response);
-            if (response?.data?.token) {
-                sessionStorage.setItem("token", response?.data?.token);
-                token.value = response?.data?.token;
-                retrySignIn.value = false;
-                router.push('/');
-            } else {
-                token.value = null;
-                retrySignIn.value = true;
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-}
+async function authenticateUser() {
+    loader.value = true;
+    retrySignIn.value = false;
+    const res = await api?.user?.login({
+        email: userDetail.email,
+        password: userDetail.password,
+    });
 
+    if (res?.data?.token) {
+        sessionStorage.setItem("token", res?.data?.token);
+        token.value = res?.data?.token;
+        retrySignIn.value = false;
+        loader.value = false;
+        router.push('/');
+    } else {
+        token.value = null;
+        retrySignIn.value = true;
+        loader.value = false;
+    }
+}
 const welcome = ref(false);
 const failed = ref(false)
 const errormessage = ref('');
-function createUser() {
-    axios.post('http://localhost:8080/user/register', {
+async function createUser() {
+    loader.value = true;
+    welcome.value = false;
+    failed.value = false;
+    const res = await api?.user?.signup({
         name: userDetail.name,
         email: userDetail.email,
         password: userDetail.password,
         mobile: userDetail.mobile
-    }).then((response) => {
-        console.log(response)
-        if (response?.data?.status === 200) {
-            welcome.value = true;
-            failed.value = false;
-        } else {
-            errormessage.value = response?.data?.message;
-            welcome.value = false;
-            failed.value = true;
-        }
     })
+
+    if (res?.data?.status === 200) {
+        welcome.value = true;
+        failed.value = false;
+        loader.value = false;
+    } else {
+        errormessage.value = res?.data?.message;
+        welcome.value = false;
+        failed.value = true;
+        loader.value = false;
+    }
 }
 </script>
 
-<style></style>
+<style scoped>
+.blurCont {
+    filter: blur(2px);
+}
+.loaderCont {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+</style>
