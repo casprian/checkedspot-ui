@@ -47,6 +47,7 @@ import api from "@/data/api/index.js";
 import PropertyCard from '@/components/PropertyCard.vue'
 import { computed, onMounted, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
+import axios from "axios";
 
 const route = useRoute();
 
@@ -73,7 +74,7 @@ const sortItems = reactive([
 const selectedItem = ref(sortItems[0]);
 
 let propertiesData = reactive({ data: null });
-const propertyFilterObj = reactive({ ...route?.params });
+const propertyFilterObj = reactive({ ...route?.query });
 const pageNumber = ref(1)
 const limit = ref(10);
 const noOfPage = ref(1);
@@ -98,7 +99,6 @@ async function getAllProperty() {
     };
 
     const res = await api.property.getProperties(formData);
-    // console.log(res)
     propertiesData.data = res?.data;
     noOfData.value = res?.noOfdata;
     noOfPage.value = Math.ceil(noOfDataComputed.value / limit.value);

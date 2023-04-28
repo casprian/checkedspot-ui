@@ -1,10 +1,8 @@
 <template>
   <v-app-bar :elevation="2" density="compact">
-
     <template v-slot:prepend>
       <v-img @click="router.push('/')" class="logo" width="200px" height="100px" src="../../assets/logocheckedspot.png" />
     </template>
-
 
     <template v-slot:append>
       <v-btn prepend-icon="mdi-phone-classic" variant="outlined" class="ml-2">

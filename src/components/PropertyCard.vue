@@ -68,7 +68,7 @@
                             </v-col>
                             <v-col cols="6" class="my-2">
                                 <v-icon size="25" class="mr-2 mt-n2" icon="mdi-car-outline" color="grey-darken-2"></v-icon>
-                                <span class="text-body-1 text-grey-darken-2">{{ property?.parkingLot === "NOT_AVAILABLE" ?
+                                <span class="text-body-1 text-grey-darken-2">{{ property?.parkingLot === "unavailable" ?
                                     0 : property?.parkingLot }} Garages</span>
                             </v-col>
                         </v-row>

@@ -1,8 +1,11 @@
 <template>
-    <v-container class="bg-background"  style="height: auto" fluid>
-        <v-row v-if="login" no-gutters justify="center" :class="loader===true ? 'blurCont': ''">
+    <v-container class="bg-background" style="height: auto" fluid>
+        <v-row v-if="login" no-gutters justify="center" :class="loader === true ? 'blurCont' : ''">
             <v-col cols="11">
                 <v-sheet>
+                    <div v-if="alreadyLoggedIn" class="text-h5 text-pink-accent-3 font-weight-medium">Already Logged In!
+                        Please refresh you page.
+                    </div>
                     <div class="text-h5 py-6 bg-background">Login</div>
                     <v-container fluid class="bg-background">
                         <v-row>
@@ -18,7 +21,7 @@
                         <v-row no-gutters>
                             <v-col cols="12">
                                 <small>*indicates required field</small>
-                                <div v-if="retrySignIn" class="text-body-2 text-red">
+                                <div v-if="retrySignIn" class="text-h6 text-pink-accent-3 font-weight-medium">
                                     Invalid email or password
                                 </div>
                             </v-col>
@@ -52,7 +55,7 @@
             </v-col>
         </v-row>
 
-        <v-row v-if="signup" no-gutters justify="center" :class="loader===true ? 'blurCont': ''">
+        <v-row v-if="signup" no-gutters justify="center" :class="loader === true ? 'blurCont' : ''">
             <v-col cols="11">
                 <v-sheet>
                     <div class="text-h5 py-6 bg-background">Sign Up</div>
@@ -114,8 +117,8 @@
                     </v-container>
                 </v-sheet>
             </v-col>
-        </v-row>        
-    </v-container>    
+        </v-row>
+    </v-container>
     <div v-if="loader" class="loaderCont">
         <v-progress-circular :size="40" indeterminate color="pink-accent-3"></v-progress-circular>
     </div>
@@ -142,10 +145,15 @@ function changeForm() {
     signup.value = !signup.value;
 }
 
+const alreadyLoggedIn = ref(false);
 const loader = ref(false);
 const token = ref(null);
 const retrySignIn = ref(false);
 async function authenticateUser() {
+    if (sessionStorage.getItem('token')) {
+        alreadyLoggedIn.value = true;
+        return;
+    }
     loader.value = true;
     retrySignIn.value = false;
     const res = await api?.user?.login({
@@ -155,6 +163,7 @@ async function authenticateUser() {
 
     if (res?.data?.token) {
         sessionStorage.setItem("token", res?.data?.token);
+        localStorage.setItem('email', userDetail?.email);
         token.value = res?.data?.token;
         retrySignIn.value = false;
         loader.value = false;
@@ -196,6 +205,7 @@ async function createUser() {
 .blurCont {
     filter: blur(2px);
 }
+
 .loaderCont {
     width: 100%;
     height: auto;

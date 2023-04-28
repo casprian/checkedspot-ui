@@ -183,7 +183,15 @@ export default {
   }),
   methods: {
     moveToListing() {
-      this.$router.push(`/listing/${this.onlyCheckedSpots}/${this.select[0]}/sale/cost/${this.costFrom}/${this.costTo}/area/${this.areaFrom}/${this.areaTo}`);
+      this.$router.push({path: '/listing', query: {
+        verified: this.onlyCheckedSpots,
+        location: this.select[0],
+        propertyStatus: 'sale',
+        costFrom: this.costFrom,
+        costTo: this.costTo,
+        areaFrom: this.areaFrom,
+        areaTo: this.areaTo
+      }});
     }
   }
 };

@@ -16,7 +16,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "home" */ '@/views/HomeView.vue'),
       },
       {
-        path: '/listing/:verified/:location/:propertyStatus/cost/:costFrom/:costTo/area/:areaFrom/:areaTo',
+        path: '/listing',
         name: 'Listing',
         component: ListingView,
       },

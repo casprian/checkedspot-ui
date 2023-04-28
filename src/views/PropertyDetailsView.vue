@@ -677,7 +677,7 @@ async function propertydata() {
             propertyId: route?.params?.propertyId,
         },
     })
-console.log(res)
+console.log(res);
     property.data = res?.data;
     costPerSqFt.value = Math.ceil(res?.data?.cost / res?.data?.totalArea);
 }
