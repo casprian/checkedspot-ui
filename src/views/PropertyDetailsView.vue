@@ -311,9 +311,11 @@
 </template>
 
 <script lang="ts" setup>
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import api from '@/data/api/index.js';
 import { onMounted, reactive, ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 
 const route = useRoute();
 
@@ -344,15 +346,36 @@ const property = reactive({
     data: {
         'propertyId':null,
         'type':null,
+        'wifi':null,
+        'swimmingPool':null,
         'propertyStatus':null,
+        'laundryRoom':null,
         'city':null,
+        'tvCable':null,
         'cost':null,
-        'description':null
+        'noOfBedroom':null,
+        'dishWasher':null,
+        'elivator':null,
+        'airConditioning':null,
+        'refrigerator':null,
+        'yearOfBuilt':null,
+        'noOfBathroom':null,
+        'email':null,
+        'description':null,
+        'agentDetails':{
+            'name':null,
+            'email':null,
+            'contact':null,
+            'address':null,
+        },
+        'address':null,
+        'name':null,
+        'parkingLot':null
     },
 });
 
 async function propertydata() {
-    const res = await api?.property?.getProperty({
+    const res = await api.property.getProperty({
         params: {
             propertyId: route?.params?.propertyId,
         },

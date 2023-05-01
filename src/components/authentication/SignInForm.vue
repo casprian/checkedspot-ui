@@ -99,6 +99,9 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue';
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import api from "@/data/api/index.js";
 
 const signUpModel = ref(false);

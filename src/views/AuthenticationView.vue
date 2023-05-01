@@ -125,8 +125,10 @@
 </template>
 
 <script lang="ts" setup>
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import api from '@/data/api/index.js';
-import axios from "axios";
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 
