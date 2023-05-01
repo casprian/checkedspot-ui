@@ -1,5 +1,17 @@
 <template>
+    <v-container fluid class="pa-0 pt-8 bg-background">
+        <v-row no-gutters class="px-sm-14">
+            <v-col cols="12">
+                <v-breadcrumbs :items="items" class="pa-0">
+                    <template v-slot:prepend>
+                        <v-icon size="small" icon="mdi-vuetify"></v-icon>
+                    </template>
+                </v-breadcrumbs>
+            </v-col>
+        </v-row>
+    </v-container>
     <v-container fluid class="pa-0 pt-16 px-4 bg-background">
+
         <v-row v-if="!property?.data" no-gutters class="px-sm-14">
             <v-col cols="4" class="loader">
                 <v-progress-linear color="pink-accent-3" indeterminate rounded height="10"></v-progress-linear>
@@ -14,11 +26,10 @@
                                 Checkedspot Property
                             </div>
                             <div>
-                                <v-btn variant="flat" color="pink-accent-3" density="comfortable" class="rounded-pill ml-6">
-                                    For
+                                <v-btn v-if="property?.data?.propertyStatus" variant="flat" color="pink-accent-3" density="comfortable" class="rounded-pill ml-6">
                                     {{
                                         property?.data?.propertyStatus
-                                        ? property?.data?.propertyStatus
+                                        ? `For ${property?.data?.propertyStatus}`
                                         : "sale"
                                     }}
                                 </v-btn>
@@ -27,21 +38,22 @@
                         <div class="py-2">
                             <v-icon size="15" class="mt-n1 mr-2" icon="mdi-map-marker" color="grey-darken-2"></v-icon>
                             <span class="text-body-1 text-md-h6 font-weight-regular text-grey-darken-2">{{
-                                property?.data?.location
-                                ? property?.data?.location
-                                : "Bangalore"
+                                property?.data?.city
+                                ? `${property?.data?.city}`
+                                : 'Not Found'
                             }}</span>
                         </div>
                     </v-col>
                     <v-col cols="12" sm="3" class="d-flex flex-column align-start align-sm-end">
                         <div class="text-h6 text-md-h5 font-weight-medium text-pink-accent-3">
-                            ₹ {{ property?.data?.cost ? property?.data?.cost : 0 }}
+                            {{ property?.data?.cost ? `₹ ${property?.data?.cost}` : '' }}
                         </div>
                         <div class="text-body-1 text-md-h6 font-weight-regular text-black">
-                            ₹ {{ costPerSqFt ? costPerSqFt : 0 }} / sq ft
+                            {{ costPerSqFt ? `₹ ${costPerSqFt} / sq ft` : '' }} 
                         </div>
                     </v-col>
                 </v-row>
+
                 <!-- Gallery -->
                 <v-row no-gutters class="mb-8">
                     <v-col cols="12">
@@ -53,12 +65,6 @@
                             <v-card-item>
                                 <v-carousel height="400" show-arrows="hover" delimiter-icon="mdi-vuetify" progress
                                     continuous hide-delimiter-background>
-                                    <!-- <template v-slot:prev="{ props }">
-                                        <v-btn variant="elevated" color="success" @click="props.onClick">Previous slide</v-btn>
-                                    </template>
-                                    <template v-slot:next="{ props }">
-                                        <v-btn variant="elevated" color="info" @click="props.onClick">Next slide</v-btn>
-                                    </template> -->
                                     <v-carousel-item v-for="(slide, i) in slides" :key="i">
                                         <v-sheet :color="colors[i]" height="100%">
                                             <div class="d-flex fill-height justify-center align-center">
@@ -88,34 +94,7 @@
                             </v-card-item>
 
                             <v-card-text class="description text-body-2">
-                                <!-- {{
-                                    property?.data?.description ? property?.data?.description : 
-                                        `Lorem, ipsum dolor sit amet
-                                        consectetur adipisicing elit. Ipsum
-                                        voluptas dolor dolores nemo omnis veniam, voluptatibus sit vero
-                                        non tempora iste officia. Minima explicabo dolores iste, veniam
-                                        facilis corrupti odio maiores nihil temporibus accusamus. Sed ex
-                                        dolore dicta quod cumque.<br /><br />
-
-                                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum
-                                        voluptas dolor dolores nemo omnis veniam, voluptatibus sit vero
-                                        non tempora iste officia. Minima explicabo dolores iste, veniam
-                                        facilis corrupti odio maiores nihil temporibus accusamus. Sed ex
-                                        dolore dicta quod cumque.<br /><br />
-
-                                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum
-                                        voluptas dolor dolores nemo omnis veniam, voluptatibus sit vero
-                                        non tempora iste officia. Minima explicabo dolores iste, veniam
-                                        facilis corrupti odio maiores nihil temporibus accusamus. Sed ex
-                                        dolore dicta quod cumque.<br /><br />
-
-                                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum
-                                        voluptas dolor dolores nemo omnis veniam, voluptatibus sit vero
-                                        non tempora iste officia. Minima explicabo dolores iste, veniam
-                                        facilis corrupti odio maiores nihil temporibus accusamus. Sed ex
-                                        dolore dicta quod cumque.` 
-                                }}-->
-                                {{ property?.data?.description }}
+                                {{ property?.data?.description ? property?.data?.description : `<h4> Description Not Found </h4>` }}
                             </v-card-text>
                         </v-card>
                     </v-col>
@@ -131,178 +110,134 @@
 
                             <v-row no-gutters class="px-4 pb-7" :class="pdStyle01">
                                 <v-col class="pdLH" cols="12" sm="6" md="4">Property ID:
-                                    <span :class="pdStyle02">{{
-                                        property?.data?.propertyId ? property?.data?.propertyId : 0
-                                    }}</span></v-col>
+                                    <span :class="pdStyle02">
+                                        {{
+                                            property?.data?.propertyId ? property?.data?.propertyId : 'Not Found'
+                                        }}
+                                    </span>
+                                </v-col>
                                 <v-col class="pdLH" cols="12" sm="6" md="4">Property Type:
-                                    <span :class="pdStyle02">{{
-                                        property?.data?.type ? property?.data?.type : "plot"
-                                    }}</span></v-col>
+                                    <span :class="pdStyle02">
+                                        {{
+                                            property?.data?.type ? property?.data?.type : "plot"
+                                        }}
+                                    </span>
+                                </v-col>
                                 <v-col class="pdLH" cols="12" sm="6" md="4">Property Status:
-                                    <span :class="pdStyle02">{{
-                                        property?.data?.propertyStatus
-                                        ? property?.data?.propertyStatus
-                                        : "sale"
-                                    }}</span></v-col>
+                                    <span :class="pdStyle02">
+                                        {{
+                                            property?.data?.propertyStatus
+                                            ? property?.data?.propertyStatus
+                                            : 'Not Found'
+                                        }}
+                                    </span>
+                                </v-col>
                                 <v-col class="pdLH" cols="12" sm="6" md="4">Property Price:
-                                    <span :class="pdStyle02">{{
-                                        property?.data?.cost ? property?.data?.cost : 0
-                                    }}</span></v-col>
+                                    <span :class="pdStyle02">
+                                        {{
+                                            property?.data?.cost ? property?.data?.cost : 'unavailable'
+                                        }}
+                                    </span>
+                                </v-col>
                                 <v-col class="pdLH" cols="12" sm="6" md="4">Bedrooms:
-                                    <span :class="pdStyle02">{{
-                                        property?.data?.noOfBedroom
-                                        ? property?.data?.noOfBedroom
-                                        : 0
-                                    }}</span></v-col>
+                                    <span :class="pdStyle02">
+                                        {{
+                                            property?.data?.noOfBedroom
+                                            ? property?.data?.noOfBedroom
+                                            : 'unavailable'
+                                        }}
+                                    </span>
+                                </v-col>
                                 <v-col class="pdLH" cols="12" sm="6" md="4">Bathrooms:
                                     <span :class="pdStyle02">{{
                                         property?.data?.noOfBathroom
                                         ? property?.data?.noOfBathroom
-                                        : 0
+                                        : 'unavailable'
                                     }}</span></v-col>
                                 <v-col class="pdLH" cols="12" sm="6" md="4">Year Built:
-                                    <span :class="pdStyle02">{{
-                                        property?.data?.yearOfBuilt
-                                        ? property?.data?.yearOfBuilt
-                                        : 2023
-                                    }}</span></v-col>
+                                    <span :class="pdStyle02">
+                                        {{
+                                            property?.data?.yearOfBuilt
+                                            ? property?.data?.yearOfBuilt
+                                            : 'unavailable'
+                                        }}
+                                        </span>
+                                    </v-col>
                                 <v-col class="pdLH" cols="12" sm="6" md="4">Refrigerator:
                                     <span :class="pdStyle02">
                                         {{
-                                            property?.data?.refrigerator !== "NOT_AVAILABLE"
+                                            property?.data?.refrigerator !== "unavailable"
                                             ? property?.data?.refrigerator
-                                            : 0
+                                            : 'unavailable'
                                         }}
                                     </span>
                                 </v-col>
                                 <v-col class="pdLH" cols="12" sm="6" md="4">Air Conditioning:
                                     <span :class="pdStyle02">
                                         {{
-                                            property?.data?.airConditioning !== "NOT_AVAILABLE"
+                                            property?.data?.airConditioning !== "unavailable"
                                             ? property?.data?.airConditioning
-                                            : 0
+                                            : 'unavailable'
                                         }}
                                     </span>
                                 </v-col><v-col class="pdLH" cols="12" sm="6" md="4">Dish Washer:
                                     <span :class="pdStyle02">
                                         {{
-                                            property?.data?.dishWasher !== "NOT_AVAILABLE"
+                                            property?.data?.dishWasher !== "unavailable"
                                             ? property?.data?.dishWasher
-                                            : 0
+                                            : 'unavailable'
                                         }}
                                     </span>
                                 </v-col><v-col class="pdLH" cols="12" sm="6" md="4">Elivator:
                                     <span :class="pdStyle02">
                                         {{
-                                            property?.data?.elivator !== "NOT_AVAILABLE"
+                                            property?.data?.elivator !== "unavailable"
                                             ? property?.data?.elivator
-                                            : 0
+                                            : 'unavailable'
                                         }}
                                     </span>
                                 </v-col><v-col class="pdLH" cols="12" sm="6" md="4">TV Cable:
                                     <span :class="pdStyle02">
                                         {{
-                                            property?.data?.tvCable !== "NOT_AVAILABLE"
+                                            property?.data?.tvCable !== "unavailable"
                                             ? property?.data?.tvCable
-                                            : 0
+                                            : 'unavailable'
                                         }}
                                     </span>
                                 </v-col><v-col class="pdLH" cols="12" sm="6" md="4">Laundry Room:
                                     <span :class="pdStyle02">
                                         {{
-                                            property?.data?.laundryRoom !== "NOT_AVAILABLE"
+                                            property?.data?.laundryRoom !== "unavailable"
                                             ? property?.data?.laundryRoom
-                                            : 0
+                                            : 'unavailable'
                                         }}
                                     </span>
                                 </v-col><v-col class="pdLH" cols="12" sm="6" md="4">Swimming Pool:
                                     <span :class="pdStyle02">
                                         {{
-                                            property?.data?.swimmingPool !== "NOT_AVAILABLE"
+                                            property?.data?.swimmingPool !== "unavailable"
                                             ? property?.data?.swimmingPool
-                                            : 0
+                                            : 'unavailable'
                                         }}
                                     </span>
                                 </v-col><v-col class="pdLH" cols="12" sm="6" md="4">Wi Fi:
                                     <span :class="pdStyle02">
                                         {{
-                                            property?.data?.wifi !== "NOT_AVAILABLE"
+                                            property?.data?.wifi !== "unavailable"
                                             ? property?.data?.wifi
-                                            : 0
+                                            : 'unavailable'
                                         }}
                                     </span>
                                 </v-col><v-col class="pdLH" cols="12" sm="6" md="4">Parking Lot:
                                     <span :class="pdStyle02">
                                         {{
-                                            property?.data?.parkingLot !== "NOT_AVAILABLE"
+                                            property?.data?.parkingLot !== "unavailable"
                                             ? property?.data?.parkingLot
-                                            : 0
+                                            : 'unavailable'
                                         }}
                                     </span>
                                 </v-col>
                             </v-row>
-
-                            <!-- <v-card-item class="titleCont mb-5">
-                                <v-card-title class="title">Amenities</v-card-title>
-                            </v-card-item> -->
-
-                            <!-- <v-card-text class="description text-body-2"> </v-card-text> -->
-                            <!-- <v-row no-gutters class="px-4 pb-2">
-                                <v-col cols="12" sm='4' class="my-2">
-                                    <div class="text-body-1 ">
-                                        <v-icon color="pink-accent-3" class="rounded-0 mr-1 mt-n2" size="25"
-                                            icon="mdi-checkbox-marked"></v-icon> Air Conditioner
-                                    </div>
-                                </v-col>
-                                <v-col cols="12" sm='4' class="my-2">
-                                    <div class="text-body-1 ">
-                                        <v-icon color="pink-accent-3" class="rounded-0 mr-1 mt-n2" size="25"
-                                            icon="mdi-checkbox-marked"></v-icon> Balcony
-                                    </div>
-                                </v-col>
-                                <v-col cols="12" sm='4' class="my-2">
-                                    <div class="text-body-1 ">
-                                        <v-icon color="pink-accent-3" class="rounded-0 mr-1 mt-n2" size="25"
-                                            icon="mdi-checkbox-marked"></v-icon> Wifi
-                                    </div>
-                                </v-col>
-                                <v-col cols="12" sm='4' class="my-2">
-                                    <div class="text-body-1 ">
-                                        <v-icon color="pink-accent-3" class="rounded-0 mr-1 mt-n2" size="25"
-                                            icon="mdi-checkbox-marked"></v-icon> Dishwasher
-                                    </div>
-                                </v-col>
-                                <v-col cols="12" sm='4' class="my-2">
-                                    <div class="text-body-1 ">
-                                        <v-icon color="pink-accent-3" class="rounded-0 mr-1 mt-n2" size="25"
-                                            icon="mdi-checkbox-marked"></v-icon> TV Cable
-                                    </div>
-                                </v-col>
-                                <v-col cols="12" sm='4' class="my-2">
-                                    <div class="text-body-1 ">
-                                        <v-icon color="pink-accent-3" class="rounded-0 mr-1 mt-n2" size="25"
-                                            icon="mdi-checkbox-marked"></v-icon> Garage
-                                    </div>
-                                </v-col>
-                                <v-col cols="12" sm='4' class="my-2">
-                                    <div class="text-body-1 ">
-                                        <v-icon color="pink-accent-3" class="rounded-0 mr-1 mt-n2" size="25"
-                                            icon="mdi-checkbox-marked"></v-icon> Swimming Pool
-                                    </div>
-                                </v-col>
-                                <v-col cols="12" sm='4' class="my-2">
-                                    <div class="text-body-1 ">
-                                        <v-icon color="pink-accent-3" class="rounded-0 mr-1 mt-n2" size="25"
-                                            icon="mdi-checkbox-marked"></v-icon> Refrgerator
-                                    </div>
-                                </v-col>
-                                <v-col cols="12" sm='4' class="my-2">
-                                    <div class="text-body-1 ">
-                                        <v-icon color="pink-accent-3" class="rounded-0 mr-1 mt-n2" size="25"
-                                            icon="mdi-checkbox-marked"></v-icon> Elivator
-                                    </div>
-                                </v-col>
-                            </v-row> -->
                         </v-card>
                     </v-col>
                 </v-row>
@@ -324,7 +259,7 @@
                 </v-row>
 
                 <!-- What's Nearby -->
-                <v-row no-gutters class="mb-8">
+                <!-- <v-row no-gutters class="mb-8">
                     <v-col cols="12">
                         <v-card class="rounded-0 px-2 pb-4 pt-2" elevation="2">
                             <v-card-item class="titleCont mb-5">
@@ -345,10 +280,6 @@
                                                     property?.data?.nearByEducation?.distance }})</span>
                                             </div>
                                         </v-col>
-                                        <!-- <v-col cols="12" sm="6"
-                                            class="pa-0 ma-sm-0 ml-n2 d-flex justify-start align-center justify-sm-end">
-                                            <rating />
-                                        </v-col> -->
                                     </v-row>
                                     <v-row no-gutters>
                                         <v-col cols="12" sm="6"
@@ -358,10 +289,6 @@
                                                 <span class="text-body-2 font-weight-normal">(15.23 miles)</span>
                                             </div>
                                         </v-col>
-                                        <!-- <v-col cols="12" sm="6"
-                                            class="pa-0 ma-sm-0 ml-n2 d-flex justify-start align-center justify-sm-end">
-                                            <rating />
-                                        </v-col> -->
                                     </v-row>
                                     <v-row no-gutters>
                                         <v-col cols="12" sm="6"
@@ -371,110 +298,12 @@
                                                 <span class="text-body-2 font-weight-normal">(15.16 miles)</span>
                                             </div>
                                         </v-col>
-                                        <!-- <v-col cols="12" sm="6"
-                                            class="pa-0 ma-sm-0 ml-n2 d-flex justify-start align-center justify-sm-end">
-                                            <rating />
-                                        </v-col> -->
-                                    </v-row>
-                                </v-card-text>
-                            </v-card-item>
-                            <v-card-item class="mb-2">
-                                <v-card-title class="text-body-1 text-green">
-                                    <v-icon icon="mdi-stethoscope"></v-icon> Health & Medical
-                                </v-card-title>
-                                <v-card-text class="pa-0">
-                                    <v-row no-gutters>
-                                        <v-col cols="12" sm="6"
-                                            class="pa-0 py-1 d-flex justiy-center align-center text-grey-darken-2">
-                                            <div class="text-body-2 font-weight-medium">
-                                                {{ property?.data?.nearByHospitals?.name }}
-                                                <span class="text-body-2 font-weight-normal">({{
-                                                    property?.data?.nearByHospitals?.distance }})</span>
-                                            </div>
-                                        </v-col>
-                                        <!-- <v-col cols="12" sm="6"
-                                            class="pa-0 ma-sm-0 ml-n2 d-flex justify-start align-center justify-sm-end">
-                                            <rating />
-                                        </v-col> -->
-                                    </v-row>
-                                    <v-row no-gutters>
-                                        <v-col cols="12" sm="6"
-                                            class="pa-0 py-1 d-flex justiy-center align-center text-grey-darken-2">
-                                            <div class="text-body-2 font-weight-medium">
-                                                Marry's Education
-                                                <span class="text-body-2 font-weight-normal">(15.23 miles)</span>
-                                            </div>
-                                        </v-col>
-                                        <!-- <v-col cols="12" sm="6"
-                                            class="pa-0 ma-sm-0 ml-n2 d-flex justify-start align-center justify-sm-end">
-                                            <rating />
-                                        </v-col> -->
-                                    </v-row>
-                                    <v-row no-gutters>
-                                        <v-col cols="12" sm="6"
-                                            class="pa-0 py-1 d-flex justiy-center align-center text-grey-darken-2">
-                                            <div class="text-body-2 font-weight-medium">
-                                                The Kaplan
-                                                <span class="text-body-2 font-weight-normal">(15.16 miles)</span>
-                                            </div>
-                                        </v-col>
-                                        <!-- <v-col cols="12" sm="6"
-                                            class="pa-0 ma-sm-0 ml-n2 d-flex justify-start align-center justify-sm-end">
-                                            <rating />
-                                        </v-col> -->
-                                    </v-row>
-                                </v-card-text>
-                            </v-card-item>
-                            <v-card-item class="mb-2">
-                                <v-card-title class="text-body-1 text-pink-accent-3">
-                                    <v-icon icon="mdi-train-car"></v-icon> Transportation
-                                </v-card-title>
-                                <v-card-text class="pa-0">
-                                    <v-row no-gutters>
-                                        <v-col cols="12" sm="6"
-                                            class="pa-0 py-1 d-flex justiy-center align-center text-grey-darken-2">
-                                            <div class="text-body-2 font-weight-medium">
-                                                {{ property?.data?.nearByTransportation?.name }}
-                                                <span class="text-body-2 font-weight-normal">({{
-                                                    property?.data?.nearByTransportation?.distance }})</span>
-                                            </div>
-                                        </v-col>
-                                        <!-- <v-col cols="12" sm="6"
-                                            class="pa-0 ma-sm-0 ml-n2 d-flex justify-start align-center justify-sm-end">
-                                            <rating />
-                                        </v-col> -->
-                                    </v-row>
-                                    <v-row no-gutters>
-                                        <v-col cols="12" sm="6"
-                                            class="pa-0 py-1 d-flex justiy-center align-center text-grey-darken-2">
-                                            <div class="text-body-2 font-weight-medium">
-                                                Marry's Education
-                                                <span class="text-body-2 font-weight-normal">(15.23 miles)</span>
-                                            </div>
-                                        </v-col>
-                                        <!-- <v-col cols="12" sm="6"
-                                            class="pa-0 ma-sm-0 ml-n2 d-flex justify-start align-center justify-sm-end">
-                                            <rating />
-                                        </v-col> -->
-                                    </v-row>
-                                    <v-row no-gutters>
-                                        <v-col cols="12" sm="6"
-                                            class="pa-0 py-1 d-flex justiy-center align-center text-grey-darken-2">
-                                            <div class="text-body-2 font-weight-medium">
-                                                The Kaplan
-                                                <span class="text-body-2 font-weight-normal">(15.16 miles)</span>
-                                            </div>
-                                        </v-col>
-                                        <!-- <v-col cols="12" sm="6"
-                                            class="pa-0 ma-sm-0 ml-n2 d-flex justify-start align-center justify-sm-end">
-                                            <rating />
-                                        </v-col> -->
                                     </v-row>
                                 </v-card-text>
                             </v-card-item>
                         </v-card>
                     </v-col>
-                </v-row>
+                </v-row> -->
 
                 <!-- Property Video -->
                 <!-- <v-row no-gutters class="mb-8">
@@ -510,98 +339,6 @@
                         </v-card>
                     </v-col>
                 </v-row>
-
-                <!-- Reviews -->
-                <!-- <v-row no-gutters class="mb-1">
-                    <v-col cols="12">
-                        <v-card class="rounded-0 px-2 pb-4 pt-2" elevation="2">
-                            <v-card-item class="titleCont mb-5">
-                                <v-card-title class="title">{{ reviews.length }} Reviews</v-card-title>
-                            </v-card-item>
-
-                            <v-row no-gutters class="px-4">
-                                <v-col cols="12">
-                                    <v-row no-gutters class="d-flex justify-space-between my-3"
-                                        v-for="(item, index) in reviews" :key="index">
-                                        <v-col cols="12" sm="2" class="">
-                                            <v-avatar size="90" color="grey-darken-3"
-                                                image="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"></v-avatar>
-                                        </v-col>
-                                        <v-col cols="12" sm="9" class="pb-7">
-                                            <v-row no-gutters class="pb-2 pb-sm-7">
-                                                <v-col cols="12" sm="6">
-                                                    <div class="text-h6 text-pink-accent-3 pb-1">{{ item.name }}</div>
-                                                    <div class="text-body-1 text-grey-darken-2">{{ item.dateOfReview }}
-                                                    </div>
-                                                </v-col>
-                                                <v-col cols="12" sm="6" class="d-flex justify-start justify-sm-end ml-n2">
-                                                    <div class="text-body-1">
-                                                        <rating :rate="item.rating" />
-                                                    </div>
-                                                </v-col>
-                                            </v-row>
-                                            <v-row no-gutters>
-                                                <div>{{ item.review }}</div>
-                                            </v-row>
-                                        </v-col>
-                                    </v-row>
-                                </v-col>
-                            </v-row>
-                        </v-card>
-                    </v-col>
-                </v-row> -->
-
-                <!-- Review Form -->
-                <!-- <v-row no-gutters class="mb-8">
-                    <v-col cols="12">
-                        <v-card class="rounded-0 px-2 pb-4 pt-2" elevation="2">
-                            <v-card-item class="titleCont mb-5">
-                                <v-card-title class="title">Add Review</v-card-title>
-                            </v-card-item>
-
-                            <v-row no-gutters class="px-4">
-                                <v-col cols="12">
-                                    <v-row no-gutters>
-                                        <v-col cols="12" sm="7">
-                                            <div class="text-body-1">Your rating sor this listing</div>
-                                            <v-rating class="rating pa-0 ma-0" v-model="rating" hover half-increments
-                                                density="comfortable" active-color="pink-accent-3"
-                                                color="pink-accent-3"></v-rating>
-                                        </v-col>
-                                        <v-col cols="12" sm="5" class="d-flex justify-start align-center justify-sm-end">
-                                            <button class="uploadBtn">
-                                                <label class="input-group-text" for="inputGroupFile">Upload Photos</label>
-                                                <input type="file" class="form-control" id="inputGroupFile"
-                                                    style="width:0px;">
-                                            </button>
-                                        </v-col>
-                                    </v-row>
-                                    <v-row no-gutters>
-                                        <v-col cols="12" class="py-6">
-                                            <v-text-field hide-details="auto" density="comfortable" label="First Name"
-                                                variant="outlined" placeholder="John" type="text"></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12">
-                                            <v-text-field hide-details="auto" density="comfortable" label="Last Name"
-                                                variant="outlined" placeholder="Wick" type="text"></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" class="py-6">
-                                            <v-text-field hide-details="auto" density="comfortable" label="Email address"
-                                                variant="outlined" placeholder="johnwick@gmail.com"
-                                                type="email"></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12">
-                                            <v-textarea variant="outlined" label="Review" placeholder="review"></v-textarea>
-                                        </v-col>
-                                        <v-col cols="12">
-                                            <v-btn variant="flat" color="pink-accent-3">Submit Review</v-btn>
-                                        </v-col>
-                                    </v-row>
-                                </v-col>
-                            </v-row>
-                        </v-card>
-                    </v-col>
-                </v-row> -->
             </v-col>
             <v-col cols="12" md="4" class="pl-0 pl-md-3">
                 <v-card class="rounded-0" elevation="2">
@@ -613,26 +350,26 @@
                             <v-avatar class="mx-2" size="75" color="grey-darken-3"
                                 image="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"></v-avatar>
                             <v-sheet class="px-5 mt-n7">
-                                <v-card-title>{{ property?.data?.agentDetails?.name }}</v-card-title>
+                                <v-card-title>{{ property?.data?.agentDetails?.name ? property?.data?.agentDetails?.name : 'Not Found' }}</v-card-title>
                             </v-sheet>
                         </v-card-actions>
                         <v-row no-gutters class="pt-7 px-3 mx-3 pb-2 mb-2">
                             <v-col cols="12" class="d-flex align-center pb-3">
                                 <v-icon icon="mdi-map-marker" size="19" color="#FF385C"></v-icon>
                                 <div class="text-subtitle-1 px-5 pt-2 text-grey-darken-1">
-                                    {{ property?.data?.agentDetails?.address }}
+                                    {{ property?.data?.agentDetails?.address ? property?.data?.agentDetails?.address : 'Not Found' }}
                                 </div>
                             </v-col>
                             <v-col cols="12" class="d-flex align-center pb-3">
                                 <v-icon icon="mdi-phone" size="19" color="#FF385C"></v-icon>
                                 <div class="text-subtitle-1 px-5 pt-2 text-grey-darken-1">
-                                    {{ property?.data?.agentDetails?.contact }}
+                                    {{ property?.data?.agentDetails?.contact ? property?.data?.agentDetails?.contact : 'Not Found' }}
                                 </div>
                             </v-col>
                             <v-col cols="12" class="d-flex align-center">
                                 <v-icon icon="mdi-email" size="19" color="#FF385C"></v-icon>
                                 <div class="text-subtitle-1 px-5 pt-2 text-grey-darken-1">
-                                    {{ property?.data?.agentDetails?.email }}
+                                    {{ property?.data?.agentDetails?.email ? property?.data?.agentDetails?.email : 'Not Found' }}
                                 </div>
                             </v-col>
                         </v-row>
@@ -663,13 +400,34 @@
 import api from '@/data/api/index.js';
 import Rating from "@/components/Rating.vue";
 import { onMounted, reactive, ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 // import axios from 'axios';
+
+const route = useRoute();
+const router = useRouter();
 
 const pdStyle01 = ref("text-body-1 font-weight-medium text-grey-darken-2");
 const pdStyle02 = ref("text-body-1 text-grey-darken-1");
+console.log()
+const items = reactive([
+    {
+        title: "Home",
+        disabled: false,
+        href: "/",
+    },
+    {
+        title: "Listing",
+        disabled: false,
+        // href: `${router.getRoutes}`,
+        href: `${route?.query?.listingPath}`,
+    },
+    {
+        title: "PropertyDetails",
+        disabled: true,
+        href: "/propertydetails",
+    },
+]);
 
-const route = useRoute();
 const rating = ref(3.5)
 const costPerSqFt = ref(0);
 const property = reactive({
@@ -682,19 +440,9 @@ async function propertydata() {
             propertyId: route?.params?.propertyId,
         },
     })
-    console.log(res);
+    // console.log(res);
     property.data = res?.data;
-    costPerSqFt.value = res?.data?.totalArea !==0 ? Math.ceil(res?.data?.cost / res?.data?.totalArea) : 0;
-
-    // axios.get('http://localhost:8080/property', {
-    //     params: {
-    //         propertyId: route?.params?.propertyId,
-    //     },
-    // }).then((res) => {
-    //     console.log(res);
-    //     property.data = res?.data?.data;
-    //     costPerSqFt.value = res?.data?.data?.totalArea !== 0 ? Math.ceil(res?.data?.data?.cost / res?.data?.data?.totalArea) : 0;
-    // })
+    costPerSqFt.value = res?.data?.totalArea !== 0 ? Math.ceil(res?.data?.cost / res?.data?.totalArea) : 0;
 }
 onMounted(async () => {
     await propertydata();

@@ -2,7 +2,7 @@
   <div class="filterContainer">
     <v-row>
       <v-col offset="2" cols="8">
-        <v-expansion-panels :multiple="true">
+        <v-expansion-panels :multiple="true" v-model="panel">
           <v-expansion-panel class="mb-4" :expanded="true">
             <v-expansion-panel-title>
               Want to know more about checked spot ?
@@ -143,6 +143,7 @@
 export default {
   data: () => ({
     tab: null,
+    panel: [1],
     value: [1000, 5000],
     checklists: [
       {
@@ -173,8 +174,8 @@ export default {
     moveToListing() {
       this.$router.push({path: '/listing', query: {
         verified: this.onlyCheckedSpots,
-        location: this.select[0],
-        propertyStatus: 'sale',
+        city: this.select[0],
+        // propertyStatus: 'sale',
         costFrom: this.costFrom,
         costTo: this.costTo,
         areaFrom: this.areaFrom,

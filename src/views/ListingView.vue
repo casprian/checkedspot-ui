@@ -10,7 +10,7 @@
             </v-col>
         </v-row>
 
-        <v-row no-gutters class="px-sm-14 py-5 d-flex justify-center align-center">
+        <v-row v-if="propertiesData?.data" no-gutters class="px-sm-14 py-5 d-flex justify-center align-center">
             <v-col cols="5">
                 <div class="text-center">
                     <v-pagination @click="getAllProperty" v-model="pageNumber" :length="noOfPage" prev-icon="mdi-menu-left"
@@ -22,7 +22,7 @@
         <v-row no-gutters class="px-sm-14">
             <v-col class="px-2 my-2 px-md-4 my-md-4" v-for="(data, index) in propertiesData?.data" cols="12" md="6" lg="4"
                 :key="index">
-                <property-card :property="data" />
+                <property-card :property="data" :listingPath="listingFullpath"/>
             </v-col>
         </v-row>
         <v-row v-if="!propertiesData?.data" no-gutters class="px-sm-14">
@@ -31,7 +31,7 @@
             </v-col>
         </v-row>
 
-        <v-row no-gutters class="px-sm-14 py-5 d-flex justify-center align-center">
+        <v-row v-if="propertiesData?.data" no-gutters class="px-sm-14 py-5 d-flex justify-center align-center">
             <v-col cols="5">
                 <div class="text-center">
                     <v-pagination @click="getAllProperty" v-model="pageNumber" :length="noOfPage" prev-icon="mdi-menu-left"
@@ -50,7 +50,7 @@ import { useRoute } from "vue-router";
 import axios from "axios";
 
 const route = useRoute();
-
+const listingFullpath = ref(`${route.fullPath}`);
 const items = reactive([
     {
         title: "Home",
@@ -87,7 +87,7 @@ async function getAllProperty() {
     const formData = {
         params: {
             verified: propertyFilterObj?.verified,
-            location: propertyFilterObj?.location,
+            city: propertyFilterObj?.city,
             propertyStatus: propertyFilterObj?.propertyStatus,
             areaFrom: propertyFilterObj?.areaFrom,
             areaTo: propertyFilterObj?.areaTo,

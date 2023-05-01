@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const http = axios.create({
+  // baseURL: "http://localhost:8080",
   baseURL: "https://apicheckedspot.azurewebsites.net",
   headers: {
     Accept: "application/json",
