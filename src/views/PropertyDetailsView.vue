@@ -25,8 +25,8 @@
                             <div class="text-h6 text-sm-h5 font-weight-medium">
                                 Checkedspot Property
                             </div>
-                            <div>
-                                <v-btn v-if="property?.data?.propertyStatus" variant="flat" color="pink-accent-3" density="comfortable" class="rounded-pill ml-6">
+                            <div v-if="property?.data">
+                                <v-btn v-if="property?.data.propertyStatus" variant="flat" color="pink-accent-3" density="comfortable" class="rounded-pill ml-6">
                                     {{
                                         property?.data?.propertyStatus
                                         ? `For ${property?.data?.propertyStatus}`
@@ -257,75 +257,6 @@
                         </v-card>
                     </v-col>
                 </v-row>
-
-                <!-- What's Nearby -->
-                <!-- <v-row no-gutters class="mb-8">
-                    <v-col cols="12">
-                        <v-card class="rounded-0 px-2 pb-4 pt-2" elevation="2">
-                            <v-card-item class="titleCont mb-5">
-                                <v-card-title class="title">What's Nearby</v-card-title>
-                            </v-card-item>
-
-                            <v-card-item class="mb-2">
-                                <v-card-title prepend="mdi-vuetify" class="text-body-1 text-blue-darken-1">
-                                    <v-icon icon="mdi-school"></v-icon> Education
-                                </v-card-title>
-                                <v-card-text class="pa-0">
-                                    <v-row no-gutters>
-                                        <v-col cols="12" sm="6"
-                                            class="pa-0 py-1 d-flex justiy-center align-center text-grey-darken-2">
-                                            <div class="text-body-2 font-weight-medium">
-                                                {{ property?.data?.nearByEducation?.name }}
-                                                <span class="text-body-2 font-weight-normal">({{
-                                                    property?.data?.nearByEducation?.distance }})</span>
-                                            </div>
-                                        </v-col>
-                                    </v-row>
-                                    <v-row no-gutters>
-                                        <v-col cols="12" sm="6"
-                                            class="pa-0 py-1 d-flex justiy-center align-center text-grey-darken-2">
-                                            <div class="text-body-2 font-weight-medium">
-                                                Marry's Education
-                                                <span class="text-body-2 font-weight-normal">(15.23 miles)</span>
-                                            </div>
-                                        </v-col>
-                                    </v-row>
-                                    <v-row no-gutters>
-                                        <v-col cols="12" sm="6"
-                                            class="pa-0 py-1 d-flex justiy-center align-center text-grey-darken-2">
-                                            <div class="text-body-2 font-weight-medium">
-                                                The Kaplan
-                                                <span class="text-body-2 font-weight-normal">(15.16 miles)</span>
-                                            </div>
-                                        </v-col>
-                                    </v-row>
-                                </v-card-text>
-                            </v-card-item>
-                        </v-card>
-                    </v-col>
-                </v-row> -->
-
-                <!-- Property Video -->
-                <!-- <v-row no-gutters class="mb-8">
-                    <v-col cols="12">
-                        <v-card class="rounded-0 px-4 pb-4 pt-2" elevation="2">
-                            <v-card-item class="titleCont mb-5">
-                                <v-card-title class="title">Property Video</v-card-title>
-                            </v-card-item>
-
-                            <v-row no-gutters class="pa-2">
-                                <v-col cols="12">
-                                    <video id="propVideo" muted controls>
-                                        <source src="../assets/videos/7.mp4" type="video/mp4" />
-                                        Your browser does not support the video tag.
-                                    </video>
-                                </v-col>
-                            </v-row>
-                        </v-card>
-                    </v-col>
-                </v-row> -->
-
-                <!-- Location -->
                 <v-row no-gutters class="mb-8">
                     <v-col cols="12">
                         <v-card class="rounded-0 px-2 pb-4 pt-2" elevation="2">
@@ -372,22 +303,6 @@
                                 </div>
                             </v-col>
                         </v-row>
-                        <!-- <v-row no-gutters class="px-3 pb-5">
-                            <v-col>
-                                <v-card-title class="pb-4">Request Inquiry</v-card-title>
-                                <v-form>
-                                    <v-text-field variant="outlined" density="comfortable"
-                                        placeholder="Full Name"></v-text-field>
-                                    <v-text-field variant="outlined" density="comfortable" type="number"
-                                        placeholder="Mobile Number"></v-text-field>
-                                    <v-text-field variant="outlined" density="comfortable"
-                                        placeholder="Email Adress"></v-text-field>
-                                    <v-textarea placeholder="Message" density="comfortable" variant="outlined"></v-textarea>
-                                    <v-btn variant="flat" color="pink-accent-3" height="45"
-                                        class="text-capitalize rounded-0 text-body-1" block>Submit Request</v-btn>
-                                </v-form>
-                            </v-col>
-                        </v-row> -->
                     </v-card-item>
                 </v-card>
             </v-col>
@@ -397,17 +312,14 @@
 
 <script lang="ts" setup>
 import api from '@/data/api/index.js';
-import Rating from "@/components/Rating.vue";
 import { onMounted, reactive, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-// import axios from 'axios';
 
 const route = useRoute();
-const router = useRouter();
 
 const pdStyle01 = ref("text-body-1 font-weight-medium text-grey-darken-2");
 const pdStyle02 = ref("text-body-1 text-grey-darken-1");
-console.log()
+
 const items = reactive([
     {
         title: "Home",
@@ -417,7 +329,6 @@ const items = reactive([
     {
         title: "Listing",
         disabled: false,
-        // href: `${router.getRoutes}`,
         href: `${route?.query?.listingPath}`,
     },
     {
@@ -427,22 +338,29 @@ const items = reactive([
     },
 ]);
 
-const rating = ref(3.5)
 const costPerSqFt = ref(0);
+
 const property = reactive({
-    data: null,
+    data: {
+        'propertyId':null,
+        'type':null,
+        'propertyStatus':null,
+        'city':null,
+        'cost':null,
+        'description':null
+    },
 });
-// console.log(property)
+
 async function propertydata() {
     const res = await api?.property?.getProperty({
         params: {
             propertyId: route?.params?.propertyId,
         },
     })
-    // console.log(res);
-    property.data = res?.data;
+    property.data = res.data;
     costPerSqFt.value = res?.data?.totalArea !== 0 ? Math.ceil(res?.data?.cost / res?.data?.totalArea) : 0;
 }
+
 onMounted(async () => {
     await propertydata();
 });
@@ -459,29 +377,6 @@ const colors = reactive([
     'yellow',
     'orange',
     'purple',
-]);
-const reviews = reactive([
-    {
-        name: "Vivek",
-        dateOfReview: '26-04-2023',
-        review: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime ducimus sapiente dolor cumque. Doloribus saepe eum quaerat, minus sunt inventore corporis dolor enim quam maxime nihil officiis? Vel, vero natus.",
-        photos: [],
-        rating: 4,
-    },
-    {
-        name: "Kashif",
-        dateOfReview: '26-04-2023',
-        review: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime ducimus sapiente dolor cumque. Doloribus saepe eum quaerat, minus sunt inventore corporis dolor enim quam maxime nihil officiis? Vel, vero natus.",
-        photos: [],
-        rating: 3.5,
-    },
-    {
-        name: "Divyashant",
-        dateOfReview: '26-04-2023',
-        review: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime ducimus sapiente dolor cumque. Doloribus saepe eum quaerat, minus sunt inventore corporis dolor enim quam maxime nihil officiis? Vel, vero natus.",
-        photos: [],
-        rating: 3,
-    },
 ]);
 </script>
 

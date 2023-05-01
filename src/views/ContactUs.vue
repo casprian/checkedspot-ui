@@ -2,10 +2,9 @@
   <v-container>
     <v-row>
       <v-col cols="auto">
-        <v-card :loading="loading" class="mx-auto my-12" max-width="374">
-          <template v-slot:loader="{ isActive }">
+        <v-card class="mx-auto my-12" max-width="374">
+          <template>
             <v-progress-linear
-              :active="isActive"
               color="deep-purple"
               height="4"
               indeterminate
@@ -61,10 +60,9 @@
         </v-card>
       </v-col>
       <v-col cols="auto">
-        <v-card :loading="loading" class="mx-auto my-12" max-width="374">
-          <template v-slot:loader="{ isActive }">
+        <v-card class="mx-auto my-12" max-width="374">
+          <template>
             <v-progress-linear
-              :active="isActive"
               color="deep-purple"
               height="4"
               indeterminate
