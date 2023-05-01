@@ -2,8 +2,8 @@
   <div class="filterContainer">
     <v-row>
       <v-col offset="2" cols="8">
-        <v-expansion-panels>
-          <v-expansion-panel class="mb-4">
+        <v-expansion-panels :multiple="true">
+          <v-expansion-panel class="mb-4" :expanded="true">
             <v-expansion-panel-title>
               Want to know more about checked spot ?
             </v-expansion-panel-title>
@@ -58,9 +58,11 @@
                     </v-col>
                   </v-row>
                   <v-tabs v-model="tab" color="deep-purple-accent-4" align-tabs="center">
-                    <v-tab :value="1">Rent</v-tab>
-                    <v-tab :value="3">Buy</v-tab>
-                    <v-tab disabled :value="4">Sell</v-tab>
+                    <v-tab :value="1">Any Property</v-tab>
+                    <v-tab :value="2" disabled>Farm Land</v-tab>
+                    <v-tab :value="3" disabled>Plots</v-tab>
+                    <v-tab  :value="4" disabled>Apartment</v-tab>
+                    <v-tab disabled :value="5">Independent Houses</v-tab>
                   </v-tabs>
                   <v-window v-model="tab">
                     <v-window-item v-for="n in 3" :key="n" :value="n">
@@ -142,20 +144,6 @@ export default {
   data: () => ({
     tab: null,
     value: [1000, 5000],
-    tasks: [
-      {
-        done: false,
-        text: "Rent",
-      },
-      {
-        done: false,
-        text: "Apartment",
-      },
-      {
-        done: false,
-        text: "Plots",
-      },
-    ],
     checklists: [
       {
         text: "Properties are digitally and physically verified by one ore more of our checkedspot representative such that you can save your time and be sure on what you are buying",
@@ -172,7 +160,7 @@ export default {
     ],
     items: ["Bangalore", "Hassan", "Mysore"],
     justify: ["start", "center", "end", "space-around", "space-between"],
-    select: ["Bangalore"],
+    select: ["Bangalore","Hassan"],
     onlyCheckedSpots: true,
     newTask: null,
 
