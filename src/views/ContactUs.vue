@@ -50,7 +50,7 @@
               1st floor - Next To Fame Diagnostics - RK Hegde Nagar Bangalore
             </div>
 
-            <h3>Reach Us At</h3>
+            <h3>Reach Us At </h3>
             <br />
 
             <h1>9606937470 </h1>
