@@ -42,7 +42,6 @@
                         </div>
                     </v-col>
                 </v-row>
-
                 <!-- Gallery -->
                 <v-row no-gutters class="mb-8">
                     <v-col cols="12">
@@ -89,29 +88,34 @@
                             </v-card-item>
 
                             <v-card-text class="description text-body-2">
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum
-                                voluptas dolor dolores nemo omnis veniam, voluptatibus sit vero
-                                non tempora iste officia. Minima explicabo dolores iste, veniam
-                                facilis corrupti odio maiores nihil temporibus accusamus. Sed ex
-                                dolore dicta quod cumque.<br /><br />
+                                <!-- {{
+                                    property?.data?.description ? property?.data?.description : 
+                                        `Lorem, ipsum dolor sit amet
+                                        consectetur adipisicing elit. Ipsum
+                                        voluptas dolor dolores nemo omnis veniam, voluptatibus sit vero
+                                        non tempora iste officia. Minima explicabo dolores iste, veniam
+                                        facilis corrupti odio maiores nihil temporibus accusamus. Sed ex
+                                        dolore dicta quod cumque.<br /><br />
 
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum
-                                voluptas dolor dolores nemo omnis veniam, voluptatibus sit vero
-                                non tempora iste officia. Minima explicabo dolores iste, veniam
-                                facilis corrupti odio maiores nihil temporibus accusamus. Sed ex
-                                dolore dicta quod cumque.<br /><br />
+                                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum
+                                        voluptas dolor dolores nemo omnis veniam, voluptatibus sit vero
+                                        non tempora iste officia. Minima explicabo dolores iste, veniam
+                                        facilis corrupti odio maiores nihil temporibus accusamus. Sed ex
+                                        dolore dicta quod cumque.<br /><br />
 
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum
-                                voluptas dolor dolores nemo omnis veniam, voluptatibus sit vero
-                                non tempora iste officia. Minima explicabo dolores iste, veniam
-                                facilis corrupti odio maiores nihil temporibus accusamus. Sed ex
-                                dolore dicta quod cumque.<br /><br />
+                                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum
+                                        voluptas dolor dolores nemo omnis veniam, voluptatibus sit vero
+                                        non tempora iste officia. Minima explicabo dolores iste, veniam
+                                        facilis corrupti odio maiores nihil temporibus accusamus. Sed ex
+                                        dolore dicta quod cumque.<br /><br />
 
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum
-                                voluptas dolor dolores nemo omnis veniam, voluptatibus sit vero
-                                non tempora iste officia. Minima explicabo dolores iste, veniam
-                                facilis corrupti odio maiores nihil temporibus accusamus. Sed ex
-                                dolore dicta quod cumque.
+                                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum
+                                        voluptas dolor dolores nemo omnis veniam, voluptatibus sit vero
+                                        non tempora iste officia. Minima explicabo dolores iste, veniam
+                                        facilis corrupti odio maiores nihil temporibus accusamus. Sed ex
+                                        dolore dicta quod cumque.` 
+                                }}-->
+                                {{ property?.data?.description }}
                             </v-card-text>
                         </v-card>
                     </v-col>
@@ -128,7 +132,7 @@
                             <v-row no-gutters class="px-4 pb-7" :class="pdStyle01">
                                 <v-col class="pdLH" cols="12" sm="6" md="4">Property ID:
                                     <span :class="pdStyle02">{{
-                                        property?.data?.projectId ? property?.data?.projectId : 0
+                                        property?.data?.propertyId ? property?.data?.propertyId : 0
                                     }}</span></v-col>
                                 <v-col class="pdLH" cols="12" sm="6" md="4">Property Type:
                                     <span :class="pdStyle02">{{
@@ -336,8 +340,9 @@
                                         <v-col cols="12" sm="6"
                                             class="pa-0 py-1 d-flex justiy-center align-center text-grey-darken-2">
                                             <div class="text-body-2 font-weight-medium">
-                                                Education Mandarin
-                                                <span class="text-body-2 font-weight-normal">(15.61 miles)</span>
+                                                {{ property?.data?.nearByEducation?.name }}
+                                                <span class="text-body-2 font-weight-normal">({{
+                                                    property?.data?.nearByEducation?.distance }})</span>
                                             </div>
                                         </v-col>
                                         <!-- <v-col cols="12" sm="6"
@@ -382,8 +387,9 @@
                                         <v-col cols="12" sm="6"
                                             class="pa-0 py-1 d-flex justiy-center align-center text-grey-darken-2">
                                             <div class="text-body-2 font-weight-medium">
-                                                Education Mandarin
-                                                <span class="text-body-2 font-weight-normal">(15.61 miles)</span>
+                                                {{ property?.data?.nearByHospitals?.name }}
+                                                <span class="text-body-2 font-weight-normal">({{
+                                                    property?.data?.nearByHospitals?.distance }})</span>
                                             </div>
                                         </v-col>
                                         <!-- <v-col cols="12" sm="6"
@@ -428,8 +434,9 @@
                                         <v-col cols="12" sm="6"
                                             class="pa-0 py-1 d-flex justiy-center align-center text-grey-darken-2">
                                             <div class="text-body-2 font-weight-medium">
-                                                Education Mandarin
-                                                <span class="text-body-2 font-weight-normal">(15.61 miles)</span>
+                                                {{ property?.data?.nearByTransportation?.name }}
+                                                <span class="text-body-2 font-weight-normal">({{
+                                                    property?.data?.nearByTransportation?.distance }})</span>
                                             </div>
                                         </v-col>
                                         <!-- <v-col cols="12" sm="6"
@@ -498,7 +505,7 @@
                             </v-card-item>
 
                             <v-row no-gutters class="px-4 pb-7" :class="pdStyle01">
-                                
+
                             </v-row>
                         </v-card>
                     </v-col>
@@ -606,29 +613,26 @@
                             <v-avatar class="mx-2" size="75" color="grey-darken-3"
                                 image="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"></v-avatar>
                             <v-sheet class="px-5 mt-n7">
-                                <v-card-title>Evan You</v-card-title>
-                                <div class="text-subtitle-1 text-grey-darken-1">
-                                    Vue Creator
-                                </div>
+                                <v-card-title>{{ property?.data?.agentDetails?.name }}</v-card-title>
                             </v-sheet>
                         </v-card-actions>
                         <v-row no-gutters class="pt-7 px-3 mx-3 pb-2 mb-2">
                             <v-col cols="12" class="d-flex align-center pb-3">
                                 <v-icon icon="mdi-map-marker" size="19" color="#FF385C"></v-icon>
                                 <div class="text-subtitle-1 px-5 pt-2 text-grey-darken-1">
-                                    302 Av Park, New York
+                                    {{ property?.data?.agentDetails?.address }}
                                 </div>
                             </v-col>
                             <v-col cols="12" class="d-flex align-center pb-3">
                                 <v-icon icon="mdi-phone" size="19" color="#FF385C"></v-icon>
                                 <div class="text-subtitle-1 px-5 pt-2 text-grey-darken-1">
-                                    (234) 0200 17813
+                                    {{ property?.data?.agentDetails?.contact }}
                                 </div>
                             </v-col>
                             <v-col cols="12" class="d-flex align-center">
                                 <v-icon icon="mdi-email" size="19" color="#FF385C"></v-icon>
                                 <div class="text-subtitle-1 px-5 pt-2 text-grey-darken-1">
-                                    lisa@gmail.com
+                                    {{ property?.data?.agentDetails?.email }}
                                 </div>
                             </v-col>
                         </v-row>
@@ -660,6 +664,7 @@ import api from '@/data/api/index.js';
 import Rating from "@/components/Rating.vue";
 import { onMounted, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
+import axios from 'axios';
 
 const pdStyle01 = ref("text-body-1 font-weight-medium text-grey-darken-2");
 const pdStyle02 = ref("text-body-1 text-grey-darken-1");
@@ -672,14 +677,23 @@ const property = reactive({
 });
 // console.log(property)
 async function propertydata() {
-    const res = await api?.property?.getProperty({
+    // const res = await api?.property?.getProperty({
+    //     params: {
+    //         propertyId: route?.params?.propertyId,
+    //     },
+    // })
+    axios.get('http://localhost:8080/property', {
         params: {
             propertyId: route?.params?.propertyId,
         },
+    }).then((res) => {
+        console.log(res);
+        property.data = res?.data?.data;
+        costPerSqFt.value = res?.data?.data?.totalArea !== 0 ? Math.ceil(res?.data?.data?.cost / res?.data?.data?.totalArea) : 0;
     })
-console.log(res);
-    property.data = res?.data;
-    costPerSqFt.value = Math.ceil(res?.data?.cost / res?.data?.totalArea);
+    // console.log(res);
+    //     property.data = res?.data;
+    //     costPerSqFt.value = res?.data?.totalArea !==0 ? Math.ceil(res?.data?.cost / res?.data?.totalArea) : 0;
 }
 onMounted(async () => {
     await propertydata();
@@ -766,7 +780,7 @@ const reviews = reactive([
     color: white;
 }
 
-.uploadBtn > label:hover {
+.uploadBtn>label:hover {
     cursor: pointer;
 }
 </style>
