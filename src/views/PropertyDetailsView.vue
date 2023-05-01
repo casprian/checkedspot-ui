@@ -677,23 +677,24 @@ const property = reactive({
 });
 // console.log(property)
 async function propertydata() {
-    // const res = await api?.property?.getProperty({
-    //     params: {
-    //         propertyId: route?.params?.propertyId,
-    //     },
-    // })
-    axios.get('http://localhost:8080/property', {
+    const res = await api?.property?.getProperty({
         params: {
             propertyId: route?.params?.propertyId,
         },
-    }).then((res) => {
-        console.log(res);
-        property.data = res?.data?.data;
-        costPerSqFt.value = res?.data?.data?.totalArea !== 0 ? Math.ceil(res?.data?.data?.cost / res?.data?.data?.totalArea) : 0;
     })
     // console.log(res);
-    //     property.data = res?.data;
-    //     costPerSqFt.value = res?.data?.totalArea !==0 ? Math.ceil(res?.data?.cost / res?.data?.totalArea) : 0;
+    property.data = res?.data;
+    costPerSqFt.value = res?.data?.totalArea !==0 ? Math.ceil(res?.data?.cost / res?.data?.totalArea) : 0;\
+    
+    // axios.get('http://localhost:8080/property', {
+    //     params: {
+    //         propertyId: route?.params?.propertyId,
+    //     },
+    // }).then((res) => {
+    //     console.log(res);
+    //     property.data = res?.data?.data;
+    //     costPerSqFt.value = res?.data?.data?.totalArea !== 0 ? Math.ceil(res?.data?.data?.cost / res?.data?.data?.totalArea) : 0;
+    // })
 }
 onMounted(async () => {
     await propertydata();
