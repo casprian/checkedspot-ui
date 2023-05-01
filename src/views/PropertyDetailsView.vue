@@ -664,7 +664,7 @@ import api from '@/data/api/index.js';
 import Rating from "@/components/Rating.vue";
 import { onMounted, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
-import axios from 'axios';
+// import axios from 'axios';
 
 const pdStyle01 = ref("text-body-1 font-weight-medium text-grey-darken-2");
 const pdStyle02 = ref("text-body-1 text-grey-darken-1");
@@ -682,10 +682,10 @@ async function propertydata() {
             propertyId: route?.params?.propertyId,
         },
     })
-    // console.log(res);
+    console.log(res);
     property.data = res?.data;
-    costPerSqFt.value = res?.data?.totalArea !==0 ? Math.ceil(res?.data?.cost / res?.data?.totalArea) : 0;\
-    
+    costPerSqFt.value = res?.data?.totalArea !==0 ? Math.ceil(res?.data?.cost / res?.data?.totalArea) : 0;
+
     // axios.get('http://localhost:8080/property', {
     //     params: {
     //         propertyId: route?.params?.propertyId,
