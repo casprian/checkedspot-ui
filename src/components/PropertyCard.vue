@@ -2,15 +2,6 @@
     <v-card class="mx-auto" style="max-width: 480px;" position="relative" @click="openPropertyDetail">
         <v-img src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" height="260px" position="relative" cover>
             <v-sheet position="absolute" style="background-color: transparent; width: 100%; height: 100%;">
-                <!-- <v-container>
-                    <v-row no-gutters class="d-flex justify-end">
-                        <v-col cols="auto">
-                            <v-btn variant="flat" color="grey-darken-2" rounded="0" width="auto">
-                                For {{ property.propertyStatus }}
-                            </v-btn>
-                        </v-col>
-                    </v-row>
-                </v-container> -->
                 <v-container style="position: absolute; bottom: 0;">
                     <v-row class="d-flex justify-space-between">
                         <v-col cols="auto">
@@ -41,7 +32,9 @@
                 <v-row no-gutters>
                     <v-col cols="12">
                         <v-card-title class="px-4 py-1">
-                            Checkedspot Property
+                            <v-chip variant="elevated" color="red">
+                                Checked Spot  <v-icon size="16" class="mr-2" icon="mdi-map-marker" color="white"></v-icon>
+                            </v-chip>
                         </v-card-title>
                         <v-card-text class="px-4 py-0">
                             <v-icon size="16" class="mt-n1 mr-2" icon="mdi-map-marker" color="grey-darken-2"></v-icon>
@@ -76,11 +69,12 @@
                     <v-col cols="12">
                         <v-row class="cardBottom pa-0 mx-6 my-2 d-flex justify-space-between align-center">
                             <v-col cols="auto" class="px-0 my-1">
-                                <v-avatar class="pa-0 mr-2" image="https://cdn.vuetifyjs.com/images/john.png"
+                                <v-avatar class="pa-0 mr-2" 
+                                    image="/src/assets/photos/parvez1.jpeg"
                                     size="45"></v-avatar>
                                 <span
                                     class="text-body-2 mt-3 ml-0 text-uppercase text-center text-grey-darken-2">
-                                    Mark Smith
+                                    Parvez Shariff
                                 </span>
                             </v-col>
                             <v-col cols="auto" class="px-0">
@@ -100,12 +94,11 @@
 import { useRouter } from 'vue-router';
 const router = useRouter();
 
-const props = defineProps(['property', 'listingPath'])
-function openPropertyDetail() {
-    router.push({path: `/propertydetails/${props?.property?.propertyID}`, query: {listingPath: `${props.listingPath}`}})
-}
+    const props = defineProps(['property', 'listingPath'])
 
-
+    function openPropertyDetail() {
+        router.push({path: `/propertydetails/${props?.property?.propertyID}`, query: {listingPath: `${props.listingPath}`}})
+    }
 </script>
 
 <style scoped>

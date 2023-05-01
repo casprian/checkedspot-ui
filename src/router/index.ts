@@ -34,6 +34,11 @@ const routes = [
         path: '/propertydetails/:propertyId',
         name: 'Property Details',
         component: ()=> import('@/views/PropertyDetailsView.vue')
+      },
+      {
+        path: '/contactus',
+        name: 'Contact Us',
+        component: ()=> import('@/views/ContactUs.vue')
       }
     ],
   },
