@@ -5,7 +5,7 @@
     </template>
 
     <template v-slot:append>
-      <v-btn prepend-icon="mdi-phone-classic" variant="outlined" class="ml-2">
+      <v-btn prepend-icon="mdi-phone-classic" @click="openContactPage" variant="outlined" class="ml-2">
         Contact
       </v-btn>
       <v-btn v-if="!hastoken" @click="openSignInPage" prepend-icon="mdi-login" variant="outlined" class="ml-2">
@@ -27,7 +27,7 @@ import { useRouter } from 'vue-router';
 // import { ref } from 'vue';
 const router = useRouter();
 function openSignInPage() {
-  router.push('/authenticate')
+  router.push('/authenticate');
 }
 const hastoken = ref(false);
 const token = sessionStorage.getItem('token');
@@ -36,7 +36,11 @@ if (token) {
 }
 
 function deleteToken() {
-  sessionStorage.removeItem('token')
+  sessionStorage.removeItem('token');
+}
+
+function openContactPage(){
+  router.push('/contactUs');
 }
 
 </script>

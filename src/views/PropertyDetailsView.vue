@@ -343,12 +343,11 @@
             <v-col cols="12" md="4" class="pl-0 pl-md-3">
                 <v-card class="rounded-0" elevation="2">
                     <v-card-item>
-                        <v-card-title class="pb-5 mx-3 mb-10 pt-2" style="border-bottom: 1px solid #e0e0e0">Agent
-                            Information
+                        <v-card-title class="pb-5 mx-3 mb-10 pt-2" style="border-bottom: 1px solid #e0e0e0">Sales Coordinator
                         </v-card-title>
                         <v-card-actions>
                             <v-avatar class="mx-2" size="75" color="grey-darken-3"
-                                image="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"></v-avatar>
+                            image="/src/assets/photos/parvez1.jpeg"></v-avatar>
                             <v-sheet class="px-5 mt-n7">
                                 <v-card-title>{{ property?.data?.agentDetails?.name ? property?.data?.agentDetails?.name : 'Not Found' }}</v-card-title>
                             </v-sheet>

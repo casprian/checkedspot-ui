@@ -47,7 +47,6 @@ import api from "@/data/api/index.js";
 import PropertyCard from '@/components/PropertyCard.vue'
 import { computed, onMounted, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
-import axios from "axios";
 
 const route = useRoute();
 const listingFullpath = ref(`${route.fullPath}`);
