@@ -86,7 +86,7 @@ const noOfDataComputed = computed(() => {
 async function getAllProperty() {
     const formData = {
         params: {
-            verified: propertyFilterObj?.verified,
+            isVerifiedByCheckedSpot: propertyFilterObj?.isVerifiedByCheckedSpot,
             city: propertyFilterObj?.city,
             propertyStatus: propertyFilterObj?.propertyStatus,
             areaFrom: propertyFilterObj?.areaFrom,

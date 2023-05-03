@@ -173,7 +173,7 @@ export default {
   methods: {
     moveToListing() {
       this.$router.push({path: '/listing', query: {
-        verified: this.onlyCheckedSpots,
+        isVerifiedByCheckedSpot: this.onlyCheckedSpots,
         city: this.select[0],
         // propertyStatus: 'sale',
         costFrom: this.costFrom,
