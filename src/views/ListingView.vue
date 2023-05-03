@@ -43,6 +43,9 @@
 </template>
 
 <script lang="ts" setup>
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import api from "@/data/api/index.js";
 import PropertyCard from '@/components/PropertyCard.vue'
 import { computed, onMounted, reactive, ref } from "vue";
@@ -63,14 +66,7 @@ const items = reactive([
     },
 ]);
 
-const sortItems = reactive([
-    "Top Selling",
-    "Most Viewed",
-    "Price(low to high)",
-    "Price(high to low)",
-]);
 
-const selectedItem = ref(sortItems[0]);
 
 let propertiesData = reactive({ data: null });
 const propertyFilterObj = reactive({ ...route?.query });

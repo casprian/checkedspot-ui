@@ -2,10 +2,9 @@
   <v-container>
     <v-row>
       <v-col cols="auto">
-        <v-card :loading="loading" class="mx-auto my-12" max-width="374">
-          <template v-slot:loader="{ isActive }">
+        <v-card class="mx-auto my-12" max-width="374">
+          <template>
             <v-progress-linear
-              :active="isActive"
               color="deep-purple"
               height="4"
               indeterminate
@@ -50,21 +49,20 @@
               1st floor - Next To Fame Diagnostics - RK Hegde Nagar Bangalore
             </div>
 
-            <h3>Reach Us At</h3>
+            <h3>Reach Us At </h3>
             <br />
 
-            <h1>9606937470</h1>
+            <h1>9606937470 </h1>
             <br />
-            <h1>9606937472</h1>
+            <h1>9606937472 </h1>
             
           </v-card-text>
         </v-card>
       </v-col>
       <v-col cols="auto">
-        <v-card :loading="loading" class="mx-auto my-12" max-width="374">
-          <template v-slot:loader="{ isActive }">
+        <v-card class="mx-auto my-12" max-width="374">
+          <template>
             <v-progress-linear
-              :active="isActive"
               color="deep-purple"
               height="4"
               indeterminate
