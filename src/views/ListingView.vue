@@ -87,7 +87,6 @@ async function getAllProperty() {
         params: {
             isVerifiedByCheckedSpot: propertyFilterObj?.isVerifiedByCheckedSpot,
             city: propertyFilterObj?.city,
-            propertyStatus: propertyFilterObj?.propertyStatus,
             areaFrom: propertyFilterObj?.areaFrom,
             areaTo: propertyFilterObj?.areaTo,
             costFrom: propertyFilterObj?.costFrom,

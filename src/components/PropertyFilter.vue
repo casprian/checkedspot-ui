@@ -175,7 +175,6 @@ export default {
       this.$router.push({path: '/listing', query: {
         isVerifiedByCheckedSpot: this.onlyCheckedSpots,
         city: this.select[0],
-        // propertyStatus: 'sale',
         costFrom: this.costFrom,
         costTo: this.costTo,
         areaFrom: this.areaFrom,
