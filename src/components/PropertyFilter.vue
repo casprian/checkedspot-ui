@@ -5,7 +5,7 @@
         <v-expansion-panels :multiple="true" v-model="panel">
           <v-expansion-panel class="mb-4" :expanded="true">
             <v-expansion-panel-title>
-              Want to know more about checked spot ?
+              What is checkedspot ?
             </v-expansion-panel-title>
             <v-expansion-panel-text>
               <v-sheet elevation="12" rounded="lg" width="100%" class="pa-10 text-left mx-auto">
@@ -45,18 +45,12 @@
 
           <v-expansion-panel>
             <v-expansion-panel-title>
-              <v-btn class="bg-red"> Click Me </v-btn> &nbsp; To Filter
-              Properties from thousands of available options
+               Filter Properties
             </v-expansion-panel-title>
             <v-expansion-panel-text>
               <v-container class="bg-primary">
                 <v-card>
-                  <v-row>
-                    <v-col cols="4" offset="5">
-                      <v-switch v-model="onlyCheckedSpots" label="Only Checked Spots" color="red" :value="true"
-                        hide-details />
-                    </v-col>
-                  </v-row>
+                  
                   <v-tabs v-model="tab" color="deep-purple-accent-4" align-tabs="center">
                     <v-tab :value="1">Any Property</v-tab>
                     <v-tab :value="2" disabled>Farm Land</v-tab>
@@ -68,13 +62,28 @@
                     <v-window-item v-for="n in 3" :key="n" :value="n">
                       <v-container fluid>
                         <v-row>
-                          <v-col cols="12">
-                            <v-combobox v-model="select" :items="items" label="Location" variant="outlined" multiple>
+                          <v-col cols="12" sm="12" >
+                            <v-switch 
+                              v-model="onlyCheckedSpots" 
+                              label="Only Checked Spots" 
+                              color="red" 
+                              :value="true"
+                              hide-details />
+                          </v-col>
+                        </v-row>
+                        <v-row>
+                          <v-col cols="12" sm="12" md="12">
+                            <v-combobox 
+                              v-model="select" 
+                              :items="items"
+                              label="Location" 
+                              variant="outlined" 
+                              multiple>
                               
                             </v-combobox>
                           </v-col>
                           <v-row>
-                            <v-col cols="6">
+                            <v-col cols="12" sm="12" md="6">
                               <v-row>
                                 <v-col cols="12">
                                   <div class="text-caption">
@@ -92,7 +101,7 @@
                                 </v-col>
                               </v-row>
                             </v-col>
-                            <v-col cols="6">
+                            <v-col cols="12" sm="12" md="6">
                               <v-row>
                                 <v-col cols="12">
                                   <div class="text-caption">Budget</div>
