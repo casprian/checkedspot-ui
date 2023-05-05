@@ -11,8 +11,7 @@ http.interceptors.request.use((config) => {
     return {
         ...config,
         headers:{
-            ...config.headers,
-            'EXTRA_CHECKEDSPOT_HEADERS':'EXTRAEXTRA_CHECKEDSPOT_HEADERSHEADERS',
+            ...config.headers
         },
     }
   // return config;
