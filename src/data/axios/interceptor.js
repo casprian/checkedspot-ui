@@ -11,7 +11,7 @@ http.interceptors.request.use((config) => {
     return {
         ...config,
         headers:{
-            ...config.headers
+            ...config.headers,
         },
     }
   // return config;
