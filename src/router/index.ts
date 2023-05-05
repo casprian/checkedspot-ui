@@ -16,27 +16,27 @@ const routes = [
         component: () => import(/* webpackChunkName: "home" */ '@/views/HomeView.vue'),
       },
       {
-        path: '/listing',
+        path: 'listing',
         name: 'Listing',
         component: ListingView,
       },
       {
-        path: '/authenticate',
+        path: 'authenticate',
         name: 'Signin',
         component: ()=> import('@/views/AuthenticationView.vue')
       },
       {
-        path: '/profile',
+        path: 'profile',
         name: 'Profile',
         component: ()=> import('@/views/ProfileView.vue')
       },
       {
-        path: '/propertydetails/:propertyId',
+        path: 'propertydetails/:propertyId',
         name: 'Property Details',
         component: ()=> import('@/views/PropertyDetailsView.vue')
       },
       {
-        path: '/contactus',
+        path: 'contactus',
         name: 'Contact Us',
         component: ()=> import('@/views/ContactUs.vue')
       }
