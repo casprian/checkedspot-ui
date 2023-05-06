@@ -26,7 +26,8 @@
                                 Checkedspot Property
                             </div>
                             <div v-if="property?.data">
-                                <v-btn v-if="property?.data.propertyStatus" variant="flat" color="pink-accent-3" density="comfortable" class="rounded-pill ml-6">
+                                <v-btn v-if="property?.data.propertyStatus" variant="flat" color="pink-accent-3"
+                                    density="comfortable" class="rounded-pill ml-6">
                                     {{
                                         property?.data?.propertyStatus
                                         ? `For ${property?.data?.propertyStatus}`
@@ -49,7 +50,7 @@
                             {{ property?.data?.cost ? `₹ ${property?.data?.cost}` : '' }}
                         </div>
                         <div class="text-body-1 text-md-h6 font-weight-regular text-black">
-                            {{ costPerSqFt ? `₹ ${costPerSqFt} / sq ft` : '' }} 
+                            {{ costPerSqFt ? `₹ ${costPerSqFt} / sq ft` : '' }}
                         </div>
                     </v-col>
                 </v-row>
@@ -63,20 +64,11 @@
                             </v-card-item>
 
                             <v-card-item>
-                                <v-carousel height="400" show-arrows="hover" delimiter-icon="mdi-vuetify" progress
-                                    continuous hide-delimiter-background>
-                                    <v-carousel-item v-for="(slide, i) in slides" :key="i">
-                                        <v-sheet :color="colors[i]" height="100%">
-                                            <div class="d-flex fill-height justify-center align-center">
-                                                <div class="text-h2">
-                                                    {{ slide }} Slide
-                                                </div>
-                                            </div>
-                                            <template v-slot:placeholder>
-                                                <v-row>
-                                                    <v-col cols="12" height="100px" class="bg-red"> kafds</v-col>
-                                                </v-row>
-                                            </template>
+                                <v-carousel height="400" show-arrows="hover" progress="pink-accent-3" continuous
+                                    hide-delimiter-background>
+                                    <v-carousel-item v-for="(image, i) in property?.data?.propertyImage" :key="i">
+                                        <v-sheet height="100%">
+                                            <img class="propGallery" :src="image" alt="property Gallery">
                                         </v-sheet>
                                     </v-carousel-item>
                                 </v-carousel>
@@ -93,8 +85,11 @@
                                 <v-card-title class="title">Description</v-card-title>
                             </v-card-item>
 
-                            <v-card-text class="description text-body-2">
-                                {{ property?.data?.description ? property?.data?.description : `<h4> Description Not Found </h4>` }}
+                            <v-card-text v-if="property?.data?.description !== 'unavailable'" class="description text-body-2">
+                                {{  property?.data?.description  }}
+                            </v-card-text>
+                            <v-card-text v-else class="description text-h4 font-weight-regular text-center">
+                                Description Not Found
                             </v-card-text>
                         </v-card>
                     </v-col>
@@ -161,8 +156,8 @@
                                             ? property?.data?.yearOfBuilt
                                             : 'unavailable'
                                         }}
-                                        </span>
-                                    </v-col>
+                                    </span>
+                                </v-col>
                                 <v-col class="pdLH" cols="12" sm="6" md="4">Refrigerator:
                                     <span :class="pdStyle02">
                                         {{
@@ -252,11 +247,13 @@
 
                             <v-row no-gutters class="px-4 pb-7">
                                 <v-img
-                                    src="https://www.houseplanshelper.com/images/how-to-read-floor-plans-full-floor-plan.jpg"></v-img>
+                                    :src="property?.data?.propertyPlan ? property?.data?.propertyPlan[0] :'https://www.houseplanshelper.com/images/how-to-read-floor-plans-full-floor-plan.jpg'"></v-img>
                             </v-row>
                         </v-card>
                     </v-col>
                 </v-row>
+                
+                <!-- Location -->
                 <v-row no-gutters class="mb-8">
                     <v-col cols="12">
                         <v-card class="rounded-0 px-2 pb-4 pt-2" elevation="2">
@@ -274,32 +271,50 @@
             <v-col cols="12" md="4" class="pl-0 pl-md-3">
                 <v-card class="rounded-0" elevation="2">
                     <v-card-item>
-                        <v-card-title class="pb-5 mx-3 mb-10 pt-2" style="border-bottom: 1px solid #e0e0e0">Sales Coordinator
+                        <v-card-title class="pb-5 mx-3 mb-10 pt-2" style="border-bottom: 1px solid #e0e0e0">Sales
+                            Coordinator
                         </v-card-title>
                         <v-card-actions>
                             <v-avatar class="mx-2" size="75" color="grey-darken-3"
-                            image="/src/assets/photos/parvez1.jpeg"></v-avatar>
+                                image="/src/assets/photos/parvez1.jpeg"></v-avatar>
                             <v-sheet class="px-5 mt-n7">
-                                <v-card-title>{{ property?.data?.agentDetails?.name ? property?.data?.agentDetails?.name : 'Not Found' }}</v-card-title>
+                                <v-card-title>
+                                    {{ 
+                                        agent?.data?.name 
+                                        ? agent?.data?.name 
+                                        : 'Not Found' 
+                                    }}
+                                </v-card-title>
                             </v-sheet>
                         </v-card-actions>
                         <v-row no-gutters class="pt-7 px-3 mx-3 pb-2 mb-2">
                             <v-col cols="12" class="d-flex align-center pb-3">
                                 <v-icon icon="mdi-map-marker" size="19" color="#FF385C"></v-icon>
                                 <div class="text-subtitle-1 px-5 pt-2 text-grey-darken-1">
-                                    {{ property?.data?.agentDetails?.address ? property?.data?.agentDetails?.address : 'Not Found' }}
+                                    {{
+                                        agent?.data?.address
+                                        ? agent?.data?.address[0]
+                                        : 'Not Found' 
+                                    }}
                                 </div>
                             </v-col>
                             <v-col cols="12" class="d-flex align-center pb-3">
                                 <v-icon icon="mdi-phone" size="19" color="#FF385C"></v-icon>
                                 <div class="text-subtitle-1 px-5 pt-2 text-grey-darken-1">
-                                    {{ property?.data?.agentDetails?.contact ? property?.data?.agentDetails?.contact : 'Not Found' }}
+                                    {{
+                                        agent?.data?.mobile
+                                        ? agent?.data?.mobile[0]
+                                        : 'Not Found' 
+                                    }}
                                 </div>
                             </v-col>
                             <v-col cols="12" class="d-flex align-center">
                                 <v-icon icon="mdi-email" size="19" color="#FF385C"></v-icon>
                                 <div class="text-subtitle-1 px-5 pt-2 text-grey-darken-1">
-                                    {{ property?.data?.agentDetails?.email ? property?.data?.agentDetails?.email : 'Not Found' }}
+                                    {{
+                                        agent?.data?.email
+                                        ? agent?.data?.email[0]
+                                        : 'Not Found' }}
                                 </div>
                             </v-col>
                         </v-row>
@@ -344,35 +359,49 @@ const costPerSqFt = ref(0);
 
 const property = reactive({
     data: {
-        'propertyId':null,
-        'type':null,
-        'wifi':null,
-        'swimmingPool':null,
-        'propertyStatus':null,
-        'laundryRoom':null,
-        'city':null,
-        'tvCable':null,
-        'cost':null,
-        'noOfBedroom':null,
-        'dishWasher':null,
-        'elivator':null,
-        'airConditioning':null,
-        'refrigerator':null,
-        'yearOfBuilt':null,
-        'noOfBathroom':null,
-        'email':null,
-        'description':null,
-        'agentDetails':{
-            'name':null,
-            'email':null,
-            'contact':null,
-            'address':null,
-        },
-        'address':null,
-        'name':null,
-        'parkingLot':null
+        'propertyId': null,
+        'type': null,
+        'wifi': null,
+        'swimmingPool': null,
+        'propertyStatus': null,
+        'laundryRoom': null,
+        'city': null,
+        'tvCable': null,
+        'cost': null,
+        'noOfBedroom': null,
+        'dishWasher': null,
+        'elivator': null,
+        'airConditioning': null,
+        'refrigerator': null,
+        'yearOfBuilt': null,
+        'noOfBathroom': null,
+        'email': null,
+        'description': null,
+        'propertyImage': [null],
+        'propertyplan': [null],
+        'propertyVideo': [null],
+        'address': null,
+        'name': null,
+        'parkingLot': null
     },
 });
+
+const agent = reactive({
+    data: {
+        'agentName': null,
+        'agentEmail': [null],
+        'agentMobile': [null],
+        'agentAddress': [null]
+    }
+})
+
+const propetyDocument = reactive({
+    data: {
+        'documentDescription': null,
+        'documentId': null,
+        'documentType': null,
+    }
+})
 
 async function propertydata() {
     const res = await api.property.getProperty({
@@ -381,26 +410,23 @@ async function propertydata() {
         },
     })
     property.data = res.data;
+    console.log(property.data);
     costPerSqFt.value = res?.data?.totalArea !== 0 ? Math.ceil(res?.data?.cost / res?.data?.totalArea) : 0;
+}
+
+async function agentdata() {
+    const res = await api.agent.getAgent({
+        params: {
+            propertyId: route?.params?.propertyId,
+        },
+    })
+    agent.data = res.data
 }
 
 onMounted(async () => {
     await propertydata();
+    await agentdata();
 });
-const slides = reactive([
-    'First',
-    'Second',
-    'Third',
-    'Fourth',
-    'Fifth',
-]);
-const colors = reactive([
-    'red',
-    'blue',
-    'yellow',
-    'orange',
-    'purple',
-]);
 </script>
 
 <style scoped>
@@ -409,6 +435,12 @@ const colors = reactive([
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.propGallery {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .description {
