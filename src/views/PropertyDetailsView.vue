@@ -85,8 +85,9 @@
                                 <v-card-title class="title">Description</v-card-title>
                             </v-card-item>
 
-                            <v-card-text v-if="property?.data?.description !== 'unavailable'" class="description text-body-2">
-                                {{  property?.data?.description  }}
+                            <v-card-text v-if="property?.data?.description !== 'unavailable'"
+                                class="description text-body-2">
+                                {{ property?.data?.description }}
                             </v-card-text>
                             <v-card-text v-else class="description text-h4 font-weight-regular text-center">
                                 Description Not Found
@@ -247,12 +248,12 @@
 
                             <v-row no-gutters class="px-4 pb-7">
                                 <v-img
-                                    :src="property?.data?.propertyPlan ? property?.data?.propertyPlan[0] :'https://www.houseplanshelper.com/images/how-to-read-floor-plans-full-floor-plan.jpg'"></v-img>
+                                    :src="property?.data?.propertyPlan ? property?.data?.propertyPlan[0] : 'https://www.houseplanshelper.com/images/how-to-read-floor-plans-full-floor-plan.jpg'"></v-img>
                             </v-row>
                         </v-card>
                     </v-col>
                 </v-row>
-                
+
                 <!-- Location -->
                 <v-row no-gutters class="mb-8">
                     <v-col cols="12">
@@ -268,7 +269,7 @@
                     </v-col>
                 </v-row>
             </v-col>
-            
+
             <v-col cols="12" md="4" class="pl-0 pl-md-3">
                 <v-card class="rounded-0" elevation="2">
                     <v-card-item>
@@ -280,10 +281,10 @@
                                 image="/src/assets/photos/parvez1.jpeg"></v-avatar>
                             <v-sheet class="px-5 mt-n7">
                                 <v-card-title>
-                                    {{ 
-                                        agent?.data?.name 
-                                        ? agent?.data?.name 
-                                        : 'Not Found' 
+                                    {{
+                                        agent?.data?.name
+                                        ? agent?.data?.name
+                                        : 'Not Found'
                                     }}
                                 </v-card-title>
                             </v-sheet>
@@ -295,7 +296,7 @@
                                     {{
                                         agent?.data?.address
                                         ? agent?.data?.address[0]
-                                        : 'Not Found' 
+                                        : 'Not Found'
                                     }}
                                 </div>
                             </v-col>
@@ -305,7 +306,7 @@
                                     {{
                                         agent?.data?.mobile
                                         ? agent?.data?.mobile[0]
-                                        : 'Not Found' 
+                                        : 'Not Found'
                                     }}
                                 </div>
                             </v-col>
@@ -378,9 +379,9 @@ const property = reactive({
         'noOfBathroom': null,
         'email': null,
         'description': null,
-        'propertyImage': [null],
-        'propertyplan': [null],
-        'propertyVideo': [null],
+        'propertyImage': [],
+        'propertyPlan': [],
+        'propertyVideo': [],
         'address': null,
         'name': null,
         'parkingLot': null
@@ -389,10 +390,10 @@ const property = reactive({
 
 const agent = reactive({
     data: {
-        'agentName': null,
-        'agentEmail': [null],
-        'agentMobile': [null],
-        'agentAddress': [null]
+        'name': null,
+        'email': [],
+        'mobile': [],
+        'address': []
     }
 })
 
