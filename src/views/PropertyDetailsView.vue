@@ -268,6 +268,7 @@
                     </v-col>
                 </v-row>
             </v-col>
+            
             <v-col cols="12" md="4" class="pl-0 pl-md-3">
                 <v-card class="rounded-0" elevation="2">
                     <v-card-item>
