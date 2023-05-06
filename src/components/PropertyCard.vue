@@ -127,7 +127,7 @@ const router = useRouter();
 const props = defineProps(['property', 'listingPath'])
 
 function openPropertyDetail() {
-    router.push({ path: `/propertydetails/${props?.property?.propertyID}`, query: { listingPath: `${props.listingPath}` } })
+    router.push({ path: `/propertydetails/${props?.property?.propertyId}`, query: { listingPath: `${props.listingPath}` } })
 }
 </script>
 
