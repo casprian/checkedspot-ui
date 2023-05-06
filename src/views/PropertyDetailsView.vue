@@ -415,7 +415,6 @@ async function propertydata() {
     console.log(property.data);
     costPerSqFt.value = res?.data?.totalArea !== 0 ? Math.ceil(res?.data?.cost / res?.data?.totalArea) : 0;
 }
-
 async function agentdata() {
     const res = await api.agent.getAgent({
         params: {
