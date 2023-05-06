@@ -379,7 +379,7 @@ const property = reactive({
         'noOfBathroom': null,
         'email': null,
         'description': null,
-        'propertyImage': [],
+        'propertyImage': null,
         'propertyPlan': [],
         'propertyVideo': [],
         'address': null,
