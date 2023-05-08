@@ -39,7 +39,12 @@ const routes = [
         path: 'contactus',
         name: 'Contact Us',
         component: ()=> import('@/views/ContactUs.vue')
-      }
+      },
+      {
+        path: 'createproperty',
+        name: 'Create Property',
+        component: ()=> import('@/views/CreatePropertyView.vue')
+      },
     ],
   },
 ]
