@@ -181,7 +181,7 @@
                     </v-col>
                     <v-col cols="12" class="py-1 px-3">
                         <v-file-input v-model:model-value="bodyData.imgfile" label="File input" variant="filled"
-                            prepend-icon="mdi-camera" multiple name="imgfile"></v-file-input>
+                            prepend-icon="mdi-camera" multiple name="imgfile" accept="image/*"></v-file-input>
                     </v-col>
 
                     <v-col cols="12" class="pt-2 pb-7 px-14">
@@ -191,7 +191,7 @@
                     </v-col>
                     <v-col cols="12" class="py-1 px-3">
                         <v-file-input v-model:model-value="bodyData.planimgfile" label="File input" variant="filled" prepend-icon="mdi-camera" multiple
-                            name="planimgfile"></v-file-input>
+                            name="planimgfile" accept="image/*"></v-file-input>
                     </v-col>
 
                     <v-col cols="12" class="pt-2 pb-7 px-14">
@@ -201,7 +201,7 @@
                     </v-col>
                     <v-col cols="12" class="py-1 px-3">
                         <v-file-input v-model:model-value="bodyData.vidfile" label="File input" variant="filled" prepend-icon="mdi-video" multiple
-                            name="vidfile"></v-file-input>
+                            name="vidfile" accept="video/*"></v-file-input>
                     </v-col>
                 </v-row>
 
@@ -273,7 +273,7 @@
             </v-row>
             <v-row no-gutters class="ma-6">
                 <v-col cols="12"  class="d-flex justify-center">
-                    <v-btn width="300px" color="blue" @click.prevent="dis" >submit</v-btn>
+                    <v-btn width="300px" color="blue" @click.prevent="addProperty" >submit</v-btn>
                 </v-col>
             </v-row>
         </form>
@@ -281,14 +281,12 @@
 </template>
 
 <script lang="ts" setup>
-import FormData from 'form-data'
+import { reactive } from "vue";
 import axios from 'axios';
-import { reactive, ref } from "vue";
 
 const bodyData = reactive({
     email: null,
     propertyNumber: null,
-    // propertyStatus: null,
     type: null,
     description: null,
     city: null,
@@ -334,44 +332,36 @@ const bodyData = reactive({
     planimgfile: null,     
     vidfile: null
 });
-
-// const imgfile = ref(null);
-// const planimgfile = ref(null);
-// const vidfile = ref(null);
 const cities = reactive(['Bangalore', 'Mysore', 'Hassan']);
 const states = reactive(['Karnataka']);
 const countries = reactive(['india']);
 const types = reactive(['plot', 'flat']);
 const truefalse = reactive(['true', 'false']);
 const furnishedStatus = reactive(['unfurnished', 'semi-furnished', 'full-furnished']);
-const formData = new FormData();
 
-function dis() {
-
-    console.log(bodyData)
-    console.log(Object.keys(bodyData));
-
-    console.log(bodyData.imgfile, bodyData.planimgfile, bodyData.vidfile)
-
+function addProperty() {
+    const formData = new FormData();    
     Object.keys(bodyData).map((key, index) => {
-        if(bodyData[key] !== null || (key !== 'imgfile' || key !== 'planimgfile' || key !== 'vidfile')) {
+        if(bodyData[key] !== null && (key !== 'imgfile' && key !== 'planimgfile' && key !== 'vidfile')) {
             formData.append(`${key}`, bodyData[key]);
-            console.log(key , ": ", bodyData[key])
         }else if(key === 'imgfile' || key === 'planimgfile' || key === 'vidfile'){
-            console.log(bodyData[key])
+            bodyData[key].map(file => {
+                formData.append(key, file);
+            })
         }
     })
-    console.log(formData)
-    // axios.post('http://localhost:8080/property/individual', formData, {
-    //     headers :{
-    //         "Content-Type": "multipart/form-data",
-    //         "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJlbWFpbCI6ImRrQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiMTIzNEBBc2RmIn0sImlhdCI6MTY4MzU1MTY1OH0.zzaSf1_OzWZJ6LqZdDdVAtUcOFgkGjNQppQDrgolV-Y"
-    //     }
-    // }).then(res => {
-    //     console.log(res);
-    // }).catch(err => {
-    //     console.log(err);
-    // }) 
+    
+    axios.post('http://localhost:8080/property/individual', formData, {
+        headers :{
+            "Content-Type": "multipart/form-data",
+            "Authorization": `Bearer ${sessionStorage.getItem('token')}`
+        }
+    }).then(res => {
+        console.log(res?.data);
+        alert(res?.data?.message);
+    }).catch(err => {
+        console.log(err);
+    }) 
 }
 
 </script>

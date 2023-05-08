@@ -41,9 +41,9 @@ const routes = [
         component: ()=> import('@/views/ContactUs.vue')
       },
       {
-        path: 'addproperty',
-        name: 'Add Property',
-        component: ()=> import('@/views/AddPropertyView.vue')
+        path: 'createproperty',
+        name: 'Create Property',
+        component: ()=> import('@/views/CreatePropertyView.vue')
       },
     ],
   },
