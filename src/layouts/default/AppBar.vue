@@ -14,6 +14,9 @@
       <v-btn v-else @click="deleteToken" prepend-icon="mdi-logout" variant="outlined" class="ml-2">
         Logout
       </v-btn>
+      <v-btn prepend-icon="mdi-plus" @click="router.push('/addproperty')" variant="outlined" class="ml-2">
+        Add Property
+      </v-btn>
       <v-btn disabled @click="router.push('/profile')" prepend-icon="mdi-dots-vertical" variant="outlined" class="ml-2">
         Add/Manage Properties
       </v-btn>
