@@ -344,6 +344,7 @@ function addProperty() {
         alert("Please Login to Add Property")
         return;
     }
+    
     const formData = new FormData();    
     (Object.entries(bodyData)).forEach(([key, value]:any) => {
         if(value !== null && (key !== 'imgfile' && key !== 'planimgfile' && key !== 'vidfile')) {
