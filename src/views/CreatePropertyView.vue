@@ -315,8 +315,8 @@ const bodyData = reactive({
     dishWasher: null,
     refrigerator: null,
     outdoorShower: null,
-    isFreeHold: null,
-    isVerifiedByCheckedSpot: null,
+    isFreeHold: false,
+    isVerifiedByCheckedSpot: false,
     documentId: null,
     documentType: null,
     documentDescription: null,
@@ -328,9 +328,9 @@ const bodyData = reactive({
     latitude: null,
     googleMapLink: null,
     propertySchedule: null,
-    imgfile: null,
-    planimgfile: null,     
-    vidfile: null
+    imgfile: [],
+    planimgfile: [],     
+    vidfile: []
 });
 const cities = reactive(['Bangalore', 'Mysore', 'Hassan']);
 const states = reactive(['Karnataka']);
@@ -340,12 +340,17 @@ const truefalse = reactive(['true', 'false']);
 const furnishedStatus = reactive(['unfurnished', 'semi-furnished', 'full-furnished']);
 
 function addProperty() {
+    if(!sessionStorage.getItem('token')){
+        alert("Please Login to Add Property")
+        return;
+    }
+    
     const formData = new FormData();    
-    Object.keys(bodyData).map((key, index) => {
-        if(bodyData[key] !== null && (key !== 'imgfile' && key !== 'planimgfile' && key !== 'vidfile')) {
-            formData.append(`${key}`, bodyData[key]);
+    (Object.entries(bodyData)).forEach(([key, value]:any) => {
+        if(value !== null && (key !== 'imgfile' && key !== 'planimgfile' && key !== 'vidfile')) {
+            formData.append(`${key}`, value);
         }else if(key === 'imgfile' || key === 'planimgfile' || key === 'vidfile'){
-            bodyData[key].map(file => {
+            value.map((file:File) => {
                 formData.append(key, file);
             })
         }
