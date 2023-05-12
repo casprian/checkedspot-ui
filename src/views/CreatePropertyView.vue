@@ -339,12 +339,7 @@ const types = reactive(['plot', 'flat']);
 const truefalse = reactive(['true', 'false']);
 const furnishedStatus = reactive(['unfurnished', 'semi-furnished', 'full-furnished']);
 
-function addProperty() {
-    if(!sessionStorage.getItem('token')){
-        alert("Please Login to Add Property")
-        return;
-    }
-    
+function addProperty() {    
     const formData = new FormData();    
     (Object.entries(bodyData)).forEach(([key, value]:any) => {
         if(value !== null && (key !== 'imgfile' && key !== 'planimgfile' && key !== 'vidfile')) {
