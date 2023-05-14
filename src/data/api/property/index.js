@@ -16,6 +16,7 @@ const getProperty = async (params) => {
         const response = await call('get',baseURL,params)
         return {status: 200, data: response?.data};
     }catch(e) {
+        console.log("lajsdkjflasdf: ", e)
         return {error: true, status: e?.response?.status, message: e?.response?.data?.message};
     }
 };

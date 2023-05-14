@@ -47,6 +47,11 @@ const routes = [
       },
     ],
   },
+  {
+    path: '/error',
+    name: 'Error page',
+    component: () => import('@/views/ErrorView.vue')
+  }
 ]
 
 const router = createRouter({

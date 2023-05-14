@@ -176,6 +176,7 @@ async function authenticateUser() {
         loader.value = false;
     }
 }
+
 const welcome = ref(false);
 const failed = ref(false)
 const errormessage = ref('');
@@ -183,6 +184,7 @@ async function createUser() {
     loader.value = true;
     welcome.value = false;
     failed.value = false;
+    
     const res = await api?.user?.signup({
         name: userDetail.name,
         email: userDetail.email,

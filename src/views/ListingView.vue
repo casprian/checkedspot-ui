@@ -49,9 +49,10 @@
 import api from "@/data/api/index.js";
 import PropertyCard from '@/components/PropertyCard.vue'
 import { computed, onMounted, reactive, ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
+const router = useRouter();
 const listingFullpath = ref(`${route.fullPath}`);
 const items = reactive([
     {
@@ -93,9 +94,13 @@ async function getAllProperty() {
     };
 
     const res = await api.property.getProperties(formData);
-    propertiesData.data = res?.data;
-    noOfData.value = res?.noOfdata;
-    noOfPage.value = Math.ceil(noOfDataComputed.value / limit.value);
+    if(res.status === 200) {
+        propertiesData.data = res?.data;
+        noOfData.value = res?.noOfdata;
+        noOfPage.value = Math.ceil(noOfDataComputed.value / limit.value);
+    }else {
+        router.push({path: '/error', query: {status: res?.status}})
+    }
 }
 
 onMounted(async () => {
