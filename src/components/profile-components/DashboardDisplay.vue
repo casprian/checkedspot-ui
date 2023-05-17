@@ -12,7 +12,7 @@
                         <v-icon size="50" class="mt-n5" icon="mdi-view-list"></v-icon>
                     </template>
                     <template v-slot:title>
-                        <div class="text-h3 font-weight-bold pl-4" style="border-left:solid 1px white">100</div>
+                        <div class="text-h3 font-weight-bold pl-4" style="border-left:solid 1px white">{{ verified + unverified }}</div>
                     </template>
                     <template v-slot:subtitle>
                         <div class="text-body-1 font-weight-regular pl-4">Number of Properties</div>
@@ -25,10 +25,10 @@
                         <v-icon size="40" class="mt-n5" icon="mdi-check-decagram"></v-icon>
                     </template>
                     <template v-slot:title>
-                        <div class="text-h3 font-weight-bold pl-4" style="border-left:solid 1px white">70</div>
+                        <div class="text-h3 font-weight-bold pl-4" style="border-left:solid 1px white">{{ verified }}</div>
                     </template>
                     <template v-slot:subtitle>                        
-                        <div class="text-body-1 font-weight-regular pl-4">Number of Properties</div>
+                        <div class="text-body-1 font-weight-regular pl-4">Number of verified Properties</div>
                     </template>
                 </v-card>
             </v-col>
@@ -38,3 +38,10 @@
         </v-row>
     </v-container>
 </template>
+
+<script lang="ts" setup>
+import { inject } from 'vue';
+
+const verified = inject('verified');
+const unverified = inject('unverified');
+</script>

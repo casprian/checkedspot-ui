@@ -11,13 +11,13 @@
       <v-btn v-if="!hastoken" @click="openSignInPage" prepend-icon="mdi-login" variant="outlined" class="ml-2">
         Login
       </v-btn>
-      <v-btn v-else @click="deleteToken" prepend-icon="mdi-logout" variant="outlined" class="ml-2">
+      <v-btn v-else @click="handleLogout" prepend-icon="mdi-logout" variant="outlined" class="ml-2">
         Logout
       </v-btn>
       <v-btn prepend-icon="mdi-plus" @click="handleCreateProperty" variant="outlined" class="ml-2">
         Add Property
       </v-btn>
-      <v-btn disabled @click="router.push('/profile')" prepend-icon="mdi-dots-vertical" variant="outlined" class="ml-2">
+      <v-btn @click="handlePropertyManagement" prepend-icon="mdi-dots-vertical" variant="outlined" class="ml-2">
         Add/Manage Properties
       </v-btn>
     </template>
@@ -38,21 +38,30 @@ if (token) {
   hastoken.value = true;
 }
 
-function deleteToken() {
+function handleLogout() {
   sessionStorage.removeItem('token');
+  router.push('/');
 }
 
-function openContactPage(){
+function openContactPage() {
   router.push('/contactUs');
 }
 
 function handleCreateProperty() {
-  if(!sessionStorage.getItem('token')) {
+  if (!sessionStorage.getItem('token')) {
     alert("Please Login to create property!");
     return;
-  }else {
+  } else {
     router.push('/createproperty');
     return;
+  }
+}
+
+function handlePropertyManagement() {
+  if (!sessionStorage.getItem('token')) {
+    alert("Please Login to continue");
+  } else {
+    router.push('/profile')
   }
 }
 
