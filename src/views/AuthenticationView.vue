@@ -1,5 +1,10 @@
 <template>
     <v-container class="bg-background" style="height: auto" fluid>
+        <v-row v-if="message" class="ma-3 ml-12">
+            <div class="text-h5 text-pink-accent-3 font-weight-medium">
+                Please login to create Property...
+            </div>
+        </v-row>
         <v-row v-if="login" no-gutters justify="center" :class="loader === true ? 'blurCont' : ''">
             <v-col cols="11">
                 <v-sheet>
@@ -130,9 +135,15 @@
 // @ts-ignore
 import api from '@/data/api/index.js';
 import { reactive, ref } from "vue";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 const router = useRouter();
+const route = useRoute();
+const message = ref(route?.query?.message === 'createProperty');
+setTimeout(() => {
+    message.value = false;
+}, 5000);
+
 const userDetail = reactive({
     name: "",
     email: "",
@@ -178,7 +189,7 @@ async function authenticateUser() {
 }
 
 const welcome = ref(false);
-const failed = ref(false)
+const failed = ref(false);
 const errormessage = ref('');
 async function createUser() {
     loader.value = true;

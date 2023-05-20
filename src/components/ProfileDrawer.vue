@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <v-container fluid class="pa-0" style="height: 100%;">
         <v-row no-gutters style="height: 100%;">
             <v-col cols="12">
@@ -63,4 +63,4 @@ div.profile {
     justify-content: center !important;
     align-items: center !important;
 }
-</style>
+</style> -->

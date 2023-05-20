@@ -426,7 +426,7 @@ const propetyDocument = reactive({
 })
 
 async function propertydata() {
-    const res = await api.property.getProperty({
+    const res = await api?.property?.getProperty({
         params: {
             propertyId: route?.params?.propertyId,
         },
@@ -445,7 +445,7 @@ async function propertydata() {
 }
 
 async function agentdata() {
-    const res = await api.agent.getAgent({
+    const res = await api?.agent?.getAgent({
         params: {
             propertyId: route?.params?.propertyId,
         },

@@ -25,11 +25,11 @@ const routes = [
         name: 'Signin',
         component: ()=> import('@/views/AuthenticationView.vue')
       },
-      {
-        path: 'profile',
-        name: 'Profile',
-        component: ()=> import('@/views/ProfileView.vue')
-      },
+      // {
+      //   path: 'profile',
+      //   name: 'Profile',
+      //   component: ()=> import('@/views/ProfileView.vue')
+      // },
       {
         path: 'propertydetails/:propertyId',
         name: 'Property Details',
@@ -45,6 +45,11 @@ const routes = [
         name: 'Create Property',
         component: ()=> import('@/views/CreatePropertyView.vue')
       },
+      // {
+      //   path: 'updateproperty',
+      //   name: 'Update Property',
+      //   component: () => import('@/views/updatePropertyView.vue')
+      // }
     ],
   },
   {

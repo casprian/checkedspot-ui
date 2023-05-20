@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <v-container fluid class="pa-0" style="width: 100%;">
         <v-row no-gutters>
             <v-col cols="12" sm="3" class="d-none d-sm-block">
@@ -19,7 +19,7 @@ import DisplayArea from '@/components/DisplayArea.vue';
 import { reactive, provide, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
-import property from '@/data/api/property';
+// import property from '@/data/api/property';
 
 const router = useRouter();
 
@@ -77,10 +77,15 @@ function loadproperties() {
       }
     }
   ).then((res) => {
+
+    if(res?.data?.status == 401) {
+      router.push({path: '/error', query: {status: 401}})
+    }
     properties.data = res?.data?.data;
-    console.log()
-    properties.data.forEach(element => {
-        if(element.isVerifiedByCheckedSpot === true){
+
+    properties?.data?.forEach(element => {
+      //@ts-ignore
+        if(element?.isVerifiedByCheckedSpot === true){
             verified.value++;
         }else {
             unverified.value++;
@@ -102,4 +107,4 @@ provide('show', show);
 
 </script>
 
-<style scoped></style>
+<style scoped></style> -->

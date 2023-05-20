@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <v-container fluid class="px-3">
         <v-row no-gutters>
             <v-col>
@@ -44,4 +44,4 @@ import { inject } from 'vue';
 
 const verified = inject('verified');
 const unverified = inject('unverified');
-</script>
+</script> -->

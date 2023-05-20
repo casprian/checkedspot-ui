@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <v-container>
       <form>
           <v-row no-gutters>
@@ -178,7 +178,7 @@
                   </v-row>
               </v-row>
 
-              <!-- Upload image, video section -->
+              <!-- Upload image, video section 
               <v-row no-gutters class="py-3 mt-7 type">
                   <v-col cols="12" class="pt-2 pb-7 px-14">
                       <div class="text-h5 font-weight-medium text-decoration-underline text-pink-accent-1">Upload Property
@@ -211,7 +211,7 @@
                   </v-col>
               </v-row>
 
-              <!-- Property Location Section -->
+              <!-- Property Location Section 
               <v-row no-gutters class="py-3 mt-7 type">
                   <v-col cols="12" class="pt-2 pb-7 px-14">
                       <div class="text-h5 font-weight-medium text-decoration-underline text-pink-accent-1">Property
@@ -232,7 +232,7 @@
                   </v-col>
               </v-row>
 
-              <!-- Property Document Section -->
+              <!-- Property Document Section 
               <v-row no-gutters class="py-3 mt-7 type">
                   <v-col cols="12" class="pt-2 pb-7 px-4">
                       <div class="text-h5 font-weight-medium text-decoration-underline text-pink-accent-1">Property
@@ -253,7 +253,7 @@
                   </v-col>
               </v-row>
 
-              <!-- Property Agent Section -->
+              <!-- Property Agent Section 
               <v-row no-gutters class="py-3 mt-7 type">
                   <v-col cols="12" class="pt-2 pb-7 px-4">
                       <div class="text-h5 font-weight-medium text-decoration-underline text-pink-accent-1">Property Agent
@@ -398,4 +398,4 @@ function addProperty() {
   height: 60px;
   overflow: hidden;
 }
-</style>
+</style> -->

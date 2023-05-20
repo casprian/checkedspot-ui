@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div>
     <v-sheet v-if="show?.dashboard" class="pa-0 ma-0">
       <dashboard-display />
@@ -27,4 +27,4 @@ import { inject } from 'vue';
 const show = inject('show');
 </script>
 
-<style></style>
+<style></style> -->

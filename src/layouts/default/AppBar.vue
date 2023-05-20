@@ -17,7 +17,7 @@
       <v-btn prepend-icon="mdi-plus" @click="handleCreateProperty" variant="outlined" class="ml-2">
         Add Property
       </v-btn>
-      <v-btn @click="handlePropertyManagement" prepend-icon="mdi-dots-vertical" variant="outlined" class="ml-2">
+      <v-btn v-if="false" @click="handlePropertyManagement" prepend-icon="mdi-dots-vertical" variant="outlined" class="ml-2">
         Add/Manage Properties
       </v-btn>
     </template>
@@ -49,10 +49,10 @@ function openContactPage() {
 
 function handleCreateProperty() {
   if (!sessionStorage.getItem('token')) {
-    alert("Please Login to create property!");
+    router.push({path:'authenticate', query: {message: "createProperty"}});
     return;
   } else {
-    router.push('/createproperty');
+    router.push('createproperty');
     return;
   }
 }

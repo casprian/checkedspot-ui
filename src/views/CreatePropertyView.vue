@@ -367,7 +367,7 @@ function addProperty() {
         }
     })
 
-    axios.post('http://localhost:8080/property/individual', formData, {
+    axios.post('https://apicheckedspot.azurewebsites.net/property/individual', formData, {
         headers: {
             "Content-Type": "multipart/form-data",
             "Authorization": `Bearer ${sessionStorage.getItem('token')}`
@@ -377,8 +377,7 @@ function addProperty() {
         loading.value = false;
         alert(res?.data?.message);
         if(res?.data?.status === 401) {
-            sessionStorage.removeItem('token');
-            router.push('/authenticate');
+            router.push({path: '/error', query: {status: 401}});
         }
     }).catch(err => {
         router.push({path: '/error', query: {status: err?.response?.status}})
