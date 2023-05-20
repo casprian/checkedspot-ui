@@ -30,7 +30,7 @@ import { useRouter } from 'vue-router';
 // import { ref } from 'vue';
 const router = useRouter();
 function openSignInPage() {
-  router.push('/authenticate');
+  router.push('/login');
 }
 const hastoken = ref(false);
 const token = sessionStorage.getItem('token');
@@ -49,7 +49,7 @@ function openContactPage() {
 
 function handleCreateProperty() {
   if (!sessionStorage.getItem('token')) {
-    router.push({path:'authenticate', query: {message: "createProperty"}});
+    router.push({path:'login', query: {message: "createProperty"}});
     return;
   } else {
     router.push('createproperty');

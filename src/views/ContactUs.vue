@@ -86,37 +86,76 @@
       <v-col cols="auto" >
           <v-dialog v-model="dialog"  width="auto">
             <template v-slot:activator="{ props }">
-              <v-btn color="primary" v-bind="props">
+              <v-btn 
+                variant="elevated"
+                elevation="5" 
+                color="pink-accent-3" 
+                v-bind="props"
+              >
                 Click For Enquiry
               </v-btn>
             </template>
             <v-card class="pa-3">
               <v-sheet class="ma-2 elevation-7 pa-4 pb-4">
                 <form>
-                  <v-text-field v-model="enquiry.name" :counter="10" :error-messages="name.errorMessage.value"
-                    label="Name" variant="outlined"></v-text-field>
+                  <v-text-field 
+                    v-model="name.value.value" 
+                    :error-messages="name.errorMessage.value"
+                    class="ma-2"
+                    counter 
+                    label="Name" 
+                    variant="outlined"
+                  ></v-text-field>
   
-                  <v-text-field v-model="enquiry.phoneNumber" :counter="7" :error-messages="phone.errorMessage.value"
-                    label="Phone Number" variant="outlined"></v-text-field>
+                  <v-text-field 
+                    v-model="mobile.value.value" 
+                    :error-messages="mobile.errorMessage.value"
+                    class="ma-2"
+                    counter 
+                    label="Whatsapp Number" 
+                    variant="outlined"
+                  ></v-text-field>
   
   
-                  <v-text-field v-model="enquiry.email" :error-messages="email.errorMessage.value" label="E-Mail"
-                    variant="outlined"></v-text-field>
+                  <v-text-field 
+                    v-model="email.value.value" 
+                    :error-messages="email.errorMessage.value" 
+                    class="ma-2"
+                    label="Email"
+                    variant="outlined"
+                  ></v-text-field>
   
-                  <v-textarea v-model="enquiry.enquiryMessage" rows="3" label="Enquiry Message"
-                    variant="outlined"></v-textarea>
+                  <v-textarea 
+                    v-model="enquiryMessage.value.value" 
+                    class=""
+                    rows="3" 
+                    label="Enquiry Message"
+                    variant="outlined"
+                  ></v-textarea>
   
-                  <v-container fluid>
+                  <v-container fluid class="pa-0">
                     <v-row no-gutters class="d-flex justify-center">
-                      <v-col cols="12" class="d-flex justify-center mb-4">
-                        <v-btn type="submit" variant="flat" color="pink-accent-3" width="300px"
-                          @click.prevent="callWhatsappCloudApi">
+                      <v-col cols="12" class="d-flex justify-center mb-3">
+                        <v-btn 
+                          type="submit" 
+                          variant="elevated" 
+                          elevation="5"
+                          color="blue" 
+                          width="300px"
+                          @click.prevent="callWhatsappCloudApi"
+                        >
                           Submit
                         </v-btn>
                       </v-col>
   
                       <v-col cols="12" class="d-flex justify-center">
-                        <v-btn @click.prevent="dialog = false" variant="flat" color="pink-accent-3" width="300px">
+                        <v-btn 
+                          @click.prevent="dialog = false" 
+                          elevation="4" 
+                          variant="text" 
+                          color="red" 
+                          width="300px"
+                        >
                           Cancle
                         </v-btn>
                       </v-col>
@@ -132,48 +171,74 @@
 </template>
 
 <script lang="ts" setup>
-import { useField, useForm } from "vee-validate";
 import axios from 'axios';
-import { reactive, ref } from "vue";
+import { ref } from "vue";
+import { useField, useForm } from 'vee-validate';
+
 const dialog = ref(false)
 
-const { handleReset } = useForm({
-  validationSchema: {},
-});
+//form validation
+let { handleSubmit, handleReset } = useForm({
+    validationSchema: {
+        name(value:any) {
+            if (value?.length >= 2) { 
+              return true;
+            }
+            return 'Name needs to be at least 2 characters.';
+        },
+        email(value:any) {
+            if (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i.test(value)) { 
+              return true;
+            }
+            return 'Must be a valid e-mail.'
+        },
+        mobile(value:any) {
+            if(!value) {
+                return 'Required';
+            }else if(value) {
+                if(value?.length === 10 && /[0-9-]+/.test(value)) {
+                    return true;
+                }else if(value?.length > 10  && /[0-9-]+/.test(value)) {
+                    return 'Phone number needs to be at exactly 10 digits.'
+                }else {
+                    return 'Phone number needs to be exactly 10 digits.'
+                }
+            }
+        },
+        enquiryMessage(value:any) {
+            if(value){
+              return true;
+            }
+        }
+    }
+})
+const name = useField('name');
+const email = useField('email');
+const mobile = useField('mobile');
+const enquiryMessage = useField('enquiryMessage');
 
-const name = useField("name");
-const phone = useField("phone");
-const email = useField("email");
-
-const enquiry = reactive({
-  name: "",
-  phoneNumber: "",
-  email: "",
-  enquiryMessage: "",
-});
-
-
-function callWhatsappCloudApi() {
+const callWhatsappCloudApi = handleSubmit(async(values) => {
+  console.log(values)
   dialog.value = false;
 
   axios({
     method: 'post',
     url: 'https://apicheckedspot.azurewebsites.net/user/sendEnquiry',
-    data: enquiry   
+    data: values   
   }).then((res) => { 
     console.log(res) 
   }).catch((err) => { 
       console.log(err) 
   })
 
-}
+})
 </script>
 
 <style scoped>
 .enquiry {
   position: fixed;
-  bottom: 40px;
-  right: 50px;
+  bottom: 20px;
+  right: 40px;
 }
 </style>
 
