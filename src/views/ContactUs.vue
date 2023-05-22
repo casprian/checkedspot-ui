@@ -196,9 +196,9 @@ let { handleSubmit, handleReset } = useForm({
             if(!value) {
                 return 'Required';
             }else if(value) {
-                if(value?.length === 10 && /[0-9-]+/.test(value)) {
+                if(value?.length === 10 && /^\d+$/.test(value)) {
                     return true;
-                }else if(value?.length > 10  && /[0-9-]+/.test(value)) {
+                }else if(value?.length > 10  && /^\d+$/.test(value)) {
                     return 'Phone number needs to be at exactly 10 digits.'
                 }else {
                     return 'Phone number needs to be exactly 10 digits.'
@@ -206,7 +206,7 @@ let { handleSubmit, handleReset } = useForm({
             }
         },
         enquiryMessage(value:any) {
-            if(value){
+            if(value || !value){
               return true;
             }
         }
