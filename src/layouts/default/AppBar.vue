@@ -49,10 +49,10 @@ function openContactPage() {
 
 function handleCreateProperty() {
   if (!sessionStorage.getItem('token')) {
-    router.push({path:'login', query: {message: "createProperty"}});
+    router.push({path:'/login', query: {message: "createProperty"}});
     return;
   } else {
-    router.push('createproperty');
+    router.push('/createproperty');
     return;
   }
 }

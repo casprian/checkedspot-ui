@@ -118,9 +118,9 @@
             </v-col>
         </v-row>
     </v-container>
-    <div v-if="loader" class="loaderCont">
-        <v-progress-circular :size="40" indeterminate color="pink-accent-3"></v-progress-circular>
-    </div>
+    <v-overlay :model-value="loader" class="align-center justify-center">
+        <v-progress-circular color="pink-accent-3" indeterminate size="50"></v-progress-circular>
+    </v-overlay>
 </template>
 
 <script lang="ts" setup>

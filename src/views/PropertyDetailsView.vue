@@ -313,7 +313,7 @@
                                 <div class="text-subtitle-1 px-5 pt-2 text-grey-darken-1">
                                     {{
                                         agent?.data?.address
-                                        ? agent?.data?.address[0]
+                                        ? agent?.data?.address
                                         : 'Not Found'
                                     }}
                                 </div>
@@ -323,7 +323,7 @@
                                 <div class="text-subtitle-1 px-5 pt-2 text-grey-darken-1">
                                     {{
                                         agent?.data?.mobile
-                                        ? agent?.data?.mobile[0]
+                                        ? agent?.data?.mobile
                                         : 'Not Found'
                                     }}
                                 </div>
@@ -333,7 +333,7 @@
                                 <div class="text-subtitle-1 px-5 pt-2 text-grey-darken-1">
                                     {{
                                         agent?.data?.email
-                                        ? agent?.data?.email[0]
+                                        ? agent?.data?.email
                                         : 'Not Found' }}
                                 </div>
                             </v-col>
