@@ -186,7 +186,7 @@
 </template>
   
 <script lang="ts" setup>
-import { defineProps, reactive, ref } from 'vue';
+import { reactive, ref } from 'vue';
 import axios from 'axios';
 import { useRouter } from "vue-router";
 import { useField, useForm } from 'vee-validate';
