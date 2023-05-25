@@ -2,11 +2,11 @@
     <v-container>
         <v-row no-gutters>
             <v-col cols="12" sm="6" class="py-1 px-3">
-                <v-select :v-model="propertyType" label="Property Type" variant="outlined" clearable hint="Property Type"
+                <v-select v-model="bodyData.type" label="Property Type" variant="outlined" clearable hint="Property Type"
                     disabled></v-select>
             </v-col>
             <v-col cols="12" sm="6" class="py-1 px-3">
-                <v-select :v-model="bodyData.country" :items="countries" disabled label="country" variant="outlined"
+                <v-select v-model="bodyData.country" :items="countries" disabled label="country" variant="outlined"
                     clearable hint="Choose from the countries list"></v-select>
             </v-col>
             <v-col cols="12" sm="6" class="py-1 px-3">
@@ -192,7 +192,7 @@ import { useRouter } from "vue-router";
 import { useField, useForm } from 'vee-validate';
 
 const props = defineProps(['type']);
-const propertyType = props.type;
+
 const router = useRouter();
 
 const expand = ref(false);
@@ -204,8 +204,7 @@ const furnishedStatus = reactive(['unfurnished', 'semi-furnished', 'full-furnish
 
 const bodyData = reactive({
     email: sessionStorage.getItem('email'),
-    propertyNumber: null,
-    type: null,
+    type: props.type,
     description: null,
     city: null,
     state: null,
@@ -332,7 +331,7 @@ let { handleSubmit, handleReset } = useForm({
             }
             return 'it should contain only numbers'
         },
-        imgfile(value:any){
+        imgfile(value:any):any{
             if(!value) {
                 return 'Required.'
             }
@@ -351,7 +350,7 @@ const carpetArea = useField('carpetArea');
 const noOfBedroom = useField('noOfBedroom');
 const noOfBathroom = useField('noOfBathroom');
 const noOfKitchen = useField('noOfKitchen');
-const imgfile = useField('imgfile');
+const imgfile = useField<File[] | undefined>('imgfile');
 
 
 const loading = ref(false);

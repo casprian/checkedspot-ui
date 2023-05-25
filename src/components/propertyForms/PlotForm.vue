@@ -2,20 +2,20 @@
     <v-container>
         <v-row no-gutters>
             <v-col cols="12" sm="6" class="py-1 px-3">
-                <v-select :v-model="propertyType" label="Property Type" variant="outlined" clearable hint="Property Type"
+                <v-select v-model="bodyData.type" label="Property Type" variant="outlined" clearable hint="Property Type"
                     disabled></v-select>
             </v-col>
             <v-col cols="12" sm="6" class="py-1 px-3">
-                <v-select :v-model="bodyData.country" :items="countries" disabled label="country" variant="outlined"
+                <v-select v-model="bodyData.country" :items="countries" disabled label="country" variant="outlined"
                     clearable hint="Choose from the countries list"></v-select>
             </v-col>
             <v-col cols="12" sm="6" class="py-1 px-3">
-                <v-select v-model="state.value.value" :error-messages="state.errorMessage.value" :items="states" label="state" variant="outlined" clearable
-                    hint="Choose from the states list"></v-select>
+                <v-select v-model="state.value.value" :error-messages="state.errorMessage.value" :items="states"
+                    label="state" variant="outlined" clearable hint="Choose from the states list"></v-select>
             </v-col>
             <v-col cols="12" sm="6" class="py-1 px-3">
-                <v-select v-model="city.value.value" :error-messages="city.errorMessage.value" :items="cities" label="city" variant="outlined" clearable
-                    hint="Choose from the cities list"></v-select>
+                <v-select v-model="city.value.value" :error-messages="city.errorMessage.value" :items="cities" label="city"
+                    variant="outlined" clearable hint="Choose from the cities list"></v-select>
             </v-col>
 
             <v-row no-gutters class="py-3 mt-7 type">
@@ -28,11 +28,12 @@
                         clearable hint="Enter Google map link of the location" variant="outlined"></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6" class="py-1 px-3">
-                    <v-text-field label="Cost (INR)" v-model="cost.value.value" :error-messages="cost.errorMessage.value" clearable
-                        hint="Enter cost of the property in INR" variant="outlined"></v-text-field>
+                    <v-text-field label="Cost (INR)" v-model="cost.value.value" :error-messages="cost.errorMessage.value"
+                        clearable hint="Enter cost of the property in INR" variant="outlined"></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6" class="py-1 px-3">
-                    <v-text-field label="Total Area (sq/feet)" v-model="totalArea.value.value" :error-messages="totalArea.errorMessage.value" clearable
+                    <v-text-field label="Total Area (sq/feet)" v-model="totalArea.value.value"
+                        :error-messages="totalArea.errorMessage.value" clearable
                         hint="Enter Total area of the property in square feet" variant="outlined"></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6" class="py-1 px-3" style="position:relative;">
@@ -61,8 +62,14 @@
                     </div>
                 </v-col>
                 <v-col cols="12" class="py-1 px-3">
-                    <v-file-input v-model="imgfile.value.value" :error-messages="imgfile.errorMessage.value" label="File input" variant="filled" prepend-icon="mdi-camera"
-                        multiple name="imgfile" accept="image/*"></v-file-input>
+                    <!-- <ValidationProvider :rules="rules" v-slot="{ errors }">
+                        <v-file-input show-size accept=".xlsx" placeholder="Click here to select your file"
+                            label="File name" :error="errors.length > 0" :error-messages="errors[0]" @change="selectFile">
+                        </v-file-input>
+                    </ValidationProvider> -->
+                    <v-file-input v-model="imgfile.value.value" :error-messages="imgfile.errorMessage.value"
+                        label="File input" variant="filled" prepend-icon="mdi-camera" multiple name="imgfile"
+                        accept="image/*"></v-file-input>
                 </v-col>
 
                 <v-col cols="12" class="pt-2 pb-7 px-14">
@@ -101,7 +108,6 @@ import { useRouter } from "vue-router";
 import { useField, useForm } from 'vee-validate';
 
 const props = defineProps(['type']);
-const propertyType = props.type;
 const router = useRouter();
 
 const expand = ref(false);
@@ -111,8 +117,7 @@ const states = reactive(['Karnataka']);
 const countries = reactive(['India']);
 const bodyData = reactive({
     email: sessionStorage.getItem('email'),
-    propertyNumber: null,
-    type: null,
+    type: props.type,
     description: null,
     city: null,
     state: null,
@@ -158,48 +163,48 @@ const bodyData = reactive({
     vidfile: []
 });
 
-
 let { handleSubmit, handleReset } = useForm({
-    validationSchema: {     
-        city(value:any) {
-            if(!value) {
+    validationSchema: {
+        city(value: any) {
+            if (!value) {
                 return 'Required.'
-            }else{
+            } else {
                 return true
             }
         },
-        state(value:any){
-            if(!value) {
+        state(value: any) {
+            if (!value) {
                 return 'Required.'
-            }else{
+            } else {
                 return true
             }
         },
-        cost(value:any){
-            if(!value) {
+        cost(value: any) {
+            if (!value) {
                 return 'Required.'
             }
-            else if(value.length>=4 && (/^[0-9]*$/).test(value)){
+            else if (value.length >= 4 && (/^[0-9]*$/).test(value)) {
                 return true
             }
-                return 'min cost must exceed ₹ 9999 and it should contain only numbers'
-            
+            return 'min cost must exceed ₹ 9999 and it should contain only numbers'
+
         },
-        totalArea(value:any){
-            if(!value) {
+        totalArea(value: any) {
+            if (!value) {
                 return 'Required.'
             }
-            else if(value.length>=2 &&  (/^[0-9]*$/).test(value)){
+            else if (value.length >= 2 && (/^[0-9]*$/).test(value)) {
                 return true
             }
             return ' it sholud exceed single digit, it should contain only numbers'
         },
-        imgfile(value:any){
-            if(!value) {
+        imgfile(value: any) {
+            if (!value) {
+                console.log(value)
                 return 'Required.'
             }
-                return true
-            
+            return true
+
         }
     }
 })
@@ -209,12 +214,12 @@ const city = useField('city');
 const state = useField('state');
 const cost = useField('cost');
 const totalArea = useField('totalArea');
-const imgfile = useField('imgfile');
+const imgfile = useField<File[] | undefined>('imgfile');
 
 
 const loading = ref(false);
 const addProperty = handleSubmit((values) => {
-    for(let item in values) {
+    for (let item in values) {
         //@ts-ignore
         bodyData[item] = values[item];
     }

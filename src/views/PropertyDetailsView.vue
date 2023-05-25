@@ -435,7 +435,7 @@ async function propertydata() {
     if(res.status === 200) {
         count.value++;
         property.data = res.data;
-        console.log(property.data);
+        console.log(res);
         costPerSqFt.value = res?.data?.totalArea !== 0 ? Math.ceil(res?.data?.cost / res?.data?.totalArea) : 0;
     }else {
         router.push({path: '/error', query: {status: res?.status}})
@@ -450,6 +450,10 @@ async function agentdata() {
             propertyId: route?.params?.propertyId,
         },
     })
+    console.log(route?.params?.propertyId)
+    console.log(typeof route?.params?.propertyId)
+        
+
     if(res.status === 200) {
         count.value++;
         agent.data = res.data

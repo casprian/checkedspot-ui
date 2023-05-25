@@ -142,7 +142,7 @@ import { useField, useForm } from 'vee-validate';
 const dialog = ref(false);
 
 //form validation
-let { handleSubmit, handleReset } = useForm({
+const { handleSubmit, handleReset } = useForm({
   validationSchema: {
     name(value: any) {
       if (value?.length >= 2 && value?.length <= 40) {
