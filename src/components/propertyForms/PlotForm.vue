@@ -106,6 +106,8 @@ import { reactive, ref } from 'vue';
 import axios from 'axios';
 import { useRouter } from "vue-router";
 import { useField, useForm } from 'vee-validate';
+//@ts-ignore
+import api from '@/data/api/index.js'
 
 const props = defineProps(['type']);
 const router = useRouter();
@@ -218,7 +220,7 @@ const imgfile = useField<File[] | undefined>('imgfile');
 
 
 const loading = ref(false);
-const addProperty = handleSubmit((values) => {
+const addProperty = handleSubmit(async(values) => {
     for (let item in values) {
         //@ts-ignore
         bodyData[item] = values[item];
@@ -228,10 +230,8 @@ const addProperty = handleSubmit((values) => {
         let geocode = bodyData?.googleMapLink?.split('@');
         geocode = geocode.pop();
         geocode = geocode.split(',');
-        //@ts-ignore
-        bodyData.latitude = parseFloat(geocode[0]);
-        //@ts-ignore
-        bodyData.longitude = parseFloat(geocode[1]);
+        bodyData.latitude = geocode[0];
+        bodyData.longitude = geocode[1];
     }
     loading.value = true;
     const formData = new FormData();
@@ -244,23 +244,32 @@ const addProperty = handleSubmit((values) => {
             })
         }
     })
-    //https://apicheckedspot.azurewebsites.net
-    axios.post('http://localhost:8080/property/individual', formData, {
-        headers: {
-            "Content-Type": "multipart/form-data",
-            "Authorization": `Bearer ${sessionStorage.getItem('token')}`
-        }
-    }).then(res => {
-        console.log(res?.data);
+
+    const res = await api?.property?.createProperty(formData);
+
+    if(res.status === 200) {
         loading.value = false;
         alert(res?.data?.message);
-        if (res?.data?.status === 401) {
-            router.push({ path: '/error', query: { status: 401 } });
-        }
-    }).catch(err => {
-        router.push({ path: '/error', query: { status: err?.response?.status } })
-        console.log(err);
-    })
+    }else {
+        router.push({path: '/error', query: {status: res?.status}})
+    }
+    //https://apicheckedspot.azurewebsites.net
+    // axios.post('http://localhost:8080/property/individual', formData, {
+    //     headers: {
+    //         "Content-Type": "multipart/form-data",
+    //         "Authorization": `Bearer ${sessionStorage.getItem('token')}`
+    //     }
+    // }).then(res => {
+    //     console.log(res?.data);
+    //     loading.value = false;
+    //     alert(res?.data?.message);
+    //     if (res?.data?.status === 401) {
+    //         router.push({ path: '/error', query: { status: 401 } });
+    //     }
+    // }).catch(err => {
+    //     router.push({ path: '/error', query: { status: err?.response?.status } })
+    //     console.log(err);
+    // })
 })
 
 </script>

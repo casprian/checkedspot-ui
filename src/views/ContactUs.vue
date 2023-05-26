@@ -138,6 +138,8 @@
 import axios from 'axios';
 import { ref } from "vue";
 import { useField, useForm } from 'vee-validate';
+//@ts-ignore
+import api from '@/data/api/index.js';
 
 const dialog = ref(false);
 
@@ -198,15 +200,10 @@ const enquiryMessage = useField('enquiryMessage');
 
 console.log(name.value.value)
 const callWhatsappCloudApi = handleSubmit(async (values) => {
-  console.log(values)
+  // console.log(values)
   dialog.value = false;
 
-  axios({
-    method: 'post',
-    url: 'https://apicheckedspot.azurewebsites.net/user/sendEnquiry',
-    data: values
-  }).then((res) => {
-    console.log(res)
+  api?.user?.sendEnquiry({...values}).then((res:any) => {
     if (res?.data?.status === 200) {
       expandSuccess.value = true;
     } else {
@@ -216,7 +213,7 @@ const callWhatsappCloudApi = handleSubmit(async (values) => {
       expandSuccess.value = false;
       expandFailure.value = false;
     }, 5000);
-  }).catch((err) => {
+  }).catch((err:Error) => {
     console.log(err)
     expandFailure.value = true;    
     setTimeout(() => {
@@ -224,6 +221,30 @@ const callWhatsappCloudApi = handleSubmit(async (values) => {
       expandFailure.value = false;
     }, 5000);
   })
+
+  // axios({
+  //   method: 'post',
+  //   url: 'https://apicheckedspot.azurewebsites.net/user/sendEnquiry',
+  //   data: values
+  // }).then((res) => {
+  //   console.log(res)
+  //   if (res?.data?.status === 200) {
+  //     expandSuccess.value = true;
+  //   } else {
+  //     expandFailure.value = true;
+  //   }
+  //   setTimeout(() => {
+  //     expandSuccess.value = false;
+  //     expandFailure.value = false;
+  //   }, 5000);
+  // }).catch((err) => {
+  //   console.log(err)
+  //   expandFailure.value = true;    
+  //   setTimeout(() => {
+  //     expandSuccess.value = false;
+  //     expandFailure.value = false;
+  //   }, 5000);
+  // })
 })
 </script>
 
