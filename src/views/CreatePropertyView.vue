@@ -71,7 +71,7 @@ import { ref } from "vue";
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
-const propertyType = ref('')
+const propertyType = ref('plot')
 
 if (!sessionStorage.getItem('token')) {
     router.push('/')
