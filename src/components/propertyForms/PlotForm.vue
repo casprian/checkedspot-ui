@@ -223,6 +223,16 @@ const addProperty = handleSubmit((values) => {
         //@ts-ignore
         bodyData[item] = values[item];
     }
+    if(bodyData?.googleMapLink){
+        //@ts-ignore
+        let geocode = bodyData?.googleMapLink?.split('@');
+        geocode = geocode.pop();
+        geocode = geocode.split(',');
+        //@ts-ignore
+        bodyData.latitude = parseFloat(geocode[0]);
+        //@ts-ignore
+        bodyData.longitude = parseFloat(geocode[1]);
+    }
     loading.value = true;
     const formData = new FormData();
     (Object.entries(bodyData)).forEach(([key, value]: any) => {
