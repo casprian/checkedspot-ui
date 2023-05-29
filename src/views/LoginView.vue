@@ -74,7 +74,9 @@ import api from '@/data/api/index.js';
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useField, useForm } from 'vee-validate';
+import { useCookies } from "vue3-cookies";
 
+const { cookies } = useCookies();
 const router = useRouter();
 const route = useRoute();
 
@@ -131,6 +133,7 @@ const loginHandler = handleSubmit(async (values: any) => {
         sessionStorage.setItem("token", res?.data?.token);
         sessionStorage.setItem('email', values?.email);
         localStorage.setItem('email', values?.email);
+        cookies.set("token", res?.data?.token, '1h')
         token.value = res?.data?.token;
         retrySignIn.value = false;
         loader.value = false;

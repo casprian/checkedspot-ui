@@ -24,7 +24,7 @@
                     </div>
                 </v-col>
                 <v-col cols="12" sm="6" class="py-1 px-3">
-                    <v-text-field prepend-inner-icon="mdi-link" label="Google Map Link" v-model="bodyData.googleMapLink"
+                    <v-text-field prepend-inner-icon="mdi-link" label="Google Map Link" v-model="googleMapLink.value.value" :error-messages="googleMapLink.errorMessage.value"
                         clearable hint="Enter Google map link of the location" variant="outlined"></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6" class="py-1 px-3">
@@ -181,6 +181,13 @@ let { handleSubmit, handleReset } = useForm({
                 return true
             }
         },
+        googleMapLink(value:string) {
+            if(!value || (/^https:\/\/www\.google\.(?:fr|com|de|co.in)\/maps\/@[-]?\d+(?:\.\d+)?,[-]?\d+(?:\.\d+)?,[-]?\d+(?:\.\d+)?(?:z|m)(?:\/data=[^\\/?]+)?(\?[^\\/]+)?$/).test(value)) {
+                return true;
+            }else {
+                return 'Please enter Valid Google map url/link OR leave it BLANK'
+            }
+        },
         cost(value: any) {
             if (!value) {
                 return 'Required.'
@@ -202,29 +209,54 @@ let { handleSubmit, handleReset } = useForm({
         },
         imgfile(value: any) {
             if (!value) {
-                console.log(value)
                 return 'Required.'
             }
             return true
 
         }
+
     }
 })
+
+// const pattern = /^https?:\/\/www\.google\.(?:fr|com|de|co\.in)\/maps\/(?:place\/[-a-zA-Z0-9%]+\/)?@[-\d.]+,[-\d.]+(?:,[-\d.]+)?(?:[a-zA-Z%+']+(?:[0-9.'%]+)?)?(?:\/data=[^\\/?]+)?(\?[^\\/]+)?$/;
+// const urls = [
+//   'https://www.google.fr/maps/@13.00926,77.6969553,10.31z?entry=ttu',
+//   'https://www.google.com/maps/@12.8713919,77.6875559,13z?entry=ttu',
+//   'https://www.google.com/maps/@37.370157,0.615234,4z/data=!5m1!1e1?entry=ttu',
+//   'https://www.google.com/maps/@37.0625,-95.677068,4686989m/data=!3m1!1e3?entry=ttu',
+//   'https://www.google.com/maps/@37.0625,-95.677068,4686989m/data=!3m1!1e3!5m1!1e1?entry=ttu',
+//   'https://www.google.de/maps/@12.8713919,77.6875559,13z?entry=ttu',
+//   'https://www.google.de/maps/@37.0625,-95.677068,4686989m/data=!3m1!1e3?entry=ttu',
+//   'https://www.google.co.in/maps/place/13%C2%B004\'09.3%22N+77%C2%B038\'00.5%22E/@13.0692503,77.6328353,19z/data=!3m1!4b1!4m13!1m8!3m7!1s0x3bae19dcd0f0912d:0xe9037686e86a626d!2sRK+Hegde+Nagar,+Bengaluru,+Karnataka!3b1!8m2!3d13.0675728!4d77.6335573!16s%2Fg%2F1hjgmwhyd!3m3!8m2!3d13.069249!4d77.633479?entry=ttu',
+//   'https://www.google.co.in/maps/place/RK+Hegde+Nagar,+Bengaluru,+Karnataka/@13.0694763,77.6323753,19z/data=!4m6!3m5!1s0x3bae19dcd0f0912d:0xe9037686e86a626d!8m2!3d13.0675728!4d77.6335573!16s%2Fg%2F1hjgmwhyd?entry=ttu'
+// ];
+
+// urls.forEach(url => {
+//   const isValid = pattern.test(url);
+//   if (isValid) {
+//     console.log(`URL "${url}" is valid.`);
+//   } else {
+//     console.log(`URL "${url}" is not valid.`);
+//   }
+// });
 
 
 const city = useField('city');
 const state = useField('state');
+const googleMapLink = useField('googleMapLink');
 const cost = useField('cost');
 const totalArea = useField('totalArea');
 const imgfile = useField<File[] | undefined>('imgfile');
 
-
 const loading = ref(false);
 const addProperty = handleSubmit(async(values) => {
     for (let item in values) {
-        //@ts-ignore
-        bodyData[item] = values[item];
+        if(values[item]){
+            //@ts-ignore
+            bodyData[item] = values[item];
+        }
     }
+
     if(bodyData?.googleMapLink){
         //@ts-ignore
         let geocode = bodyData?.googleMapLink?.split('@');
@@ -232,6 +264,8 @@ const addProperty = handleSubmit(async(values) => {
         geocode = geocode.split(',');
         bodyData.latitude = geocode[0];
         bodyData.longitude = geocode[1];
+        console.log(bodyData.latitude);
+        console.log(bodyData.longitude)
     }
     loading.value = true;
     const formData = new FormData();

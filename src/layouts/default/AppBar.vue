@@ -20,25 +20,35 @@
       <v-btn v-if="false" @click="handlePropertyManagement" prepend-icon="mdi-dots-vertical" variant="outlined" class="ml-2">
         Add/Manage Properties
       </v-btn>
+      <v-btn @click="getAuthorizationUrl" prepend-icon="mdi-dots-vertical" variant="outlined" class="ml-2">
+        Google SignIn
+      </v-btn>
     </template>
   </v-app-bar>
 </template>
 
 <script lang="ts" setup>
+import axios from 'axios';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 // import { ref } from 'vue';
+import { useCookies } from "vue3-cookies";
+
+const { cookies } = useCookies();
 const router = useRouter();
 function openSignInPage() {
   router.push('/login');
 }
 const hastoken = ref(false);
-const token = sessionStorage.getItem('token');
+const token = cookies.get('token');
+
+// const tokengg = sessionStorage.getItem('token');
 if (token) {
   hastoken.value = true;
 }
 
 function handleLogout() {
+  cookies.remove('token');
   sessionStorage.removeItem('token');
   router.push('/');
 }
@@ -48,7 +58,7 @@ function openContactPage() {
 }
 
 function handleCreateProperty() {
-  if (!sessionStorage.getItem('token')) {
+  if (!cookies.get('token')) {
     router.push({path:'/login', query: {message: "createProperty"}});
     return;
   } else {
@@ -58,11 +68,20 @@ function handleCreateProperty() {
 }
 
 function handlePropertyManagement() {
-  if (!sessionStorage.getItem('token')) {
+  if (!cookies.get('token')) {
     alert("Please Login to continue");
   } else {
     router.push('/profile')
   }
+}
+
+function getAuthorizationUrl() {
+  axios.get('http://localhost:8080/user/getAuthorizationUrl').then(res => {
+    console.log(res)
+    window.open(res?.data?.url, '_self')
+  }).catch(err => {
+    console.log(err);
+  })
 }
 
 </script>
