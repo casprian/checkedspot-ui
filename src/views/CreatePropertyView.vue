@@ -23,11 +23,13 @@ import PlotForm from '@/components/propertyForms/PlotForm.vue';
 import FlatForm from '@/components/propertyForms/FlatForm.vue';
 import { ref } from "vue";
 import { useRouter } from 'vue-router';
+import { useCookies } from 'vue3-cookies';
 
+const { cookies } = useCookies();
 const router = useRouter();
 const propertyType = ref('plot')
 
-if (!sessionStorage.getItem('token')) {
+if (!cookies.get('token')) {
     router.push('/')
 }
 </script>

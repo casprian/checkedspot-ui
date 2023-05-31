@@ -2,10 +2,6 @@
     <v-container>
         <v-row no-gutters>
             <v-col cols="12" sm="6" class="py-1 px-3">
-                <v-select v-model="bodyData.type" label="Property Type" variant="outlined" clearable hint="Property Type"
-                    disabled></v-select>
-            </v-col>
-            <v-col cols="12" sm="6" class="py-1 px-3">
                 <v-select v-model="bodyData.country" :items="countries" disabled label="country" variant="outlined"
                     clearable hint="Choose from the countries list"></v-select>
             </v-col>
@@ -79,7 +75,7 @@
                 </v-col>
                 <v-col cols="12" class="py-1 px-3">
                     <v-file-input v-model="bodyData.planimgfile" label="File input" variant="filled"
-                        prepend-icon="mdi-camera" multiple name="planimgfile" accept="image/*"></v-file-input>
+                        prepend-icon="mdi-file-pdf-box" multiple name="planimgfile" accept=".pdf"></v-file-input>
                 </v-col>
 
                 <v-col cols="12" class="pt-2 pb-7 px-14">

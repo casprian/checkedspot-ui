@@ -265,8 +265,7 @@
                             </v-card-item>
 
                             <v-row no-gutters class="px-4 pb-7">
-                                <v-img
-                                    :src="property?.data?.propertyPlan ? property?.data?.propertyPlan[0] : 'https://www.houseplanshelper.com/images/how-to-read-floor-plans-full-floor-plan.jpg'"></v-img>
+                                <PDFViewer :rendering-text="'Loading Plan PDF'" :source="property?.data?.propertyPlan ? property?.data?.propertyPlan[0] : ''" @download="handleDownload" style="height: 100vh; width: 100vw"/>
                             </v-row>
                         </v-card>
                     </v-col>
@@ -351,6 +350,11 @@
 import api from '@/data/api/index.js';
 import { onMounted, reactive, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import PDFViewer from 'pdf-viewer-vue';
+
+function handleDownload() {
+    window.location.href = property?.data?.propertyPlan[0];
+}
 
 const route = useRoute();
 const router = useRouter();
@@ -431,16 +435,16 @@ async function propertydata() {
             propertyId: route?.params?.propertyId,
         },
     })
-    
-    if(res.status === 200) {
+
+    if (res.status === 200) {
         count.value++;
         property.data = res.data;
         console.log(res);
         costPerSqFt.value = res?.data?.totalArea !== 0 ? Math.ceil(res?.data?.cost / res?.data?.totalArea) : 0;
-    }else {
-        router.push({path: '/error', query: {status: res?.status}})
+    } else {
+        router.push({ path: '/error', query: { status: res?.status } })
     }
-    
+
 
 }
 
@@ -452,13 +456,13 @@ async function agentdata() {
     })
     console.log(route?.params?.propertyId)
     console.log(typeof route?.params?.propertyId)
-        
 
-    if(res.status === 200) {
+
+    if (res.status === 200) {
         count.value++;
         agent.data = res.data
-    }else {
-        router.push({path: '/error', query: {status: res?.status}})
+    } else {
+        router.push({ path: '/error', query: { status: res?.status } })
     }
 }
 
