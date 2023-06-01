@@ -1,6 +1,4 @@
-// Composables
 import { createRouter, createWebHistory } from 'vue-router'
-import ListingView from '../views/ListingView.vue';
 
 const routes = [
   {
@@ -8,48 +6,35 @@ const routes = [
     component: () => import('@/layouts/default/Default.vue'),
     children: [
       {
-        path: '',
+        path: '/',
         name: 'Home',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "home" */ '@/views/HomeView.vue'),
       },
       {
-        path: 'listing',
+        path: '/listing',
         name: 'Listing',
-        component: ListingView,
+        component: () => import(/* webpackChunkName: "home" */ '@/views/ListingView.vue'),
       },
       {
-        path: 'authorization',
+        path: '/authorization',
         name: 'Authorization',
         component: ()=> import('@/views/AuthorizationView.vue')
       },
-      // {
-      //   path: 'profile',
-      //   name: 'Profile',
-      //   component: ()=> import('@/views/ProfileView.vue')
-      // },
       {
-        path: 'propertydetails/:propertyId',
+        path: '/propertydetails/:propertyId',
         name: 'Property Details',
         component: ()=> import('@/views/PropertyDetailsView.vue')
       },
       {
-        path: 'contactus',
+        path: '/contactus',
         name: 'Contact Us',
         component: ()=> import('@/views/ContactUs.vue')
       },
       {
-        path: 'createproperty',
+        path: '/createproperty',
         name: 'Create Property',
         component: ()=> import('@/views/CreatePropertyView.vue')
       },
-      // {
-      //   path: 'updateproperty',
-      //   name: 'Update Property',
-      //   component: () => import('@/views/updatePropertyView.vue')
-      // }
     ],
   },
   {
@@ -60,7 +45,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(),
   routes,
 })
 

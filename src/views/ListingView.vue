@@ -113,7 +113,6 @@ onMounted(async () => {
 .cardCont:hover {
     cursor: pointer;
 }
-
 .loader {
     position: absolute;
     top: 50%;
