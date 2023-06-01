@@ -3,8 +3,8 @@ import axios from "axios";
 const http = axios.create({
   // withCredentials: true, this statement is used to send cookie by default in request headers.
   withCredentials: true,
-  baseURL: "http://localhost:8080",
-  // baseURL: "https://apicheckedspot.azurewebsites.net",
+  //baseURL: "http://localhost:8080",
+  baseURL: "https://apicheckedspot.azurewebsites.net",
   headers: {
     Accept: "application/json",
   },
@@ -34,8 +34,8 @@ http.interceptors.response.use(
 
 const instanceWithToken = axios.create({
   withCredentials: true,
-  baseURL: "http://localhost:8080",
-  // baseURL: "https://apicheckedspot.azurewebsites.net",
+  // baseURL: "http://localhost:8080",
+  baseURL: "https://apicheckedspot.azurewebsites.net",
   headers: {
     Accept: "application/json",
     Authorization: `Bearer ${sessionStorage.getItem('token')}`
@@ -66,8 +66,8 @@ instanceWithToken.interceptors.response.use(
 
 const instanceForPostMultiPart = axios.create({ 
   withCredentials: true,
-  baseURL: "http://localhost:8080",
-  // baseURL: "https://apicheckedspot.azurewebsites.net",
+  //baseURL: "http://localhost:8080",
+   baseURL: "https://apicheckedspot.azurewebsites.net",
   headers: {
     "Accept": "application/json",
     "Content-Type": "multipart/form-data",
