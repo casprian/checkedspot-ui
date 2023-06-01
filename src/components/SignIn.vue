@@ -156,8 +156,6 @@ const loginHandler = handleSubmit(async (values: any) => {
     });
 
     if (res?.data?.token) {
-        sessionStorage.setItem("token", res?.data?.token);
-        sessionStorage.setItem('email', values?.email);
         localStorage.setItem('email', values?.email);
         cookies.set("token", res?.data?.token, '1h')
         token.value = res?.data?.token;
@@ -172,7 +170,7 @@ const loginHandler = handleSubmit(async (values: any) => {
 })
 
 function getAuthorizationUrl() {
-  axios.get('https://api.checkedspot.com/user/getAuthorizationUrl').then(res => {
+  axios.get('http://localhost:8080/user/getAuthorizationUrl').then(res => {
     console.log(res)
     window.open(res?.data?.url, '_self')
   }).catch(err => {
