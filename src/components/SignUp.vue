@@ -174,7 +174,7 @@ const createUser = handleSubmit(async (values) => {
 })
 
 function getAuthorizationUrl() {
-    axios.get('http://localhost:8080/user/getAuthorizationUrl').then(res => {
+    axios.get('https://apicheckedspot.azurewebsites.net/user/getAuthorizationUrl').then(res => {
         console.log(res)
         window.open(res?.data?.url, '_self')
     }).catch(err => {

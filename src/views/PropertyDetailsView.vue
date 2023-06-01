@@ -265,7 +265,12 @@
                             </v-card-item>
 
                             <v-row no-gutters class="px-4 pb-7">
-                                <PDFViewer :rendering-text="'Loading Plan PDF'" :source="property?.data?.propertyPlan ? property?.data?.propertyPlan[0] : ''" @download="handleDownload" style="height: 100vh; width: 100vw"/>
+                                <PDFViewer 
+                                    :rendering-text="'Loading Plan PDF'" 
+                                    :source="property?.data?.propertyPlan ? property?.data?.propertyPlan[0] : ''" 
+                                    @download="handleDownload" 
+                                    style="height: 100vh; width: 100vw"
+                                />
                             </v-row>
                         </v-card>
                     </v-col>
