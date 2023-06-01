@@ -13,7 +13,7 @@ const routes = [
       {
         path: '/listing',
         name: 'Listing',
-        component: () => import(/* webpackChunkName: "home" */ '@/views/ListingView.vue'),
+        component: () => import('@/views/ListingView.vue'),
       },
       {
         path: '/authorization',
