@@ -12,7 +12,7 @@
     </v-container>
     <v-container fluid class="pa-0 pt-16 px-4 bg-background">
 
-        <v-row v-if="!property?.data" no-gutters class="px-sm-14">
+        <v-row v-if="count < 2" no-gutters class="px-sm-14">
             <v-col cols="4" class="loader">
                 <v-progress-linear color="pink-accent-3" indeterminate rounded height="10"></v-progress-linear>
             </v-col>
@@ -238,6 +238,24 @@
                     </v-col>
                 </v-row>
 
+                <!-- Property Videos -->
+                <v-row no-gutters class="mb-8">
+                    <v-col cols="12">
+                        <v-card class="rounded-0 px-2 pb-4 pt-2" elevation="2">
+                            <v-card-item class="titleCont mb-3">
+                                <v-card-title class="title">Video</v-card-title>
+                            </v-card-item>
+
+                            <v-card-item>
+                                <video id="propVideo" muted controls autoplay>
+                                    <source :src="property?.data?.propertyVideo[0]" type="video/mp4" />
+                                    Your browser does not support the video tag.
+                                </video>
+                            </v-card-item>
+                        </v-card>
+                    </v-col>
+                </v-row>
+
                 <!-- Floor Plans -->
                 <v-row no-gutters class="mb-8">
                     <v-col cols="12">
@@ -247,8 +265,7 @@
                             </v-card-item>
 
                             <v-row no-gutters class="px-4 pb-7">
-                                <v-img
-                                    :src="property?.data?.propertyPlan ? property?.data?.propertyPlan[0] : 'https://www.houseplanshelper.com/images/how-to-read-floor-plans-full-floor-plan.jpg'"></v-img>
+                                <PDFViewer :rendering-text="'Loading Plan PDF'" :source="property?.data?.propertyPlan ? property?.data?.propertyPlan[0] : ''" @download="handleDownload" style="height: 100vh; width: 100vw"/>
                             </v-row>
                         </v-card>
                     </v-col>
@@ -295,7 +312,7 @@
                                 <div class="text-subtitle-1 px-5 pt-2 text-grey-darken-1">
                                     {{
                                         agent?.data?.address
-                                        ? agent?.data?.address[0]
+                                        ? agent?.data?.address
                                         : 'Not Found'
                                     }}
                                 </div>
@@ -305,7 +322,7 @@
                                 <div class="text-subtitle-1 px-5 pt-2 text-grey-darken-1">
                                     {{
                                         agent?.data?.mobile
-                                        ? agent?.data?.mobile[0]
+                                        ? agent?.data?.mobile
                                         : 'Not Found'
                                     }}
                                 </div>
@@ -315,7 +332,7 @@
                                 <div class="text-subtitle-1 px-5 pt-2 text-grey-darken-1">
                                     {{
                                         agent?.data?.email
-                                        ? agent?.data?.email[0]
+                                        ? agent?.data?.email
                                         : 'Not Found' }}
                                 </div>
                             </v-col>
@@ -332,9 +349,15 @@
 // @ts-ignore
 import api from '@/data/api/index.js';
 import { onMounted, reactive, ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
+import PDFViewer from 'pdf-viewer-vue';
+
+function handleDownload() {
+    window.location.href = property?.data?.propertyPlan[0];
+}
 
 const route = useRoute();
+const router = useRouter();
 
 const pdStyle01 = ref("text-body-1 font-weight-medium text-grey-darken-2");
 const pdStyle02 = ref("text-body-1 text-grey-darken-1");
@@ -358,6 +381,7 @@ const items = reactive([
 ]);
 
 const costPerSqFt = ref(0);
+const count = ref(0);
 
 const property = reactive({
     data: {
@@ -406,22 +430,40 @@ const propetyDocument = reactive({
 })
 
 async function propertydata() {
-    const res = await api.property.getProperty({
+    const res = await api?.property?.getProperty({
         params: {
             propertyId: route?.params?.propertyId,
         },
     })
-    property.data = res.data;
-    console.log(property.data);
-    costPerSqFt.value = res?.data?.totalArea !== 0 ? Math.ceil(res?.data?.cost / res?.data?.totalArea) : 0;
+
+    if (res.status === 200) {
+        count.value++;
+        property.data = res.data;
+        console.log(res);
+        costPerSqFt.value = res?.data?.totalArea !== 0 ? Math.ceil(res?.data?.cost / res?.data?.totalArea) : 0;
+    } else {
+        router.push({ path: '/error', query: { status: res?.status } })
+    }
+
+
 }
+
 async function agentdata() {
-    const res = await api.agent.getAgent({
+    const res = await api?.agent?.getAgent({
         params: {
             propertyId: route?.params?.propertyId,
         },
     })
-    agent.data = res.data
+    console.log(route?.params?.propertyId)
+    console.log(typeof route?.params?.propertyId)
+
+
+    if (res.status === 200) {
+        count.value++;
+        agent.data = res.data
+    } else {
+        router.push({ path: '/error', query: { status: res?.status } })
+    }
 }
 
 onMounted(async () => {

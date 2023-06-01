@@ -21,15 +21,15 @@ const routes = [
         component: ListingView,
       },
       {
-        path: 'authenticate',
-        name: 'Signin',
-        component: ()=> import('@/views/AuthenticationView.vue')
+        path: 'authorization',
+        name: 'Authorization',
+        component: ()=> import('@/views/AuthorizationView.vue')
       },
-      {
-        path: 'profile',
-        name: 'Profile',
-        component: ()=> import('@/views/ProfileView.vue')
-      },
+      // {
+      //   path: 'profile',
+      //   name: 'Profile',
+      //   component: ()=> import('@/views/ProfileView.vue')
+      // },
       {
         path: 'propertydetails/:propertyId',
         name: 'Property Details',
@@ -45,8 +45,18 @@ const routes = [
         name: 'Create Property',
         component: ()=> import('@/views/CreatePropertyView.vue')
       },
+      // {
+      //   path: 'updateproperty',
+      //   name: 'Update Property',
+      //   component: () => import('@/views/updatePropertyView.vue')
+      // }
     ],
   },
+  {
+    path: '/error',
+    name: 'Error page',
+    component: () => import('@/views/ErrorView.vue')
+  }
 ]
 
 const router = createRouter({

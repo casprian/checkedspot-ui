@@ -11,13 +11,13 @@
       <v-btn v-if="!hastoken" @click="openSignInPage" prepend-icon="mdi-login" variant="outlined" class="ml-2">
         Login
       </v-btn>
-      <v-btn v-else @click="deleteToken" prepend-icon="mdi-logout" variant="outlined" class="ml-2">
+      <v-btn v-else @click="handleLogout" prepend-icon="mdi-logout" variant="outlined" class="ml-2">
         Logout
       </v-btn>
-      <v-btn prepend-icon="mdi-plus" @click="router.push('/createproperty')" variant="outlined" class="ml-2">
+      <v-btn prepend-icon="mdi-plus" @click="handleCreateProperty" variant="outlined" class="ml-2">
         Add Property
       </v-btn>
-      <v-btn disabled @click="router.push('/profile')" prepend-icon="mdi-dots-vertical" variant="outlined" class="ml-2">
+      <v-btn v-if="false" @click="handlePropertyManagement" prepend-icon="mdi-dots-vertical" variant="outlined" class="ml-2">
         Add/Manage Properties
       </v-btn>
     </template>
@@ -28,24 +28,46 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 // import { ref } from 'vue';
+import { useCookies } from "vue3-cookies";
+
+const { cookies } = useCookies();
 const router = useRouter();
 function openSignInPage() {
-  router.push('/authenticate');
+  router.push('/authorization');
 }
 const hastoken = ref(false);
-const token = sessionStorage.getItem('token');
+const token = cookies.get('token');
 if (token) {
   hastoken.value = true;
 }
 
-function deleteToken() {
+function handleLogout() {
+  cookies.remove('token');
   sessionStorage.removeItem('token');
+  router.push('/');
 }
 
-function openContactPage(){
+function openContactPage() {
   router.push('/contactUs');
 }
 
+function handleCreateProperty() {
+  if (!cookies.get('token')) {
+    router.push({path:'/authorization', query: {message: "createProperty"}});
+    return;
+  } else {
+    router.push('/createproperty');
+    return;
+  }
+}
+
+function handlePropertyManagement() {
+  if (!cookies.get('token')) {
+    alert("Please Login to continue");
+  } else {
+    router.push('/profile')
+  }
+}
 </script>
 
 <style scoped>
