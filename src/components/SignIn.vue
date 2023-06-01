@@ -156,8 +156,6 @@ const loginHandler = handleSubmit(async (values: any) => {
     });
 
     if (res?.data?.token) {
-        sessionStorage.setItem("token", res?.data?.token);
-        sessionStorage.setItem('email', values?.email);
         localStorage.setItem('email', values?.email);
         cookies.set("token", res?.data?.token, '1h')
         token.value = res?.data?.token;

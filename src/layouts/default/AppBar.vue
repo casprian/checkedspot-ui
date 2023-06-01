@@ -42,8 +42,9 @@ if (token) {
 }
 
 function handleLogout() {
-  cookies.remove('token');
-  sessionStorage.removeItem('token');
+  const splitDomain = (location.hostname).split('www.');
+  const domain = splitDomain[splitDomain.length - 1];
+  document.cookie = `token=; Max-Age=0; path=/; domain=${domain}`;
   router.push('/');
 }
 
