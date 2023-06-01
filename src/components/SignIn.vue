@@ -170,7 +170,7 @@ const loginHandler = handleSubmit(async (values: any) => {
 })
 
 function getAuthorizationUrl() {
-  axios.get('http://localhost:8080/user/getAuthorizationUrl').then(res => {
+  axios.get('https://api.checkedspot.com/user/getAuthorizationUrl').then(res => {
     console.log(res)
     window.open(res?.data?.url, '_self')
   }).catch(err => {
