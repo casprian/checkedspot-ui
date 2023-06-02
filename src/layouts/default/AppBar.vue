@@ -1,22 +1,34 @@
 <template>
-  <v-app-bar :elevation="2" density="compact">
+  <v-app-bar :elevation="2" density="compact" class="pa-2">
     <template v-slot:prepend>
-      <v-img @click="router.push('/')" class="logo" width="200px" height="100px" src="../../assets/logocheckedspot.png" />
+      <v-img @click="router.push('/')" class="logo" width="230px" height="100px" src="../../assets/logocheckedspot.png" />
     </template>
 
     <template v-slot:append>
-      <v-btn prepend-icon="mdi-phone-classic" @click="openContactPage" variant="outlined" class="ml-2">
-        Contact
+      <v-btn  @click="openContactPage" variant="flat" class="ml-2">
+        HOME
       </v-btn>
-      <v-btn v-if="!hastoken" @click="openSignInPage" prepend-icon="mdi-login" variant="outlined" class="ml-2">
-        Login
+      <v-btn  @click="openContactPage" variant="flat" class="ml-2">
+        WHO WE ARE
       </v-btn>
-      <v-btn v-else @click="handleLogout" prepend-icon="mdi-logout" variant="outlined" class="ml-2">
-        Logout
+      <v-btn  @click="openContactPage" variant="flat" class="ml-2">
+        WHAT WE DO
       </v-btn>
-      <v-btn prepend-icon="mdi-plus" @click="handleCreateProperty" variant="outlined" class="ml-2">
+      <v-btn  @click="openContactPage" variant="flat" class="ml-2 mr-5">
+        CONTACT
+      </v-btn>
+      <v-btn v-if="!hastoken" @click="openSignInPage"  variant="outlined" class="ml-2" color="deep-purple-lighten-2">
+        LOGIN
+      </v-btn>
+      <v-btn v-else @click="handleLogout"  variant="outlined" class="ml-2" color="deep-purple-lighten-2">
+        LOGOUT
+      </v-btn>
+      <v-btn  @click="openContactPage" variant="flat" class="ml-3 mr-8 " color="deep-purple-lighten-2">
+        REGISTER
+      </v-btn>
+      <!-- <v-btn prepend-icon="mdi-plus" @click="handleCreateProperty" variant="outlined" class="ml-2">
         Add Property
-      </v-btn>
+      </v-btn> -->
       <v-btn v-if="false" @click="handlePropertyManagement" prepend-icon="mdi-dots-vertical" variant="outlined" class="ml-2">
         Add/Manage Properties
       </v-btn>
@@ -28,24 +40,18 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 // import { ref } from 'vue';
-import { useCookies } from "vue3-cookies";
-
-const { cookies } = useCookies();
 const router = useRouter();
 function openSignInPage() {
-  router.push('/authorization');
+  router.push('/login');
 }
 const hastoken = ref(false);
-const token = cookies.get('token');
+const token = sessionStorage.getItem('token');
 if (token) {
   hastoken.value = true;
 }
 
 function handleLogout() {
-  cookies.remove('token');
-  const splitDomain = (location.hostname).split('www.');
-  const domain = splitDomain[splitDomain.length - 1];
-  document.cookie = `token=; Max-Age=0; path=/; domain=${domain}`;
+  sessionStorage.removeItem('token');
   router.push('/');
 }
 
@@ -54,8 +60,8 @@ function openContactPage() {
 }
 
 function handleCreateProperty() {
-  if (!cookies.get('token')) {
-    router.push({path:'/authorization', query: {message: "createProperty"}});
+  if (!sessionStorage.getItem('token')) {
+    router.push({path:'/login', query: {message: "createProperty"}});
     return;
   } else {
     router.push('/createproperty');
@@ -64,12 +70,13 @@ function handleCreateProperty() {
 }
 
 function handlePropertyManagement() {
-  if (!cookies.get('token')) {
+  if (!sessionStorage.getItem('token')) {
     alert("Please Login to continue");
   } else {
     router.push('/profile')
   }
 }
+
 </script>
 
 <style scoped>

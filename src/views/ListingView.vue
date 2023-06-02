@@ -47,7 +47,7 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import api from "@/data/api/index.js";
-import PropertyCard from '@/components/PropertyCard.vue';
+import PropertyCard from '@/components/PropertyCard.vue'
 import { computed, onMounted, reactive, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
@@ -113,6 +113,7 @@ onMounted(async () => {
 .cardCont:hover {
     cursor: pointer;
 }
+
 .loader {
     position: absolute;
     top: 50%;

@@ -130,8 +130,6 @@
           </form>
         </v-card>
       </v-col>
-      <v-col cols="12">
-      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -140,13 +138,11 @@
 import axios from 'axios';
 import { ref } from "vue";
 import { useField, useForm } from 'vee-validate';
-//@ts-ignore
-import api from '@/data/api/index.js';
 
 const dialog = ref(false);
 
 //form validation
-const { handleSubmit, handleReset } = useForm({
+let { handleSubmit, handleReset } = useForm({
   validationSchema: {
     name(value: any) {
       if (value?.length >= 2 && value?.length <= 40) {
@@ -202,10 +198,15 @@ const enquiryMessage = useField('enquiryMessage');
 
 console.log(name.value.value)
 const callWhatsappCloudApi = handleSubmit(async (values) => {
-  // console.log(values)
+  console.log(values)
   dialog.value = false;
 
-  api?.user?.sendEnquiry({...values}).then((res:any) => {
+  axios({
+    method: 'post',
+    url: 'https://apicheckedspot.azurewebsites.net/user/sendEnquiry',
+    data: values
+  }).then((res) => {
+    console.log(res)
     if (res?.data?.status === 200) {
       expandSuccess.value = true;
     } else {
@@ -215,7 +216,7 @@ const callWhatsappCloudApi = handleSubmit(async (values) => {
       expandSuccess.value = false;
       expandFailure.value = false;
     }, 5000);
-  }).catch((err:Error) => {
+  }).catch((err) => {
     console.log(err)
     expandFailure.value = true;    
     setTimeout(() => {
@@ -223,30 +224,6 @@ const callWhatsappCloudApi = handleSubmit(async (values) => {
       expandFailure.value = false;
     }, 5000);
   })
-
-  // axios({
-  //   method: 'post',
-  //   url: 'https://apicheckedspot.azurewebsites.net/user/sendEnquiry',
-  //   data: values
-  // }).then((res) => {
-  //   console.log(res)
-  //   if (res?.data?.status === 200) {
-  //     expandSuccess.value = true;
-  //   } else {
-  //     expandFailure.value = true;
-  //   }
-  //   setTimeout(() => {
-  //     expandSuccess.value = false;
-  //     expandFailure.value = false;
-  //   }, 5000);
-  // }).catch((err) => {
-  //   console.log(err)
-  //   expandFailure.value = true;    
-  //   setTimeout(() => {
-  //     expandSuccess.value = false;
-  //     expandFailure.value = false;
-  //   }, 5000);
-  // })
 })
 </script>
 
