@@ -379,7 +379,7 @@ const items = reactive([
         href: `${route?.query?.listingPath}`,
     },
     {
-        title: "PropertyDetails",
+        title: "Property Details",
         disabled: true,
         href: "/propertydetails",
     },

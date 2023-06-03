@@ -53,6 +53,7 @@ import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
 const router = useRouter();
+console.log(route.query);
 const listingFullpath = ref(`${route.fullPath}`);
 const items = reactive([
     {
@@ -73,7 +74,7 @@ const items = reactive([
 let propertiesData = reactive({ data: null });
 const propertyFilterObj = reactive({ ...route?.query });
 const pageNumber = ref(1)
-const limit = ref(10);
+const limit = ref(6);
 const noOfPage = ref(1);
 const noOfData = ref(0);
 const noOfDataComputed = computed(() => {

@@ -71,8 +71,8 @@
                             color="pink-accent-3" hide-details>
                         </v-switch>
                     </v-row>
-                    <v-expand-transition>
-                        <v-card v-show="expand" height="auto" width="75%" class="px-2 mx-auto bg-secondary">
+                    <v-expand-transition style="position:absolute;">
+                        <v-card v-show="expand" height="auto" width="90%" class="px-2 mx-auto bg-grey-darken-3">
                             <div class="text-body-2 pa-3">Is FreeHolds means</div>
                         </v-card>
                     </v-expand-transition>
