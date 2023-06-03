@@ -1,6 +1,6 @@
 <template>
   <div class="filterContainer">
-    <v-row>
+    <!-- <v-row>
       <v-col offset="2" cols="8">
         <v-expansion-panels :multiple="true" v-model="panel">
           <v-expansion-panel class="mb-4" :expanded="true">
@@ -131,6 +131,164 @@
           </v-expansion-panel>
         </v-expansion-panels>
       </v-col>
+    </v-row> -->
+
+    <v-row no-gutters>
+      <v-col offset="2" cols="8">
+          <v-card class="rounded-lg">
+            <v-tabs
+              v-model="tab"
+              bg-color="white"
+              class="mx-11 mt-4"
+            >
+              <v-tab value="one">ADD PROPERTY</v-tab>
+              <v-tab value="two">FARMLAND</v-tab>
+              <v-tab value="three">PLOTS</v-tab>
+              <v-tab value="four">APARTMENT</v-tab>
+              <v-tab value="five">INDEPENDENT HOUSES</v-tab>
+            </v-tabs>
+
+            <v-card-text class="pa-0 pb-2 pt-0">
+              <v-window v-model="tab">
+                <v-window-item value="one">
+                  <v-row no-gutters>
+                    <v-col>
+                      <v-form>
+                        <v-container>
+                          <v-row no-gutters class="px-7">
+                            <v-col
+                              cols="12"
+                              class="d-flex justify-space-between align-center px-4 py-0 pl-4  rounded"
+                              style="border:1px solid rgb(197, 195, 195)"
+
+                            >
+                              <v-icon icon="mdi-map-marker" class="mr-2 mb-n1" size="24"></v-icon>
+                              <v-text-field
+                                placeholder="Enter Location"
+                                variant="plain"
+                                density="compact"
+                                class="mr-5 mb-n4 placeholder-color"
+                              ></v-text-field>
+                              <v-btn variant="flat"  color="deep-purple-lighten-2" height="34px" density="default">SEARCH</v-btn>
+                            </v-col>
+                          </v-row>
+                        </v-container>
+                      </v-form>
+                    </v-col>
+                  </v-row>
+                </v-window-item>
+                <v-window-item value="two">
+                  <v-row no-gutters>
+                    <v-col>
+                      <v-form>
+                        <v-container>
+                          <v-row no-gutters class="px-7">
+                            <v-col
+                              cols="12"
+                              class="d-flex justify-space-between align-center px-4 py-0 pl-4  rounded"
+                              style="border:1px solid rgb(197, 195, 195)"
+
+                            >
+                              <v-icon icon="mdi-map-marker" class="mr-2 mb-n1" size="24"></v-icon>
+                              <v-text-field
+                                placeholder="Enter Location"
+                                variant="plain"
+                                density="compact"
+                                class="mr-5 mb-n4 placeholder-color"
+                              ></v-text-field>
+                              <v-btn variant="flat"  color="deep-purple-lighten-2" height="34px" density="default">SEARCH</v-btn>
+                            </v-col>
+                          </v-row>
+                        </v-container>
+                      </v-form>
+                    </v-col>
+                  </v-row>
+                </v-window-item>
+                <v-window-item value="three">
+                  <v-row no-gutters>
+                    <v-col>
+                      <v-form>
+                        <v-container>
+                          <v-row no-gutters class="px-7">
+                            <v-col
+                              cols="12"
+                              class="d-flex justify-space-between align-center px-4 py-0 pl-4  rounded"
+                              style="border:1px solid rgb(197, 195, 195)"
+
+                            >
+                              <v-icon icon="mdi-map-marker" class="mr-2 mb-n1" size="24"></v-icon>
+                              <v-text-field
+                                placeholder="Enter Location"
+                                variant="plain"
+                                density="compact"
+                                class="mr-5 mb-n4 placeholder-color"
+                              ></v-text-field>
+                              <v-btn variant="flat"  color="deep-purple-lighten-2" height="34px" density="default">SEARCH</v-btn>
+                            </v-col>
+                          </v-row>
+                        </v-container>
+                      </v-form>
+                    </v-col>
+                  </v-row>
+                </v-window-item>
+                <v-window-item value="four">
+                  <v-row no-gutters>
+                    <v-col>
+                      <v-form>
+                        <v-container>
+                          <v-row no-gutters class="px-7">
+                            <v-col
+                              cols="12"
+                              class="d-flex justify-space-between align-center px-4 py-0 pl-4  rounded"
+                              style="border:1px solid rgb(197, 195, 195)"
+
+                            >
+                              <v-icon icon="mdi-map-marker" class="mr-2 mb-n1" size="24"></v-icon>
+                              <v-text-field
+                                placeholder="Enter Location"
+                                variant="plain"
+                                density="compact"
+                                class="mr-5 mb-n4 placeholder-color"
+                              ></v-text-field>
+                              <v-btn variant="flat"  color="deep-purple-lighten-2" height="34px" density="default">SEARCH</v-btn>
+                            </v-col>
+                          </v-row>
+                        </v-container>
+                      </v-form>
+                    </v-col>
+                  </v-row>
+                </v-window-item>
+                <v-window-item value="five">
+                  <v-row no-gutters>
+                    <v-col>
+                      <v-form>
+                        <v-container>
+                          <v-row no-gutters class="px-7">
+                            <v-col
+                              cols="12"
+                              class="d-flex justify-space-between align-center px-4 py-0 pl-4  rounded"
+                              style="border:1px solid rgb(197, 195, 195)"
+
+                            >
+                              <v-icon icon="mdi-map-marker" class="mr-2 mb-n1" size="24"></v-icon>
+                              <v-text-field
+                                placeholder="Enter Location"
+                                variant="plain"
+                                density="compact"
+                                class="mr-5 mb-n4 placeholder-color"
+                              ></v-text-field>
+                              <v-btn variant="flat"  color="deep-purple-lighten-2" height="34px" density="default">SEARCH</v-btn>
+                            </v-col>
+                          </v-row>
+                        </v-container>
+                      </v-form>
+                    </v-col>
+                  </v-row>
+                </v-window-item>
+              </v-window>
+            </v-card-text>
+          </v-card>
+      </v-col>
     </v-row>
   </div>
 </template>
@@ -185,11 +343,15 @@ export default {
 <style scoped>
 .filterContainer {
   position: absolute;
-  top: 100px;
+  top: 360px;
   width: 100%;
 }
 
 .text-caption {
   text-align: center;
+}
+
+.theme--light.v-input.placeholder-color input::placeholder {
+  color: green;
 }
 </style>

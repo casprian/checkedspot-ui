@@ -43,7 +43,7 @@ setTimeout(() => {
 <style scoped>
 .backgroundvideo {
   width: 100%;
-  height: calc(100vh - 48px);
+  height: 70vh;
   object-fit: cover;
 }
 
