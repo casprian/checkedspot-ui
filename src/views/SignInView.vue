@@ -81,7 +81,6 @@
 // @ts-ignore
 import api from '@/data/api/index.js';
 import { ref } from "vue";
-import axios from 'axios';
 import { useRoute, useRouter } from "vue-router";
 import { useField, useForm } from 'vee-validate';
 import { useCookies } from "vue3-cookies";
@@ -154,13 +153,9 @@ const loginHandler = handleSubmit(async (values: any) => {
     }
 })
 
-function getAuthorizationUrl() {
-    axios.get('https://api.checkedspot.com/user/getAuthorizationUrl').then(res => {
-        console.log(res)
-        window.open(res?.data?.url, '_self')
-    }).catch(err => {
-        console.log(err);
-    })
+async function getAuthorizationUrl() {
+    const res = await api?.user?.getAuthorizationUrl({params:{}});
+    window.open(res?.data?.url, '_self');
 }
 </script>
 
