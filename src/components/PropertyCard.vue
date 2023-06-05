@@ -39,7 +39,7 @@
                 <v-row no-gutters>
                     <v-col cols="12">
                         <v-card-title class="px-4 py-1">
-                            <v-chip variant="elevated" color="red">
+                            <v-chip v-if="property?.isVerifiedByCheckedSpot" variant="elevated" color="red">
                                 Checked Spot <v-icon size="16" class="mr-2" icon="mdi-map-marker" color="white"></v-icon>
                             </v-chip>
                         </v-card-title>
