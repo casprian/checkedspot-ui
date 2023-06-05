@@ -1,10 +1,10 @@
 <template>
-  <div class="filterContainer">
-    <v-row no-gutters>
-      <v-col offset="2" cols="8">
+  <div class="propertyFilter">
+    <v-row no-gutters class="d-flex justify-center align-center">
+      <v-col cols="11" sm="8">
         <v-card class="rounded-lg">
-          <v-tabs v-model="tab" bg-color="white" class="mx-11 mt-4">
-            <v-tab value="anyProperty">ANY PROPERTY</v-tab>
+          <v-tabs v-model="type" bg-color="white" class="mx-11 mt-4">
+            <v-tab value="">ANY PROPERTY</v-tab>
             <v-tab value="farmland">FARMLAND</v-tab>
             <v-tab value="plot">PLOTS</v-tab>
             <v-tab value="flat">FLATS</v-tab>
@@ -12,19 +12,10 @@
             <v-tab value="independentHouse">INDEPENDENT HOUSES</v-tab>
           </v-tabs>
 
-          <v-card-text class="pa-0 pb-2 pt-0">
-            <v-container>
-              <v-row no-gutters class="px-7">
-                <v-col cols="12" class="d-flex justify-space-between align-center px-4 py-0 pl-4  rounded"
-                  style="border:1px solid rgb(197, 195, 195)">
-                  <v-icon icon="mdi-map-marker" class="mr-2" size="24"></v-icon>
-                  <v-text-field placeholder="Enter Location" variant="plain" density="compact"
-                    class="mr-5 mb-n3 placeholder-color"></v-text-field>
-
-                  <v-btn variant="flat" color="deep-purple-lighten-2" height="34px" density="default">SEARCH</v-btn>
-                </v-col>
-              </v-row>
-            </v-container>
+          <v-card-text class="d-flex justify-space-between align-center pl-4 pr-4 py-0 mx-10 mt-4 mb-5 rounded" style="border:1px solid rgb(197, 195, 195); max-height: 55px;">
+            <v-icon icon="mdi-map-marker" class="mr-2" size="24"></v-icon>
+            <v-combobox v-model="select" :items="items" menu-icon="" chips variant="plain" multiple></v-combobox>
+            <v-btn @click="moveToListing" variant="flat" color="deep-purple-lighten-2" height="34px" density="default">SEARCH</v-btn>
           </v-card-text>
         </v-card>
       </v-col>
@@ -36,7 +27,7 @@
 <script lang="ts">
 export default {
   data: () => ({
-    tab: null,
+    type: null,
     panel: [1],
     value: [1000, 5000],
     checklists: [
@@ -54,25 +45,15 @@ export default {
       },
     ],
     items: ["Bangalore", "Hassan", "Mysore"],
-    justify: ["start", "center", "end", "space-around", "space-between"],
     select: ["Bangalore", "Hassan"],
-    onlyCheckedSpots: true,
-    newTask: null,
-    areaFrom: null,
-    areaTo: null,
-    costFrom: null,
-    costTo: null,
   }),
   methods: {
     moveToListing() {
+      console.log(this.select, this.type)
       this.$router.push({
         path: '/listing', query: {
-          isVerifiedByCheckedSpot: this.onlyCheckedSpots.toString(),
+          type: this.type,
           city: this.select,
-          costFrom: this.costFrom,
-          costTo: this.costTo,
-          areaFrom: this.areaFrom,
-          areaTo: this.areaTo,
         }
       });
     }
@@ -82,17 +63,9 @@ export default {
 
 
 <style scoped>
-.filterContainer {
+.propertyFilter {
   position: absolute;
-  top: 360px;
+  bottom: -80px;
   width: 100%;
-}
-
-.text-caption {
-  text-align: center;
-}
-
-.theme--light.v-input.placeholder-color input::placeholder {
-  color: green;
 }
 </style>
