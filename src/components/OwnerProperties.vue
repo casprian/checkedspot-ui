@@ -1,15 +1,12 @@
 <template>
-    <v-container class="mt-16">
+    <v-container class="ownerPropCont">
         <v-row no-gutters >
             <v-col cols="12">
-                <div class="mt-16"></div>
+                <h2 class="text-h5 mx-13 mb-5">Popular owner properties</h2>
             </v-col>
-            <v-col cols="12">
-                <h2 class="text-h5 mx-16">Popular owner properties</h2>
-            </v-col>
-            <v-col cols="12" class="mb-10" >
+            <v-col cols="12" class="mb-10">   
                 <v-sheet
-                    class="mx-auto mt-3"
+                    class="mx-auto"
                     elevation="0"
                     max-width="1250"
                 >
@@ -24,7 +21,7 @@
                             :key="n"
                         >
                            
-                            <v-card class="mr-4 elevation-2" style="max-width: 220px;" position="relative"  @click="openPropertyDetail">
+                            <v-card class="mr-4 mb-4 elevation-2" style="max-width: 220px;" position="relative"  @click="openPropertyDetail">
                                 <v-img
                                     :src="property?.propertyImage ? property?.propertyImage[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'" height="130px" width="100%" position="relative" cover>
                                     
@@ -80,9 +77,15 @@
     
 </template>
 
-<script setup>
+<script lang="ts" setup>
     import {reactive} from 'vue'
     const data=reactive({
       model: null,
     })
 </script>
+
+<style scoped>
+    .ownerPropCont{
+        margin-top:150px;
+    }
+</style>

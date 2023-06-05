@@ -6,13 +6,14 @@
             <v-tabs
               v-model="tab"
               bg-color="white"
-              class="mx-11 mt-4"
+              class="mx-8 mt-4"
             >
               <v-tab value="one">ADD PROPERTY</v-tab>
               <v-tab value="two">FARMLAND</v-tab>
               <v-tab value="three">PLOTS</v-tab>
-              <v-tab value="four">APARTMENT</v-tab>
-              <v-tab value="five">INDEPENDENT HOUSES</v-tab>
+              <v-tab value="four">FLATS</v-tab>
+              <v-tab value="five">APARTMENT</v-tab>
+              <v-tab value="six">INDEPENDENT HOUSES</v-tab>
             </v-tabs>
 
             <v-card-text class="pa-0 pb-2 pt-0">
@@ -210,7 +211,7 @@ export default {
 <style scoped>
 .filterContainer {
   position: absolute;
-  top: 360px;
+  bottom:-80px;
   width: 100%;
 }
 

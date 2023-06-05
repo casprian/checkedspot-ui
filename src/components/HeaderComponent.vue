@@ -5,14 +5,14 @@
         <v-icon color="yellow" icon="mdi-party-popper"></v-icon> &nbsp; Welcome {{ user }} &nbsp; <v-icon color="yellow" icon="mdi-party-popper"></v-icon>
       </v-col>
     </v-row>
-    <v-row no-gutters>
-      <v-col cols="12" class="video-container">
+    <v-row no-gutters >
+      <v-col cols="12" class="video-container" >
         <video class="backgroundvideo" autoplay muted loop>
           <source src="../assets/videos/7.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         <property-filter />
-        <OwnerProperties/>
+        
       </v-col>
     </v-row>
   </v-container>
@@ -20,7 +20,7 @@
 
 <script lang="ts" setup>
 import PropertyFilter from '@/components/PropertyFilter.vue';
-import OwnerProperties from '@/components/OwnerProperties.vue';
+
 import { ref } from 'vue';
 const user = ref('');
 const showGreetMsg = ref(false);
