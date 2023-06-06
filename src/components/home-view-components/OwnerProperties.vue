@@ -6,9 +6,14 @@
             </v-col>
             <v-col cols="12" class="mb-10">
                 <v-sheet class="mx-auto" elevation="0" max-width="1250">
-                    <v-slide-group show-arrows>
-                        <v-slide-group-item v-for="(property, index) in verifiedProperties?.data" :key="index">
-
+                    <v-row v-if="!props.properties" no-gutters class="px-sm-14 my-16 d-flex justify-center">
+                        <v-col cols="auto" class="loader">
+                            <!-- <v-progress-linear color="pink-accent-3" indeterminate rounded height="10"></v-progress-linear> -->
+                            <v-progress-circular :size="70" :width="7" color="pink-accent-3" indeterminate></v-progress-circular>
+                        </v-col>
+                    </v-row>
+                    <v-slide-group v-else show-arrows>
+                        <v-slide-group-item v-for="(property, index) in props.properties" :key="index">
                             <v-card class="mr-4 mb-4 elevation-2" style="max-width: 220px;" position="relative"
                                 @click="router.push(`/propertydetails/${property?.propertyId}`)">
                                 <v-img
@@ -19,19 +24,21 @@
                                     <v-container class="pa-0">
                                         <v-row no-gutters>
                                             <v-col cols="12">
-                                                <v-chip class="ml-2 mt-2" v-if="property?.isVerifiedByCheckedSpot" variant="elevated" color="green" density="comfortable">
-                                                    Checked Spot <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon>
+                                                <v-chip class="ml-2 mt-2" v-if="property?.isVerifiedByCheckedSpot"
+                                                    variant="elevated" color="green" density="comfortable">
+                                                    Checked Spot <v-icon size="16" class="ml-2" icon="mdi-shield-check"
+                                                        color="white"></v-icon>
                                                 </v-chip>
                                                 <v-card-text class="pl-3 py-2 pb-0">
-                                                    3BHK Flat
+                                                    {{ property?.type ? property?.type: 'Not Found' }}
                                                 </v-card-text>
-                                                <v-card-title class="px-3 py-0 text-subtitle-1">
-                                                    ₹ 2.25 Cr - 1700 sqft
+                                                <v-card-title :title="`₹ ${property?.cost} Lacs - ${property?.totalArea} sqft`" class="px-3 py-0 text-subtitle-1">
+                                                    ₹ {{ property?.cost ? property?.cost : 'Not Found' }} Lacs - {{ property?.totalArea ? property?.totalArea : 'Not Found' }} sqft
                                                 </v-card-title>
                                                 <v-card-subtitle class="px-3 py-0">
                                                     Hegde Nagar, Bengaaluru
                                                 </v-card-subtitle>
-                                                <v-card-subtitle class="px-3 py-0">
+                                                <v-card-subtitle class="text-caption text-pink-accent-3 px-3 py-0">
                                                     Ready to move
                                                 </v-card-subtitle>
                                             </v-col>
@@ -51,9 +58,9 @@
                                                                     Parvez Shariff
                                                                 </span>
                                                             </v-col>
-                                                            <v-col cols="auto mt-1 pt-0 mb-n1">
+                                                            <v-col cols="auto mt-0 pt-0 mb-n1">
                                                                 <span
-                                                                    class="text-body-2 text-grey-lighten-1 mt-0 pt-0">Posted:
+                                                                    class="text-caption text-grey-lighten-1 mt-0 pt-0">Posted:
                                                                     2 weaks ago</span>
                                                             </v-col>
                                                         </v-row>
@@ -72,34 +79,23 @@
     </v-container>
 </template>
 <script lang="ts" setup>
-import { onMounted, reactive } from 'vue';
-import api from '@/data/api/index.js';
+import { reactive } from "vue"
 import { useRouter } from 'vue-router';
 
+const router = useRouter();
+const props = defineProps(['properties'])
 const data = reactive({
     item: null,
 })
 
-const router = useRouter();
-const verifiedProperties = reactive({
-    data: null
-})
 
-async function getAllVerifiedProperties() {
-    const res = await api?.property?.getProperties({ params: { isVerifiedByCheckedSpot: true } });
-    if (res.status === 200) {
-        verifiedProperties.data = res?.data;
-    } else {
-        router.push({ path: '/error', query: { status: res?.status } })
-    }
-}
-onMounted(async () => {
-    await getAllVerifiedProperties();
-})
 </script>
 
 <style scoped>
 .ownerPropCont {
     margin-top: 150px;
+}
+.v-progress-circular {
+    margin: 1rem;
 }
 </style>
