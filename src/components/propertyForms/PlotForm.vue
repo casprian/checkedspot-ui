@@ -99,12 +99,13 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue';
-import axios from 'axios';
+import jwtDecode from 'jwt-decode';
 import { useRouter } from "vue-router";
 import { useField, useForm } from 'vee-validate';
 //@ts-ignore
 import api from '@/data/api/index.js'
-
+import { useCookies } from 'vue3-cookies';
+const { cookies } = useCookies();
 const props = defineProps(['type']);
 const router = useRouter();
 
@@ -113,10 +114,15 @@ const expand = ref(false);
 const cities = reactive(['Bangalore', 'Mysore', 'Hassan']);
 const states = reactive(['Karnataka']);
 const countries = reactive(['India']);
+const jwt = cookies.get('token').split('Bearer ')[1];
+
 const bodyData = reactive({
-    email: sessionStorage.getItem('email'),
+    //@ts-ignore
+    email: jwtDecode(jwt)?.userData?.email,
     type: props.type,
     description: null,
+    address: null,
+    pincode: null,
     city: null,
     state: null,
     country: 'India',
@@ -276,30 +282,13 @@ const addProperty = handleSubmit(async(values) => {
     })
 
     const res = await api?.property?.createProperty(formData);
-
+console.log(res)
     if(res.status === 200) {
         loading.value = false;
         alert(res?.data?.message);
     }else {
         router.push({path: '/error', query: {status: res?.status}})
     }
-    //https://apicheckedspot.azurewebsites.net
-    // axios.post('http://localhost:8080/property/individual', formData, {
-    //     headers: {
-    //         "Content-Type": "multipart/form-data",
-    //         "Authorization": `Bearer ${sessionStorage.getItem('token')}`
-    //     }
-    // }).then(res => {
-    //     console.log(res?.data);
-    //     loading.value = false;
-    //     alert(res?.data?.message);
-    //     if (res?.data?.status === 401) {
-    //         router.push({ path: '/error', query: { status: 401 } });
-    //     }
-    // }).catch(err => {
-    //     router.push({ path: '/error', query: { status: err?.response?.status } })
-    //     console.log(err);
-    // })
 })
 
 </script>

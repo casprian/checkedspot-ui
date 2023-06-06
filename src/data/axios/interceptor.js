@@ -1,4 +1,6 @@
 import axios from "axios";
+import { useCookies } from "vue3-cookies";
+const { cookies } = useCookies();
 
 const http = axios.create({
   // withCredentials: true, this statement is used to send cookie by default in request headers.
@@ -38,7 +40,7 @@ const instanceWithToken = axios.create({
   baseURL: "https://apicheckedspot.azurewebsites.net",
   headers: {
     Accept: "application/json",
-    Authorization: `Bearer ${sessionStorage.getItem('token')}`
+    Authorization: cookies.get('token')
   },
 });
 
@@ -64,14 +66,14 @@ instanceWithToken.interceptors.response.use(
 
 
 
-const instanceForPostMultiPart = axios.create({ 
+const instanceForPostMultiPart = axios.create({
   withCredentials: true,
-  //baseURL: "http://localhost:8080",
-   baseURL: "https://apicheckedspot.azurewebsites.net",
+  // baseURL: "http://localhost:8080",
+  baseURL: "https://apicheckedspot.azurewebsites.net",
   headers: {
     "Accept": "application/json",
     "Content-Type": "multipart/form-data",
-    "Authorization": `Bearer ${sessionStorage.getItem('token')}`
+    "Authorization": cookies.get('token')
   },
 });
 
@@ -94,8 +96,8 @@ instanceForPostMultiPart.interceptors.response.use(
   }
 );
 
-export default { 
-  http, 
-  instanceWithToken, 
-  instanceForPostMultiPart 
+export default {
+  http,
+  instanceWithToken,
+  instanceForPostMultiPart
 }

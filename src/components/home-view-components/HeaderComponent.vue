@@ -1,6 +1,6 @@
 <template>
   <v-expand-transition>
-    <v-card style="position: fixed; top: 48px; z-index: 1;" v-show="expandSuccess" height="60" width="100%"
+    <v-card style="position: fixed; top: 65px; z-index: 1;" v-show="expandSuccess" height="60" width="100%"
       class="mx-auto bg-pink-accent-3">
       <div style="height: 100%;" class="d-flex align-center justify-center">
         <h5 class="text-h5 text-center"><v-icon color="yellow" icon="mdi-party-popper"></v-icon> &nbsp; Welcome {{ user }}

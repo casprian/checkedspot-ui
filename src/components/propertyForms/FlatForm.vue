@@ -192,24 +192,28 @@
 import { reactive, ref } from 'vue';
 import { useRouter } from "vue-router";
 import { useField, useForm } from 'vee-validate';
+import { useCookies } from 'vue3-cookies';
+import jwtDecode from 'jwt-decode';
 //@ts-ignore
 import api from '@/data/api/index.js';
 
+const { cookies } = useCookies();
 const props = defineProps(['type']);
-
 const router = useRouter();
-
 const expand = ref(false);
-
 const cities = reactive(['Bangalore', 'Mysore', 'Hassan']);
 const states = reactive(['Karnataka']);
 const countries = reactive(['India']);
 const furnishedStatus = reactive(['unfurnished', 'semi-furnished', 'full-furnished']);
+const jwt = cookies.get('token').split('Bearer ')[1];
 
 const bodyData = reactive({
-    email: sessionStorage.getItem('email'),
+    //@ts-ignore
+    email: jwtDecode(jwt)?.userData?.email,
     type: props.type,
     description: null,
+    address: null,
+    pincode: null,
     city: null,
     state: null,
     country: 'India',

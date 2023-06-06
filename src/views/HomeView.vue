@@ -3,7 +3,7 @@
     <header-component/>
     <owner-properties :properties="verifiedProperties.data"/>
     <all-property-needs/>
-    <properties-for-everyone :noOfProperties="noOfProperties"/>
+    <properties-for-everyone/>
     <property-services/>
   </div>
 </template>
@@ -23,15 +23,11 @@ const router = useRouter();
 const verifiedProperties = reactive({
   data: null
 })
-const noOfProperties = ref(null);
-
 
 async function getAllVerifiedProperties() {
   const res = await api?.property?.getProperties({ params: { isVerifiedByCheckedSpot: true } });
   if (res.status === 200) {
-    console.log(res);
     verifiedProperties.data = res?.data;
-    noOfProperties.value = res?.noOfdata;
   } else {
     router.push({ path: '/error', query: { status: res?.status } })
   }
