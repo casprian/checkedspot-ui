@@ -1,58 +1,113 @@
 <template>
-    <v-container >
+  <v-container>
+    <v-row no-gutters>
+      <v-col cols="12">
+        <div class="text-h5 font-weight-medium">Our associated partners</div>
+      </v-col>
+      <v-col cols="12" sm="6" class="my-7 mt-0">
         <v-row no-gutters>
-            <v-col cols="12">
-                <div class="text-h5 font-weight-medium">Property services</div>
-            </v-col>
-            <v-col cols="12" sm="6" class="my-7 mt-0">
-                <v-row no-gutters>
-                    <v-col cols="12" md="6"  class="pr-sm-5" v-for="services in servicesCards" :key="services.id" >
-                        <div class="mt-7">
-                            <v-img cover max-height="170px" :src=services.img class="mb-6 "></v-img>
-                            <p class="text-h6 font-weight-medium">{{services.heading}}</p>
-                            <p class="text-body-2">{{services.details}}</p>
-                        </div>
-                    </v-col>
-                </v-row>
-            </v-col>
-            <v-col cols="12" sm="6" class="my-7 bg-blue-grey-darken-1 pt-10 pt-md-16" color="grey-darken-3" >
-                <div class=" py-6 py-md-16  pl-16 mr-16 mt-10 mt-md-16 " >
-                    <div class="text-h4  text-grey-lighten-5 mb-8" >Turpis vitae egestas posuere faucibus mattis</div>
-                    <p class="text-body-1 font-weight-light mb-4">turpis ipsum dolor sit amet consectetur adipisicing elit. Explicabo ipsum reprehenderit sequi suscipit reiciendis repellendus quo, qui labore accusamus quas!</p>
-                    <p class="text-body-1 font-weight-light">Turpis ipsum dolor sit amet consectetur adipisicing elit. Dolorum voluptatibus quam vel autem obcaecati ad numquam animi suscipit. Odit, odio.</p>
-                </div>
-            </v-col>
+          <v-col
+            cols="12"
+            md="6"
+            class="pr-sm-5 mb-1"
+            v-for="services in servicesCards"
+            :key="services.id"
+          >
+            <div class="mt-7">
+              <v-img
+                cover
+                max-height="170px"
+                :src="services.img"
+                class="mb-1"
+              ></v-img>
+              <p class="text-h6 font-weight-medium">{{ services.heading }}</p>
+            </div>
+          </v-col>
         </v-row>
-    </v-container>
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        class="my-7 bg-blue-grey-darken-1 pt-16 pb-5"
+        color="grey-darken-3"
+      >
+        <div class="px-10">
+          <div class="text-h4 text-grey-lighten-5 mb-3">
+            What is Checked Spot?
+          </div>
+          <h4 class="checkedSpotMeaning font-weight-light">
+            Checked Spots are those properties which are not just those
+            properties posted in web but they are
+          </h4>
+          <div class="pl-8 mt-6">
+            <p class="text-h5 mb-4">Validated, Verified and Quality Ensured</p>
+            <div class="d-flex align-center mb-3">
+              <v-icon icon="mdi-clock-time-four" class="mr-3"></v-icon>
+              <p class="text-body-1 font-weight-light">
+                Properties are digitally and physically verified by one ore more
+                of our checkedspot representative such that you can save your
+                time and be sure on what you are buying
+              </p>
+            </div>
+            <div class="d-flex align-center mb-3">
+              <v-icon icon="mdi-account" class="mr-3"></v-icon>
+              <p class="text-body-1 font-weight-light">
+                Documents are verified by visiting the actual property owners
+                along with our specialist legal team
+              </p>
+            </div>
+            <div class="d-flex align-center mb-3">
+              <v-icon icon="mdi-flag" class="mr-3"></v-icon>
+              <p class="text-body-1 font-weight-light">
+                Any thing which our expert team finds as a warning its
+                immediately flagged
+              </p>
+            </div>
+          </div>
+          <p class="my-4 text-body-2 text-grey-lighten-5">
+            To see a sample report on each of property listed is verified wou
+            can click here to see a
+            <a href="#" class="text-blue-lighten-2">Sample Report - Checked Spot</a>
+
+            <br />
+
+            Otherwise, you're done!
+          </p>
+        </div>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script lang="ts" setup>
-    import {reactive} from 'vue'
+import { reactive } from "vue";
 
-    const servicesCards = [
-        {
-            "id":1,
-            "img": "https://cdn.vuetifyjs.com/images/parallax/material.jpg",
-            'heading':"Packers and Movers",
-            "details":"Home shifting and Vehicle shifting at Guaranteed lowest prices"
-        },
-        {
-            "id":2,
-            "img": "https://cdn.vuetifyjs.com/images/parallax/material.jpg",
-            'heading':"Cashback on Home Loans",
-            "details":"Get assured cashback upto ₹90k on Home Loans and Free MB Prime"
-        },
-        {
-            "id":3,
-            "img": "https://cdn.vuetifyjs.com/images/parallax/material.jpg",
-            'heading':"Pay rent",
-            "details":"Get assured cashback upto ₹90k on Home Loans and Free MB Prime"
-        },
-        {
-            "id":4,
-            "img": "https://cdn.vuetifyjs.com/images/parallax/material.jpg",
-            'heading':"Legal services",
-            "details":"Get assured cashback upto ₹90k on Home Loans and Free MB Prime"
-        }
-    ]
+const servicesCards = [
+  {
+    id: 1,
+    img: "https://cdn.vuetifyjs.com/images/parallax/material.jpg",
+    heading: "Packers and Movers",
+  },
+  {
+    id: 2,
+    img: "https://cdn.vuetifyjs.com/images/parallax/material.jpg",
+    heading: "Affordable Home Loans",
+  },
+  {
+    id: 3,
+    img: "https://cdn.vuetifyjs.com/images/parallax/material.jpg",
+    heading: "Rent collection services",
+  },
+  {
+    id: 4,
+    img: "https://cdn.vuetifyjs.com/images/parallax/material.jpg",
+    heading: "Legal services",
+  },
+];
 </script>
+<style scoped>
+.checkedSpotMeaning {
+  line-height: 25px;
+  font-size: 20px;
+}
+</style>

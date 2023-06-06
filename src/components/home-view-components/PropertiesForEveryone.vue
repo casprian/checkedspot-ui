@@ -11,7 +11,7 @@
             <v-col cols="auto" class="mb-5" v-for="card in cards" :key="card.id" >
               <v-card  class="mr-5 rounded" elevation="3" width="220">
                 <v-card-item class="pb-0">
-                  <div class="pb-0">
+                  <div class="pb-0 pb-3">
                     <v-icon :icon="card.icon" color="deep-purple-lighten-1" size="50"></v-icon>
                     <div class="text-h5 font-weight-bold mt-3">{{ card.numbers }}</div>
                     <div class="text-body-1 text-grey-darken-1">
@@ -19,9 +19,6 @@
                     </div>
                   </div>
                 </v-card-item>
-                <v-card-actions class="pt-0">
-                  <v-btn density="compact" color="deep-purple-lighten-1">Explore</v-btn>
-                </v-card-actions>
               </v-card>
             </v-col>
           </v-row>
@@ -43,20 +40,8 @@
           {
               "id":2,
               "icon":"mdi-truck-minus-outline",
-              "numbers":589,
-              "details":"Projects"
-          },
-          {
-              "id":3,
-              "icon":"mdi-truck-minus-outline",
               "numbers":26452,
               "details":"Ready to move-in"
           },
-          {
-              "id":4,
-              "icon":"mdi-home-percent-outline",
-              "numbers":4952,
-              "details":"Budget homes"
-          }
           ]) 
   </script>
