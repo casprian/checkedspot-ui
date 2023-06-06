@@ -16,7 +16,7 @@
             <div class="mt-7">
               <v-img
                 cover
-                max-height="170px"
+                height="170px"
                 :src="services.img"
                 class="mb-1"
               ></v-img>
@@ -81,26 +81,31 @@
 
 <script lang="ts" setup>
 import { reactive } from "vue";
+import packersAndMovers from '@/assets/images/packersAndMovers.jpg'
+import rentCollectionServices from '@/assets/images/RentCollectionServices.jpg'
+import legalServices from '@/assets/images/legalServices.jpg'
+import homeLoans from '@/assets/images/homeLoans.jpg'
 
 const servicesCards = [
   {
     id: 1,
-    img: "https://cdn.vuetifyjs.com/images/parallax/material.jpg",
+    // img: '@/assets/images/packersAndMovers.jpg',
+    img: packersAndMovers,
     heading: "Packers and Movers",
   },
   {
     id: 2,
-    img: "https://cdn.vuetifyjs.com/images/parallax/material.jpg",
+    img: homeLoans,
     heading: "Affordable Home Loans",
   },
   {
     id: 3,
-    img: "https://cdn.vuetifyjs.com/images/parallax/material.jpg",
+    img: rentCollectionServices,
     heading: "Rent collection services",
   },
   {
     id: 4,
-    img: "https://cdn.vuetifyjs.com/images/parallax/material.jpg",
+    img: legalServices,
     heading: "Legal services",
   },
 ];
