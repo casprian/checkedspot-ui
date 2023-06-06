@@ -6,10 +6,11 @@
           <v-tabs v-model="type" bg-color="white" class="mx-8 mt-4">
             <v-tab value="">ANY PROPERTY</v-tab>
             <v-tab value="farmland">FARMLAND</v-tab>
-            <v-tab value="plot">PLOTS</v-tab>
-            <v-tab value="flat">FLATS</v-tab>
+            <v-tab value="plot">PLOT</v-tab>
+            <v-tab value="flat">FLAT</v-tab>
             <v-tab value="apartment">APARTMENT</v-tab>
-            <v-tab value="independentHouse">INDEPENDENT HOUSES</v-tab>
+            <v-tab value="independentHouse">INDEPENDENT HOUSE</v-tab>
+            <v-tab value="commercialProperty">COMMERCIAL PROPERTY</v-tab>
           </v-tabs>
 
           <v-card-text class="d-flex justify-space-between align-center px-4 py-0 mx-9 mt-4 mb-5 rounded" style="border:1px solid rgb(197, 195, 195); max-height: 50px;">
