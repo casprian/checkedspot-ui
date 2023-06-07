@@ -9,6 +9,26 @@ const routes = [
         path: '/',
         name: 'Home',
         component: () => import(/* webpackChunkName: "home" */ '@/views/HomeView.vue'),
+      },      
+      {
+        path: '/aboutus',
+        name: 'About US',
+        component: ()=> import('@/views/AboutUsView.vue')
+      },
+      {
+        path: '/contactus',
+        name: 'Contact Us',
+        component: ()=> import('@/views/ContactUs.vue')
+      },
+      {
+        path: '/signin',
+        name: 'Sign In',
+        component: ()=> import('@/views/SignInView.vue')
+      },
+      {
+        path: '/signup',
+        name: 'Sign Up',
+        component: ()=> import('@/views/SignUpView.vue')
       },
       {
         path: '/listing',
@@ -16,19 +36,9 @@ const routes = [
         component: () => import('@/views/ListingView.vue'),
       },
       {
-        path: '/authorization',
-        name: 'Authorization',
-        component: ()=> import('@/views/AuthorizationView.vue')
-      },
-      {
         path: '/propertydetails/:propertyId',
         name: 'Property Details',
         component: ()=> import('@/views/PropertyDetailsView.vue')
-      },
-      {
-        path: '/contactus',
-        name: 'Contact Us',
-        component: ()=> import('@/views/ContactUs.vue')
       },
       {
         path: '/createproperty',

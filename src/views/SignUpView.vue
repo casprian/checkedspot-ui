@@ -1,10 +1,28 @@
 <template>
-    <v-container class="bg-background" style="height: auto" fluid>
-        <v-row no-gutters justify="center" :class="loader === true ? 'blurCont' : ''">
-            <v-col cols="11">
-                <v-sheet>
-                    <div class="text-h5 py-6 bg-background">Sign Up</div>
-                    <v-container fluid class="bg-background pa-0">
+    <v-container class="pa-0" style="height: 100%" fluid>
+        <v-row no-gutters :class="loader === true ? 'blurCont' : ''">
+            <v-col cols="0" sm="5" class="px-7 py-10 leftSec">
+                
+            </v-col>
+            <v-col cols="11" sm="7" class="pa-10">
+                <v-sheet class="d-flex justify-center">
+                    <v-container class="pa-0 formCont">
+                        <div class="text-h5 font-weight-medium pb-14">Sign up to Checkedspot</div>
+
+                        <v-row no-gutters class="pr-10 pb-14">
+                            <v-col cols="12" class="pa-0">
+                                <button @click="getAuthorizationUrl" class="googlesignup" title="Sign in with Google">
+                                    <img class="google-icon mr-4" src="../assets/images/Google_Logo.png" alt="G"/><span>Sign up with Google</span>
+                                </button>
+                            </v-col>
+                        </v-row>
+
+                        <div class="divider mb-14 mr-10">
+                            <div class="circle-icon">
+                                OR
+                            </div>
+                        </div>
+
                         <v-row>
                             <v-col cols="12">
                                 <v-text-field v-model="name.value.value" :error-messages="name.errorMessage.value"
@@ -39,46 +57,12 @@
                         <div v-if="failed" class="text-h5 my-6 text-red">Error!!! Please Enter valid data to register
                             <br /><small class="text-body-2">{{ errormessage }}</small>
                         </div>
-                        <v-row no-gutters justify="center" class="mr-5">
-                            <v-col cols="auto">
-                                <v-btn @click="getAuthorizationUrl" class="google-signin-button ma-3" density="default"
-                                    width="300px">
-                                    <div class="google-icon-wrapper">
-                                        <img class="google-icon" src="../assets/images/Google_Logo.png" alt="G" />
-                                    </div>
-                                    <span class="google-button-text">Sign up with Google</span>
-                                </v-btn>
-                            </v-col>
-                        </v-row>
-                        <v-row no-gutters justify="center" class="mr-5">
-                            <v-col cols="auto">
-                                <v-btn @click="createUser" type="submit" class="ma-3" density="default"
-                                    prepend-icon="mdi-account" elevation="4" variant="flat" color="green" width="300px">
+
+                        <v-row no-gutters class="pr-10 pt-9">
+                            <v-col cols="12" class="pa-0">
+                                <v-btn @click="createUser" type="submit" density="default"
+                                    prepend-icon="mdi-account" elevation="4" variant="flat" color="green" width="100%">
                                     Sign Up
-                                </v-btn>
-                            </v-col>
-                        </v-row>
-                        <!-- <v-row no-gutters justify="center" class="mr-5">
-                            <v-col cols="auto">
-                                <v-btn 
-                                    @click="router.push('login')" 
-                                    class="ma-3" 
-                                    density="default" 
-                                    prepend-icon="mdi-login"
-                                    elevation="4" 
-                                    variant="flat" 
-                                    color="blue" 
-                                    width="300px"
-                                >
-                                    Login
-                                </v-btn>
-                            </v-col>
-                        </v-row> -->
-                        <v-row no-gutters justify="center" class="mr-5">
-                            <v-col cols="auto">
-                                <v-btn @click="router.back()" class="ma-3" density="default" prepend-icon="mdi-cancel"
-                                    elevation="4" variant="text" color="red" width="300px">
-                                    close
                                 </v-btn>
                             </v-col>
                         </v-row>
@@ -97,7 +81,6 @@
 // @ts-ignore
 import api from '@/data/api/index.js';
 import { ref } from "vue";
-import axios from 'axios';
 import { useRouter } from "vue-router";
 import { useField, useForm } from 'vee-validate';
 
@@ -173,19 +156,24 @@ const createUser = handleSubmit(async (values) => {
     }
 })
 
-function getAuthorizationUrl() {
-    axios.get('https://api.checkedspot.com/user/getAuthorizationUrl').then(res => {
-        console.log(res)
-        window.open(res?.data?.url, '_self')
-    }).catch(err => {
-        console.log(err);
-    })
+async function getAuthorizationUrl() {
+    const res = await api?.user?.getAuthorizationUrl({params:{}});
+    window.open(res?.data?.url, '_self');
 }
 </script>
 
 <style scoped>
 .blurCont {
     filter: blur(2px);
+}
+
+.leftSec {
+    background-image: linear-gradient(180deg, rgba(255,255,255,0.7) 3%, rgba(252,252,252,0.7) 52%), url('../assets/images/pexels-laura-tancredi-7078692.jpg');
+    background-size: cover;
+}
+
+.formCont {
+    width: 75%;
 }
 
 .loaderCont {
@@ -200,29 +188,21 @@ function getAuthorizationUrl() {
     transform: translate(-50%, -50%);
 }
 
-.google-signin-button {
-    display: inline-flex;
-    align-items: center;
+.googlesignup {
+    display: flex;
     justify-content: center;
+    align-items: center;
+    padding: 9px 10px;
     width: 100%;
-    height: 40px;
-    padding: 0 10px;
+    margin-right: 40px;
+    border: solid #2196F3 1px;
     border-radius: 2px;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
-    background-color: #fff;
-    color: rgba(0, 0, 0, 0.54);
-    cursor: pointer;
-    transition: background-color 0.218s, border-color 0.218s, box-shadow 0.218s;
-}
-
-.google-signin-button:hover {
-    background-color: #eee;
-}
-
-.google-icon-wrapper {
-    width: 18px;
-    height: 18px;
-    margin-right: 16px;
+    color: #2196F3;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0px 3px 3px -2px var(--v-shadow-key-umbra-opacity, rgba(0, 0, 0, 0.2)), 0px 3px 4px 0px var(--v-shadow-key-penumbra-opacity, rgba(0, 0, 0, 0.14)), 0px 1px 8px 0px var(--v-shadow-key-penumbra-opacity, rgba(0, 0, 0, 0.12)) !important
 }
 
 .google-icon {
@@ -230,8 +210,24 @@ function getAuthorizationUrl() {
     height: 18px;
 }
 
-.google-button-text {
-    font-size: 14px;
-    font-weight: 500;
+.divider {
+    position: relative;
+    height: 1px;
+    background-color: grey;
+}
+
+.circle-icon {
+    position: absolute;
+    top: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 50px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>
