@@ -53,7 +53,6 @@ import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
 const router = useRouter();
-console.log(route.query);
 const listingFullpath = ref(`${route.fullPath}`);
 const items = reactive([
     {
@@ -68,10 +67,7 @@ const items = reactive([
     },
 ]);
 
-
-
-
-let propertiesData = reactive({ data: null });
+const propertiesData = reactive({ data: null });
 const propertyFilterObj = reactive({ ...route?.query });
 const pageNumber = ref(1)
 const limit = ref(6);
@@ -80,10 +76,11 @@ const noOfData = ref(0);
 const noOfDataComputed = computed(() => {
     return noOfData.value;
 })
-
 async function getAllProperty() {
     const formData = {
         params: {
+            //@ts-ignore
+            type: (propertyFilterObj?.type)?.length > 0 ? propertyFilterObj?.type : null,
             isVerifiedByCheckedSpot: propertyFilterObj?.isVerifiedByCheckedSpot,
             city: propertyFilterObj?.city,
             areaFrom: propertyFilterObj?.areaFrom,
@@ -94,6 +91,7 @@ async function getAllProperty() {
             pageNumber: pageNumber.value,
         },
     };
+    console.log(formData.params)
 
     const res = await api.property.getProperties(formData);
     if(res.status === 200) {
@@ -106,7 +104,7 @@ async function getAllProperty() {
 }
 
 onMounted(async () => {
-    getAllProperty();
+    await getAllProperty();
 });
 </script>
 

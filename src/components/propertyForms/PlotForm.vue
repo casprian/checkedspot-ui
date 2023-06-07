@@ -22,6 +22,12 @@
                 <v-col cols="12" sm="6" class="py-1 px-3">
                     <v-text-field prepend-inner-icon="mdi-link" label="Google Map Link" v-model="googleMapLink.value.value" :error-messages="googleMapLink.errorMessage.value"
                         clearable hint="Enter Google map link of the location" variant="outlined"></v-text-field>
+                </v-col>             
+                <v-col cols="12" sm="6" class="py-1 px-3">
+                    <v-text-field label="Property Address" v-model="bodyData.address" clearable hint="Enter property address" variant="outlined"></v-text-field>
+                </v-col>                
+                <v-col cols="12" sm="6" class="py-1 px-3">
+                    <v-text-field label="Property Area Pincode" v-model="bodyData.pincode" clearable hint="Enter area pincode where property located" variant="outlined"></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6" class="py-1 px-3">
                     <v-text-field label="Cost (INR)" v-model="cost.value.value" :error-messages="cost.errorMessage.value"
@@ -99,12 +105,13 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue';
-import axios from 'axios';
+import jwtDecode from 'jwt-decode';
 import { useRouter } from "vue-router";
 import { useField, useForm } from 'vee-validate';
 //@ts-ignore
 import api from '@/data/api/index.js'
-
+import { useCookies } from 'vue3-cookies';
+const { cookies } = useCookies();
 const props = defineProps(['type']);
 const router = useRouter();
 
@@ -113,10 +120,15 @@ const expand = ref(false);
 const cities = reactive(['Bangalore', 'Mysore', 'Hassan']);
 const states = reactive(['Karnataka']);
 const countries = reactive(['India']);
+const jwt = cookies.get('token').split('Bearer ')[1];
+
 const bodyData = reactive({
-    email: sessionStorage.getItem('email'),
+    //@ts-ignore
+    email: jwtDecode(jwt)?.userData?.email,
     type: props.type,
     description: null,
+    address: null,
+    pincode: null,
     city: null,
     state: null,
     country: 'India',
@@ -276,30 +288,13 @@ const addProperty = handleSubmit(async(values) => {
     })
 
     const res = await api?.property?.createProperty(formData);
-
+console.log(res)
     if(res.status === 200) {
         loading.value = false;
         alert(res?.data?.message);
     }else {
         router.push({path: '/error', query: {status: res?.status}})
     }
-    //https://apicheckedspot.azurewebsites.net
-    // axios.post('http://localhost:8080/property/individual', formData, {
-    //     headers: {
-    //         "Content-Type": "multipart/form-data",
-    //         "Authorization": `Bearer ${sessionStorage.getItem('token')}`
-    //     }
-    // }).then(res => {
-    //     console.log(res?.data);
-    //     loading.value = false;
-    //     alert(res?.data?.message);
-    //     if (res?.data?.status === 401) {
-    //         router.push({ path: '/error', query: { status: 401 } });
-    //     }
-    // }).catch(err => {
-    //     router.push({ path: '/error', query: { status: err?.response?.status } })
-    //     console.log(err);
-    // })
 })
 
 </script>
