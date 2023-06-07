@@ -16,6 +16,7 @@ import PropertiesForEveryone from '@/components/home-view-components/PropertiesF
 import PropertyServices from '@/components/home-view-components/PropertyServices.vue';
 
 import { onMounted, reactive, ref } from 'vue';
+//@ts-ignore
 import api from '@/data/api/index.js';
 import { useRouter } from 'vue-router';
 
