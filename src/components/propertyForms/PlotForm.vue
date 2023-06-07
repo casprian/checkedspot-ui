@@ -22,6 +22,12 @@
                 <v-col cols="12" sm="6" class="py-1 px-3">
                     <v-text-field prepend-inner-icon="mdi-link" label="Google Map Link" v-model="googleMapLink.value.value" :error-messages="googleMapLink.errorMessage.value"
                         clearable hint="Enter Google map link of the location" variant="outlined"></v-text-field>
+                </v-col>             
+                <v-col cols="12" sm="6" class="py-1 px-3">
+                    <v-text-field label="Property Address" v-model="bodyData.address" clearable hint="Enter property address" variant="outlined"></v-text-field>
+                </v-col>                
+                <v-col cols="12" sm="6" class="py-1 px-3">
+                    <v-text-field label="Property Area Pincode" v-model="bodyData.pincode" clearable hint="Enter area pincode where property located" variant="outlined"></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6" class="py-1 px-3">
                     <v-text-field label="Cost (INR)" v-model="cost.value.value" :error-messages="cost.errorMessage.value"
