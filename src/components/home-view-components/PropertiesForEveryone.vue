@@ -31,7 +31,8 @@
 </template>
   
 <script lang="ts" setup>
-import { onMounted, reactive, ref } from 'vue';
+import { onMounted, reactive } from 'vue';
+//@ts-ignore
 import api from '@/data/api/index.js';
 import { useRouter } from 'vue-router';
 
