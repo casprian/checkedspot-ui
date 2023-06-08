@@ -11,7 +11,7 @@
       <v-btn @click="router.push('/aboutus')" variant="flat" class="ml-2">
         WHO WE ARE
       </v-btn>
-      <v-btn variant="flat" class="ml-2">
+      <v-btn @click="router.push('/whatwedo')" variant="flat" class="ml-2">
         WHAT WE DO
       </v-btn>
       <v-btn @click="router.push('/contactus')" variant="flat" class="ml-2">
