@@ -77,7 +77,7 @@
             <p class="text-body-2">Example of achieving the mission of placemaker</p>
             <h3 class="merriweatherSmallFont mb-4">Driving delight and visitor demand in an emerging tourist destination</h3>
             <p class="text-h6 font-weight-light pr-md-16">Collaborated with a regional government to ideate and execute innovative experiences for 2 million target visitors. Using a design thinking led approach, we explored more than 500 new visitor experiences and executed 15 of them, detailed with market assessment, feasibility, financial model, and customer journeys of each target persona. We also supported the approval of an investment framework that enabled a $1 billion agreement with multiple leading hotel properties.</p>
-        </v-col>
+        </v-col> 
         <v-col cols="12">
             <v-row no-gutters>
                 <v-col cols="12" md="6">
