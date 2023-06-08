@@ -38,9 +38,9 @@
             <v-container class="pa-0">
                 <v-row no-gutters>
                     <v-col cols="12">
-                        <v-card-title class="px-4 py-1">
-                            <v-chip variant="elevated" color="red">
-                                Checked Spot <v-icon size="16" class="mr-2" icon="mdi-map-marker" color="white"></v-icon>
+                        <v-card-title class="px-4 py-1 verifiedTag">
+                            <v-chip v-if="property?.isVerifiedByCheckedSpot" variant="elevated" color="green" density="comfortable">
+                                Checked Spot <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon>
                             </v-chip>
                         </v-card-title>
                         <v-card-text class="px-4 py-0">
@@ -132,6 +132,10 @@ function openPropertyDetail() {
 </script>
 
 <style scoped>
+
+.verifiedTag {
+    height: 42px;
+}
 .cardBottom {
     border-top: solid 1px rgb(217, 216, 216);
 }

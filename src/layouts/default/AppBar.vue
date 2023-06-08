@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar :elevation="2" density="compact">
+  <v-app-bar :elevation="2" density="default">
     <template v-slot:prepend>
       <v-img @click="router.push('/')" class="logo" width="200px" height="100px" src="../../assets/logocheckedspot.png" />
     </template>

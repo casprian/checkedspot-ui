@@ -1,135 +1,24 @@
 <template>
-  <div class="filterContainer">
-    <v-row>
-      <v-col offset="2" cols="8">
-        <v-expansion-panels :multiple="true" v-model="panel">
-          <v-expansion-panel class="mb-4" :expanded="true">
-            <v-expansion-panel-title>
-              What is checkedspot ?
-            </v-expansion-panel-title>
-            <v-expansion-panel-text>
-              <v-sheet elevation="12" rounded="lg" width="100%" class="pa-10 text-left mx-auto">
-                <v-icon class="mb-5" color="success" icon="mdi-check-circle" size="112"></v-icon>
+  <div class="propertyFilter">
+    <v-row no-gutters class="d-flex justify-center align-center">
+      <v-col cols="11" sm="8">
+        <v-card class="rounded-lg">
+          <v-tabs v-model="type" bg-color="white" class="mx-8 mt-4">
+            <v-tab value="">ANY PROPERTY</v-tab>
+            <v-tab value="farmland">FARMLAND</v-tab>
+            <v-tab value="plot">PLOT</v-tab>
+            <v-tab value="flat">FLAT</v-tab>
+            <v-tab value="apartment">APARTMENT</v-tab>
+            <v-tab value="independentHouse">INDEPENDENT HOUSE</v-tab>
+            <v-tab value="commercialProperty">COMMERCIAL PROPERTY</v-tab>
+          </v-tabs>
 
-                <h5 class="text-h5 mb-6">
-                  Checked Spots are those properties which are not just those
-                  properties posted in web but they are
-                </h5>
-
-                <v-card class="mx-auto pl-10 pr-10 mb-10">
-                  <v-list density="compact">
-                    <h2>Validated, Verified and Quality Ensured</h2>
-
-                    <v-list-item v-for="(item, i) in checklists" :key="i" :value="item" active-color="primary">
-                      <template v-slot:prepend>
-                        <v-icon :icon="item.icon"></v-icon>
-                      </template>
-
-                      <div v-html="item.text"></div>
-                    </v-list-item>
-                  </v-list>
-                </v-card>
-
-                <p class="mb-4 text-medium-emphasis text-body-2">
-                  To see a sample report on each of property listed is verified
-                  wou can click here to see a
-                  <a href="#">Sample Report - Checked Spot</a>
-
-                  <br />
-
-                  Otherwise, you're done!
-                </p>
-              </v-sheet>
-            </v-expansion-panel-text>
-          </v-expansion-panel>
-
-          <v-expansion-panel>
-            <v-expansion-panel-title>
-               Filter Properties
-            </v-expansion-panel-title>
-            <v-expansion-panel-text>
-              <v-container class="bg-primary">
-                <v-card>
-                  
-                  <v-tabs v-model="tab" color="deep-purple-accent-4" align-tabs="center">
-                    <v-tab :value="1">Any Property</v-tab>
-                    <v-tab :value="2" disabled>Farm Land</v-tab>
-                    <v-tab :value="3" disabled>Plots</v-tab>
-                    <v-tab  :value="4" disabled>Apartment</v-tab>
-                    <v-tab disabled :value="5">Independent Houses</v-tab>
-                  </v-tabs>
-                  <v-window v-model="tab">
-                    <v-window-item v-for="n in 3" :key="n" :value="n">
-                      <v-container fluid>
-                        <v-row>
-                          <v-col cols="12" sm="12" >
-                            <v-switch 
-                              v-model="onlyCheckedSpots" 
-                              label="Only Checked Spots" 
-                              color="red" 
-                              :value="true"
-                              hide-details />
-                          </v-col>
-                        </v-row>
-                        <v-row>
-                          <v-col cols="12" sm="12" md="12">
-                            <v-combobox 
-                              v-model="select" 
-                              :items="items"
-                              label="Location" 
-                              variant="outlined" 
-                              multiple>
-                              
-                            </v-combobox>
-                          </v-col>
-                          <v-row>
-                            <v-col cols="12" sm="12" md="6">
-                              <v-row>
-                                <v-col cols="12">
-                                  <div class="text-caption">
-                                    Area In Square Feet
-                                  </div>
-                                </v-col>
-                                <v-col cols="12">
-                                  <v-text-field clearable label="Min(Sq/Ft)" prepend-icon="mdi-vuetify" variant="outlined"
-                                    v-model="areaFrom">
-                                  </v-text-field>
-
-                                  <v-text-field clearable label="Max(Sq/Ft)" prepend-icon="mdi-vuetify" variant="outlined"
-                                    v-model="areaTo">
-                                  </v-text-field>
-                                </v-col>
-                              </v-row>
-                            </v-col>
-                            <v-col cols="12" sm="12" md="6">
-                              <v-row>
-                                <v-col cols="12">
-                                  <div class="text-caption">Budget</div>
-                                </v-col>
-                                <v-col cols="12">
-                                  <v-text-field clearable label="Min" prepend-icon="mdi-vuetify" variant="outlined"
-                                    v-model="costFrom">
-                                  </v-text-field>
-
-                                  <v-text-field clearable label="Max" prepend-icon="mdi-vuetify" variant="outlined"
-                                    v-model="costTo">
-                                  </v-text-field>
-                                </v-col>
-                              </v-row>
-                            </v-col>
-                          </v-row>
-                        </v-row>
-                      </v-container>
-                    </v-window-item>
-                  </v-window>
-                  <v-card-actions>
-                    <v-btn @click="moveToListing" class="bg-primary">Search Now</v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-container>
-            </v-expansion-panel-text>
-          </v-expansion-panel>
-        </v-expansion-panels>
+          <v-card-text class="d-flex justify-space-between align-center px-4 py-0 mx-9 mt-4 mb-5 rounded" style="border:1px solid rgb(197, 195, 195); max-height: 50px;">
+            <v-icon icon="mdi-map-marker" class="mr-2" size="24"></v-icon>
+            <v-combobox v-model="select" :items="items" menu-icon="" chips variant="plain" multiple></v-combobox>
+            <v-btn @click="moveToListing" variant="flat" color="deep-purple-lighten-2" height="34px" density="default">SEARCH</v-btn>
+          </v-card-text>
+        </v-card>
       </v-col>
     </v-row>
   </div>
@@ -139,9 +28,7 @@
 <script lang="ts">
 export default {
   data: () => ({
-    tab: null,
-    panel: [1],
-    value: [1000, 5000],
+    type: null,
     checklists: [
       {
         text: "Properties are digitally and physically verified by one ore more of our checkedspot representative such that you can save your time and be sure on what you are buying",
@@ -157,25 +44,16 @@ export default {
       },
     ],
     items: ["Bangalore", "Hassan", "Mysore"],
-    justify: ["start", "center", "end", "space-around", "space-between"],
-    select: ["Bangalore","Hassan"],
-    onlyCheckedSpots: true,
-    newTask: null,
-    areaFrom: null,
-    areaTo: null,
-    costFrom: null,
-    costTo: null,
+    select: ["Bangalore", "Hassan"],
   }),
   methods: {
     moveToListing() {
-      this.$router.push({path: '/listing', query: {
-        isVerifiedByCheckedSpot: this.onlyCheckedSpots.toString(),
-        city: this.select,
-        costFrom: this.costFrom,
-        costTo: this.costTo,
-        areaFrom: this.areaFrom,
-        areaTo: this.areaTo,
-      }});
+      this.$router.push({
+        path: '/listing', query: {
+          type: this.type,
+          city: this.select,
+        }
+      });
     }
   }
 };
@@ -183,13 +61,9 @@ export default {
 
 
 <style scoped>
-.filterContainer {
+.propertyFilter {
   position: absolute;
-  top: 100px;
+  bottom: -80px;
   width: 100%;
-}
-
-.text-caption {
-  text-align: center;
 }
 </style>
