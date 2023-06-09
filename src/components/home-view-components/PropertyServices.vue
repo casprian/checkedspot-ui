@@ -80,7 +80,6 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from "vue";
 import packersAndMovers from '@/assets/images/packersAndMovers.jpg'
 import rentCollectionServices from '@/assets/images/RentCollectionServices.jpg'
 import legalServices from '@/assets/images/legalServices.jpg'
@@ -89,7 +88,6 @@ import homeLoans from '@/assets/images/homeLoans.jpg'
 const servicesCards = [
   {
     id: 1,
-    // img: '@/assets/images/packersAndMovers.jpg',
     img: packersAndMovers,
     heading: "Packers and Movers",
   },
