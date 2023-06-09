@@ -32,7 +32,7 @@
         <v-col cols="12" md="10" class="mt-10 mb-16 mt-md-16 mx-md-9 px-10 px-md-16">
             <p class="text-body-2">Example of transforming a client's space to be fit-for-purpose</p>
             <h3 class="merriweatherSmallFont mb-4">A new flexible working model for a financial services firm</h3>
-            <p class="text-h6 font-weight-light pr-md-6">Collaborated with a major US financial services firm to design a
+            <p class="text-h6 font-weight-light pr-md-6">Collaborated with a major indian financial services firm to design a
                 new flexible working model in response to COVID-19. Engaging leaders across functions, including the full
                 executive team, we transitioned the company from less than 20 percent of employees engaged in virtual
                 working models to over 80 percent fully virtual or flexible. We reduced real estate costs by more than 60
@@ -84,7 +84,7 @@
         <v-col cols="12" md="10" class="mb-16 my-md-16 mx-md-9 px-10 px-md-16">
             <p class="text-body-2">Example of reimagining the tenant experience</p>
             <h3 class="merriweatherSmallFont mb-4">Digital transformation and new business building at RXR Realty</h3>
-            <p class="text-h6 font-weight-light pr-md-6">We helped RXR Realty, a North American real estate investor and
+            <p class="text-h6 font-weight-light pr-md-6">We helped GenesisHomes, an Indian real estate investor and
                 developer, reimagine the tenant experience across its residential, commercial, and mixed-use properties. We
                 established a lab of more than 25 data scientists, designers, engineers, and product managers, who worked
                 together to develop digital capabilities that catalyzed the reinvention of the company, helping it emerge as
