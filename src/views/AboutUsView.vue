@@ -1,7 +1,6 @@
 <template>
     <v-container fluid class="pa-0">
         <div class="whoWeAreSec1 d-flex justify-center pb-0">
-            <v-img src="@/assets/images/pexels-photo-206359.jpeg" height="100%" cover></v-img>
             <h1 class="heading">
                 <pre>ABOUT US</pre>
             </h1>
@@ -86,6 +85,8 @@
     position: relative;
     width: 100%;
     height: 400px;
+    background-image: linear-gradient(90deg, rgba(3, 3, 3, 0.5) 8%, rgba(3, 3, 3, 0.5) 87%), url('@/assets/images/aboutHeader.jpg');
+    background-size: cover;
 }
 
 .heading {
