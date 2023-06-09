@@ -59,11 +59,6 @@
             <p class="text-body-2">Example of achieving impact through climate</p>
             <h3 class="merriweatherSmallFont mb-4">Sustainability for a leading financial institution</h3>
             <p class="text-h6 font-weight-light pr-md-6">Unearthed material climate risks across a ₹40 billion portfolio that threatened 80 percent of profits and built an enduring capability for a client, including climate-driven advanced analytics for pricing and new offerings for counterparties to address climate risks in their properties.</p>
-=======
-            <p class="text-h6 font-weight-light pr-md-6">Unearthed material climate risks across a $40 billion portfolio
-                that threatened 80 percent of profits and built an enduring capability for a client, including
-                climate-driven advanced analytics for pricing and new offerings for counterparties to address climate risks
-                in their properties.</p>
         </v-col>
 
 
