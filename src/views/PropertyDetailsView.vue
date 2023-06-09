@@ -426,14 +426,6 @@ const agent = reactive({
     }
 })
 
-const propetyDocument = reactive({
-    data: {
-        'documentDescription': null,
-        'documentId': null,
-        'documentType': null,
-    }
-})
-
 async function propertydata() {
     const res = await api?.property?.getProperty({
         params: {

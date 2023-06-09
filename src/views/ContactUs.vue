@@ -202,7 +202,6 @@ const enquiryMessage = useField('enquiryMessage');
 
 console.log(name.value.value)
 const callWhatsappCloudApi = handleSubmit(async (values) => {
-  // console.log(values)
   dialog.value = false;
 
   api?.user?.sendEnquiry({...values}).then((res:any) => {
@@ -223,30 +222,6 @@ const callWhatsappCloudApi = handleSubmit(async (values) => {
       expandFailure.value = false;
     }, 5000);
   })
-
-  // axios({
-  //   method: 'post',
-  //   url: 'https://apicheckedspot.azurewebsites.net/user/sendEnquiry',
-  //   data: values
-  // }).then((res) => {
-  //   console.log(res)
-  //   if (res?.data?.status === 200) {
-  //     expandSuccess.value = true;
-  //   } else {
-  //     expandFailure.value = true;
-  //   }
-  //   setTimeout(() => {
-  //     expandSuccess.value = false;
-  //     expandFailure.value = false;
-  //   }, 5000);
-  // }).catch((err) => {
-  //   console.log(err)
-  //   expandFailure.value = true;    
-  //   setTimeout(() => {
-  //     expandSuccess.value = false;
-  //     expandFailure.value = false;
-  //   }, 5000);
-  // })
 })
 </script>
 

@@ -19,7 +19,7 @@
                     </div>
                 </v-col>
                 <v-col cols="12" sm="6" class="py-1 px-3">
-                    <v-text-field prepend-inner-icon="mdi-link" label="Google Map Link" v-model="googleMapLink.value.value" :error-messages="googleMapLink.errorMessage.value"
+                    <v-text-field prepend-inner-icon="mdi-link" label="Google Map Link" v-model="bodyData.googleMapLink"
                         clearable hint="Enter Google map link of the location" variant="outlined"></v-text-field>
                 </v-col>             
                 <v-col cols="12" sm="6" class="py-1 px-3">
@@ -66,11 +66,6 @@
                     <v-select v-model="bodyData.furnishedStatus" :items="furnishedStatus" label="Furnished status"
                         variant="outlined" clearable hint="Choose from the list"></v-select>
                 </v-col>
-                <!-- <v-col cols="12" sm="6" class="py-1 px-3">
-                        <v-select v-model="bodyData.isVerifiedByCheckedSpot" :items="truefalse"
-                        label="Verified By Checkedspot" variant="outlined" clearable
-                        hint="Choose from the list"></v-select>
-                    </v-col> -->
                 <v-col cols="12" sm="6" class="py-1 px-3" style="position:relative;">
                     <v-row no-gutters @mouseover="expand = true" @mouseout="expand = false">
                         <v-switch v-model="bodyData.isFreeHold" true-value="true" false-value="false" label="Is Free Hold"
@@ -290,13 +285,6 @@ let { handleSubmit, handleReset } = useForm({
             return 'min cost must exceed ₹ 9999 and it should contain only numbers'
 
         },
-        googleMapLink(value:string) {
-            if(!value || (/^https:\/\/www\.google\.(?:fr|com|de|co.in)\/maps\/@[-]?\d+(?:\.\d+)?,[-]?\d+(?:\.\d+)?,[-]?\d+(?:\.\d+)?(?:z|m)(?:\/data=[^\\/?]+)?(\?[^\\/]+)?$/).test(value)) {
-                return true;
-            }else {
-                return 'Please enter Valid Google map url/link OR leave it BLANK'
-            }
-        },
         totalArea(value: any) {
             if (!value) {
                 return 'Required.'
@@ -364,7 +352,6 @@ let { handleSubmit, handleReset } = useForm({
 
 const city = useField('city');
 const state = useField('state');
-const googleMapLink = useField('googleMapLink');
 const cost = useField('cost');
 const totalArea = useField('totalArea');
 const builyupArea = useField('builyupArea');
@@ -409,24 +396,6 @@ const addProperty = handleSubmit(async(values) => {
     } else {
         router.push({ path: '/error', query: { status: res?.status } })
     }
-
-    //https://apicheckedspot.azurewebsites.net
-    // axios.post('http://localhost:8080/property/individual', formData, {
-    //     headers: {
-    //         "Content-Type": "multipart/form-data",
-    //         "Authorization": `Bearer ${sessionStorage.getItem('token')}`
-    //     }
-    // }).then(res => {
-    //     console.log(res?.data);
-    //     loading.value = false;
-    //     alert(res?.data?.message);
-    //     if (res?.data?.status === 401) {
-    //         router.push({ path: '/error', query: { status: 401 } });
-    //     }
-    // }).catch(err => {
-    //     router.push({ path: '/error', query: { status: err?.response?.status } })
-    //     console.log(err);
-    // })
 })
 </script>
   

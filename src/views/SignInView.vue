@@ -141,7 +141,6 @@ const loginHandler = handleSubmit(async (values: any) => {
 
     if (res?.data?.token) {
         localStorage.setItem('email', values?.email);
-        // cookies.set("token", res?.data?.token, '1h', '/', 'domain', secure, sameSite)
         const splitDomain = (location.hostname).split('www');
         const domain = splitDomain[splitDomain.length - 1];
         cookies.set("token", res?.data?.token, '1h', '/', domain, true, 'Lax');
