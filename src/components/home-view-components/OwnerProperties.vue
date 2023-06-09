@@ -47,7 +47,7 @@
                                                 <v-row
                                                     class="cardBottom pa-0 mx-3 my-2 d-flex flex-row justify-space-between align-center">
                                                     <v-col cols="auto" class="px-0 my-1">
-                                                        <v-avatar class="pa-0 mr-3" image="/src/assets/photos/parvez1.jpeg"
+                                                        <v-avatar class="pa-0 mr-3" image="https://checkedspot.blob.core.windows.net/assets/parvez1.jpeg"
                                                             size="32"></v-avatar>
                                                     </v-col>
                                                     <v-col class="px-0">

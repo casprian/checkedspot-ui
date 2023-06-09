@@ -16,7 +16,7 @@
         <v-col cols="12">
             <v-row no-gutters>
                 <v-col cols="12" md="6">
-                    <v-img src="@/assets/images/whatWeDo1.jpg" height="400" cover></v-img>
+                    <v-img src="https://checkedspot.blob.core.windows.net/assets/whatWeDo1.jpg" height="400" cover></v-img>
                 </v-col>
                 <v-col cols="12" md="6" class="pt-10 pb-0 py-md-0 px-10 px-md-16 d-flex flex-column justify-center align-center">
                     <h1 class="merriweatherFont pb-3 px-md-7">Transform spaces to be fit-for-purpose</h1>
@@ -49,7 +49,7 @@
                         create new sources of value for investors, tenants, and communities.</p>
                 </v-col>
                 <v-col cols="12" md="6">
-                    <v-img src="@/assets/images/climate.jpg" height="400" cover></v-img>
+                    <v-img src="https://checkedspot.blob.core.windows.net/assets/climate.jpg" height="400" cover></v-img>
                 </v-col>
             </v-row>
         </v-col>
@@ -66,7 +66,7 @@
         <v-col cols="12" class="mb-10 mt-12 mb-md-0">
             <v-row no-gutters>
                 <v-col cols="12" md="6">
-                    <v-img src="@/assets/images/whatWeDo1.jpg" max-height="450" cover></v-img>
+                    <v-img src="https://checkedspot.blob.core.windows.net/assets/digitalAnalytics.jpg" max-height="450" cover></v-img>
                 </v-col>
                 <v-col cols="12" md="6" class="pt-10 py-md-0 px-10 px-md-16 d-flex flex-column justify-center align-center">
                     <h1 class="merriweatherFont pb-3 px-md-7">Differentiate through digital and advanced analytics</h1>
@@ -104,7 +104,7 @@
                         shape more equitable and dynamic communities.</p>
                 </v-col>
                 <v-col cols="12" md="6">
-                    <v-img src="@/assets/images/climate.jpg" height="450" cover></v-img>
+                    <v-img src="https://checkedspot.blob.core.windows.net/assets/unlockDevelopment.jpeg" height="450" cover></v-img>
                 </v-col>
             </v-row>
         </v-col>
@@ -124,7 +124,7 @@
         <v-col cols="12">
             <v-row no-gutters>
                 <v-col cols="12" md="6">
-                    <v-img src="@/assets/images/whatWeDo1.jpg" max-height="450" cover></v-img>
+                    <v-img src="https://checkedspot.blob.core.windows.net/assets/driveValues.jpg" max-height="450" cover></v-img>
                 </v-col>
                 <v-col cols="12" md="6" class="py-10 py-md-0 px-10 px-md-16 d-flex flex-column justify-center align-center">
                     <h1 class="merriweatherFont pb-3 px-md-7">Drive value through operations</h1>

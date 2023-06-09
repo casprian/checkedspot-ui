@@ -300,7 +300,7 @@
                         </v-card-title>
                         <v-card-actions>
                             <v-avatar class="mx-2" size="75" color="grey-darken-3"
-                                image="/src/assets/photos/parvez1.jpeg"></v-avatar>
+                                image="https://checkedspot.blob.core.windows.net/assets/parvez1.jpeg"></v-avatar>
                             <v-sheet class="px-5 mt-n7">
                                 <v-card-title>
                                     {{
