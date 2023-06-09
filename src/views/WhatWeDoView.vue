@@ -38,7 +38,7 @@
         <v-col cols="12" md="8" class="my-6 mb-sm-10 my-md-16 mx-md-9 px-10 px-md-16">
             <p class="text-body-2">Example of achieving impact through climate</p>
             <h3 class="merriweatherSmallFont mb-4">Sustainability for a leading financial institution</h3>
-            <p class="text-h6 font-weight-light pr-md-6">Unearthed material climate risks across a $40 billion portfolio that threatened 80 percent of profits and built an enduring capability for a client, including climate-driven advanced analytics for pricing and new offerings for counterparties to address climate risks in their properties.</p>
+            <p class="text-h6 font-weight-light pr-md-6">Unearthed material climate risks across a ₹40 billion portfolio that threatened 80 percent of profits and built an enduring capability for a client, including climate-driven advanced analytics for pricing and new offerings for counterparties to address climate risks in their properties.</p>
         </v-col>
         <v-col cols="12">
             <v-row no-gutters>
@@ -71,12 +71,12 @@
         <v-col cols="12" md="8" class="my-6 mb-sm-10 my-md-16 mb-md-8 mx-md-9 px-10 px-md-16">
             <p class="text-body-2">Example of helping a client unlock demand in a development</p>
             <h3 class="merriweatherSmallFont mb-4">Repositioning of district-sized development in the United States</h3>
-            <p class="text-h6 font-weight-light pr-md-16">Generated $3 billion in asset value through repositioning a 15-million square foot development into a curated value proposition for anchor tenants, a proactive tenant attraction approach, new revenue streams through infrastructure, and exceptional experiences for how users of space want to engage in five years.</p>
+            <p class="text-h6 font-weight-light pr-md-16">Generated ₹3 billion in asset value through repositioning a 15-million square foot development into a curated value proposition for anchor tenants, a proactive tenant attraction approach, new revenue streams through infrastructure, and exceptional experiences for how users of space want to engage in five years.</p>
         </v-col>
         <v-col cols="12" md="8" class="my-6 mb-sm-10 my-md-8 mb-md-16 mx-md-9 px-10 px-md-16 pb-8 pb-md-0">
             <p class="text-body-2">Example of achieving the mission of placemaker</p>
             <h3 class="merriweatherSmallFont mb-4">Driving delight and visitor demand in an emerging tourist destination</h3>
-            <p class="text-h6 font-weight-light pr-md-16">Collaborated with a regional government to ideate and execute innovative experiences for 2 million target visitors. Using a design thinking led approach, we explored more than 500 new visitor experiences and executed 15 of them, detailed with market assessment, feasibility, financial model, and customer journeys of each target persona. We also supported the approval of an investment framework that enabled a $1 billion agreement with multiple leading hotel properties.</p>
+            <p class="text-h6 font-weight-light pr-md-16">Collaborated with a regional government to ideate and execute innovative experiences for 2 million target visitors. Using a design thinking led approach, we explored more than 500 new visitor experiences and executed 15 of them, detailed with market assessment, feasibility, financial model, and customer journeys of each target persona. We also supported the approval of an investment framework that enabled a ₹1 billion agreement with multiple leading hotel properties.</p>
         </v-col> 
         <v-col cols="12">
             <v-row no-gutters>
