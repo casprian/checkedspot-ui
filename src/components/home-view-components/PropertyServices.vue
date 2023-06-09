@@ -80,30 +80,25 @@
 </template>
 
 <script lang="ts" setup>
-import packersAndMovers from '@/assets/images/packersAndMovers.jpg'
-import rentCollectionServices from '@/assets/images/RentCollectionServices.jpg'
-import legalServices from '@/assets/images/legalServices.jpg'
-import homeLoans from '@/assets/images/homeLoans.jpg'
-
 const servicesCards = [
   {
     id: 1,
-    img: packersAndMovers,
+    img: 'https://checkedspot.blob.core.windows.net/assets/packersAndMovers.jpg',
     heading: "Packers and Movers",
   },
   {
     id: 2,
-    img: homeLoans,
+    img: 'https://checkedspot.blob.core.windows.net/assets/homeLoans.jpg',
     heading: "Affordable Home Loans",
   },
   {
     id: 3,
-    img: rentCollectionServices,
+    img: 'https://checkedspot.blob.core.windows.net/assets/RentCollectionServices.jpg',
     heading: "Rent collection services",
   },
   {
     id: 4,
-    img: legalServices,
+    img: 'https://checkedspot.blob.core.windows.net/assets/legalServices.jpg',
     heading: "Legal services",
   },
 ];
