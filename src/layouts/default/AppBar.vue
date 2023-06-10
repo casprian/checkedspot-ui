@@ -1,7 +1,7 @@
 <template>
   <v-app-bar :elevation="2" density="default">
     <template v-slot:prepend>
-      <v-img @click="router.push('/')" class="logo" width="200px" height="100px" src="../../assets/logocheckedspot.png" />
+      <v-img @click="router.push('/')" class="logo" width="200px" height="100px" src="https://checkedspot.blob.core.windows.net/assets/logocheckedspot.png" />
     </template>
 
     <template v-slot:append>

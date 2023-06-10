@@ -21,7 +21,7 @@
                         <v-row no-gutters class="pr-10 pb-14">
                             <v-col cols="12" class="pa-0">
                                 <button @click="getAuthorizationUrl" class="googlesignin" title="Sign in with Google">
-                                    <img class="google-icon mr-4" src="../assets/images/Google_Logo.png" alt="G" /><span>Sign in with Google</span>
+                                    <img class="google-icon mr-4" src="https://checkedspot.blob.core.windows.net/assets/Google_Logo.png" alt="G" /><span>Sign in with Google</span>
                                 </button>
                             </v-col>
                         </v-row>
@@ -141,7 +141,6 @@ const loginHandler = handleSubmit(async (values: any) => {
 
     if (res?.data?.token) {
         localStorage.setItem('email', values?.email);
-        // cookies.set("token", res?.data?.token, '1h', '/', 'domain', secure, sameSite)
         const splitDomain = (location.hostname).split('www');
         const domain = splitDomain[splitDomain.length - 1];
         cookies.set("token", res?.data?.token, '1h', '/', domain, true, 'Lax');
@@ -168,7 +167,7 @@ async function getAuthorizationUrl() {
 }
 
 .leftSec {
-    background-image: linear-gradient(180deg, rgba(255,255,255,0.7) 3%, rgba(252,252,252,0.7) 52%), url('../assets/images/pexels-laura-tancredi-7078692.jpg');
+    background-image: linear-gradient(180deg, rgba(255,255,255,0.7) 3%, rgba(252,252,252,0.7) 52%), url('https://checkedspot.blob.core.windows.net/assets/pexels-laura-tancredi-7078692.jpg');
     background-size: cover;
 }
 

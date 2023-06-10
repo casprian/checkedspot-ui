@@ -13,7 +13,7 @@
                 </h1>
             </v-col>
             <v-col cols="12" md="6" class="pt-10 pr-5">
-                <v-img src="@/assets/images/save_Time.jpg"></v-img>
+                <v-img src="https://checkedspot.blob.core.windows.net/assets/save_Time.jpg"></v-img>
             </v-col>
             <v-col cols="12" md="6" class="pt-10 px-16 d-flex flex-column justify-center align-center">
                 <h1 class="merriweatherFont mb-8">Verified Properties: Save Time, Buy with Confidence!</h1>
@@ -39,13 +39,13 @@
                 </div>
             </v-col>
             <v-col cols="12" md="6" class="pt-10 pr-5">
-                <v-img src="@/assets/images/Verified_land.jpg"></v-img>
+                <v-img src="https://checkedspot.blob.core.windows.net/assets/Verified_land.jpg"></v-img>
             </v-col>
         </v-row>
 
         <v-row no-gutters class="px-16 py-5">
             <v-col cols="12" md="6" class="pt-10 pr-5">
-                <v-img src="@/assets/images/warning.jpg"></v-img>
+                <v-img src="https://checkedspot.blob.core.windows.net/assets/warning.jpg"></v-img>
             </v-col>
             <v-col cols="12" md="6" class="pt-10 px-16 d-flex flex-column justify-center align-center">
                 <h1 class="merriweatherFont mb-8">Swift Warning Flagging: Expert Team Identifies and Alerts Potential
@@ -85,7 +85,7 @@
     position: relative;
     width: 100%;
     height: 400px;
-    background-image: linear-gradient(90deg, rgba(3, 3, 3, 0.5) 8%, rgba(3, 3, 3, 0.5) 87%), url('@/assets/images/aboutHeader.jpg');
+    background-image: linear-gradient(90deg, rgba(3, 3, 3, 0.5) 8%, rgba(3, 3, 3, 0.5) 87%), url('https://checkedspot.blob.core.windows.net/assets/aboutHeader.jpg');
     background-size: cover;
 }
 

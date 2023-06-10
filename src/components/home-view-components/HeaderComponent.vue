@@ -12,7 +12,7 @@
     <v-row no-gutters>
       <v-col cols="12" class="video-container">
         <video class="backgroundvideo" autoplay muted loop>
-          <source src="@/assets/videos/7.mp4" type="video/mp4" />
+          <source src="https://checkedspot.blob.core.windows.net/assets/7.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         <property-filter/>

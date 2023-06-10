@@ -9,7 +9,7 @@
             <v-col cols="12" class="mt-10">
                 <v-row no-gutters>
                     <v-col cols="12" sm="6" class="mb-10 mb-sm-0">
-                        <v-img src="@/assets/images/b-12.jpg" height="300" cover></v-img>
+                        <v-img src="https://checkedspot.blob.core.windows.net/assets/b-12.jpg" height="300" cover></v-img>
                     </v-col>
                     <v-col cols="12" sm="6" class="d-flex justify-center flex-column px-0 px-sm-16">
                         <div class="text-body-2 text-grey-darken-1 mb-1">BUY A HOME</div>
