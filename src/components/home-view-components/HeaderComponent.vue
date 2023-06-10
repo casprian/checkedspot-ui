@@ -23,10 +23,9 @@
 
 <script lang="ts" setup>
 import PropertyFilter from '@/components/PropertyFilter.vue';
-import { ref } from 'vue';
+import { ref } from 'vue'
 
 const user = ref('');
-
 const expandSuccess = ref(false);
 // const showGreetMsg = ref(false);
 

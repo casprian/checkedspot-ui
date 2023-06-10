@@ -21,7 +21,7 @@
     "roboto-fontface": "*",
     "vee-validate": "^4.9.4",
     "vue": "^3.2.13",
-    "vue-router": "^4.0.0",
+    "vue-router": "^4.2.2",
     "vue3-cookies": "^1.0.6",
     "vuetify": "^3.0.0",
     "webfontloader": "^1.0.0"

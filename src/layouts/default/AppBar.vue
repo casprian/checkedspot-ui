@@ -29,15 +29,27 @@
       <v-btn v-if="hastoken" @click="handleCreateProperty" variant="flat" class="ml-3 mr-5" color="deep-purple-lighten-2">
         Add Property
       </v-btn>
+      <div v-if="hastoken" class="pa-0 ma-0">
+        <!-- <v-avatar @click="showProfile = !showProfile" color="grey-darken-3" class="profileAvatar" image="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"></v-avatar> -->
+        <ProfileAvatar class="ProfileAvatarComp" />
+
+      </div>
     </template>
   </v-app-bar>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref , watch} from 'vue';
 import { useRouter } from 'vue-router';
 // import { ref } from 'vue';
 import { useCookies } from "vue3-cookies";
+import ProfileAvatar from '@/components/ProfileAvatar.vue'
+
+const showProfile= ref(false);
+
+watch(showProfile,(newshowProfile)=>{
+  console.log(newshowProfile)
+})
 
 const { cookies } = useCookies();
 const router = useRouter();
@@ -65,10 +77,26 @@ function handleCreateProperty() {
     return;
   }
 }
+
+// Profile header
+
 </script>
 
 <style scoped>
 .logo {
   cursor: pointer;
+}
+
+/* Profile Avatar */
+.profileAvatar{
+  cursor: pointer;
+}
+
+.ProfileAvatarComp{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 150 !important;
+  overflow: scroll;
 }
 </style>
