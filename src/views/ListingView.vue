@@ -22,7 +22,7 @@
         <v-row no-gutters class="px-sm-14">
             <v-col class="px-2 my-2 px-md-4 my-md-4" v-for="(data, index) in propertiesData?.data" cols="12" md="6" lg="4"
                 :key="index">
-                <property-card :property="data" :listingPath="listingFullpath"/>
+                <property-card :property="data"/>
             </v-col>
         </v-row>
         <v-row v-if="!propertiesData?.data" no-gutters class="px-sm-14">
@@ -53,7 +53,7 @@ import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
 const router = useRouter();
-const listingFullpath = ref(`${route.fullPath}`);
+
 const items = reactive([
     {
         title: "Home",
@@ -91,7 +91,6 @@ async function getAllProperty() {
             pageNumber: pageNumber.value,
         },
     };
-    console.log(formData.params)
 
     const res = await api.property.getProperties(formData);
     if(res.status === 200) {

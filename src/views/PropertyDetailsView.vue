@@ -354,7 +354,7 @@
 // @ts-ignore
 import api from '@/data/api/index.js';
 import { onMounted, reactive, ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { onBeforeRouteUpdate, useRoute, useRouter } from "vue-router";
 import PDFViewer from 'pdf-viewer-vue';
 
 function handleDownload() {
@@ -376,7 +376,7 @@ const items = reactive([
     {
         title: "Listing",
         disabled: false,
-        href: `${route?.query?.listingPath}`,
+        href: router?.options?.history?.state?.back,
     },
     {
         title: "Property Details",

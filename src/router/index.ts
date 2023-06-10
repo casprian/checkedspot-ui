@@ -56,12 +56,21 @@ const routes = [
     path: '/error',
     name: 'Error page',
     component: () => import('@/views/ErrorView.vue')
+  },
+  {
+    path: '/:pathMatch(.*)*', //will match everything and put it under `$route.params.pathMatch`
+    name: 'Page Not Found',
+    component: () => import('@/views/PageNotFoundView.vue')
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
+  scrollBehavior(to, from, savedPosition) {
+    // return desired position
+    return { top: 0 , behavior: 'smooth'}
+  },
 })
 
 export default router
