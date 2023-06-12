@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" scrollable width="auto">
+  <v-dialog v-model="dialog" scrollable width="auto" class="d-flex align-start justify-end mr-n6 pt-10">
     <template v-slot:activator="{ props }">
       <v-avatar @click="changeDialog" color="grey-darken-3" class="profileAvatar"
         :image="user.picture ? user.picture : 'https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light'"
@@ -103,7 +103,7 @@ function handleRouting(routeTo:string) {
 
 <style scoped>
 .mainCont {
-  width: 400px;
+  max-width: 400px;
 }
 
 .profileAvatar:hover,
