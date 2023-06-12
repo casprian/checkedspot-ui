@@ -30,9 +30,7 @@
         Add Property
       </v-btn>
       <div v-if="hastoken" class="pa-0 ma-0">
-        <!-- <v-avatar @click="showProfile = !showProfile" color="grey-darken-3" class="profileAvatar" image="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"></v-avatar> -->
-        <ProfileAvatar class="ProfileAvatarComp" />
-
+        <profile-avatar class="ProfileAvatarComp" />
       </div>
     </template>
   </v-app-bar>
@@ -55,8 +53,7 @@ const { cookies } = useCookies();
 const router = useRouter();
 
 const hastoken = ref(false);
-const token = cookies.get('token');
-if (token) {
+if (cookies.get('token')) {
   hastoken.value = true;
 }
 
@@ -65,7 +62,7 @@ function handleLogout() {
   const splitDomain = (location.hostname).split('www.');
   const domain = splitDomain[splitDomain.length - 1];
   document.cookie = `token=; Max-Age=0; path=/; domain=${domain}`;
-  router.push('/');
+  location.replace(window.origin);
 }
 
 function handleCreateProperty() {

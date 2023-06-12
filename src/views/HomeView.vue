@@ -15,12 +15,12 @@ import AllPropertyNeeds from '@/components/home-view-components/AllPropertyNeeds
 import PropertiesForEveryone from '@/components/home-view-components/PropertiesForEveryone.vue';
 import PropertyServices from '@/components/home-view-components/PropertyServices.vue';
 
-import { onMounted, reactive, ref } from 'vue';
+import { onMounted, reactive } from 'vue';
 //@ts-ignore
 import api from '@/data/api/index.js';
 import { useRouter } from 'vue-router';
-
 const router = useRouter();
+
 const verifiedProperties = reactive({
   data: null
 })

@@ -27,7 +27,6 @@ import { ref } from 'vue'
 
 const user = ref('');
 const expandSuccess = ref(false);
-// const showGreetMsg = ref(false);
 
 if (localStorage.getItem('email')) {
   expandSuccess.value = true;

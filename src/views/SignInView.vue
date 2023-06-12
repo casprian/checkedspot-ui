@@ -124,7 +124,6 @@ setTimeout(() => {
 
 const alreadyLoggedIn = ref(false);
 const loader = ref(false);
-const token = ref(null);
 const retrySignIn = ref(false);
 
 const loginHandler = handleSubmit(async (values: any) => {
@@ -138,18 +137,18 @@ const loginHandler = handleSubmit(async (values: any) => {
         email: values.email,
         password: values.password,
     });
-
+    
     if (res?.data?.token) {
         localStorage.setItem('email', values?.email);
         const splitDomain = (location.hostname).split('www');
         const domain = splitDomain[splitDomain.length - 1];
         cookies.set("token", res?.data?.token, '1h', '/', domain, true, 'Lax');
-        token.value = res?.data?.token;
         retrySignIn.value = false;
         loader.value = false;
-        router.push('/');
+        // router.push('/');
+        // router.go(0);
+        location.replace(window.origin)
     } else {
-        token.value = null;
         retrySignIn.value = true;
         loader.value = false;
     }
