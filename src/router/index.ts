@@ -50,6 +50,16 @@ const routes = [
         name: 'Create Property',
         component: ()=> import('@/views/CreatePropertyView.vue')
       },
+      {
+        path: '/privacypolicy', 
+        name: 'Privacy Policy',
+        component: () => import('@/views/PrivacyPolicyView.vue')
+      },
+      {
+        path: '/termsofservices',
+        name: 'Terms of Services',
+        component: () => import('@/views/TermOfServiceView.vue')
+      },
     ],
   },
   {
@@ -67,7 +77,7 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
-  scrollBehavior(to, from, savedPosition) {
+  scrollBehavior() {
     // return desired position
     return { top: 0 , behavior: 'smooth'}
   },

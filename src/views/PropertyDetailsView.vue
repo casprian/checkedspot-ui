@@ -354,7 +354,7 @@
 // @ts-ignore
 import api from '@/data/api/index.js';
 import { onMounted, reactive, ref } from "vue";
-import { onBeforeRouteUpdate, useRoute, useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import PDFViewer from 'pdf-viewer-vue';
 
 function handleDownload() {

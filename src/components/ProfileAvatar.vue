@@ -3,7 +3,7 @@
     <template v-slot:activator="{ props }">
       <v-avatar @click="changeDialog" color="grey-darken-3" class="profileAvatar"
         :image="user.picture ? user.picture : 'https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light'"
-        v-bind="props"></v-avatar>
+        v-bind="props" title="click to view profile"></v-avatar>
     </template>
     <div class="mainCont pa-2 rounded-xl bg-grey-lighten-4">
       <v-row no-gutters>
@@ -46,10 +46,12 @@
         </v-col>
         <v-divider></v-divider>
         <v-col cols="12" class="d-flex align-center justify-center mb-2 mt-4">
-          <v-btn variant="flat" density="compact" class="text-body-2 font-weight-light bg-grey-lighten-4">Privacy
+          <v-btn @click="() => handleRouting('privacypolicy')" variant="flat" density="compact"
+            class="text-body-2 font-weight-light bg-grey-lighten-4">Privacy
             Policy</v-btn>
           <div class="rounded-circle bg-black ma-1"></div>
-          <v-btn variant="flat" density="compact" class="text-body-2 font-weight-light bg-grey-lighten-4">Terms of
+          <v-btn @click="() => handleRouting('termsofservices')" variant="flat" density="compact"
+            class="text-body-2 font-weight-light bg-grey-lighten-4">Terms of
             Service</v-btn>
         </v-col>
       </v-row>
@@ -87,13 +89,26 @@ function changeDialog() {
 
 function handleSignout() {
   cookies.remove('token');
+  const splitDomain = (location.hostname).split('www.');
+  const domain = splitDomain[splitDomain.length - 1];
+  document.cookie = `token=; Max-Age=0; path=/; domain=${domain}`;
   location.replace(window.origin);
+}
+
+function handleRouting(routeTo:string) {
+  router.push(`/${routeTo}`);
+  dialog.value = false;
 }
 </script>
 
 <style scoped>
 .mainCont {
   width: 400px;
+}
+
+.profileAvatar:hover,
+.avatarIcon:hover {
+  cursor: pointer;
 }
 
 .avatarRelative {
@@ -111,5 +126,4 @@ function handleSignout() {
   width: 5px;
   height: 5px;
   border: 1px solid rgb(255, 251, 251);
-}
-</style>
+}</style>

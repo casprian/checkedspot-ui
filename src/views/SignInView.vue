@@ -81,12 +81,11 @@
 // @ts-ignore
 import api from '@/data/api/index.js';
 import { ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 import { useField, useForm } from 'vee-validate';
 import { useCookies } from "vue3-cookies";
 
 const { cookies } = useCookies();
-const router = useRouter();
 const route = useRoute();
 
 //form Validation
@@ -145,8 +144,6 @@ const loginHandler = handleSubmit(async (values: any) => {
         cookies.set("token", res?.data?.token, '1h', '/', domain, true, 'Lax');
         retrySignIn.value = false;
         loader.value = false;
-        // router.push('/');
-        // router.go(0);
         location.replace(window.origin)
     } else {
         retrySignIn.value = true;

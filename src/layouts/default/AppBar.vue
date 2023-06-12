@@ -20,9 +20,9 @@
       <v-btn v-if="!hastoken" @click="router.push('/signin')" variant="outlined" class="ml-2" color="deep-purple-lighten-2">
         LOGIN
       </v-btn>
-      <v-btn v-else @click="handleLogout" variant="outlined" class="ml-2" color="deep-purple-lighten-2">
+      <!-- <v-btn v-else @click="handleLogout" variant="outlined" class="ml-2" color="deep-purple-lighten-2">
         LOGOUT
-      </v-btn>
+      </v-btn> -->
       <v-btn v-if="!hastoken" @click="router.push('/signup')" variant="flat" class="ml-3 mr-5" color="deep-purple-lighten-2">
         REGISTER
       </v-btn>
@@ -39,8 +39,8 @@
 <script lang="ts" setup>
 import { ref , watch} from 'vue';
 import { useRouter } from 'vue-router';
-// import { ref } from 'vue';
 import { useCookies } from "vue3-cookies";
+//@ts-ignore
 import ProfileAvatar from '@/components/ProfileAvatar.vue'
 
 const showProfile= ref(false);
@@ -57,13 +57,13 @@ if (cookies.get('token')) {
   hastoken.value = true;
 }
 
-function handleLogout() {
-  cookies.remove('token');
-  const splitDomain = (location.hostname).split('www.');
-  const domain = splitDomain[splitDomain.length - 1];
-  document.cookie = `token=; Max-Age=0; path=/; domain=${domain}`;
-  location.replace(window.origin);
-}
+// function handleLogout() {
+//   cookies.remove('token');
+//   const splitDomain = (location.hostname).split('www.');
+//   const domain = splitDomain[splitDomain.length - 1];
+//   document.cookie = `token=; Max-Age=0; path=/; domain=${domain}`;
+//   location.replace(window.origin);
+// }
 
 function handleCreateProperty() {
   if (!cookies.get('token')) {
