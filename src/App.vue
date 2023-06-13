@@ -1,4 +1,4 @@
-<template>  
+<template>
   <router-view />
 </template>
 
@@ -6,7 +6,8 @@
 </script>
 
 <style>
-::-moz-selection { /* Code for Firefox */
+::-moz-selection {
+  /* Code for Firefox */
   color: #fff;
   background: #f5005696;
 }
@@ -17,6 +18,6 @@
 }
 
 a {
-    color: #F50057;
+  color: #f5005696 !important;
 }
 </style>

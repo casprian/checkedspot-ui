@@ -96,7 +96,4 @@
 </script>
 
 <style scoped>
-    a{
-        color: rgb(86, 173, 255);
-    }
 </style>
