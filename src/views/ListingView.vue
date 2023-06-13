@@ -69,6 +69,14 @@ const items = reactive([
 
 const propertiesData = reactive({ data: null });
 const propertyFilterObj = reactive({ ...route?.query });
+
+let cities:any = null;
+if(!Array.isArray(route.query.city) && (typeof (route.query.city) === 'string')) {
+    cities = [route.query.city];
+}else if(Array.isArray(route.query.city)) {
+    cities = [...route.query.city]
+}
+
 const pageNumber = ref(1)
 const limit = ref(6);
 const noOfPage = ref(1);
@@ -82,7 +90,7 @@ async function getAllProperty() {
             //@ts-ignore
             type: (propertyFilterObj?.type)?.length > 0 ? propertyFilterObj?.type : null,
             isVerifiedByCheckedSpot: propertyFilterObj?.isVerifiedByCheckedSpot,
-            city: propertyFilterObj?.city,
+            city: cities,
             areaFrom: propertyFilterObj?.areaFrom,
             areaTo: propertyFilterObj?.areaTo,
             costFrom: propertyFilterObj?.costFrom,
