@@ -47,7 +47,7 @@
                         other device by a website, containing the details of Your browsing history on that website among
                         its many uses.</li>
 
-                    <li><strong>Country</strong> refers to: West Bengal, India.</li>
+                    <li><strong>Country</strong> refers to: India.</li>
 
                     <li><strong>Device</strong> means any device that can access the Service such as a computer, a
                         cellphone or a digital tablet.</li>
