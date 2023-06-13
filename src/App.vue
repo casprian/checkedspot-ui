@@ -15,4 +15,8 @@
   color: #fff;
   background: #f5005696;
 }
+
+a {
+    color: #F50057;
+}
 </style>

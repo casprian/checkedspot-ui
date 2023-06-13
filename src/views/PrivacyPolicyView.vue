@@ -391,10 +391,6 @@ ul>li::before {
     left: 0;
 }
 
-a {
-    color: #F50057;
-}
-
 .sncpurposes p {
     margin-top: 10px;
 }
