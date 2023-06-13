@@ -59,7 +59,7 @@ status.value = parseInt(JSON.parse(JSON.stringify(route?.query?.status ? route?.
 <style scoped>
 .container {
     height: 100vh; 
-    background-image: url('../assets/images/b-12.jpg');
+    background-image: url('https://checkedspot.blob.core.windows.net/assets/b-12.jpg');
     background-size: cover;   
     background-position-y: bottom;
 }

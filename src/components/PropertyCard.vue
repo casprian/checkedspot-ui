@@ -102,7 +102,7 @@
                     <v-col cols="12">
                         <v-row class="cardBottom pa-0 mx-6 my-2 d-flex justify-space-between align-center">
                             <v-col cols="auto" class="px-0 my-1">
-                                <v-avatar class="pa-0 mr-2" image="/src/assets/photos/parvez1.jpeg" size="45"></v-avatar>
+                                <v-avatar class="pa-0 mr-2" image="https://checkedspot.blob.core.windows.net/assets/parvez1.jpeg" size="45"></v-avatar>
                                 <span class="text-body-2 mt-3 ml-0 text-uppercase text-center text-grey-darken-2">
                                     Parvez Shariff
                                 </span>

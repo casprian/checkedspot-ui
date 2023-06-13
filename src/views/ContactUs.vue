@@ -25,7 +25,7 @@
                 <v-progress-linear color="deep-purple" height="4" indeterminate></v-progress-linear>
               </template>
 
-              <v-img cover height="250" src="/src/assets/photos/bangalore.jpg"></v-img>
+              <v-img cover height="250" src="https://checkedspot.blob.core.windows.net/assets/bangalore.jpg"></v-img>
 
               <v-card-item>
                 <v-card-title>Checked Spot - Bangalore</v-card-title>
@@ -64,7 +64,7 @@
                 <v-progress-linear color="deep-purple" height="4" indeterminate></v-progress-linear>
               </template>
 
-              <v-img cover height="250" src="/src/assets/photos/hassan.jpg"></v-img>
+              <v-img cover height="250" src="https://checkedspot.blob.core.windows.net/assets/hassan.jpg"></v-img>
 
               <v-card-item>
                 <v-card-title>Checked Spot - Hassan</v-card-title>
@@ -137,7 +137,6 @@
 </template>
 
 <script lang="ts" setup>
-import axios from 'axios';
 import { ref } from "vue";
 import { useField, useForm } from 'vee-validate';
 //@ts-ignore
@@ -202,7 +201,6 @@ const enquiryMessage = useField('enquiryMessage');
 
 console.log(name.value.value)
 const callWhatsappCloudApi = handleSubmit(async (values) => {
-  // console.log(values)
   dialog.value = false;
 
   api?.user?.sendEnquiry({...values}).then((res:any) => {
@@ -223,30 +221,6 @@ const callWhatsappCloudApi = handleSubmit(async (values) => {
       expandFailure.value = false;
     }, 5000);
   })
-
-  // axios({
-  //   method: 'post',
-  //   url: 'https://apicheckedspot.azurewebsites.net/user/sendEnquiry',
-  //   data: values
-  // }).then((res) => {
-  //   console.log(res)
-  //   if (res?.data?.status === 200) {
-  //     expandSuccess.value = true;
-  //   } else {
-  //     expandFailure.value = true;
-  //   }
-  //   setTimeout(() => {
-  //     expandSuccess.value = false;
-  //     expandFailure.value = false;
-  //   }, 5000);
-  // }).catch((err) => {
-  //   console.log(err)
-  //   expandFailure.value = true;    
-  //   setTimeout(() => {
-  //     expandSuccess.value = false;
-  //     expandFailure.value = false;
-  //   }, 5000);
-  // })
 })
 </script>
 
