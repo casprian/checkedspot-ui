@@ -81,10 +81,7 @@
 // @ts-ignore
 import api from '@/data/api/index.js';
 import { ref } from "vue";
-import { useRouter } from "vue-router";
 import { useField, useForm } from 'vee-validate';
-
-const router = useRouter();
 
 //form validation
 const show1 = ref(false);

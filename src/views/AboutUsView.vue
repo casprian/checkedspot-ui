@@ -64,7 +64,7 @@
                 <p class="my-4 text-h6 font-weight-light pl-8">
                     To see a sample report on each of property listed is verified who
                     can click here to see a
-                    <a href="#" class="text-blue-darken-4">Sample Report - Checked Spot</a>
+                    <a href="#">Sample Report - Checked Spot</a>
 
                     <br />
 

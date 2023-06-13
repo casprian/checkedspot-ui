@@ -81,12 +81,11 @@
 // @ts-ignore
 import api from '@/data/api/index.js';
 import { ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 import { useField, useForm } from 'vee-validate';
 import { useCookies } from "vue3-cookies";
 
 const { cookies } = useCookies();
-const router = useRouter();
 const route = useRoute();
 
 //form Validation
@@ -124,7 +123,6 @@ setTimeout(() => {
 
 const alreadyLoggedIn = ref(false);
 const loader = ref(false);
-const token = ref(null);
 const retrySignIn = ref(false);
 
 const loginHandler = handleSubmit(async (values: any) => {
@@ -138,18 +136,16 @@ const loginHandler = handleSubmit(async (values: any) => {
         email: values.email,
         password: values.password,
     });
-
+    
     if (res?.data?.token) {
         localStorage.setItem('email', values?.email);
         const splitDomain = (location.hostname).split('www');
         const domain = splitDomain[splitDomain.length - 1];
         cookies.set("token", res?.data?.token, '1h', '/', domain, true, 'Lax');
-        token.value = res?.data?.token;
         retrySignIn.value = false;
         loader.value = false;
-        router.push('/');
+        location.replace(window.origin)
     } else {
-        token.value = null;
         retrySignIn.value = true;
         loader.value = false;
     }

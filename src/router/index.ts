@@ -36,6 +36,11 @@ const routes = [
         component: ()=> import('@/views/SignUpView.vue')
       },
       {
+        path: '/profile',
+        name: 'Profile',
+        component: ()=> import('@/views/ProfileView.vue')
+      },
+      {
         path: '/listing',
         name: 'Listing',
         component: () => import('@/views/ListingView.vue'),
@@ -50,18 +55,37 @@ const routes = [
         name: 'Create Property',
         component: ()=> import('@/views/CreatePropertyView.vue')
       },
+      {
+        path: '/privacypolicy', 
+        name: 'Privacy Policy',
+        component: () => import('@/views/PrivacyPolicyView.vue')
+      },
+      {
+        path: '/termsofservices',
+        name: 'Terms of Services',
+        component: () => import('@/views/TermOfServiceView.vue')
+      },
     ],
   },
   {
     path: '/error',
     name: 'Error page',
     component: () => import('@/views/ErrorView.vue')
+  },
+  {
+    path: '/:pathMatch(.*)*', //will match everything and put it under `$route.params.pathMatch`
+    name: 'Page Not Found',
+    component: () => import('@/views/PageNotFoundView.vue')
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
+  scrollBehavior() {
+    // return desired position
+    return { top: 0 , behavior: 'smooth'}
+  },
 })
 
 export default router

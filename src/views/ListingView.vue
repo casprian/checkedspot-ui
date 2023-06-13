@@ -22,7 +22,7 @@
         <v-row no-gutters class="px-sm-14">
             <v-col class="px-2 my-2 px-md-4 my-md-4" v-for="(data, index) in propertiesData?.data" cols="12" md="6" lg="4"
                 :key="index">
-                <property-card :property="data" :listingPath="listingFullpath"/>
+                <property-card :property="data"/>
             </v-col>
         </v-row>
         <v-row v-if="!propertiesData?.data" no-gutters class="px-sm-14">
@@ -53,7 +53,7 @@ import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
 const router = useRouter();
-const listingFullpath = ref(`${route.fullPath}`);
+
 const items = reactive([
     {
         title: "Home",
@@ -69,6 +69,14 @@ const items = reactive([
 
 const propertiesData = reactive({ data: null });
 const propertyFilterObj = reactive({ ...route?.query });
+
+let cities:any = null;
+if(!Array.isArray(route.query.city) && (typeof (route.query.city) === 'string')) {
+    cities = [route.query.city];
+}else if(Array.isArray(route.query.city)) {
+    cities = [...route.query.city]
+}
+
 const pageNumber = ref(1)
 const limit = ref(6);
 const noOfPage = ref(1);
@@ -82,7 +90,7 @@ async function getAllProperty() {
             //@ts-ignore
             type: (propertyFilterObj?.type)?.length > 0 ? propertyFilterObj?.type : null,
             isVerifiedByCheckedSpot: propertyFilterObj?.isVerifiedByCheckedSpot,
-            city: propertyFilterObj?.city,
+            city: cities,
             areaFrom: propertyFilterObj?.areaFrom,
             areaTo: propertyFilterObj?.areaTo,
             costFrom: propertyFilterObj?.costFrom,
@@ -91,7 +99,6 @@ async function getAllProperty() {
             pageNumber: pageNumber.value,
         },
     };
-    console.log(formData.params)
 
     const res = await api.property.getProperties(formData);
     if(res.status === 200) {
