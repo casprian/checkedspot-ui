@@ -206,7 +206,7 @@ const cities = reactive(['Bangalore', 'Mysore', 'Hassan']);
 const states = reactive(['Karnataka']);
 const countries = reactive(['India']);
 const furnishedStatus = reactive(['unfurnished', 'semi-furnished', 'full-furnished']);
-const jwt = cookies.get('token').split('Bearer ')[1];
+const jwt = cookies?.get('token')?.split('Bearer ')[1];
 
 const bodyData = reactive({
     //@ts-ignore
@@ -371,8 +371,8 @@ const addProperty = handleSubmit(async(values) => {
     if (bodyData?.googleMapLink) {
         //@ts-ignore
         let geocode = bodyData?.googleMapLink?.split('@');
-        geocode = geocode.pop();
-        geocode = geocode.split(',');
+        geocode = geocode?.pop();
+        geocode = geocode?.split(',');
         bodyData.latitude = geocode[0];
         bodyData.longitude = geocode[1];
     }
@@ -380,10 +380,10 @@ const addProperty = handleSubmit(async(values) => {
     const formData = new FormData();
     (Object.entries(bodyData)).forEach(([key, value]: any) => {
         if (value !== null && (key !== 'imgfile' && key !== 'planimgfile' && key !== 'vidfile')) {
-            formData.append(`${key}`, value);
+            formData?.append(`${key}`, value);
         } else if (key === 'imgfile' || key === 'planimgfile' || key === 'vidfile') {
             value.map((file: File) => {
-                formData.append(key, file);
+                formData?.append(key, file);
             })
         }
     })
