@@ -21,7 +21,6 @@
             <v-btn prepend-icon="mdi-pencil" class="d-md-none rounded-lg" variant="outlined" @click="showEdit=!showEdit">Edit</v-btn>
           </v-col>
         </v-row>
-        
       </v-col>
       <v-col cols="12" md="6" class="elevation-2 pa-10 d-none d-md-block" :class="[showEdit?'d-none d-md-block':'d-block']">
         <v-form>
@@ -65,7 +64,6 @@
       </v-col>
     </v-row>
   </v-container>
-  
 </template>
 
 <script lang="ts" setup>

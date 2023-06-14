@@ -28,14 +28,6 @@
           <v-progress-linear v-if="loader" color="deep-purple-accent-4" indeterminate rounded
             height="3"></v-progress-linear>
         </v-col>
-        <!-- <v-col cols="12">
-          <v-btn class="rounded-b-xl text-body-1 d-flex justify-start bg-grey-lighten-4" height="50" variant="flat">
-            <template v-slot:prepend>
-              <v-icon icon="mdi-account-plus" class="ml-9 mr-7" size="20"></v-icon>
-            </template>
-            Add another account
-          </v-btn>
-        </v-col> -->
         <v-col cols="12" class="mt-0 mb-4">
           <v-btn @click="handleSignout" block variant="flat" class="text-body-1 d-flex justify-start bg-grey-lighten-4"
             height="50">
