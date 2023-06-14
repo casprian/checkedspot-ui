@@ -13,14 +13,14 @@
               <v-avatar color="grey-darken-3"
                 :image="user.picture ? user.picture : 'https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light'"
                 size="75"></v-avatar>
-              <div @click="() => handleRouting('profile')" class="avatarIcon  rounded-circle bg-white elevation-1 pa-1 d-flex align-center justify-center">
+              <div class="avatarIcon  rounded-circle bg-white elevation-1 pa-1 d-flex align-center justify-center">
                 <v-icon icon="mdi-camera" size="15" color="black"></v-icon>
               </div>
             </v-col>
             <v-col cols="9" class="ml-0 mt-5">
               <h6 class="text-body-1 font-weight-medium">{{ user.name ? user.name : "xyz" }}</h6>
               <p class="text-body-2">{{ user.email ? user.email : "xyz@gmail.com" }}</p>
-              <v-btn @click="() => handleRouting('profile')" class="mt-5 rounded-lg" variant="outlined">Manage Your Account</v-btn>
+              <v-btn disabled @click="() => handleRouting('profile')" class="mt-5 rounded-lg" variant="outlined">Manage Your Account</v-btn>
             </v-col>
           </v-row>
         </v-col>
@@ -28,15 +28,7 @@
           <v-progress-linear v-if="loader" color="deep-purple-accent-4" indeterminate rounded
             height="3"></v-progress-linear>
         </v-col>
-        <v-col cols="12">
-          <v-btn block class="rounded-b-xl text-body-1 d-flex justify-start bg-grey-lighten-4" height="50" variant="flat">
-            <template v-slot:prepend>
-              <v-icon icon="mdi-account-plus" class="ml-9 mr-7" size="20"></v-icon>
-            </template>
-            Add another account
-          </v-btn>
-        </v-col>
-        <v-col cols="12" class="mt-2 mb-2">
+        <v-col cols="12" class="mt-0 mb-4">
           <v-btn @click="handleSignout" block variant="flat" class="text-body-1 d-flex justify-start bg-grey-lighten-4"
             height="50">
             <template v-slot:prepend>
