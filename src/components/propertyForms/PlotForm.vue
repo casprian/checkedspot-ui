@@ -114,7 +114,7 @@ const expand = ref(false);
 const cities = reactive(['Bangalore', 'Mysore', 'Hassan']);
 const states = reactive(['Karnataka']);
 const countries = reactive(['India']);
-const jwt = cookies.get('token').split('Bearer ')[1];
+const jwt = cookies?.get('token')?.split('Bearer ')[1];
 
 const bodyData = reactive({
     //@ts-ignore
@@ -230,8 +230,8 @@ const addProperty = handleSubmit(async(values) => {
     if(bodyData?.googleMapLink){
         //@ts-ignore
         let geocode = bodyData?.googleMapLink?.split('@');
-        geocode = geocode.pop();
-        geocode = geocode.split(',');
+        geocode = geocode?.pop();
+        geocode = geocode?.split(',');
         bodyData.latitude = geocode[0];
         bodyData.longitude = geocode[1];
         console.log(bodyData.latitude);
@@ -250,7 +250,7 @@ const addProperty = handleSubmit(async(values) => {
     })
 
     const res = await api?.property?.createProperty(formData);
-console.log(res)
+    
     if(res.status === 200) {
         loading.value = false;
         alert(res?.data?.message);

@@ -1,17 +1,19 @@
 <template>
     <v-container fluid class="pa-0">
-        <div class="whoWeAreSec1 d-flex justify-center pb-0">
+        <div class="whoWeAreSec1 text-center pt-16">
             <h1 class="heading">
-                <pre>ABOUT US</pre>
+                About Us
             </h1>
         </div>
-        <v-row no-gutters class="px-16 pt-5 pb-10">
-            <v-col cols="12" class="pb-8 mt-10">
-                <h1 class="font-weight-regular merriweatherFont1">
+        <v-row no-gutters justify="center">
+            <v-col cols="5" class="pb-8 pt-4">
+                <h1 class="text-h5 text-center font-weight-light">
                     Checked Spots are those properties which are not just those
                     properties posted in web but they are,
                 </h1>
             </v-col>
+        </v-row>
+        <v-row no-gutters class="px-16 pt-5 pb-10">
             <v-col cols="12" md="6" class="pt-10 pr-5">
                 <v-img src="https://checkedspot.blob.core.windows.net/assets/save_Time.jpg"></v-img>
             </v-col>
@@ -59,16 +61,13 @@
             </v-col>
         </v-row>
 
-        <v-row no-gutters class="px-8 pt-5">
+        <v-row no-gutters class="px-8 pt-8 mb-16">
             <v-col cols="12">
-                <p class="my-4 text-h6 font-weight-light pl-8">
+                <p class="my-4 text-body-1 font-weight-light pl-8">
                     To see a sample report on each of property listed is verified who
                     can click here to see a
-                    <a href="#" class="text-blue-darken-4">Sample Report - Checked Spot</a>
-
-                    <br />
-
-                    Otherwise, you're done!
+                    <a href="#">Sample Report - Checked Spot</a>
+                    , Otherwise, you're done!
                 </p>
             </v-col>
         </v-row>
@@ -81,26 +80,13 @@
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
 
-.whoWeAreSec1 {
-    position: relative;
-    width: 100%;
-    height: 400px;
-    background-image: linear-gradient(90deg, rgba(3, 3, 3, 0.5) 8%, rgba(3, 3, 3, 0.5) 87%), url('https://checkedspot.blob.core.windows.net/assets/aboutHeader.jpg');
-    background-size: cover;
-}
-
-.heading {
-    position: absolute;
-    top: 100px;
-    color: white;
-    font-size: 120px;
-}
-
-.merriweatherFont1 {
+.heading {    
     font-family: 'Merriweather', serif !important;
     font-size: 45px;
 }
 
 .merriweatherFont {
+    font-size: 30px;
     font-family: 'Merriweather', serif !important;
-}</style>
+}
+</style>

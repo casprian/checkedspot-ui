@@ -20,41 +20,50 @@
       <v-btn v-if="!hastoken" @click="router.push('/signin')" variant="outlined" class="ml-2" color="deep-purple-lighten-2">
         LOGIN
       </v-btn>
-      <v-btn v-else @click="handleLogout" variant="outlined" class="ml-2" color="deep-purple-lighten-2">
+      <!-- <v-btn v-else @click="handleLogout" variant="outlined" class="ml-2" color="deep-purple-lighten-2">
         LOGOUT
-      </v-btn>
+      </v-btn> -->
       <v-btn v-if="!hastoken" @click="router.push('/signup')" variant="flat" class="ml-3 mr-5" color="deep-purple-lighten-2">
         REGISTER
       </v-btn>
       <v-btn v-if="hastoken" @click="handleCreateProperty" variant="flat" class="ml-3 mr-5" color="deep-purple-lighten-2">
         Add Property
       </v-btn>
+      <div v-if="hastoken" class="pa-0 ma-0">
+        <profile-avatar class="ProfileAvatarComp" />
+      </div>
     </template>
   </v-app-bar>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref , watch} from 'vue';
 import { useRouter } from 'vue-router';
-// import { ref } from 'vue';
 import { useCookies } from "vue3-cookies";
+//@ts-ignore
+import ProfileAvatar from '@/components/ProfileAvatar.vue'
+
+const showProfile= ref(false);
+
+watch(showProfile,(newshowProfile)=>{
+  console.log(newshowProfile)
+})
 
 const { cookies } = useCookies();
 const router = useRouter();
 
 const hastoken = ref(false);
-const token = cookies.get('token');
-if (token) {
+if (cookies.get('token')) {
   hastoken.value = true;
 }
 
-function handleLogout() {
-  cookies.remove('token');
-  const splitDomain = (location.hostname).split('www.');
-  const domain = splitDomain[splitDomain.length - 1];
-  document.cookie = `token=; Max-Age=0; path=/; domain=${domain}`;
-  router.push('/');
-}
+// function handleLogout() {
+//   cookies.remove('token');
+//   const splitDomain = (location.hostname).split('www.');
+//   const domain = splitDomain[splitDomain.length - 1];
+//   document.cookie = `token=; Max-Age=0; path=/; domain=${domain}`;
+//   location.replace(window.origin);
+// }
 
 function handleCreateProperty() {
   if (!cookies.get('token')) {
@@ -65,10 +74,26 @@ function handleCreateProperty() {
     return;
   }
 }
+
+// Profile header
+
 </script>
 
 <style scoped>
 .logo {
   cursor: pointer;
+}
+
+/* Profile Avatar */
+.profileAvatar{
+  cursor: pointer;
+}
+
+.ProfileAvatarComp{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 150 !important;
+  overflow: scroll;
 }
 </style>

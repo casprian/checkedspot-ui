@@ -51,7 +51,7 @@ export default {
       this.$router.push({
         path: '/listing', query: {
           type: this.type,
-          city: this.select,
+          city: [...this.select],
         }
       });
     }
