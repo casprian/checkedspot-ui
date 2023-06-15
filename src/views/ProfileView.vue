@@ -69,10 +69,16 @@
 <script lang="ts" setup>
 
   import {reactive,ref} from 'vue'
+  import axios from 'axios'
 
   const Stateitems = reactive(['Karnataka']);
   const countryitems = reactive(['India']);
-  const showEdit = ref(false)
+  const showEdit = ref(false);
+  
+  // const getUser = async ()=>{
+  //   axios.get('')
+  // }
+  // getUser()
 
 </script>
 
