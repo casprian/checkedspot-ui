@@ -211,7 +211,6 @@ const showEdit = ref(false);
 let userdata = ref({
   name: null,
   picture: null,
-  email: null,
   mobile: null,
   address: null,
   city: null,
