@@ -19,14 +19,16 @@
                     </div>
                 </v-col>
                 <v-col cols="12" sm="6" class="py-1 px-3">
-                    <v-text-field prepend-inner-icon="mdi-link" label="Google Map Link" v-model="bodyData.googleMapLink"
+                    <v-text-field prepend-inner-icon="mdi-link" label="Google Map Link" v-model="googleMapLink.value.value" :error-messages="googleMapLink.errorMessage.value"
                         clearable hint="Enter Google map link of the location" variant="outlined"></v-text-field>
-                </v-col>             
+                </v-col>
                 <v-col cols="12" sm="6" class="py-1 px-3">
-                    <v-text-field label="Property Address" v-model="bodyData.address" clearable hint="Enter property address" variant="outlined"></v-text-field>
-                </v-col>                
+                    <v-text-field label="Property Address" v-model="bodyData.address" clearable
+                        hint="Enter property address" variant="outlined"></v-text-field>
+                </v-col>
                 <v-col cols="12" sm="6" class="py-1 px-3">
-                    <v-text-field label="Property Area Pincode" v-model="bodyData.pincode" clearable hint="Enter area pincode where property located" variant="outlined"></v-text-field>
+                    <v-text-field label="Property Area Pincode" v-model="bodyData.pincode" clearable
+                        hint="Enter area pincode where property located" variant="outlined"></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6" class="py-1 px-3">
                     <v-text-field label="Cost (INR)" v-model="cost.value.value" :error-messages="cost.errorMessage.value"
@@ -275,6 +277,21 @@ let { handleSubmit, handleReset } = useForm({
                 return true
             }
         },
+        googleMapLink(value: string) {
+            if (!value) {
+                return true;
+            } else if(value) {
+                try {
+                    value.toString().split('@')[1].split(',')[0];
+                    value.toString().split('@')[1].split(',')[1];
+                    return true;
+                } catch (error) {
+                    return 'Please enter Valid Google map url/link OR leave it BLANK'
+                }
+            }else {
+                return true;
+            }
+        },
         cost(value: any) {
             if (!value) {
                 return 'Required.'
@@ -352,6 +369,7 @@ let { handleSubmit, handleReset } = useForm({
 
 const city = useField('city');
 const state = useField('state');
+const googleMapLink = useField('googleMapLink');
 const cost = useField('cost');
 const totalArea = useField('totalArea');
 const builyupArea = useField('builyupArea');
@@ -363,18 +381,16 @@ const imgfile = useField<File[] | undefined>('imgfile');
 
 
 const loading = ref(false);
-const addProperty = handleSubmit(async(values) => {
+const addProperty = handleSubmit(async (values) => {
     for (let item in values) {
         //@ts-ignore
         bodyData[item] = values[item];
     }
     if (bodyData?.googleMapLink) {
         //@ts-ignore
-        let geocode = bodyData?.googleMapLink?.split('@');
-        geocode = geocode?.pop();
-        geocode = geocode?.split(',');
-        bodyData.latitude = geocode[0];
-        bodyData.longitude = geocode[1];
+        bodyData.latitude = bodyData?.googleMapLink?.toString().split('@')[1].split(',')[0];
+        //@ts-ignore
+        bodyData.longitude = bodyData?.googleMapLink?.toString().split('@')[1].split(',')[1];
     }
     loading.value = true;
     const formData = new FormData();
@@ -387,7 +403,6 @@ const addProperty = handleSubmit(async(values) => {
             })
         }
     })
-
     const res = await api?.property?.createProperty(formData);
 
     if (res.status === 200) {
@@ -399,7 +414,8 @@ const addProperty = handleSubmit(async(values) => {
 })
 </script>
   
-<style scoped>.type {
+<style scoped>
+.type {
     border: solid 2px grey;
     border-radius: 8px;
 }</style>

@@ -1,5 +1,16 @@
 import * as call from "../../axios/client";
 
+
+const getUserData = async (params) => {
+    try {
+        const URL = "/user";
+        const response = await call.callWithoutToken('get',URL,params)
+        return {status: 200, data: response};
+    }catch(e) {
+        return {error: true, status: e?.response?.status, message: e?.response?.data?.message};
+    }
+};
+
 const login = async (params) => {
     try {
         const URL = "/user/login";
@@ -41,6 +52,7 @@ const getAuthorizationUrl = async (params) => {
 }
 
 export default {
+    getUserData,
     login,
     signup,
     sendEnquiry,
