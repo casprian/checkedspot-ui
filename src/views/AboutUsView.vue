@@ -87,6 +87,6 @@
 
 .merriweatherFont {
     font-size: 30px;
-    font-family: 'Merriweather', serif !important;
+    font-family: 'Merriweather', serif !important; 
 }
 </style>

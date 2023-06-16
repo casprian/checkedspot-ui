@@ -137,14 +137,10 @@ const loginHandler = handleSubmit(async (values: any) => {
         password: values.password,
     });
     
-    if (res?.data?.token) {
-        localStorage.setItem('email', values?.email);
-        const splitDomain = (location.hostname).split('www');
-        const domain = splitDomain[splitDomain.length - 1];
-        cookies.set("token", res?.data?.token, '1h', '/', domain, true, 'Lax');
+    if (res?.status === 200) {
         retrySignIn.value = false;
         loader.value = false;
-        location.replace(window.origin)
+        location.replace(window.origin);
     } else {
         retrySignIn.value = true;
         loader.value = false;

@@ -91,6 +91,7 @@ function handleRouting(routeTo:string) {
   router.push(`/${routeTo}`);
   dialog.value = false;
 }
+
 </script>
 
 <style scoped>
