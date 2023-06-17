@@ -14,13 +14,13 @@
                 :image="user.picture ? user.picture : 'https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light'"
                 size="75"></v-avatar>
               <div class="avatarIcon  rounded-circle bg-white elevation-1 pa-1 d-flex align-center justify-center">
-                <v-icon icon="mdi-camera" size="15" color="black"></v-icon>
+                <v-icon @click="() => handleRouting('profile')" icon="mdi-camera" size="15" color="black"></v-icon>
               </div>
             </v-col>
             <v-col cols="9" class="ml-0 mt-5">
               <h6 class="text-body-1 font-weight-medium">{{ user.name ? user.name : "xyz" }}</h6>
               <p class="text-body-2">{{ user.email ? user.email : "xyz@gmail.com" }}</p>
-              <v-btn disabled @click="() => handleRouting('profile')" class="mt-5 rounded-lg" variant="outlined">Manage Your Account</v-btn>
+              <v-btn @click="() => handleRouting('profile')" class="mt-5 rounded-lg" variant="outlined">Manage Your Account</v-btn>
             </v-col>
           </v-row>
         </v-col>
