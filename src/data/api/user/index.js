@@ -51,10 +51,32 @@ const getAuthorizationUrl = async (params) => {
     }
 }
 
+const updateProfile = async (params) => {
+    try {
+        const URL = "/user/update/profile";
+        const response = await call.callWithToken('post',URL,params);
+        return {status: 200, data: response};
+    }catch(e) {
+        return {error: true, status: e?.response?.status, message: e?.response?.data?.message};
+    }
+}
+
+const updateProfilePicture = async (params) => {
+    try {
+        const URL = "/user/update/profile/picture";
+        const response = await call.callWithTokenForMultiPart('post',URL,params);
+        return {status: 200, data: response};
+    }catch(e) {
+        return {error: true, status: e?.response?.status, message: e?.response?.data?.message};
+    }
+}
+
 export default {
     getUserData,
     login,
     signup,
     sendEnquiry,
-    getAuthorizationUrl
+    getAuthorizationUrl,
+    updateProfile,
+    updateProfilePicture
 };

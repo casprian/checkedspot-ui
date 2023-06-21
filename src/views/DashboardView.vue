@@ -1,48 +1,87 @@
 <template>
     <v-container fluid class="pa-0">
-        <v-row no-gutters>
-            <v-col cols="12" sm="3" style="background-color: red;">
-                <v-sheet>
-                    <div>User Dashboard</div>
+        <v-row no-gutters style="height: 100vh;">
+            <v-col cols="12" sm="3" class="bg-grey-lighten-5 leftNavigation">
+                <v-sheet height="85" class="pl-5 d-flex align-center bg-transparent">
+                    <div class="d-flex">
+                        <v-img 
+                            width="35"
+                            src="https://checkedspot.blob.core.windows.net/assets/checkedspotfavicon.ico"
+                        ></v-img>
+                        <h2 class="ml-3 mt-1 text-grey-darken-3">User Dashboard</h2>
+                    </div>
                 </v-sheet>
-                <div class="my-5 mx-3 pa-0">
-                    <v-btn block variant="flat" class="d-flex justify-start align-center" append-icon="mdi-home" color="pink-accent-3" @click="router.push('/dashboard')">Dashboard</v-btn>
-                </div>
-                <div class="my-5 mx-3 pa-0">
-                    <v-btn block variant="flat" class="d-flex justify-start align-center" color="pink-accent-3" @click="router.push('/dashboard/properties')">Properties</v-btn>
-                </div>
-                <div class="my-5 mx-3 pa-0">
-                    <v-btn block variant="flat" class="d-flex justify-start align-center" color="pink-accent-3" @click="router.push('/dashboard')">Projects</v-btn>
-                </div>
-                <div class="my-5 mx-3 pa-0">
-                    <v-btn block variant="flat" append-icon="mdi-face-agent" class="d-flex justify-start align-center" color="pink-accent-3" @click="router.push('/dashboard')">Support</v-btn>
-                </div>
-                <div class="my-5 mx-3 pa-0">
-                    <v-btn block variant="flat" class="d-flex justify-start align-center" color="pink-accent-3" @click="router.push('/dashboard')">Services</v-btn>
-                </div>
+                <v-divider></v-divider>
+
+                <v-btn block variant="text" class="mt-6 mb-2 px-8 d-flex justify-start align-center" height="45"
+                    prepend-icon="mdi-view-dashboard" color="grey-darken-3"
+                    @click="router.push('/dashboard')">Dashboard</v-btn>
+
+
+                <v-btn block variant="text" class="my-2 px-8 d-flex justify-start align-center" height="45"
+                    prepend-icon="mdi-home-city-outline" color="grey-darken-3"
+                    @click="router.push('/dashboard/properties')">Properties</v-btn>
+
+
+                <v-btn block variant="text" class="my-2 px-8 d-flex justify-start align-center" height="45"
+                    prepend-icon="mdi-cube-outline" color="grey-darken-3">Projects</v-btn>
+
+
+                <v-btn block variant="text" class="my-2 px-8 d-flex justify-start align-center" height="45"
+                    prepend-icon="mdi-face-agent" color="grey-darken-3">Support</v-btn>
+
+
+                <v-btn block variant="text" class="my-2 px-8 d-flex justify-start align-center" height="45"
+                    prepend-icon="mdi-room-service-outline" color="grey-darken-3">Services</v-btn>
+
             </v-col>
-            
-            <v-col  cols="12" sm="9" style="background-color: rgb(98, 98, 249);">
+
+            <v-col cols="12" sm="9" class="bg-grey-lighten-3">
                 <v-row no-gutters>
-                    <v-col cols="12" style="background-color: rgba(98, 194, 249, 0.682);">
-                        right top
+                    <v-col cols="12" class="d-flex justify-space-between align-center bg-grey-lighten-5 rightTopNaigation pt-2 px-5">
+                        <v-btn @click="router.push('/')" variant="outlined" prepend-icon="mdi-home">Home</v-btn>
+                        <profile-avatar/>
                     </v-col>
-                    <v-col cols="12" style="background-color: rgba(249, 194, 98, 0.473);">
+
+                    <v-col cols="12" class="px-1 d-flex justify-center rightBottomNaigation">
                         <router-view />
                     </v-col>
                 </v-row>
             </v-col>
         </v-row>
     </v-container>
-  </template>
+</template>
   
-  <script lang="ts" setup>
+<script lang="ts" setup>
+import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { useCookies } from "vue3-cookies";
+import jwtDecode from "jwt-decode";
+import ProfileAvatar from "@/components/ProfileAvatar.vue";
 
+const { cookies } = useCookies();
 const router = useRouter();
-
-
-  </script>
+const user = ref();
+if (cookies.get('token')) {
+  //@ts-ignore
+  user.value = jwtDecode(cookies.get('token'))?.userData;
+}
+</script>
   
-  <style scoped>
-  </style>
+<style scoped>
+.leftNavigation {
+    z-index: 1;
+    box-shadow: 0 0px 6px 0 rgba(0, 0, 0, 0.3);
+}
+
+.rightTopNaigation {
+    display: flex;
+    justify-content: end;
+    height: 60px;
+    box-shadow: 0 0px 6px 0 rgba(0, 0, 0, 0.3);
+}
+.rightBottomNaigation {
+    height: calc(100vh - 60px); 
+    overflow: scroll;
+}
+</style>

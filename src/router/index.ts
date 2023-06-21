@@ -78,11 +78,16 @@ const routes = [
         component: () => import('@/components/Dashboard/Dashboard.vue')
       },
       {
+        path: '/dashboard/editprofile',
+        name: 'Edit Profile',
+        component: () => import('@/components/Dashboard/EditProfile.vue')
+      },
+      {
         path: '/dashboard/properties',
         name: 'Properties',
         component: () => import('@/components/Dashboard/Properties.vue')
       }
-    ]
+    ],
   },
   {
     path: '/error',
@@ -99,7 +104,7 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
-  scrollBehavior() {
+  scrollBehavior(to, from, savedPosition) {
     // return desired position
     return { top: 0 , behavior: 'smooth'}
   },
