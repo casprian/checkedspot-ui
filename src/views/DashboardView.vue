@@ -5,10 +5,10 @@
                 <v-sheet height="85" class="pl-5 d-flex align-center bg-transparent">
                     <div class="d-flex">
                         <v-img 
-                            width="35"
+                            width="30"
                             src="https://checkedspot.blob.core.windows.net/assets/checkedspotfavicon.ico"
                         ></v-img>
-                        <h2 class="ml-3 mt-1 text-grey-darken-3">User Dashboard</h2>
+                        <h2 class="ml-3 mt-2 mt-md-1 mr-3 text-body-1 text-md-h5 font-weight-medium text-grey-darken-3">User Dashboard</h2>
                     </div>
                 </v-sheet>
                 <v-divider></v-divider>

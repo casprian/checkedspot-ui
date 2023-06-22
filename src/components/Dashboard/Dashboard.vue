@@ -21,7 +21,7 @@
                                 <update-profile-picture invocationMethod="button" :picture="user.picture ? user.picture : profilePicture"/>
                             </v-col>
                             <v-col cols="12" md="6" class="d-flex flex-column justify-center align-md-center">
-                                <v-progress-linear v-model="profileStatus" height="15" :color="profilecolor" class="mb-2">
+                                <v-progress-linear v-model="profileStatus" height="20" :color="profilecolor" class="mb-2">
                                     <strong>{{ profileStatus }}%</strong>
                                 </v-progress-linear>
                                 <v-btn @click="router.push('/dashboard/editprofile')" :class="['text-body-2 font-weight-light']" density="compact" variant="flat"

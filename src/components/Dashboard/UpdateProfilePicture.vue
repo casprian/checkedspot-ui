@@ -71,7 +71,6 @@ const uploadPicture = handleSubmit(async(values) => {
         router.push({ path: '/error', query: { status: res?.data?.status } })
     }
 });
-
 </script>
 
 <style scoped>
