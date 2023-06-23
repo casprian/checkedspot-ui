@@ -2,6 +2,7 @@
   <div>
     <header-component/>
     <owner-properties :properties="verifiedProperties.data"/>
+    <Construction/>
     <all-property-needs/>
     <properties-for-everyone/>
     <property-services/>
@@ -19,6 +20,8 @@ import AllPropertyNeeds from '@/components/home-view-components/AllPropertyNeeds
 import PropertiesForEveryone from '@/components/home-view-components/PropertiesForEveryone.vue';
 //@ts-ignore
 import PropertyServices from '@/components/home-view-components/PropertyServices.vue';
+//@ts-ignore
+import Construction from '@/components/home-view-components/Construction.vue';
 //@ts-ignore
 import api from '@/data/api/index.js';
 import { onMounted, reactive } from 'vue';

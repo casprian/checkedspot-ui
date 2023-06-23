@@ -51,6 +51,11 @@ const routes = [
         component: ()=> import('@/views/PropertyDetailsView.vue')
       },
       {
+        path: '/quotation',
+        name: 'Quotation Details',
+        component: ()=> import('@/views/QuotationView.vue')
+      },
+      {
         path: '/createproperty',
         name: 'Create Property',
         component: ()=> import('@/views/CreatePropertyView.vue')
