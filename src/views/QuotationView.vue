@@ -2,6 +2,8 @@
     <div>
         <progress-track/>
         <our-packages/>
+        <OurProjects/>
+
     </div>
 </template>
 
@@ -12,6 +14,9 @@
 
     //@ts-ignore
     import OurPackages from '@/components/construction-components/OurPackages.vue'
+
+    //@ts-ignore
+    import OurProjects from '@/components/construction-components/OurProjects.vue'
     
 </script>
 
