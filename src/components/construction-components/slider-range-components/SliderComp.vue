@@ -1,16 +1,15 @@
 <template>
     <v-slide-group
-      v-model="model"
       selected-class="bg-primary"
       multiple
       show-arrows
     >
       <v-slide-group-item
-        v-for="n in heading"
-        :key="n"
+        v-for="(heading, index) in headings"
+        :key="index"
       >
-        <div class="border pa-2 mr-5" style="max-width:363px">
-            <h4 class="py-3 px-4 bg-pink-accent-3">{{ n }}</h4>
+        <div class="border pa-2 mr-5" style="max-width:360px;">
+            <h4 class="py-3 px-4 bg-pink-accent-3">{{ heading }}</h4>
             <v-expansion-panels variant="accordion">
                 <v-expansion-panel v-for="(item,index) in expansionArr" :key="index" elevation="0">
                     <v-expansion-panel-title class="text-caption font-weight-black"  expand-icon="mdi-plus" collapse-icon="mdi-minus">
@@ -33,7 +32,7 @@
 <script setup>
 import { reactive } from "vue";
 
-    const heading = reactive([
+    const headings = reactive([
         "Budget - ₹ 1590/sqft (Incl. GST)",
         "Basic - ₹ 1750/sqft (Incl. GST)",
         "Classic - ₹ 1850/sqft (Incl. GST)",
