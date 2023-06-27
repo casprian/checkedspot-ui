@@ -8,7 +8,7 @@
         >
           Our Projects
         </h2>
-        <p class="py-3 text-indigo-lighten-1 text-center text-body-1">
+        <p class="py-3 px-2 px-sm-0 text-indigo-lighten-1 text-center text-body-1">
           From a couple to a large Indian family, we have houses built with
           emotions for everyone.
         </p>

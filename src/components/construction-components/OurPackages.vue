@@ -1,7 +1,7 @@
 <template>
     <v-container fluid class="px-0 py-10 px-md-14">
-        <v-row no-guters>
-            <v-col cols="12" class="d-flex flex-column align-center">
+        <v-row no-gutters>
+            <v-col cols="12" class="d-flex flex-column align-center px-0">
                 <h2 class="text-h4 font-weight-medium" style="color:#1f0757">Our Packages.</h2>
                 <p class="py-2 text-body-1 text-indigo-lighten-1">Find the best home construction packages.</p>
                 <div class="d-flex">
@@ -17,30 +17,9 @@
                     ></v-select>
                 </div>
             </v-col>
-            <v-col cols="12">
-                <!-- <v-row no-gutters style="overflow-x:scroll;">
-                    <v-col cols="12" md="4" class="pr-md-5" v-for="n in 5" :key=n>
-                        <div class="border pa-2">
-                            <h4 class="py-3 px-4 bg-pink-accent-3">Budget - ₹ 1590/sqft (Incl. GST)</h4>
-                            <v-expansion-panels variant="accordion">
-                                <v-expansion-panel v-for="(item,index) in expansionArr" :key="index" elevation="0">
-                                    <v-expansion-panel-title class="text-caption font-weight-black"  expand-icon="mdi-plus" collapse-icon="mdi-minus">
-                                    {{item.item}}
-                                    </v-expansion-panel-title>
-                                    <v-expansion-panel-text class="text-indigo-lighten-1" v-for="(des,index) in item.description" :key="index">
-                                    {{des}}
-                                    </v-expansion-panel-text>
-                                </v-expansion-panel>
-                            </v-expansion-panels>
-                            <div class="pb-5 pt-2 d-flex flex-column align-center mt-2 packageBottom">
-                                <p class="text-indigo-lighten-1 text-center">Get in touch with us!</p>
-                                <v-btn color="pink-accent-3" variant="flat" class="text-capitalize" width="230" append-icon="mdi-arrow-right">Talk to our Experts</v-btn>
-                            </div>
-                        </div>
-                    </v-col>
-                </v-row> -->
+            <v-col cols="12" class="pa-0">
                 <slider-comp/>
-                <div class="d-flex justify-end mr-5">
+                <div class="d-flex justify-end pr-5">
                     <RouterLink to="/termsofservices" class="text-caption text-end pr-md-14 pt-2 text-pink-accent-3">*T&C Apply</RouterLink>
                 </div>
                 
@@ -138,19 +117,4 @@ import SliderComp from "@/components/construction-components/slider-range-compon
         color: white;
         opacity: 1;
     } 
-
-  /*  .border{
-        border: 1px solid grey;
-    }
-
-    .v-expansion-panel:not(:first-child)::after{
-        border: none !important;
-    }
-    .v-expansion-panels{
-        border-bottom-style: solid;
-        border-bottom-width: thin;
-        border-color: rgb(216, 216, 236);
-    } */
-
-
 </style>

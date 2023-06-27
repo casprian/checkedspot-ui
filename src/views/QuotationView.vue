@@ -5,6 +5,7 @@
         <OurProjects/>
         <services-ensured/>
         <OurCustomers/>
+        <FooterComp/>
     </div>
 </template>
 
@@ -24,6 +25,9 @@
 
     //@ts-ignore
     import OurCustomers from '@/components/construction-components/OurCustomers.vue'
+
+    //@ts-ignore
+    import FooterComp from '@/components/construction-components/FooterComp.vue'
     
 </script>
 

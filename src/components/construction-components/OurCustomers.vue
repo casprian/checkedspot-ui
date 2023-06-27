@@ -12,13 +12,13 @@
           Over 800 happy family members are part of CheckedSpot family.
         </p>
       </v-col>
-      <v-col cols="12" class="py-4">
+      <v-col cols="12" class="py-4  pr-md-0 pb-8">
         <div class="d-flex pb-3" style="overflow-x: scroll;">
           <div v-for="(card, index) in customerDetails" :key="index" >
-            <v-card class="ml-3 mb-2 pa-3 rounded-lg" width="400" style="height:100%;">
+            <v-card class="mx-1 mb-2 pa-3 rounded-lg" width="370" style="height:100%;">
                 <v-img
                     :src= card.img1
-                    height="250"
+                    height="240"
                     cover
                     class="d-flex rounded-lg mb-2"
                 ></v-img>
