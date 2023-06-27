@@ -82,6 +82,6 @@ if (cookies.get('token')) {
 }
 .rightBottomNaigation {
     height: calc(100vh - 60px); 
-    overflow: scroll;
+    overflow-y: scroll;
 }
 </style>

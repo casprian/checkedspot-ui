@@ -4,7 +4,8 @@
             <v-card width="100%" height="200px" class="px-6 px-sm-10 d-flex align-center">
                 <v-row no-gutters class="d-flex align-center">
                     <v-col cols="3" md="auto" class="d-flex justify-start">
-                        <v-img style="width: 130px; height: 130px;" lazy-src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+                        <v-img style="width: 130px; height: 130px;"
+                            lazy-src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
                             :src="userdata?.picture ? userdata?.picture : profilePicture">
                             <template v-slot:placeholder>
                                 <div class="d-flex align-center justify-center fill-height">
@@ -18,13 +19,15 @@
                         <v-row no-gutters class="pl-6 d-flex justify-space-between align-center">
                             <v-col cols="12" md="6" class="d-flex d-md-block flex-column justify-center mb-5 mb-md-0">
                                 <h2 class="mb-2 text-center text-md-start">{{ userdata?.name ? name : "-----" }}</h2>
-                                <update-profile-picture invocationMethod="button" :picture="user.picture ? user.picture : profilePicture"/>
+                                <update-profile-picture invocationMethod="button"
+                                    :picture="user.picture ? user.picture : profilePicture" />
                             </v-col>
                             <v-col cols="12" md="6" class="d-flex flex-column justify-center align-md-center">
                                 <v-progress-linear v-model="profileStatus" height="20" :color="profilecolor" class="mb-2">
                                     <strong>{{ profileStatus }}%</strong>
                                 </v-progress-linear>
-                                <v-btn @click="router.push('/dashboard/editprofile')" :class="['text-body-2 font-weight-light']" density="compact" variant="flat"
+                                <v-btn @click="router.push('/dashboard/editprofile')"
+                                    :class="['text-body-2 font-weight-light']" density="compact" variant="flat"
                                     :color="profilecolor">
                                     {{
                                         profileStatus === 100 ?
@@ -40,98 +43,124 @@
         </v-col>
 
         <v-col cols="12" class="px-2 pt-3 myProfileDetails">
-            <h2 class="py-3" :title="userdata?.name ? userdata?.name : 'unavailable user name'">
-                <div>Name</div>:&emsp;
-                <v-progress-linear v-if="loading" indeterminate location="left" color="pink-accent-2">
-                </v-progress-linear>
-                <span v-else>
-                    {{
-                        userdata?.name ?
-                        userdata?.name :
-                        "Not Found"
-                    }}
-                </span>
-            </h2>
+            <div class="myProfileDetails d-flex justify-space-between align-center">
+                <h2 class="py-3" :title="userdata?.name ? userdata?.name : 'unavailable user name'">
+                    <div>Name</div>:&emsp;
+                    <v-progress-linear v-if="loading" indeterminate location="left" color="pink-accent-2">
+                    </v-progress-linear>
+                    <span v-else>
+                        {{
+                            userdata?.name ?
+                            userdata?.name :
+                            "Not Found"
+                        }}
+                    </span>
+                </h2>
+            </div>
 
-            <h2 class="py-3" :title="userdata?.email ? userdata?.email : 'unavailable user email'">
-                <div>Email</div>:&emsp;
-                <v-progress-linear v-if="loading" indeterminate location="left" color="pink-accent-2">
-                </v-progress-linear>
-                <span v-else>
-                    {{
-                        userdata?.email ?
-                        userdata?.email :
-                        "Not Found"
-                    }}
-                </span>
-            </h2>
+            <div class="myProfileDetails d-flex justify-space-between align-center">
+                <h2 class="py-3" :title="userdata?.email ? userdata?.email : 'unavailable user email'">
+                    <div>Email</div>:&emsp;
+                    <v-progress-linear v-if="loading" indeterminate location="left" color="pink-accent-2">
+                    </v-progress-linear>
+                    <span v-else>
+                        {{
+                            userdata?.email ?
+                            userdata?.email :
+                            "Not Found"
+                        }}
+                    </span>
+                    <span v-if="userdata.verified_email" class="pl-5" title="verified"><v-icon size="20"
+                            color="green-darken-2" icon="mdi-check-decagram"></v-icon></span>
+                    <span v-else class="pl-5" title="not verified"><v-icon size="20" color="red-darken-2"
+                            icon="mdi-close-circle-outline"></v-icon></span>
+                </h2>
+                <verify-data v-if="userdata.email" name="email" verify="email" :data="userdata?.email" :isverified="userdata.verified_email" />
+            </div>
 
-            <h2 class="py-3" :title="userdata?.mobile ? userdata?.mobile : 'unavailable user mobile'">
-                <div>Contact</div>:&emsp;
-                <v-progress-linear v-if="loading" indeterminate location="left" color="pink-accent-2">
-                </v-progress-linear>
-                <span v-else>
-                    {{
-                        userdata?.mobile ?
-                        userdata?.mobile :
-                        "Not Found"
-                    }}
-                </span>
-            </h2>
+            <div class="myProfileDetails d-flex justify-space-between align-center">
+                <h2 class="py-3" :title="userdata?.mobile ? userdata?.mobile : 'unavailable user mobile'">
+                    <div>Contact</div>:&emsp;
+                    <v-progress-linear v-if="loading" indeterminate location="left" color="pink-accent-2">
+                    </v-progress-linear>
+                    <span v-else>
+                        {{
+                            userdata?.mobile ?
+                            userdata?.mobile :
+                            "Not Found"
+                        }}
+                    </span>
+                    <span v-if="userdata.verified_mobile" class="pl-5" title="verified"><v-icon size="20"
+                            color="green-darken-2" icon="mdi-check-decagram"></v-icon></span>
+                    <span v-else class="pl-5" title="not verified"><v-icon size="20" color="red-darken-2"
+                            icon="mdi-close-circle-outline"></v-icon></span>
+                </h2>
+                <verify-data v-if="userdata.mobile" name="mobile number" verify="mobile" :data="userdata?.mobile"
+                    :isverified="userdata.verified_mobile" />
+            </div>
 
-            <h2 class="py-3" :title="userdata?.address ? userdata?.address : 'unavailable user address'">
-                <div>Address</div>:&emsp;
-                <v-progress-linear v-if="loading" indeterminate location="left" color="pink-accent-2">
-                </v-progress-linear>
-                <span v-else>
-                    {{
-                        userdata?.address ?
-                        userdata?.address :
-                        "NotFound"
-                    }}
-                </span>
-            </h2>
+            <div class="myProfileDetails d-flex justify-space-between align-center">
+                <h2 class="py-3" :title="userdata?.address ? userdata?.address : 'unavailable user address'">
+                    <div>Address</div>:&emsp;
+                    <v-progress-linear v-if="loading" indeterminate location="left" color="pink-accent-2">
+                    </v-progress-linear>
+                    <span v-else>
+                        {{
+                            userdata?.address ?
+                            userdata?.address :
+                            "NotFound"
+                        }}
+                    </span>
+                </h2>
+            </div>
 
-            <h2 class="py-3" :title="userdata?.city ? userdata?.city : 'unavailable user city'">
-                <div>City</div>:&emsp;
-                <v-progress-linear v-if="loading" indeterminate location="left" color="pink-accent-2">
-                </v-progress-linear>
-                <span v-else>
-                    {{
-                        userdata?.city ?
-                        userdata?.city :
-                        "Not Found"
-                    }}
-                </span>
-            </h2>
+            <div class="myProfileDetails d-flex justify-space-between align-center">
+                <h2 class="py-3" :title="userdata?.city ? userdata?.city : 'unavailable user city'">
+                    <div>City</div>:&emsp;
+                    <v-progress-linear v-if="loading" indeterminate location="left" color="pink-accent-2">
+                    </v-progress-linear>
+                    <span v-else>
+                        {{
+                            userdata?.city ?
+                            userdata?.city :
+                            "Not Found"
+                        }}
+                    </span>
+                </h2>
+            </div>
 
-            <h2 class="py-3" :title="userdata?.state ? userdata?.state : 'unavailable user state'">
-                <div>State</div>:&emsp;
-                <v-progress-linear v-if="loading" indeterminate location="left" color="pink-accent-2">
-                </v-progress-linear>
-                <span v-else>
-                    {{
-                        userdata?.state ?
-                        userdata?.state :
-                        "NotFound"
-                    }}
-                </span>
-            </h2>
+            <div class="myProfileDetails d-flex justify-space-between align-center">
+                <h2 class="py-3" :title="userdata?.state ? userdata?.state : 'unavailable user state'">
+                    <div>State</div>:&emsp;
+                    <v-progress-linear v-if="loading" indeterminate location="left" color="pink-accent-2">
+                    </v-progress-linear>
+                    <span v-else>
+                        {{
+                            userdata?.state ?
+                            userdata?.state :
+                            "NotFound"
+                        }}
+                    </span>
+                </h2>
+            </div>
 
-            <h2 class="py-3" :title="userdata?.country ? userdata?.country : 'unavailable user country'">
-                <div>Country</div>:&emsp;
-                <v-progress-linear v-if="loading" indeterminate location="left" color="pink-accent-2">
-                </v-progress-linear>
-                <span v-else>
-                    {{
-                        userdata?.country ?
-                        userdata?.country :
-                        "NotFound"
-                    }}
-                </span>
-            </h2>
+            <div class="myProfileDetails d-flex justify-space-between align-center">
+                <h2 class="py-3" :title="userdata?.country ? userdata?.country : 'unavailable user country'">
+                    <div>Country</div>:&emsp;
+                    <v-progress-linear v-if="loading" indeterminate location="left" color="pink-accent-2">
+                    </v-progress-linear>
+                    <span v-else>
+                        {{
+                            userdata?.country ?
+                            userdata?.country :
+                            "NotFound"
+                        }}
+                    </span>
+                </h2>
+            </div>
 
-            <v-btn class="my-7" width="100%" height="40" color="blue" @click="router.push('/dashboard/editprofile')">Edit Details</v-btn>
+            <v-btn class="my-7" width="100%" height="40" color="blue" @click="router.push('/dashboard/editprofile')">Edit
+                Details</v-btn>
         </v-col>
     </v-row>
 </template>
@@ -144,6 +173,7 @@ import { onMounted, reactive, ref } from "vue";
 import { useCookies } from "vue3-cookies";
 import { useRouter } from "vue-router";
 import UpdateProfilePicture from "./UpdateProfilePicture.vue";
+import VerifyData from "./VerifyData.vue";
 
 const router = useRouter();
 const { cookies } = useCookies();
@@ -157,8 +187,10 @@ const profilePicture = ref('');
 let userdata = ref({
     name: null,
     picture: null,
-    mobile: null,
     email: null,
+    verified_email: null,
+    mobile: null,
+    verified_mobile: null,
     address: null,
     city: null,
     state: null,
@@ -169,6 +201,8 @@ const name = ref(null);
 const count = ref(0);
 const profileStatus = ref(0);
 const profilecolor = ref('');
+const dialog = ref(false);
+const menu = ref(false);
 
 let user = reactive({
     email: null,
@@ -179,7 +213,6 @@ if (cookies.get("token")) {
     //@ts-ignore
     user = jwtDecode(cookies.get("token"))?.userData;
 }
-
 
 async function getUser() {
     const res = await api?.user?.getUserData({ params: { email: user?.email } });
