@@ -177,9 +177,6 @@ import VerifyData from "./VerifyData.vue";
 
 const router = useRouter();
 const { cookies } = useCookies();
-if (!cookies.get("token")) {
-    router.push("/");
-}
 
 const loading = ref(true);
 const profilePicture = ref('');

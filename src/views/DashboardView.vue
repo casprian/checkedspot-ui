@@ -65,6 +65,8 @@ const user = ref();
 if (cookies.get('token')) {
   //@ts-ignore
   user.value = jwtDecode(cookies.get('token'))?.userData;
+}else {
+    router.push("/");
 }
 </script>
   
