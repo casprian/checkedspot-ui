@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="token">
         <progress-track/>
         <our-packages/>
         <OurProjects/>
@@ -10,6 +10,10 @@
 </template>
 
 <script lang="ts" setup>
+    
+    import { useCookies } from 'vue3-cookies';
+
+    import { useRouter } from "vue-router";
 
     //@ts-ignore
     import ProgressTrack from '@/components/construction-components/ProgressTrack.vue'
@@ -28,6 +32,16 @@
 
     //@ts-ignore
     import FooterComp from '@/components/construction-components/FooterComp.vue'
+import { ref } from 'vue';
+
+    const { cookies } = useCookies();
+    const router = useRouter();
+    const token = ref(false)
+    if(!cookies.get('token')){
+        router.push('/')
+    }else {
+        token.value = true;
+    }
     
 </script>
 

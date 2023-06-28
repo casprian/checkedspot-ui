@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid class="pa-0">
+    <v-container v-if="token" fluid class="pa-0">
         <v-row no-gutters style="height: 100vh;">
             <v-col cols="12" sm="3" class="bg-grey-lighten-5 leftNavigation">
                 <v-sheet height="85" class="pl-5 d-flex align-center bg-transparent">
@@ -62,9 +62,11 @@ import ProfileAvatar from "@/components/ProfileAvatar.vue";
 const { cookies } = useCookies();
 const router = useRouter();
 const user = ref();
+const token = ref(false)
 if (cookies.get('token')) {
   //@ts-ignore
   user.value = jwtDecode(cookies.get('token'))?.userData;
+  token.value = true;
 }else {
     router.push("/");
 }
