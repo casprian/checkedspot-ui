@@ -14,6 +14,29 @@
         </p>
       </v-col>
       <v-col cols="12" class="pt-5">
+        <!-- <v-sheet
+          class="mx-auto"
+          max-width="600"
+        >
+          <v-slide-group
+            show-arrows
+          >
+            <v-slide-group-item
+              v-for="n in 25"
+              :key="n"
+              v-slot="{ isSelected, toggle }"
+            >
+              <v-btn
+                class="ma-2"
+                rounded
+                :color="isSelected ? 'primary' : undefined"
+                @click="toggle"
+              >
+                Options {{ n }}
+              </v-btn>
+            </v-slide-group-item>
+          </v-slide-group>
+        </v-sheet> -->
         <div class="d-flex" style="overflow-x: scroll">
           <div v-for="(cards, index) in cardArr" :key="index">
             <v-card class="ml-3 mb-2" width="315">
