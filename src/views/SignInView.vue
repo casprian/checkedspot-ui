@@ -50,7 +50,10 @@
                                 </v-row>
                                 <v-row no-gutters>
                                     <v-col cols="12" class="pa-0">
-                                        <small>*indicates required field</small>
+                                        <div class="d-flex justify-space-between mr-10 mt-3">
+                                            <small>*indicates required field</small> 
+                                            <button @click="handelForgetPassword" class="text-blue-accent-3" title="click here to reset password"><small>forget password</small></button> 
+                                        </div>
                                         <div v-if="retrySignIn" class="text-h6 text-pink-accent-3 font-weight-medium">
                                             Invalid email or password
                                         </div>
@@ -58,7 +61,7 @@
                                 </v-row>
                             </v-col>
                         </v-row>
-                        <v-row no-gutters class="pr-10 pt-9">
+                        <v-row no-gutters class="pr-10 pt-5">
                             <v-col cols="12" class="pa-0">
                                 <v-btn type="submit" @click="loginHandler" density="default" prepend-icon="mdi-login"
                                     elevation="4" variant="flat" color="green" width="100%">
@@ -84,6 +87,7 @@ import { ref } from "vue";
 import { useRoute } from "vue-router";
 import { useField, useForm } from 'vee-validate';
 import { useCookies } from "vue3-cookies";
+import router from '@/router';
 
 const { cookies } = useCookies();
 const route = useRoute();
@@ -151,6 +155,11 @@ async function getAuthorizationUrl() {
     const res = await api?.user?.getAuthorizationUrl({params:{}});
     window.open(res?.data?.url, '_self');
 }
+
+function handelForgetPassword() {
+    router.push({path: '/password', query: {q: 'forget'}})
+}
+
 </script>
 
 <style scoped>

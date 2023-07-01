@@ -32,18 +32,27 @@
                         </v-text-field>
 
                         <div class="d-flex flex-column align-center justify-center">
-                            <div class="text-caption mb-5">Not received OTP? click on Resend OTP button to receive OTP</div>
+                            <div class="text-caption mb-5 text-center">if not received OTP on click of SEND OTP Button.
+                                Click on RESEND OTP Button which will appear after 30 seconds.</div>
                             <div>
-                                <v-btn class="mb-5" color="green" width="300" variant="elevated"
-                                    @click="handlesub">Verify OTP</v-btn>
+                                <v-btn v-if="sendBtn" class="mb-5" color="green" width="300" variant="elevated"
+                                    @click="sendOTP">Send OTP</v-btn>
+                                <div v-if="timer <= 30 && !sendBtn" class="text-body-1" style="width:300;">Resend OTP in
+                                    00:{{ timer < 10 ? `0${timer}` : timer }} sec</div>
+                                </div>
+                                <div>
+                                    <v-btn v-if="!sendBtn" class="mb-5" color="green" width="300" variant="elevated"
+                                        @click="verifyEmail">Verify {{ props.name }}</v-btn>
+                                </div>
+                                <div>
+                                    <v-btn v-if="!sendBtn && timer >= 31" class="mb-5" color="blue" width="300"
+                                        variant="elevated" @click="sendOTP">Resend
+                                        OTP</v-btn>
+                                </div>
+                                <div>
+                                    <v-btn color="red" width="300" variant="tonal" @click="dialog = false">Close</v-btn>
+                                </div>
                             </div>
-                            <div>
-                                <v-btn class="mb-5" color="blue" width="300" variant="elevated">Resend OTP</v-btn>
-                            </div>
-                            <div>
-                                <v-btn color="red" width="300" variant="tonal" @click="dialog = false">Close</v-btn>
-                            </div>
-                        </div>
                     </v-col>
                 </v-row>
             </v-card>
@@ -55,13 +64,22 @@
 import { ref } from 'vue';
 import { useField, useForm } from 'vee-validate';
 import { useRouter } from 'vue-router';
+import { useCookies } from 'vue3-cookies';
 //@ts-ignore
 import api from '@/data/api/index.js';
 
 const props = defineProps(['name', 'isverified', 'verify', 'data'])
 const dialog = ref(false);
 const menu = ref(false);
+const sendBtn = ref(true);
+const timer = ref(0);
+const refreshIntervalId = ref();
 const router = useRouter();
+const { cookies } = useCookies();
+
+if (cookies.get('OTP')) {
+    sendBtn.value = false;
+}
 
 let { handleSubmit, handleReset } = useForm({
     validationSchema: {
@@ -82,50 +100,57 @@ let { handleSubmit, handleReset } = useForm({
 })
 
 const otp = useField('otp');
-const responseOTP = ref('');
 
 async function handelDialog() {
     menu.value = false;
     dialog.value = true;
+}
+
+async function sendOTP() {
     let res;
-    if(props.verify === "email") {
-        res = await api?.email?.getOTP({
-            params: {
-                email: props.data
-            }
+    if (props.verify === "email") {
+        res = await api?.email?.sendOTP({
+            email: props.data
         })
-    }else if(props.verify === "mobile") {
+        if (res?.status === 200) {
+            console.log(res)
+            if (cookies.get('OTP')) {
+                sendBtn.value = false;
+            }
+
+            refreshIntervalId.value = setInterval(() => {
+                if (timer.value === 30) {
+                    clearInterval(refreshIntervalId.value);
+                }
+                timer.value++;
+            }, 1000);
+
+
+        }
+    } else if (props.verify === "mobile") {
         console.log(props.verify);
-        //GET OTP FROM BACKEND and verify it with otp sent on mobile.
-    }
-    if (res?.data?.status === 200) {
-        responseOTP.value = res?.data?.OTP;
+        //api to send email to mobile number
     }
 }
 
-const handlesub = handleSubmit(async (values) => {
-    if (values.otp === responseOTP.value) {
-        console.log(true)
-        //call api and set verified_mobile or verified_email to true
-        let res;
-        if(props.verify === 'email'){            
-            res = await api?.user?.updateProfile({email: props.data, verified_email: true});
-        }else if(props.verify === 'mobile') {
-            res = await api?.user?.updateProfile({email: props.data, verified_mobile: true});
-        }
-        if (res?.data?.status === 200) {
-            dialog.value=false;
-        } else {
-            router.push({ path: '/error', query: { status: res?.data?.status } })
-        }
+const verifyEmail = handleSubmit(async (values) => {
+    let res;
+    if (props.verify === 'email') {
+        res = await api?.email?.verifyEmail({ email: props.data, OTP: values.otp });
+    } else if (props.verify === 'mobile') {
+        //include mobile verification api
+        console.log("MOBILE: MOBILE")
+    }
+
+    if (res?.data?.status === 200) {
+        dialog.value = false;
+        cookies.remove('OTP');
     } else {
-        console.log(false)
-        //Prompt a message that OTP mismatch. Re-enter OTP
+        router.push({ path: '/error', query: { status: res?.data?.status } })
     }
 
 })
 
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

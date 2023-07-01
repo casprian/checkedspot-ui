@@ -11,6 +11,26 @@ const getUserData = async (params) => {
     }
 };
 
+const isUserExist = async (params) => {
+    try {
+        const URL = "/user/exist";
+        const response = await call.callWithoutToken('get', URL, params);
+        return {status: 200, data: response};
+    }catch(e) {
+        return {error: true, status: e?.response?.status, message: e?.response?.data?.message}
+    }
+}
+
+const updatePassword = async (params) => {
+    try {
+        const URL = "/user/updatePassword";
+        const response = await call.callWithoutToken('post', URL, params);
+        return {status: 200, data: response};
+    }catch(e) {
+        return {error: true, status: e?.response?.status, message: e?.response?.data?.message}
+    }
+}
+ 
 const login = async (params) => {
     try {
         const URL = "/user/login";
@@ -73,6 +93,8 @@ const updateProfilePicture = async (params) => {
 
 export default {
     getUserData,
+    isUserExist,
+    updatePassword,
     login,
     signup,
     sendEnquiry,
