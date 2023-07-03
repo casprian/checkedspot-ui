@@ -221,7 +221,7 @@ async function getUser() {
                 count.value++;
             }
         }
-        profileStatus.value = Math.ceil((count.value / 9) * 100);
+        profileStatus.value = Math.ceil((count.value / 10) * 100);
 
         if (profileStatus.value <= 33) {
             profilecolor.value = 'red';

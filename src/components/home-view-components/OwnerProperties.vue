@@ -36,7 +36,7 @@
                                                     ₹ {{ property?.cost ? property?.cost : 'Not Found' }} Lacs - {{ property?.totalArea ? property?.totalArea : 'Not Found' }} sqft
                                                 </v-card-title>
                                                 <v-card-subtitle class="px-3 py-0">
-                                                    Hegde Nagar, Bengaaluru
+                                                    Hegde Nagar, Bengaluru
                                                 </v-card-subtitle>
                                                 <v-card-subtitle class="text-caption text-pink-accent-3 px-3 py-0">
                                                     Ready to move
