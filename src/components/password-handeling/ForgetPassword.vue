@@ -1,21 +1,35 @@
 <template>
     <v-row no-gutters class="d-flex justify-center">
         <v-col cols="12" sm="5">
-            <v-card class="pa-5 py-sm-12 bg-grey-lighten-5" elevation="8">
-                <v-text-field class="my-2 mx-10" v-model="email.value.value" :error-messages="email.errorMessage.value" variant="outlined" label="please enter your login email">
-            
+            <v-card class="pa-5 pb-sm-10 pt-sm-8 bg-grey-lighten-5 rounded-xl" elevation="8">
+                <div class="mx-10 mb-7 text-h4 text-grey-darken-3">Create new password</div>
+                <v-text-field class="my-2 mx-10" v-model="email" disabled
+                    variant="outlined" label="please enter your login email">
+
                 </v-text-field>
-                <v-text-field class="my-2 ml-10" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" @click:append="show1 = !show1" :type="show1 ? 'text' : 'password'" v-model="newPassword.value.value" :error-messages="newPassword.errorMessage.value" variant="outlined" label="new password">
-                    
+                <v-text-field class="my-2 ml-10" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                    @click:append="show1 = !show1" :type="show1 ? 'text' : 'password'" v-model="newPassword.value.value"
+                    :error-messages="newPassword.errorMessage.value" variant="outlined" label="new password">
+
                 </v-text-field>
-                <v-text-field class="my-2 ml-10" :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'" @click:append="show2 = !show2" :type="show2 ? 'text' : 'password'" v-model="confirmPassword.value.value" :error-messages="confirmPassword.errorMessage.value" variant="outlined" label="confirm password">
-                    
+                <v-text-field class="mt-2 ml-10" :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                    @click:append="show2 = !show2" :type="show2 ? 'text' : 'password'" v-model="confirmPassword.value.value"
+                    :error-messages="confirmPassword.errorMessage.value" variant="outlined" label="confirm password">
+
                 </v-text-field>
-            
-                <div class="d-flex justify-center">
-                    <v-btn color="green" @click="handleCreateNewPassword">Create New Password</v-btn>
+
+                <div v-if="userNotFound" class="px-10 mb-3 text-body-2 text-red">User Not Found! Please enter correct email
                 </div>
-                <div v-if="passwordMismatched" class="errormessage">password mismatched</div>
+                <div v-if="passwordCreated" class="px-10 mb-3 text-body-1 text-green">Password Updated!</div>
+
+                <div class="d-flex flex-column align-center justify-center">
+                    <div> 
+                        <v-btn color="green" width="300" variant="elevated" class="mb-5" @click="handleCreateNewPassword">Create New Password</v-btn>
+                    </div>
+                    <div>
+                        <v-btn color="red" width="300" variant="tonal" @click="router.back()">Close</v-btn>
+                    </div>
+                </div>
             </v-card>
         </v-col>
     </v-row>
@@ -26,20 +40,19 @@ import { ref } from 'vue';
 import { useField, useForm } from 'vee-validate';
 //@ts-ignore
 import api from '@/data/api/index.js';
+import { useRouter } from 'vue-router';
 
-const passwordMismatched = ref(false);
+const props = defineProps(['email'])
+const email = ref(props?.email);
+const router = useRouter();
+const userNotFound = ref(false);
+const passwordCreated = ref(false);
 const show1 = ref(false);
 const show2 = ref(false);
 
 const { handleSubmit, handleReset } = useForm({
     validationSchema: {
-        email(value: any) {
-            if (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i.test(value)) {
-                return true;
-            }
-            return 'Must be a valid e-mail.';
-        },
-        newPassword: (value:string) => {
+        newPassword: (value: string) => {
             if (!value) {
                 return 'Required.'
             }
@@ -50,37 +63,44 @@ const { handleSubmit, handleReset } = useForm({
                 return true
             }
         },
-        confirmPassword: (value:string) => {
-            if(newPassword.value.value !== value) {
+        confirmPassword: (value: string) => {
+            if (newPassword.value.value !== value) {
                 return 'Password mismatched'
-            }else if(newPassword.value.value === value) {
+            } else if (newPassword.value.value === value) {
                 return true
             }
         }
-    } 
+    }
 })
-const email = useField('email');
+
 const newPassword = useField('newPassword');
 const confirmPassword = useField('confirmPassword');
 
+const handleCreateNewPassword = handleSubmit(async (values: any) => {
+    userNotFound.value = false;
+    passwordCreated.value = false;
 
-const handleCreateNewPassword = handleSubmit(async(values: any) => {
-    const password = values?.newPassword;
+    const res = await api.user.isUserExist({ params: { email: email.value } });
+    if (res?.status === 200) {
+        const passwordUpdateRes = await api.user.updatePassword({
+            email: email.value,
+            password: values?.newPassword
+        });
 
-    console.log(password);
-    //1. check for existing email in DB
-    const res = await api.user.isUserExist({params: {email: values?.email}});
-    if(res?.status === 200) {
-
-        //2. if email found in DB update the password in DB corresponding to that email.
-    }else {
-        alert("User Email Incorrect!")
+        if (passwordUpdateRes?.status === 200) {
+            passwordCreated.value = true;
+            handleReset();
+            setTimeout(() => {
+                router.push('/')
+            }, 3000);
+        } else {
+            alert("Password creation Unsuccessful");
+        }
+    } else {
+        userNotFound.value = true;
     }
-
 })
 
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

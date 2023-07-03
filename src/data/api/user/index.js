@@ -23,8 +23,18 @@ const isUserExist = async (params) => {
 
 const updatePassword = async (params) => {
     try {
-        const URL = "/user/updatePassword";
-        const response = await call.callWithoutToken('post', URL, params);
+        const URL = "/user/password/update";
+        const response = await call.callWithoutToken('put', URL, params);
+        return {status: 200, data: response};
+    }catch(e) {
+        return {error: true, status: e?.response?.status, message: e?.response?.data?.message}
+    }
+}
+
+const resetPassword = async (params) => {
+    try {
+        const URL = "/user/password/reset";
+        const response = await call.callWithoutToken('put', URL, params);
         return {status: 200, data: response};
     }catch(e) {
         return {error: true, status: e?.response?.status, message: e?.response?.data?.message}
@@ -54,7 +64,7 @@ const signup = async (params) => {
 const sendEnquiry = async (params) => {
     try {
         const URL = "user/sendEnquiry";
-        const response = await call.callWithoutToken('post',URL,params)
+        const response = await call.callWithoutToken('post',URL,params);
         return {status: 200, data: response};
     }catch(e) {
         return {error: true, status: e?.response?.status, message: e?.response?.data?.message};
@@ -95,6 +105,7 @@ export default {
     getUserData,
     isUserExist,
     updatePassword,
+    resetPassword,
     login,
     signup,
     sendEnquiry,

@@ -52,7 +52,7 @@
                                     <v-col cols="12" class="pa-0">
                                         <div class="d-flex justify-space-between mr-10 mt-3">
                                             <small>*indicates required field</small> 
-                                            <button @click="handelForgetPassword" class="text-blue-accent-3" title="click here to reset password"><small>forget password</small></button> 
+                                            <small><button @click="router.push({path: '/password', query: {q: 'forget'}})" class="text-blue-accent-3" title="click here to reset password">forget password</button></small> 
                                         </div>
                                         <div v-if="retrySignIn" class="text-h6 text-pink-accent-3 font-weight-medium">
                                             Invalid email or password
@@ -156,9 +156,6 @@ async function getAuthorizationUrl() {
     window.open(res?.data?.url, '_self');
 }
 
-function handelForgetPassword() {
-    router.push({path: '/password', query: {q: 'forget'}})
-}
 
 </script>
 

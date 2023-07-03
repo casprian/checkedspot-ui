@@ -173,7 +173,7 @@ async function getUser() {
         name.value.value = res?.data?.data?.name;
         mobile.value.value = res?.data?.data?.mobile;
     }
-    loading.value = false
+    loading.value = false;
 }
 
 const uploadData = handleSubmit(async (values) => {
