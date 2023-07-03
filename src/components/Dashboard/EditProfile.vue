@@ -151,7 +151,7 @@ const mobile = useField('mobile');
 let userdata = ref({
     picture: null,
     email: null,
-    address: true,
+    address: null,
     city: null,
     state: null,
     country: null,
