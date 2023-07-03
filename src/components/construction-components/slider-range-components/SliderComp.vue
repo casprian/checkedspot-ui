@@ -29,7 +29,7 @@
     </v-slide-group>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { reactive } from "vue";
 
     const headings = reactive([

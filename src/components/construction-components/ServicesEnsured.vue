@@ -29,7 +29,7 @@
     </v-container>
 </template>
 
-<script setup>
+<script lang="ts" setup>
     import {reactive} from 'vue'
 
     const serviceDetail = reactive([
