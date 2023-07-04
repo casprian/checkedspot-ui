@@ -8,18 +8,20 @@
         v-for="(heading, index) in headings"
         :key="index"
       >
-        <div class="border pa-2 mr-5" style="max-width:360px;">
-            <h4 class="py-3 px-4 bg-pink-accent-3">{{ heading }}</h4>
-            <v-expansion-panels variant="accordion">
-                <v-expansion-panel v-for="(item,index) in expansionArr" :key="index" elevation="0">
-                    <v-expansion-panel-title class="text-caption font-weight-black"  expand-icon="mdi-plus" collapse-icon="mdi-minus">
-                    {{item.item}}
-                    </v-expansion-panel-title>
-                    <v-expansion-panel-text class="text-indigo-lighten-1" v-for="(des,index) in item.description" :key="index">
-                    {{des}}
-                    </v-expansion-panel-text>
-                </v-expansion-panel>
-            </v-expansion-panels>
+        <div class="border pa-2 mr-5 d-flex flex-column justify-space-between" style="max-width:360px;">
+            <div>
+                <h4 class="py-3 px-4 bg-pink-accent-3">{{ heading }}</h4>
+                <v-expansion-panels variant="accordion">
+                    <v-expansion-panel v-for="(item,index) in expansionArr" :key="index" elevation="0">
+                        <v-expansion-panel-title class="text-caption font-weight-black"  expand-icon="mdi-plus" collapse-icon="mdi-minus">
+                        {{item.item}}
+                        </v-expansion-panel-title>
+                        <v-expansion-panel-text class="text-indigo-lighten-1" v-for="(des,index) in item.description" :key="index">
+                        {{des}}
+                        </v-expansion-panel-text>
+                    </v-expansion-panel>
+                </v-expansion-panels>
+            </div>
             <div class="pb-5 pt-2 d-flex flex-column align-center mt-2 packageBottom">
                 <p class="text-indigo-lighten-1 text-center">Get in touch with us!</p>
                 <v-btn color="pink-accent-3" variant="flat" class="text-capitalize rounded-lg" width="230" append-icon="mdi-arrow-right">Talk to our Experts</v-btn>
