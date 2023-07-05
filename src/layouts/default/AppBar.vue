@@ -1,6 +1,6 @@
 <template>
   <!-- <div v-if="screenWidth >= 960"> -->
-  <div class="w-0 w-md-100 d-none d-md-block">
+  <div class="d-none d-md-block">
     <v-app-bar :elevation="2" density="default">
       <template v-slot:prepend>
         <v-img @click="router.push('/')" class="logo" width="200px" height="100px"
@@ -38,7 +38,7 @@
       </template>
     </v-app-bar>
   </div>
-  <div class="w-100 w-md-0 d-md-none d-block">
+  <div class="w-100 w-md-0 d-block d-md-none ">
     <v-app-bar :elevation="2" density="default">
 
       <template v-slot:prepend>
