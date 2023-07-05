@@ -4,7 +4,7 @@
             <v-col cols="0" sm="5" class="px-7 py-10 leftSec">
                 
             </v-col>
-            <v-col cols="11" sm="7" class="pa-10">
+            <v-col cols="11" sm="7" class="py-10 pa-sm-10">
                 <v-sheet class="d-flex justify-center">
                     <v-container class="pa-0 formCont">
                         <div class="text-h5 font-weight-medium pb-14">Sign up to Checkedspot</div>
