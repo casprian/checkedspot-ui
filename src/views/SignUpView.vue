@@ -1,6 +1,6 @@
 <template>
     <v-container class="pa-0" style="height: 100%" fluid>
-        <v-row no-gutters :class="loader === true ? 'blurCont' : ''">
+        <v-row no-gutters justify="center" :class="loader === true ? 'blurCont' : ''">
             <v-col cols="0" sm="5" class="px-7 py-10 leftSec">
                 
             </v-col>
@@ -226,5 +226,18 @@ async function getAuthorizationUrl() {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+@media only screen and (max-width: 800px) {
+    .formCont {
+        width: 95%;
+    }
+}
+@media only screen and (max-width: 599px) {
+    .formCont {
+        width: 90%;
+    }
+    .leftSec {
+        display: none;
+    }
 }
 </style>
