@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container v-if="token">
         <form>
             <v-row no-gutters>
                 <v-col cols="12" class="py-1 px-3">
@@ -28,9 +28,12 @@ import { useCookies } from 'vue3-cookies';
 const { cookies } = useCookies();
 const router = useRouter();
 const propertyType = ref('plot')
+const token = ref(false)
 
 if (!cookies.get('token')) {
     router.push('/')
+}else{
+    token.value = true
 }
 </script>
 

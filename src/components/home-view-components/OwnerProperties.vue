@@ -8,7 +8,6 @@
                 <v-sheet class="mx-auto" elevation="0" max-width="1250">
                     <v-row v-if="!props.properties" no-gutters class="px-sm-14 my-16 d-flex justify-center">
                         <v-col cols="auto" class="loader">
-                            <!-- <v-progress-linear color="pink-accent-3" indeterminate rounded height="10"></v-progress-linear> -->
                             <v-progress-circular :size="70" :width="7" color="pink-accent-3" indeterminate></v-progress-circular>
                         </v-col>
                     </v-row>
@@ -18,7 +17,14 @@
                                 @click="router.push(`/propertydetails/${property?.propertyId}`)">
                                 <v-img
                                     :src="property?.propertyImage ? property?.propertyImage[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
-                                    height="130px" width="100%" position="relative" cover></v-img>
+                                    height="130px" width="100%" position="relative" cover>
+                                    <!-- <v-toolbar-title
+                                    class="toolBar text-white px-2 ml-2 mt-1 d-inline-block"
+                                    theme="dark"
+                                    >
+                                    123456789012345678901234567890
+                                    </v-toolbar-title> -->
+                                </v-img>
 
                                 <v-sheet>
                                     <v-container class="pa-0">
@@ -30,16 +36,10 @@
                                                         color="white"></v-icon>
                                                 </v-chip>
                                                 <v-card-text class="pl-3 py-2 pb-0">
-                                                    {{ property?.type ? property?.type: 'Not Found' }}
+                                                    Property type : <span class="text-pink-accent-3">{{ property?.type ? property?.type: 'Not Found' }}</span>
                                                 </v-card-text>
-                                                <v-card-title :title="`₹ ${property?.cost} Lacs - ${property?.totalArea} sqft`" class="px-3 py-0 text-subtitle-1">
-                                                    ₹ {{ property?.cost ? property?.cost : 'Not Found' }} Lacs - {{ property?.totalArea ? property?.totalArea : 'Not Found' }} sqft
-                                                </v-card-title>
                                                 <v-card-subtitle class="px-3 py-0">
-                                                    Hegde Nagar, Bengaaluru
-                                                </v-card-subtitle>
-                                                <v-card-subtitle class="text-caption text-pink-accent-3 px-3 py-0">
-                                                    Ready to move
+                                                    Hegde Nagar, Bengaluru
                                                 </v-card-subtitle>
                                             </v-col>
 
@@ -59,9 +59,7 @@
                                                                 </span>
                                                             </v-col>
                                                             <v-col cols="auto mt-0 pt-0 mb-n1">
-                                                                <span
-                                                                    class="text-caption text-grey-lighten-1 mt-0 pt-0">Posted:
-                                                                    2 weaks ago</span>
+                                                                <span class="text-caption text-grey-lighten-1 mt-0 pt-0">9606937471</span>
                                                             </v-col>
                                                         </v-row>
                                                     </v-col>
@@ -97,5 +95,9 @@ const data = reactive({
 }
 .v-progress-circular {
     margin: 1rem;
+}
+.toolBar {
+  background-color: rgba(0, 0, 0, 0.5);
+  font-size: 11px;
 }
 </style>

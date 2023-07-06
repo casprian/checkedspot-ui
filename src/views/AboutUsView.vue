@@ -14,10 +14,10 @@
             </v-col>
         </v-row>
         <v-row no-gutters class="px-16 pt-5 pb-10">
-            <v-col cols="12" md="6" class="pt-10 pr-5">
+            <v-col cols="12" md="6" class="pt-10 pr-0 pr-md-5">
                 <v-img src="https://checkedspot.blob.core.windows.net/assets/save_Time.jpg"></v-img>
             </v-col>
-            <v-col cols="12" md="6" class="pt-10 px-16 d-flex flex-column justify-center align-center">
+            <v-col cols="12" md="6" class="pt-10 px-0 px-md-16 d-flex flex-column justify-center align-center">
                 <h1 class="merriweatherFont mb-8">Verified Properties: Save Time, Buy with Confidence!</h1>
                 <div class="d-flex align-center mb-3 pr-2">
                     <p class="text-h6 font-weight-light">
@@ -31,7 +31,7 @@
 
         <v-row no-gutters class="px-16 pt-5 pb-10 d-flex flex-column-reverse flex-md-row">
 
-            <v-col cols="12" md="6" class="pt-10 px-16 d-flex flex-column justify-center align-center">
+            <v-col cols="12" md="6" class="pt-10 px-0 px-md-16 d-flex flex-column justify-center align-center">
                 <h1 class="merriweatherFont mb-8">Verified Documents: On-Site Verification with Legal Experts!</h1>
                 <div class="d-flex align-center mb-3 pr-2">
                     <p class="text-h6 font-weight-light">
@@ -40,16 +40,16 @@
                     </p>
                 </div>
             </v-col>
-            <v-col cols="12" md="6" class="pt-10 pr-5">
+            <v-col cols="12" md="6" class="pt-10 pr-0 pr-md-5">
                 <v-img src="https://checkedspot.blob.core.windows.net/assets/Verified_land.jpg"></v-img>
             </v-col>
         </v-row>
 
         <v-row no-gutters class="px-16 py-5">
-            <v-col cols="12" md="6" class="pt-10 pr-5">
+            <v-col cols="12" md="6" class="pt-10 pr-0 pr-md-5">
                 <v-img src="https://checkedspot.blob.core.windows.net/assets/warning.jpg"></v-img>
             </v-col>
-            <v-col cols="12" md="6" class="pt-10 px-16 d-flex flex-column justify-center align-center">
+            <v-col cols="12" md="6" class="pt-10 px-0 px-md-16 d-flex flex-column justify-center align-center">
                 <h1 class="merriweatherFont mb-8">Swift Warning Flagging: Expert Team Identifies and Alerts Potential
                     Issues!</h1>
                 <div class="d-flex align-center mb-3 pr-2">
