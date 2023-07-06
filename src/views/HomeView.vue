@@ -4,7 +4,7 @@
     <owner-properties :properties="verifiedProperties.data"/>
     <Construction/>
     <all-property-needs/>
-    <properties-for-everyone/>
+    <!-- <properties-for-everyone/> -->
     <property-services/>
   </div>
 </template>

@@ -25,7 +25,7 @@
           dreamed of, built to the highest standard of quality.</p>
       </v-col>
       <v-col cols="12" md="2" class="d-flex align-center justify-center py-10 py-md-0">
-        <v-btn v-if="cookies.get('token')" @click="router.push('/quotation')" variant="elevated"
+        <v-btn @click="router.push('/quotation')" variant="elevated"
           color="deep-orange-darken-1" class="text-h6 py-2 elevtion-5" height="120" width="200">GET
           YOUR<br>QUOTATION<br>NOW</v-btn>
       </v-col>
@@ -66,10 +66,8 @@ import { ref } from "vue";
 import { useField, useForm } from "vee-validate";
 //@ts-ignore
 import api from "@/data/api/index.js";
-import { useCookies } from 'vue3-cookies';
 import { useRouter } from 'vue-router'
 
-const { cookies } = useCookies();
 const router = useRouter();
 const dialog = ref(false);
 
