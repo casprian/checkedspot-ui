@@ -2,9 +2,9 @@
     <div v-if="token">
         <progress-track/>
         <our-packages/>
-        <OurProjects/>
+        <!-- <OurProjects/>
         <services-ensured/>
-        <OurCustomers/>
+        <OurCustomers/> -->
         <FooterComp/>
     </div>
 </template>

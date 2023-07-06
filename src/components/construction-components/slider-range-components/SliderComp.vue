@@ -24,7 +24,7 @@
             </div>
             <div class="pb-5 pt-2 d-flex flex-column align-center mt-2 packageBottom">
                 <p class="text-indigo-lighten-1 text-center">Get in touch with us!</p>
-                <v-btn color="pink-accent-3" variant="flat" class="text-capitalize rounded-lg" width="230" append-icon="mdi-arrow-right">Talk to our Experts</v-btn>
+                <v-btn color="pink-accent-3" variant="flat" class="text-capitalize rounded-lg" width="230" append-icon="mdi-arrow-right" @click="router.push('/contactus')">Talk to our Experts</v-btn>
             </div>
         </div>
       </v-slide-group-item>
@@ -33,7 +33,9 @@
 
 <script lang="ts" setup>
 import { reactive } from "vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
     const headings = reactive([
         "Budget - ₹ 1590/sqft (Incl. GST)",
         "Basic - ₹ 1750/sqft (Incl. GST)",
