@@ -15,9 +15,9 @@
         <v-btn @click="router.push('/aboutus')" variant="flat" class="ml-1">
           WHO WE ARE
         </v-btn>
-        <v-btn @click="router.push('/whatwedo')" variant="flat" class="ml-1">
+        <!-- <v-btn @click="router.push('/whatwedo')" variant="flat" class="ml-1">
           WHAT WE DO
-        </v-btn>
+        </v-btn> -->
         <v-btn @click="router.push('/contactus')" variant="flat" class="ml-1">
           Contact
         </v-btn>
@@ -51,11 +51,11 @@
         WHO WE ARE
       </v-btn>
     </div>
-    <div class="px-5">
+    <!-- <div class="px-5">
       <v-btn width="100%" @click="router.push('/whatwedo')" variant="flat" class="my-2">
         WHAT WE DO
       </v-btn>
-    </div>
+    </div> -->
     <div class="px-5">
       <v-btn width="100%" @click="router.push('/contactus')" variant="flat" class="my-2">
         Contact

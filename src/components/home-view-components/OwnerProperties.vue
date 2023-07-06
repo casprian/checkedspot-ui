@@ -18,12 +18,12 @@
                                 <v-img
                                     :src="property?.propertyImage ? property?.propertyImage[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
                                     height="130px" width="100%" position="relative" cover>
-                                    <v-toolbar-title
+                                    <!-- <v-toolbar-title
                                     class="toolBar text-white px-2 ml-2 mt-1 d-inline-block"
                                     theme="dark"
                                     >
                                     123456789012345678901234567890
-                                    </v-toolbar-title>
+                                    </v-toolbar-title> -->
                                 </v-img>
 
                                 <v-sheet>
@@ -59,8 +59,7 @@
                                                                 </span>
                                                             </v-col>
                                                             <v-col cols="auto mt-0 pt-0 mb-n1">
-                                                                <span
-                                                                    class="text-caption text-grey-lighten-1 mt-0 pt-0">9876543210</span>
+                                                                <span class="text-caption text-grey-lighten-1 mt-0 pt-0">9606937471</span>
                                                             </v-col>
                                                         </v-row>
                                                     </v-col>
