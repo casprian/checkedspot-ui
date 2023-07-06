@@ -7,9 +7,9 @@
         </v-row>
         <v-row no-gutters justify="center" :class="loader === true ? 'blurCont' : ''" class="login">
             <v-col cols="0" sm="5" class="px-7 py-10 leftSec">
-                
+
             </v-col>
-            <v-col cols="11" sm="7" class="pa-10">
+            <v-col cols="11" sm="7" class="py-10 pa-sm-10">
                 <v-sheet class="d-flex justify-center">
                     <v-container class="pa-0 d-flex flex-column justify-space-between formCont">
                         <div v-if="alreadyLoggedIn" class="text-h6 text-pink-accent-3 font-weight-medium  pb-6">Already
@@ -21,7 +21,9 @@
                         <v-row no-gutters class="pr-10 pb-14">
                             <v-col cols="12" class="pa-0">
                                 <button @click="getAuthorizationUrl" class="googlesignin" title="Sign in with Google">
-                                    <img class="google-icon mr-4" src="https://checkedspot.blob.core.windows.net/assets/Google_Logo.png" alt="G" /><span>Sign in with Google</span>
+                                    <img class="google-icon mr-4"
+                                        src="https://checkedspot.blob.core.windows.net/assets/Google_Logo.png"
+                                        alt="G" /><span>Sign in with Google</span>
                                 </button>
                             </v-col>
                         </v-row>
@@ -50,7 +52,12 @@
                                 </v-row>
                                 <v-row no-gutters>
                                     <v-col cols="12" class="pa-0">
-                                        <small>*indicates required field</small>
+                                        <div class="d-flex justify-space-between mr-10 mt-3">
+                                            <small>*indicates required field</small>
+                                            <small><button @click="router.push({ path: '/password', query: { q: 'forget' } })"
+                                                    class="text-blue-accent-3" title="click here to reset password">forget
+                                                    password</button></small>
+                                        </div>
                                         <div v-if="retrySignIn" class="text-h6 text-pink-accent-3 font-weight-medium">
                                             Invalid email or password
                                         </div>
@@ -58,7 +65,7 @@
                                 </v-row>
                             </v-col>
                         </v-row>
-                        <v-row no-gutters class="pr-10 pt-9">
+                        <v-row no-gutters class="pr-10 pt-5">
                             <v-col cols="12" class="pa-0">
                                 <v-btn type="submit" @click="loginHandler" density="default" prepend-icon="mdi-login"
                                     elevation="4" variant="flat" color="green" width="100%">
@@ -84,6 +91,7 @@ import { ref } from "vue";
 import { useRoute } from "vue-router";
 import { useField, useForm } from 'vee-validate';
 import { useCookies } from "vue3-cookies";
+import router from '@/router';
 
 const { cookies } = useCookies();
 const route = useRoute();
@@ -136,7 +144,7 @@ const loginHandler = handleSubmit(async (values: any) => {
         email: values.email,
         password: values.password,
     });
-    
+
     if (res?.status === 200) {
         retrySignIn.value = false;
         loader.value = false;
@@ -148,9 +156,11 @@ const loginHandler = handleSubmit(async (values: any) => {
 })
 
 async function getAuthorizationUrl() {
-    const res = await api?.user?.getAuthorizationUrl({params:{}});
+    const res = await api?.user?.getAuthorizationUrl({ params: {} });
     window.open(res?.data?.url, '_self');
 }
+
+
 </script>
 
 <style scoped>
@@ -159,7 +169,7 @@ async function getAuthorizationUrl() {
 }
 
 .leftSec {
-    background-image: linear-gradient(180deg, rgba(255,255,255,0.7) 3%, rgba(252,252,252,0.7) 52%), url('https://checkedspot.blob.core.windows.net/assets/pexels-laura-tancredi-7078692.jpg');
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.7) 3%, rgba(252, 252, 252, 0.7) 52%), url('https://checkedspot.blob.core.windows.net/assets/pexels-laura-tancredi-7078692.jpg');
     background-size: cover;
 }
 
@@ -225,5 +235,19 @@ async function getAuthorizationUrl() {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+@media only screen and (max-width: 800px) {
+    .formCont {
+        width: 95%;
+    }
+}
+@media only screen and (max-width: 599px) {
+    .formCont {
+        width: 90%;
+    }
+    .leftSec {
+        display: none;
+    }
 }
 </style>

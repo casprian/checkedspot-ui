@@ -1,26 +1,33 @@
 <template>
-  <v-dialog v-model="dialog" scrollable width="auto" class="d-flex align-start justify-end mr-n6 pt-10">
+  <v-dialog v-model="dialog" scrollable width="auto" class="">
     <template v-slot:activator="{ props }">
-      <v-avatar @click="changeDialog" color="grey-darken-3" class="profileAvatar"
-        :image="user.picture ? user.picture : 'https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light'"
-        v-bind="props" title="click to view profile"></v-avatar>
+      <v-avatar 
+        @click="changeDialog"
+        color="grey-darken-3" 
+        class="profileAvatar"
+        :image="user.picture ? user.picture : profilePicture"
+        v-bind="props" 
+        title="click to view profile"
+      ></v-avatar>
     </template>
     <div class="mainCont pa-2 rounded-xl bg-grey-lighten-4">
       <v-row no-gutters>
         <v-col cols="12" class="d-flex flex-column mb-5 px-5  pt-4 bg-white rounded-t-xl rounded-b-lg">
           <v-row no-gutters class="d-flex pb-3">
             <v-col class="avatarRelative" cols="3">
-              <v-avatar color="grey-darken-3"
-                :image="user.picture ? user.picture : 'https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light'"
-                size="75"></v-avatar>
+              <v-avatar 
+                color="grey-darken-3"
+                :image="user.picture ? user.picture : profilePicture"
+                size="75">
+              </v-avatar>
               <div class="avatarIcon  rounded-circle bg-white elevation-1 pa-1 d-flex align-center justify-center">
-                <v-icon icon="mdi-camera" size="15" color="black"></v-icon>
+                <update-profile-picture invocationMethod="icon" :picture="user.picture ? user.picture : profilePicture"/>
               </div>
             </v-col>
             <v-col cols="9" class="ml-0 mt-5">
               <h6 class="text-body-1 font-weight-medium">{{ user.name ? user.name : "xyz" }}</h6>
               <p class="text-body-2">{{ user.email ? user.email : "xyz@gmail.com" }}</p>
-              <v-btn disabled @click="() => handleRouting('profile')" class="mt-5 rounded-lg" variant="outlined">Manage Your Account</v-btn>
+              <v-btn @click="() => handleRouting('dashboard')" class="mt-5 rounded-lg" variant="outlined">Manage Your Account</v-btn>
             </v-col>
           </v-row>
         </v-col>
@@ -52,22 +59,24 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
 import { useCookies } from 'vue3-cookies';
 import { useRouter } from 'vue-router';
 import jwtDecode from 'jwt-decode';
+import UpdateProfilePicture from './Dashboard/UpdateProfilePicture.vue';
 
 const router = useRouter();
 const { cookies } = useCookies();
-const user = ref({
+let user = reactive({
   name: null,
   email: null,
   picture: null
 });
 
+const profilePicture = ref('https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light')
 if (cookies.get('token')) {
   //@ts-ignore
-  user.value = jwtDecode(cookies.get('token'))?.userData;
+  user = jwtDecode(cookies.get('token'))?.userData;
 }
 const loader = ref(true);
 const dialog = ref(false);
@@ -87,7 +96,7 @@ function handleSignout() {
   location.replace(window.origin);
 }
 
-function handleRouting(routeTo:string) {
+function handleRouting(routeTo: string) {
   router.push(`/${routeTo}`);
   dialog.value = false;
 }
@@ -119,4 +128,5 @@ function handleRouting(routeTo:string) {
   width: 5px;
   height: 5px;
   border: 1px solid rgb(255, 251, 251);
-}</style>
+}
+</style>

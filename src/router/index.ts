@@ -15,11 +15,11 @@ const routes = [
         name: 'About US',
         component: ()=> import('@/views/AboutUsView.vue')
       },
-      {
-        path: '/whatwedo',
-        name: 'What We Do',
-        component: ()=> import('@/views/WhatWeDoView.vue')
-      },
+      // {
+      //   path: '/whatwedo',
+      //   name: 'What We Do',
+      //   component: ()=> import('@/views/WhatWeDoView.vue')
+      // },
       {
         path: '/contactus',
         name: 'Contact Us',
@@ -36,9 +36,9 @@ const routes = [
         component: ()=> import('@/views/SignUpView.vue')
       },
       {
-        path: '/profile',
-        name: 'Profile',
-        component: ()=> import('@/views/ProfileView.vue')
+        path: '/password',
+        name: 'Handle Password',
+        component: () => import('@/views/HandlePasswordView.vue')
       },
       {
         path: '/listing',
@@ -49,6 +49,11 @@ const routes = [
         path: '/propertydetails/:propertyId',
         name: 'Property Details',
         component: ()=> import('@/views/PropertyDetailsView.vue')
+      },
+      {
+        path: '/quotation',
+        name: 'Quotation Details',
+        component: ()=> import('@/views/QuotationView.vue')
       },
       {
         path: '/createproperty',
@@ -68,6 +73,28 @@ const routes = [
     ],
   },
   {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: () => import('@/views/DashboardView.vue'),
+    children: [
+      {
+        path: '/dashboard',
+        name: 'Dashboard Home',
+        component: () => import('@/components/Dashboard/Dashboard.vue')
+      },
+      {
+        path: '/dashboard/editprofile',
+        name: 'Edit Profile',
+        component: () => import('@/components/Dashboard/EditProfile.vue')
+      },
+      {
+        path: '/dashboard/properties',
+        name: 'Properties',
+        component: () => import('@/components/Dashboard/Properties.vue')
+      }
+    ],
+  },
+  {
     path: '/error',
     name: 'Error page',
     component: () => import('@/views/ErrorView.vue')
@@ -82,7 +109,7 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
-  scrollBehavior() {
+  scrollBehavior(to, from, savedPosition) {
     // return desired position
     return { top: 0 , behavior: 'smooth'}
   },

@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-row no-gutters class="my-5">
+        <v-row no-gutters class="my-5 mx-4 mx-sm-2">
             <v-col cols="12">
                 <p class="text-body-2 text-grey-darken-1">ALL PROPERTY NEEDS - ONE PORTAL</p>
                 <p class="text-h5 font-weight-medium">Find better places to live, <span
