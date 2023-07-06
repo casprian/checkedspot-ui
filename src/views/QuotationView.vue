@@ -1,5 +1,5 @@
 <template>
-    <div v-if="token">
+    <div>
         <progress-track/>
         <our-packages/>
         <!-- <OurProjects/>
