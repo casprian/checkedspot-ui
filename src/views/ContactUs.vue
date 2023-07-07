@@ -33,7 +33,7 @@
             <v-progress-linear color="deep-purple" height="4" indeterminate></v-progress-linear>
           </template>
 
-          <v-parallax :src="item.parallaxSrc" class="parallax">
+          <v-parallax :src="item.parallaxSrc" :alt="item.name" class="parallax">
             <div class="h-75 d-flex flex-column justify-center align-center text-white parallaxMask">
               <p class="text-h4 text-sm-h3 font-weight-regular pt-10 text-center" title="Checked Spot - Bangalore">Checked
                 Spot - {{ item.name }}</p>
