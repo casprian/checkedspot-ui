@@ -490,7 +490,7 @@ const items = reactive([
     noOfRating: 413,
     mobiles: ["9606937470"],
     email: ['info@checkedspot.com'],
-    address: "1st floor - Next To Fame Diagnostics - RK Hegde Nagar, Bangalore - 560077"
+    address: "Mysore - Mysore"
   },
   {
     parallaxSrc: sakleshpurImage,
@@ -499,7 +499,7 @@ const items = reactive([
     noOfRating: 413,
     mobiles: ["9606937470"],
     email: ['info@checkedspot.com'],
-    address: "1st floor - Next To Fame Diagnostics - RK Hegde Nagar, Bangalore - 560077"
+    address: "Sakleshpur - 573134"
   },
   {
     parallaxSrc: tumkurImage,
@@ -508,7 +508,7 @@ const items = reactive([
     noOfRating: 413,
     mobiles: ["9606937470"],
     email: ['info@checkedspot.com'],
-    address: "1st floor - Next To Fame Diagnostics - RK Hegde Nagar, Bangalore - 560077"
+    address: "Tumkur - 572101"
   }
 ])
 
