@@ -11,22 +11,22 @@
 
 <script lang="ts" setup>
     //@ts-ignore
-    import ProgressTrack from '@/components/construction-components/ProgressTrack.vue'
+    import ProgressTrack from '@/components/quotation-view-components/ProgressTrack.vue'
 
     //@ts-ignore
-    import OurPackages from '@/components/construction-components/OurPackages.vue'
+    import OurPackages from '@/components/quotation-view-components/OurPackages.vue'
 
     //@ts-ignore
-    import OurProjects from '@/components/construction-components/OurProjects.vue'
+    import OurProjects from '@/components/quotation-view-components/OurProjects.vue'
 
     //@ts-ignore
-    import ServicesEnsured from '@/components/construction-components/ServicesEnsured.vue'
+    import ServicesEnsured from '@/components/quotation-view-components/ServicesEnsured.vue'
 
     //@ts-ignore
-    import OurCustomers from '@/components/construction-components/OurCustomers.vue'
+    import OurCustomers from '@/components/quotation-view-components/OurCustomers.vue'
 
     //@ts-ignore
-    import FooterComp from '@/components/construction-components/FooterComp.vue'
+    import FooterComp from '@/components/quotation-view-components/FooterComp.vue'
 </script>
 
 <style scoped>

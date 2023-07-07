@@ -7,7 +7,11 @@
                 <div class="d-flex flex-column pb-5">
                     <!-- <span class="text-indigo-lighten-1 py-1"><v-icon color="pink-accent-3" icon="mdi-check-circle-outline"></v-icon> 0 Homes</span>
                     <span class="text-indigo-lighten-1 py-1"><v-icon color="pink-accent-3" icon="mdi-check-circle-outline"></v-icon> 0 Quality Checks</span> -->
+                    <span class="text-indigo-lighten-1 py-1"><v-icon color="pink-accent-3" icon="mdi-check-circle-outline"></v-icon> Most competitive price</span>
                     <span class="text-indigo-lighten-1 py-1"><v-icon color="pink-accent-3" icon="mdi-check-circle-outline"></v-icon> 100% Safe Money Transaction</span>
+                    <span class="text-indigo-lighten-1 py-1"><v-icon color="pink-accent-3" icon="mdi-check-circle-outline"></v-icon> 100% Transparency</span>
+                    <span class="text-indigo-lighten-1 py-1"><v-icon color="pink-accent-3" icon="mdi-check-circle-outline"></v-icon> Dedicated labours</span>
+                    <span class="text-indigo-lighten-1 py-1"><v-icon color="pink-accent-3" icon="mdi-check-circle-outline"></v-icon> Hastle free paperwork</span>
                 </div>
                 <v-btn color="pink-accent-3" height="45" width="250" append-icon="mdi-arrow-right" @click="router.push('/contactus')">Talk to our Experts</v-btn>
             </v-col>

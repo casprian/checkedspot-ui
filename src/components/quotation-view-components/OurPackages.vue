@@ -9,10 +9,11 @@
                     <v-select
                     placeholder="Select"
                     class="customPlaceholder"
+                    v-model="model"
+                    :items="places"
                     bg-color="pink-accent-3"
                     density="compact"
                     style="width:125px;"
-                    :items="['Bengaluru', 'Hassan', 'Mysuru']"
                     variant="solo"
                     ></v-select>
                 </div>
@@ -30,7 +31,11 @@
 
 <script lang="ts" setup>
 //@ts-ignore
-import SliderComp from "@/components/construction-components/slider-range-components/SliderComp.vue"
+import SliderComp from "@/components/quotation-view-components/slider-range-components/SliderComp.vue";
+import { ref } from "vue";
+
+const places = ref(['Bengaluru', 'Mysore', 'Hassan'])
+const model = ref(places.value[0])
 </script>
 
 <style scoped>
