@@ -163,7 +163,6 @@
           >
             <div class="pa-3 text-h4 font-weight-bold">Enquiry Form</div>
             <form>
-              <!-- 1024 -->
               <v-text-field
                 v-model="name.value.value"
                 :error-messages="name.errorMessage.value"
