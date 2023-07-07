@@ -479,7 +479,7 @@ const items = reactive([
     name: "Hassan",
     rating: 4.9,
     noOfRating: 413,
-    mobiles: ["9606937470, ", "9606937471"],
+    mobiles: ["9606937470"],
     email: ['info@checkedspot.com'],
     address: "1st floor - Above Queens Collection, Subhash Square, Hassan - 573201"
   },
@@ -488,7 +488,7 @@ const items = reactive([
     name: "Mysore",
     rating: 4.9,
     noOfRating: 413,
-    mobiles: ["9606937470, ", "9606937471"],
+    mobiles: ["9606937470"],
     email: ['info@checkedspot.com'],
     address: "1st floor - Next To Fame Diagnostics - RK Hegde Nagar, Bangalore - 560077"
   },
@@ -497,7 +497,7 @@ const items = reactive([
     name: "Sakleshpur",
     rating: 4.9,
     noOfRating: 413,
-    mobiles: ["9606937470, ", "9606937471"],
+    mobiles: ["9606937470"],
     email: ['info@checkedspot.com'],
     address: "1st floor - Next To Fame Diagnostics - RK Hegde Nagar, Bangalore - 560077"
   },
@@ -506,7 +506,7 @@ const items = reactive([
     name: "Tumkur",
     rating: 4.9,
     noOfRating: 413,
-    mobiles: ["9606937470, ", "9606937471"],
+    mobiles: ["9606937470"],
     email: ['info@checkedspot.com'],
     address: "1st floor - Next To Fame Diagnostics - RK Hegde Nagar, Bangalore - 560077"
   }
