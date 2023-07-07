@@ -120,7 +120,7 @@ const callWhatsappCloudApi = handleSubmit(async (values) => {
     } else if (props.enquiryFor === 'legal') {
         enquiryMessage.value = `Mr. ${values.name} wanted more Information About Your Legal Services.`
     }
-    // console.log({...values, enquiryMessage: enquiryMessage.value} )
+    
     api?.user
         ?.sendEnquiry({ ...values, enquiryMessage: enquiryMessage.value })
         .then((res: any) => {
