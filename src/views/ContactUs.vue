@@ -156,7 +156,7 @@ const items = reactive([
     noOfRating: 413,
     mobiles: ["9606937470"],
     email: ['info@checkedspot.com'],
-    address: "Mysore - Mysore"
+    address: "Mysore - 570001"
   },
   {
     parallaxSrc: sakleshpurImage,
