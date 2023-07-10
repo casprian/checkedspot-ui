@@ -25,7 +25,7 @@
                 <property-card :property="data"/>
             </v-col>
         </v-row>
-        <v-row v-if="!propertiesData?.data" no-gutters class="px-sm-14">
+        <v-row v-if="!propertiesData?.data" no-gutters class="px-sm-14 pb-16 mb-16">
             <v-col cols="4" class="loader">
                 <v-progress-linear color="pink-accent-3" indeterminate rounded height="10"></v-progress-linear>
             </v-col>

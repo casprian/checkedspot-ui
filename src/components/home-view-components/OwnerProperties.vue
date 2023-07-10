@@ -18,11 +18,12 @@
                                 <v-img
                                     :src="property?.propertyImage ? property?.propertyImage[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
                                     height="130px" width="100%" position="relative" cover>
-                                    <v-toolbar-title
-                                    class="toolBar text-white px-2 ml-2 mt-1 d-inline-block"
-                                    theme="dark"
-                                    >
-                                    </v-toolbar-title>
+                                    <v-toolbar class="propertyTitle" theme="dark" height="30"
+                                        style="background-color: rgba(0, 0, 0, 0.466);">
+                                        <div class="w-100 text-caption text-center px-1">
+                                            {{ property?.title ? property?.title : "Property title - like, Fit for home etc." }}
+                                        </div>
+                                    </v-toolbar>
                                 </v-img>
 
                                 <v-sheet>
@@ -58,8 +59,7 @@
                                                                 </span>
                                                             </v-col>
                                                             <v-col cols="auto mt-0 pt-0 mb-n1">
-                                                                <span
-                                                                    class="text-caption text-grey-lighten-1 mt-0 pt-0">9876543210</span>
+                                                                <span class="text-caption text-grey-lighten-1 mt-0 pt-0">9606937471</span>
                                                             </v-col>
                                                         </v-row>
                                                     </v-col>

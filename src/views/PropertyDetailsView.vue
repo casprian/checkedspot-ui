@@ -12,7 +12,7 @@
     </v-container>
     <v-container fluid class="pa-0 pt-16 px-4 bg-background">
 
-        <v-row v-if="count < 2" no-gutters class="px-sm-14">
+        <v-row v-if="count < 2" no-gutters class="px-sm-14 pb-16 mb-16">
             <v-col cols="4" class="loader">
                 <v-progress-linear color="pink-accent-3" indeterminate rounded height="10"></v-progress-linear>
             </v-col>

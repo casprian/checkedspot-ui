@@ -1,5 +1,5 @@
 <template>
-    <div v-if="token">
+    <div>
         <progress-track/>
         <our-packages/>
         <!-- <OurProjects/>
@@ -10,39 +10,23 @@
 </template>
 
 <script lang="ts" setup>
-    
-    import { useCookies } from 'vue3-cookies';
-
-    import { useRouter } from "vue-router";
+    //@ts-ignore
+    import ProgressTrack from '@/components/quotation-view-components/ProgressTrack.vue'
 
     //@ts-ignore
-    import ProgressTrack from '@/components/construction-components/ProgressTrack.vue'
+    import OurPackages from '@/components/quotation-view-components/OurPackages.vue'
 
     //@ts-ignore
-    import OurPackages from '@/components/construction-components/OurPackages.vue'
+    import OurProjects from '@/components/quotation-view-components/OurProjects.vue'
 
     //@ts-ignore
-    import OurProjects from '@/components/construction-components/OurProjects.vue'
+    import ServicesEnsured from '@/components/quotation-view-components/ServicesEnsured.vue'
 
     //@ts-ignore
-    import ServicesEnsured from '@/components/construction-components/ServicesEnsured.vue'
+    import OurCustomers from '@/components/quotation-view-components/OurCustomers.vue'
 
     //@ts-ignore
-    import OurCustomers from '@/components/construction-components/OurCustomers.vue'
-
-    //@ts-ignore
-    import FooterComp from '@/components/construction-components/FooterComp.vue'
-import { ref } from 'vue';
-
-    const { cookies } = useCookies();
-    const router = useRouter();
-    const token = ref(false)
-    if(!cookies.get('token')){
-        router.push('/')
-    }else {
-        token.value = true;
-    }
-    
+    import FooterComp from '@/components/quotation-view-components/FooterComp.vue'
 </script>
 
 <style scoped>
