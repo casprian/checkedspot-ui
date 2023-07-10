@@ -2,8 +2,13 @@
     <v-card class="mx-auto" style="max-width: 480px;" position="relative" @click="openPropertyDetail">
         <v-img
             :src="property?.propertyImage ? property?.propertyImage[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'" height="260px" position="relative" cover>
+            <v-toolbar-title
+            class="toolBar text-white px-2 ml-2 mt-2 rounded d-inline-block"
+            theme="dark"
+            >All
+            </v-toolbar-title>
             <v-sheet position="absolute" style="background-color: transparent; width: 100%; height: 100%;">
-                <v-container style="position: absolute; bottom: 0;">
+                <v-container style="position: absolute; bottom: 35px;">
                     <v-row class="d-flex justify-space-between">
                         <v-col cols="auto">
                             <div class="text-grey-lighten-5 text-h6">
@@ -49,7 +54,7 @@
                                 {{
                                     property.city
                                     ? property.city
-                                    : 'Not Found'
+                                    : 'NO'
                                 }}
                             </span>
                         </v-card-text>
@@ -63,7 +68,7 @@
                                     {{
                                         property?.bedroom
                                         ? `${property?.bedroom} Bedrooms`
-                                        : 'Not Found'
+                                        : 'NO'
                                     }}
                                 </span>
                             </v-col>
@@ -73,7 +78,7 @@
                                     {{
                                         property?.bathroom
                                         ? `${property?.bathroom} Bathrooms`
-                                        : 'Not Found'
+                                        : 'NO'
                                     }}
                                 </span>
                             </v-col>
@@ -83,7 +88,7 @@
                                     {{
                                         property?.totalArea
                                         ? `${property?.totalArea} sq ft`
-                                        : 'Not Found'
+                                        : 'NO'
                                     }}
                                 </span>
                             </v-col>
@@ -92,7 +97,7 @@
                                 <span class="text-body-1 text-grey-darken-2" title="Parking Lot">
                                     {{
                                         property?.parkingLot === "unavailable"
-                                        ? 'Not Found'
+                                        ? 'NO'
                                         : `${property?.parkingLot} Garages`
                                     }}
                                 </span>
@@ -138,5 +143,9 @@ function openPropertyDetail() {
 }
 .cardBottom {
     border-top: solid 1px rgb(217, 216, 216);
+}
+.toolBar {
+  background-color: rgba(0, 0, 0, 0.5);
+  font-size: 11px;
 }
 </style>

@@ -22,7 +22,6 @@
                                     class="toolBar text-white px-2 ml-2 mt-1 d-inline-block"
                                     theme="dark"
                                     >
-                                    123456789012345678901234567890
                                     </v-toolbar-title>
                                 </v-img>
 
