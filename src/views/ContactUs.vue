@@ -264,16 +264,16 @@ const callWhatsappCloudApi = handleSubmit(async (values) => {
 
 function handleScroll(e:any) {
   if(window.innerWidth > 959){
-    if (window.scrollY >= 2400) {
+    if (window.scrollY >= (document.body.offsetHeight - 775)) {
         //@ts-ignore
         document.querySelector('.formCont').style.position = "absolute";
         //@ts-ignore
-        document.querySelector('.formCont').style.top = "2400px";
+        document.querySelector('.formCont').style.top = `${document.body.offsetHeight - 775}px`;
     }else {
       //@ts-ignore
         document.querySelector('.formCont').style.position = "fixed";
         //@ts-ignore
-        document.querySelector('.formCont').style.top = "68px";
+        document.querySelector('.formCont').style.top = "65px";
     }
   }else {
     //@ts-ignore

@@ -28,10 +28,10 @@
                         }}
                     </span>
                 </v-col>
-                <v-col cols="6" class="pa-0">
-                    <a :href="property?.googleMapLink.length > 0 ? property?.googleMapLink : '#'">
+                <v-col v-if="property?.googleMapLink" cols="6" class="pa-0">
+                    <a :href="property?.googleMapLink">
                         <v-icon size="18" class="mt-n1 mr-2" icon="mdi-google-maps" color="grey-darken-2"></v-icon>
-                        <span class="text-body-1 text-grey-darken-2" title="google map link">location</span>
+                        <span class="text-body-1 text-grey-darken-2" title="google map link">Location</span>
                     </a>
                 </v-col>
             </v-card-text>
@@ -76,9 +76,9 @@
                 </div>
             </v-col>
             <v-col v-if="property?.propertyAddedDate" cols="auto" class="px-0">
-                <div class="mt-1 ml-0 text-uppercase text-center text-grey-darken-1">
-                    <p class="text-caption text-start pa-0 ma-0">Posted on</p>
-                    <p class="text-caption text-start pa-0 ma-0 mt-n1">{{ property?.propertyAddedDate }}</p>
+                <div class="mt-1 ml-0 text-uppercase text-center bg-blue-grey-lighten-4 rounded-be-lg rounded-bs-lg">
+                    <p class="text-caption text-center pa-0 px-2 ma-0 bg-blue-grey-lighten-2">Posted on</p>
+                    <p class="text-caption text-center pa-2 pb-1 ma-0 mt-n1">{{ computedDate }}</p>
                 </div>
             </v-col>
         </v-row>
@@ -87,6 +87,7 @@
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
+import { ref, reactive, onMounted, computed } from 'vue';
 const router = useRouter();
 
 const props = defineProps(['property', 'listingPath'])
@@ -94,6 +95,29 @@ const props = defineProps(['property', 'listingPath'])
 function openPropertyDetail() {
     router.push({ path: `/propertydetails/${props?.property?.propertyId}` })
 }
+
+const months = reactive([
+    { "name": "Jan" },
+    { "name": "Feb" },
+    { "name": "Mar" },
+    { "name": "Apr" },
+    { "name": "May" },
+    { "name": "Jun" },
+    { "name": "Jul" },
+    { "name": "Aug" },
+    { "name": "Sep" },
+    { "name": "Oct" },
+    { "name": "Nov" },
+    { "name": "Dec" },
+])
+const postedDate = ref(props?.property?.propertyAddedDate);
+
+const computedDate = computed((postedDate) => {
+    const yyyyddmm = (props?.property?.propertyAddedDate)?.split('-');
+    const mm = parseInt(yyyyddmm[1]);
+    return `${yyyyddmm[2]}-${months[mm - 1].name}-${yyyyddmm[0]}`;
+})
+
 </script>
 
 <style scoped>
@@ -131,8 +155,9 @@ a:hover {
 .overflowText:hover {
     white-space: normal;
 }
+
 .toolBar {
-  background-color: rgba(0, 0, 0, 0.5);
-  font-size: 11px;
+    background-color: rgba(0, 0, 0, 0.5);
+    font-size: 11px;
 }
 </style>
