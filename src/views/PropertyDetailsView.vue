@@ -12,7 +12,7 @@
     </v-container>
     <v-container fluid class="pa-0 pt-16 px-4 bg-background">
 
-        <v-row v-if="count < 2" no-gutters class="px-sm-14">
+        <v-row v-if="count < 2" no-gutters class="px-sm-14 pb-16 mb-16">
             <v-col cols="4" class="loader">
                 <v-progress-linear color="pink-accent-3" indeterminate rounded height="10"></v-progress-linear>
             </v-col>
@@ -97,146 +97,8 @@
                 </v-row>
 
                 <!-- Property Details -->
-                <v-row no-gutters class="mb-8">
-                    <v-col cols="12">
-                        <v-card class="rounded-0 px-2 pb-4 pt-2" elevation="2">
-                            <v-card-item class="titleCont mb-5">
-                                <v-card-title class="title">Property Details</v-card-title>
-                            </v-card-item>
+                <property-details :details="property?.data"/>
 
-                            <v-row no-gutters class="px-4 pb-7" :class="pdStyle01">
-                                <v-col class="pdLH" cols="12" sm="6" md="4">Property ID:
-                                    <span :class="pdStyle02">
-                                        {{
-                                            property?.data?.propertyId ? property?.data?.propertyId : 'Not Found'
-                                        }}
-                                    </span>
-                                </v-col>
-                                <v-col class="pdLH" cols="12" sm="6" md="4">Property Type:
-                                    <span :class="pdStyle02">
-                                        {{
-                                            property?.data?.type ? property?.data?.type : "plot"
-                                        }}
-                                    </span>
-                                </v-col>
-                                <v-col class="pdLH" cols="12" sm="6" md="4">Property Status:
-                                    <span :class="pdStyle02">
-                                        {{
-                                            property?.data?.propertyStatus
-                                            ? property?.data?.propertyStatus
-                                            : 'Not Found'
-                                        }}
-                                    </span>
-                                </v-col>
-                                <v-col class="pdLH" cols="12" sm="6" md="4">Property Price:
-                                    <span :class="pdStyle02">
-                                        {{
-                                            property?.data?.cost ? property?.data?.cost : 'unavailable'
-                                        }}
-                                    </span>
-                                </v-col>
-                                <v-col class="pdLH" cols="12" sm="6" md="4">Bedrooms:
-                                    <span :class="pdStyle02">
-                                        {{
-                                            property?.data?.noOfBedroom
-                                            ? property?.data?.noOfBedroom
-                                            : 'unavailable'
-                                        }}
-                                    </span>
-                                </v-col>
-                                <v-col class="pdLH" cols="12" sm="6" md="4">Bathrooms:
-                                    <span :class="pdStyle02">{{
-                                        property?.data?.noOfBathroom
-                                        ? property?.data?.noOfBathroom
-                                        : 'unavailable'
-                                    }}</span></v-col>
-                                <v-col class="pdLH" cols="12" sm="6" md="4">Year Built:
-                                    <span :class="pdStyle02">
-                                        {{
-                                            property?.data?.yearOfBuilt
-                                            ? property?.data?.yearOfBuilt
-                                            : 'unavailable'
-                                        }}
-                                    </span>
-                                </v-col>
-                                <v-col class="pdLH" cols="12" sm="6" md="4">Refrigerator:
-                                    <span :class="pdStyle02">
-                                        {{
-                                            property?.data?.refrigerator !== "unavailable"
-                                            ? property?.data?.refrigerator
-                                            : 'unavailable'
-                                        }}
-                                    </span>
-                                </v-col>
-                                <v-col class="pdLH" cols="12" sm="6" md="4">Air Conditioning:
-                                    <span :class="pdStyle02">
-                                        {{
-                                            property?.data?.airConditioning !== "unavailable"
-                                            ? property?.data?.airConditioning
-                                            : 'unavailable'
-                                        }}
-                                    </span>
-                                </v-col><v-col class="pdLH" cols="12" sm="6" md="4">Dish Washer:
-                                    <span :class="pdStyle02">
-                                        {{
-                                            property?.data?.dishWasher !== "unavailable"
-                                            ? property?.data?.dishWasher
-                                            : 'unavailable'
-                                        }}
-                                    </span>
-                                </v-col><v-col class="pdLH" cols="12" sm="6" md="4">Elivator:
-                                    <span :class="pdStyle02">
-                                        {{
-                                            property?.data?.elivator !== "unavailable"
-                                            ? property?.data?.elivator
-                                            : 'unavailable'
-                                        }}
-                                    </span>
-                                </v-col><v-col class="pdLH" cols="12" sm="6" md="4">TV Cable:
-                                    <span :class="pdStyle02">
-                                        {{
-                                            property?.data?.tvCable !== "unavailable"
-                                            ? property?.data?.tvCable
-                                            : 'unavailable'
-                                        }}
-                                    </span>
-                                </v-col><v-col class="pdLH" cols="12" sm="6" md="4">Laundry Room:
-                                    <span :class="pdStyle02">
-                                        {{
-                                            property?.data?.laundryRoom !== "unavailable"
-                                            ? property?.data?.laundryRoom
-                                            : 'unavailable'
-                                        }}
-                                    </span>
-                                </v-col><v-col class="pdLH" cols="12" sm="6" md="4">Swimming Pool:
-                                    <span :class="pdStyle02">
-                                        {{
-                                            property?.data?.swimmingPool !== "unavailable"
-                                            ? property?.data?.swimmingPool
-                                            : 'unavailable'
-                                        }}
-                                    </span>
-                                </v-col><v-col class="pdLH" cols="12" sm="6" md="4">Wi Fi:
-                                    <span :class="pdStyle02">
-                                        {{
-                                            property?.data?.wifi !== "unavailable"
-                                            ? property?.data?.wifi
-                                            : 'unavailable'
-                                        }}
-                                    </span>
-                                </v-col><v-col class="pdLH" cols="12" sm="6" md="4">Parking Lot:
-                                    <span :class="pdStyle02">
-                                        {{
-                                            property?.data?.parkingLot !== "unavailable"
-                                            ? property?.data?.parkingLot
-                                            : 'unavailable'
-                                        }}
-                                    </span>
-                                </v-col>
-                            </v-row>
-                        </v-card>
-                    </v-col>
-                </v-row>
 
                 <!-- Property Videos -->
                 <v-row no-gutters class="mb-8">
@@ -356,6 +218,7 @@ import api from '@/data/api/index.js';
 import { onMounted, reactive, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import PDFViewer from 'pdf-viewer-vue';
+import PropertyDetails from '@/components/property-details-view/PropertyDetails.vue';
 
 function handleDownload() {
     window.location.href = property?.data?.propertyPlan[0];
@@ -498,10 +361,6 @@ onMounted(async () => {
     background-color: #f50057;
     position: absolute;
     top: 43px;
-}
-
-.pdLH {
-    line-height: 38px;
 }
 
 #propVideo {
