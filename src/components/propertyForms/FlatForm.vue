@@ -659,15 +659,9 @@ const addProperty = handleSubmit(async (values) => {
   }
   if (bodyData?.googleMapLink) {
     //@ts-ignore
-    bodyData.latitude = bodyData?.googleMapLink
-      ?.toString()
-      .split("@")[1]
-      .split(",")[0];
+    bodyData.latitude = bodyData?.googleMapLink?.toString().split("@")[1].split(",")[0];
     //@ts-ignore
-    bodyData.longitude = bodyData?.googleMapLink
-      ?.toString()
-      .split("@")[1]
-      .split(",")[1];
+    bodyData.longitude = bodyData?.googleMapLink?.toString().split("@")[1].split(",")[1];
   }
   loading.value = true;
   const formData = new FormData();
