@@ -3,11 +3,11 @@
         <v-img @click="openPropertyDetail"
             :src="property?.propertyImage ? property?.propertyImage[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
             height="200px" position="relative" cover class="hoverPointer">
-            <v-toolbar class="propertyTitle" theme="dark" height="35" style="background-color: rgba(0, 0, 0, 0.466);">
+            <!-- <v-toolbar class="propertyTitle" theme="dark" height="35" style="background-color: rgba(0, 0, 0, 0.466);">
                 <div class="w-100 text-body-1 text-center px-3">
                     {{ property?.title ? property?.title : "Property title - like, Fit for home etc." }}
                 </div>
-            </v-toolbar>
+            </v-toolbar> -->
             <v-card-title title="verified by Checked Spot" v-if="property?.isVerifiedByCheckedSpot"
                 class="px-4 py-1 verifiedTag">
                 <v-chip variant="elevated" color="green" density="comfortable">
@@ -48,13 +48,13 @@
 
             <!-- Add model to show values in different units -->
             <v-col v-if="property?.totalArea" cols="12" class="px-4 pb-1">
-                <a href="">
+                <!-- <a href=""> -->
                     <div class="text-body-2 text-grey-darken-2 overflowText" title="total area of the property">
                         Total Area: {{
                             property?.totalArea
                         }} sq. feet
                     </div>
-                </a>
+                <!-- </a> -->
             </v-col>
 
             <v-col v-if="property?.address" cols="12" class="px-4 pb-1">
