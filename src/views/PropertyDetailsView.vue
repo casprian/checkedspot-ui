@@ -97,7 +97,7 @@
                 </v-row>
 
                 <!-- Property Details -->
-                <property-details :details="property?.data"/>
+                <property-details :details="property?.data" />
 
 
                 <!-- Property Videos -->
@@ -126,28 +126,28 @@
                                 <v-card-title class="title">Plan</v-card-title>
                             </v-card-item>
 
-                            <v-row no-gutters class="px-4 pb-7">
-                                <PDFViewer 
-                                    :rendering-text="'Loading Plan PDF'" 
-                                    :source="property?.data?.propertyPlan ? property?.data?.propertyPlan[0] : ''" 
-                                    @download="handleDownload" 
-                                    style="height: 100vh; width: 100vw"
-                                />
+                            <v-row no-gutters class="px-4 pb-5">
+                                <PDFViewer :rendering-text="'Loading Plan PDF'"
+                                    :source="property?.data?.propertyPlan ? property?.data?.propertyPlan[0] : ''"
+                                    @download="handleDownload" style="height: 100vh; width: 100vw" />
                             </v-row>
                         </v-card>
                     </v-col>
                 </v-row>
 
                 <!-- Location -->
-                <v-row no-gutters class="mb-8">
+                <v-row v-if="property?.data?.longitude && property?.data?.latitude" no-gutters class="mb-8">
                     <v-col cols="12">
-                        <v-card class="rounded-0 px-2 pb-4 pt-2" elevation="2">
-                            <v-card-item class="titleCont mb-5">
+                        <v-card class="rounded-0 px-5 pb-8 pt-2" elevation="2">
+                            <v-card-item class="titleCont mb-6 pa-0 pb-4">
                                 <v-card-title class="title">Location</v-card-title>
                             </v-card-item>
-
-                            <v-row no-gutters class="px-4 pb-7" :class="pdStyle01">
-
+                            <div class="d-flex justify-center">
+                                <span>                                    
+                                    <v-btn width="200" @click="showMap" v-if="!maploaded" prepend-icon="mdi-google-maps" color="deep-purple-lighten-2">Show Map</v-btn>
+                                </span>
+                            </div>
+                            <v-row no-gutters v-if="maploaded" class="px-4 pb-7" id="map" :class="pdStyle01" style="height: 500px;">
                             </v-row>
                         </v-card>
                     </v-col>
@@ -219,6 +219,7 @@ import { onMounted, reactive, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import PDFViewer from 'pdf-viewer-vue';
 import PropertyDetails from '@/components/property-details-view/PropertyDetails.vue';
+import { Loader } from '@googlemaps/js-api-loader';
 
 function handleDownload() {
     window.location.href = property?.data?.propertyPlan[0];
@@ -276,7 +277,9 @@ const property = reactive({
         'propertyVideo': [''],
         'address': null,
         'name': null,
-        'parkingLot': null
+        'parkingLot': null,
+        longitude: null,
+        latitude: null,
     },
 });
 
@@ -288,6 +291,32 @@ const agent = reactive({
         'address': []
     }
 })
+
+const maploaded = ref(false)
+async function showMap() {
+    let map;
+    const additionalOptions = {};
+
+    const loader = new Loader({
+        //@ts-ignore
+        apiKey: process.env.GOOGLE_API_KEY,
+        version: "weekly",
+        libraries: ["places"],
+        ...additionalOptions,
+    });
+
+    loader.load().then(async (google) => {
+        const { Map } = await google.maps.importLibrary("maps");
+
+        map = new Map(document.getElementById("map"), {
+            //@ts-ignore
+            center: { lat: parseFloat(property?.data?.latitude), lng: parseFloat(property?.data?.longitude) },
+            zoom: 16,
+        });
+    });
+    console.log(map)
+    maploaded.value = true;
+}
 
 async function propertydata() {
     const res = await api?.property?.getProperty({
