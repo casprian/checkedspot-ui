@@ -201,8 +201,10 @@
 </template>
 
 <script lang="ts" setup>
-const props = defineProps(['details'])
 import { reactive, ref } from 'vue';
+
+const props = defineProps(['details'])
+
 const months = reactive([
     {"name": "Jan"},
     {"name": "Feb"},
