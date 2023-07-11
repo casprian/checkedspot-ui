@@ -29,7 +29,7 @@
                     </span>
                 </v-col>
                 <v-col v-if="property?.googleMapLink" cols="6" class="pa-0">
-                    <a :href="property?.googleMapLink">
+                    <a :href="property?.googleMapLink" target="_blank">
                         <v-icon size="18" class="mt-n1 mr-2" icon="mdi-google-maps" color="grey-darken-2"></v-icon>
                         <span class="text-body-1 text-grey-darken-2" title="google map link">Location</span>
                     </a>

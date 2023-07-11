@@ -47,7 +47,7 @@
                                     <v-container class="pa-0">
                                         <v-row no-gutters>
                                             <v-col cols="6" class="pa-0 pl-2 pt-2" style="height: 20px;">
-                                                <a v-if="property?.googleMapLink" :href="property?.googleMapLink">
+                                                <a target="_blank" v-if="property?.googleMapLink" :href="property?.googleMapLink">
                                                     <v-icon size="16" class="mt-n1 mr-2" icon="mdi-google-maps"
                                                         color="grey-darken-2"></v-icon>
                                                     <span class="text-body-2 text-grey-darken-2"
@@ -74,15 +74,15 @@
                                                     </v-col>
                                                     <v-col class="px-0">
                                                         <v-row no-gutters class="d-flex flex-column">
-                                                            <v-col cols="auto mb-n2 pb-0">
+                                                            <v-col cols="auto pb-0" style="line-height: 16px;">
                                                                 <span
                                                                     class="text-body-2 mt-3 ml-0 mb-0 pb-0 text-uppercase text-center text-grey-darken-2 font-weight-medium">
-                                                                    Parvez Shariff
+                                                                    {{ property?.agentName ? property?.agentName : "" }}
                                                                 </span>
                                                             </v-col>
-                                                            <v-col cols="auto mt-0 pt-0 mb-n1">
+                                                            <v-col cols="auto mt-0 pt-0 mb-n1" style="line-height: 14px;">
                                                                 <span
-                                                                    class="text-caption text-grey-lighten-1 mt-0 pt-0">9606937471</span>
+                                                                    class="text-caption text-grey-darken-1 mt-0 pt-0">{{ property?.agentMobile ? property?.agentMobile : "" }}</span>
                                                             </v-col>
                                                         </v-row>
                                                     </v-col>
