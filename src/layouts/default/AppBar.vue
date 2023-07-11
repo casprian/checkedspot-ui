@@ -80,6 +80,7 @@
       </v-btn>
     </div>
   </v-navigation-drawer>
+  <v-btn class="contact" density="comfortable" size="x-large" color="blue" icon="mdi-phone"></v-btn>
 </template>
 
 <script lang="ts" setup>
@@ -144,6 +145,14 @@ function handleCreateProperty() {
   .smNav {
     display: block;
   }
+
+  .contact{
+    display: block;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1;
+  }
 }
 
 @media only screen and (min-width: 901px) {
@@ -154,5 +163,10 @@ function handleCreateProperty() {
   .smNav {
     display: none;
   }
+
+  .contact {
+    display: none;
+  }
+
 }
 </style>

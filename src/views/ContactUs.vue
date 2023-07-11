@@ -121,7 +121,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue';
+import { onUnmounted, reactive, ref } from 'vue';
 import { useField, useForm } from "vee-validate";
 //@ts-ignore
 import api from "@/data/api/index.js";
@@ -260,6 +260,35 @@ const callWhatsappCloudApi = handleSubmit(async (values) => {
       }, 5000);
     });
 });
+
+
+function handleScroll(e:any) {
+  if(window.innerWidth > 959){
+    if (window.scrollY >= (document.body.offsetHeight - 775)) {
+        //@ts-ignore
+        document.querySelector('.formCont').style.position = "absolute";
+        //@ts-ignore
+        document.querySelector('.formCont').style.top = `${document.body.offsetHeight - 775}px`;
+    }else {
+      //@ts-ignore
+        document.querySelector('.formCont').style.position = "fixed";
+        //@ts-ignore
+        document.querySelector('.formCont').style.top = "65px";
+    }
+  }else {
+    //@ts-ignore
+    document.querySelector('.formCont').style.position = "static";
+  }
+  
+}
+
+// onCreated () {
+    window.addEventListener('scroll', handleScroll);
+  // }
+
+onUnmounted ( () => {
+  window.removeEventListener('scroll', handleScroll);
+})
 </script>
 
 <style scoped>
@@ -288,7 +317,7 @@ a {
 .formCont {
   position: fixed;
   right: 0;
-  height: calc(100% - 64px);
+  height: auto;
   overflow-y: scroll;
   overflow-x: hidden; 
 
@@ -342,7 +371,7 @@ a {
 
 @media only screen and (max-width: 959px) {
   .formCont {
-    position: relative;
+    position: static;
     height: auto;
   }
 }
