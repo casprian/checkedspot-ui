@@ -218,6 +218,7 @@ import api from '@/data/api/index.js';
 import { onMounted, reactive, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import PDFViewer from 'pdf-viewer-vue';
+//@ts-ignore
 import PropertyDetails from '@/components/property-details-view/PropertyDetails.vue';
 import { Loader } from '@googlemaps/js-api-loader';
 

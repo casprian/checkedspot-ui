@@ -38,7 +38,7 @@
         </v-row>
 
         <v-row no-gutters class="pt-2">
-            <v-col v-if="property?.type" cols="12" class="px-4 pb-1">
+            <v-col v-if="property?.type" cols="12" class="px-4">
                 <div class="text-body-2 text-grey-darken-2 overflowText" title="property type">
                     Property type: {{
                         property?.type
@@ -46,15 +46,50 @@
                 </div>
             </v-col>
 
-            <!-- Add model to show values in different units -->
-            <v-col v-if="property?.totalArea" cols="12" class="px-4 pb-1">
-                <a href="">
-                    <div class="text-body-2 text-grey-darken-2 overflowText" title="total area of the property">
-                        Total Area: {{
-                            property?.totalArea
-                        }} sq. feet
-                    </div>
-                </a>
+            <v-col v-if="property?.totalArea" cols="12" class="px-4">
+                <v-dialog v-model="dialog" width="auto" transition="dialog-bottom-transition">
+                    <template v-slot:activator="{ props }">
+                        <v-btn class="pa-0" variant="text" color="white" density="comfortable" v-bind="props">
+                            <div class="text-body-2 text-grey-darken-2" title="total area of the property in square feet">
+                                Total Area: {{
+                                    property?.totalArea
+                                }} {{ property?.totalAreaUnit ? property?.totalArea : "sqft" }}
+                            </div>
+                        </v-btn>
+                    </template>
+
+                    <v-card>
+                        <v-card-text class="mx-2">
+                            <div class="mb-2 text-h6">Total Area in other Units</div>
+                            <table style="width: 240px;">
+                                <tr>
+                                    <th class="valuecell">Value : Unit</th>
+                                </tr>
+                                <tr>
+                                    <td title="guntha" class="valuecell">{{ (parseFloat(property?.totalArea) / 1089.000000).toFixed(6) }} &nbsp; &nbsp; <span class="px-2 py-1 bg-pink-accent-3 rounded-pill">guntha</span></td>
+                                </tr>
+                                <tr>
+                                    <td title="square feet" class="valuecell">{{ (parseFloat(property?.totalArea)).toFixed(6) }} &nbsp; &nbsp; <span class="px-2 py-1 bg-pink-accent-3 rounded-pill">sqft</span></td>
+                                </tr>
+                                <tr>
+                                    <td title="square meter" class="valuecell">{{ (parseFloat(property?.totalArea) / 10.763915).toFixed(6) }} &nbsp; &nbsp; <span class="px-2 py-1 bg-pink-accent-3 rounded-pill">sqm</span></td>
+                                </tr>
+                                <tr>
+                                    <td title="acre" class="valuecell">{{ (parseFloat(property?.totalArea) / 43560.057264).toFixed(6) }} &nbsp; &nbsp; <span class="px-2 py-1 bg-pink-accent-3 rounded-pill">acre</span></td>
+                                </tr>
+                                <tr>
+                                    <td title="hectare" class="valuecell">{{ (parseFloat(property?.totalArea) / 107639.150512).toFixed(6) }} &nbsp; &nbsp; <span class="px-2 py-1 bg-pink-accent-3 rounded-pill">hectare</span></td>
+                                </tr>
+                                <tr>
+                                    <td title="cent valuecell">{{ (parseFloat(property?.totalArea) / 435.560000).toFixed(6) }} &nbsp; &nbsp; <span class="px-2 py-1 bg-pink-accent-3 rounded-pill">cent</span></td>
+                                </tr>
+                            </table>
+                        </v-card-text>
+                        <v-card-actions class="d-flex justify-center">
+                            <v-btn @click="dialog = false">OK</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
             </v-col>
 
             <v-col v-if="property?.address" cols="12" class="px-4 pb-1">
@@ -91,7 +126,7 @@ import { ref, reactive, onMounted, computed } from 'vue';
 const router = useRouter();
 
 const props = defineProps(['property', 'listingPath'])
-
+const dialog = ref(false)
 function openPropertyDetail() {
     router.push({ path: `/propertydetails/${props?.property?.propertyId}` })
 }
@@ -159,5 +194,18 @@ a:hover {
 .toolBar {
     background-color: rgba(0, 0, 0, 0.5);
     font-size: 11px;
+}
+
+.v-overlay__content {
+    margin: 0;
+}
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px 10px;
 }
 </style>
