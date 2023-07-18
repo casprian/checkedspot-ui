@@ -197,7 +197,7 @@
         </v-col>
         <v-col cols="12" class="py-1 px-3">
           <v-file-input v-model="bodyData.planimgfile" label="File input" variant="filled" prepend-icon="mdi-file-pdf-box"
-            multiple name="planimgfile" accept=".pdf"></v-file-input>
+            multiple name="planimgfile" accept="application/pdf"></v-file-input>
         </v-col>
 
         <v-col cols="12" class="pt-2 pb-7 px-14">

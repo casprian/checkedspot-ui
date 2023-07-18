@@ -57,24 +57,7 @@
 
                 <!-- Gallery -->
                 <v-row no-gutters class="mb-8">
-                    <v-col cols="12">
-                        <v-card class="rounded-0 px-2 pb-4 pt-2" elevation="2">
-                            <v-card-item class="titleCont mb-3">
-                                <v-card-title class="title">Gallery</v-card-title>
-                            </v-card-item>
-
-                            <v-card-item>
-                                <v-carousel height="400" show-arrows="hover" progress="pink-accent-3" continuous
-                                    hide-delimiter-background>
-                                    <v-carousel-item v-for="(image, i) in property?.data?.propertyImage" :key="i">
-                                        <v-sheet height="100%">
-                                            <img class="propGallery" :src="image" alt="property Gallery">
-                                        </v-sheet>
-                                    </v-carousel-item>
-                                </v-carousel>
-                            </v-card-item>
-                        </v-card>
-                    </v-col>
+                    <property-image :propertyId="property?.data?.propertyId"/>
                 </v-row>
 
                 <!-- Description -->
@@ -102,20 +85,7 @@
 
                 <!-- Property Videos -->
                 <v-row no-gutters class="mb-8">
-                    <v-col cols="12">
-                        <v-card class="rounded-0 px-2 pb-4 pt-2" elevation="2">
-                            <v-card-item class="titleCont mb-3">
-                                <v-card-title class="title">Video</v-card-title>
-                            </v-card-item>
-
-                            <v-card-item>
-                                <video id="propVideo" muted controls autoplay>
-                                    <source :src="property?.data?.propertyVideo[0]" type="video/mp4" />
-                                    Your browser does not support the video tag.
-                                </video>
-                            </v-card-item>
-                        </v-card>
-                    </v-col>
+                    <property-video :propertyId="property?.data?.propertyId"/>
                 </v-row>
 
                 <!-- Floor Plans -->
@@ -127,9 +97,11 @@
                             </v-card-item>
 
                             <v-row no-gutters class="px-4 pb-5">
-                                <PDFViewer :rendering-text="'Loading Plan PDF'"
-                                    :source="property?.data?.propertyPlan ? property?.data?.propertyPlan[0] : ''"
-                                    @download="handleDownload" style="height: 100vh; width: 100vw" />
+                                <v-cols cols="12">
+                                    <PDFViewer :rendering-text="'Loading Plan PDF'"
+                                        :source="property?.data?.propertyPlan ? property?.data?.propertyPlan[0] : ''"
+                                        @download="handleDownload" style="height: 100vh; width: 100%;" />
+                                </v-cols>
                             </v-row>
                         </v-card>
                     </v-col>
@@ -220,6 +192,10 @@ import { useRoute, useRouter } from "vue-router";
 import PDFViewer from 'pdf-viewer-vue';
 //@ts-ignore
 import PropertyDetails from '@/components/property-details-view/PropertyDetails.vue';
+//@ts-ignore
+import PropertyVideo from '@/components/property-details-view/PropertyVideo.vue';
+//@ts-ignore
+import PropertyImage from '@/components/property-details-view/PropertyImage.vue'
 import { Loader } from '@googlemaps/js-api-loader';
 
 function handleDownload() {
@@ -230,7 +206,6 @@ const route = useRoute();
 const router = useRouter();
 
 const pdStyle01 = ref("text-body-1 font-weight-medium text-grey-darken-2");
-const pdStyle02 = ref("text-body-1 text-grey-darken-1");
 
 const items = reactive([
     {
@@ -306,7 +281,7 @@ async function showMap() {
         ...additionalOptions,
     });
 
-    loader.load().then(async (google) => {
+    await loader?.load()?.then(async (google) => {
         const { Map } = await google.maps.importLibrary("maps");
 
         map = new Map(document.getElementById("map"), {
@@ -315,7 +290,7 @@ async function showMap() {
             zoom: 16,
         });
     });
-    console.log(map)
+    
     maploaded.value = true;
 }
 
@@ -329,7 +304,7 @@ async function propertydata() {
     if (res.status === 200) {
         count.value++;
         property.data = res.data;
-        console.log(res);
+        
         costPerSqFt.value = res?.data?.totalArea !== 0 ? Math.ceil(res?.data?.cost / res?.data?.totalArea) : 0;
     } else {
         router.push({ path: '/error', query: { status: res?.status } })
@@ -370,12 +345,6 @@ onMounted(async () => {
     transform: translate(-50%, -50%);
 }
 
-.propGallery {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
 .description {
     line-height: 25px;
 }
@@ -391,12 +360,6 @@ onMounted(async () => {
     background-color: #f50057;
     position: absolute;
     top: 43px;
-}
-
-#propVideo {
-    object-fit: cover;
-    width: 100%;
-    height: auto;
 }
 
 .uploadBtn {

@@ -2,7 +2,7 @@
   <v-container fluid class="p0 m0">
     <v-row no-gutters>
       <v-col cols="12" class="video-container">
-        <video class="backgroundvideo" autoplay muted loop>
+        <video class="backgroundvideo" poster="https://checkedspot.blob.core.windows.net/assets/headerVideoPoster.png" autoplay muted loop>
           <source src="https://checkedspot.blob.core.windows.net/assets/7.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>

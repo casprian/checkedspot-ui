@@ -60,30 +60,29 @@
 
                     <v-card>
                         <v-card-text class="mx-2">
-                            <div class="mb-2 text-h6">Total Area in other Units</div>
-                            <table style="width: 240px;">
-                                <tr>
-                                    <th class="valuecell">Value : Unit</th>
-                                </tr>
-                                <tr>
-                                    <td title="guntha" class="valuecell">{{ (parseFloat(property?.totalArea) / 1089.000000).toFixed(6) }} &nbsp; &nbsp; <span class="px-2 py-1 bg-pink-accent-3 rounded-pill">guntha</span></td>
-                                </tr>
-                                <tr>
-                                    <td title="square feet" class="valuecell">{{ (parseFloat(property?.totalArea)).toFixed(6) }} &nbsp; &nbsp; <span class="px-2 py-1 bg-pink-accent-3 rounded-pill">sqft</span></td>
-                                </tr>
-                                <tr>
-                                    <td title="square meter" class="valuecell">{{ (parseFloat(property?.totalArea) / 10.763915).toFixed(6) }} &nbsp; &nbsp; <span class="px-2 py-1 bg-pink-accent-3 rounded-pill">sqm</span></td>
-                                </tr>
-                                <tr>
-                                    <td title="acre" class="valuecell">{{ (parseFloat(property?.totalArea) / 43560.057264).toFixed(6) }} &nbsp; &nbsp; <span class="px-2 py-1 bg-pink-accent-3 rounded-pill">acre</span></td>
-                                </tr>
-                                <tr>
-                                    <td title="hectare" class="valuecell">{{ (parseFloat(property?.totalArea) / 107639.150512).toFixed(6) }} &nbsp; &nbsp; <span class="px-2 py-1 bg-pink-accent-3 rounded-pill">hectare</span></td>
-                                </tr>
-                                <tr>
-                                    <td title="cent valuecell">{{ (parseFloat(property?.totalArea) / 435.560000).toFixed(6) }} &nbsp; &nbsp; <span class="px-2 py-1 bg-pink-accent-3 rounded-pill">cent</span></td>
-                                </tr>
-                            </table>
+                            <div class="text-h6">Total Area in other Units</div>
+                        </v-card-text>
+                        <v-card-text class="mx-2">
+                            <v-row no-gutters>
+                                <v-col cols="8">
+                                    <p class="pa-1 text-body-1 font-weight-bold modalHead">Value</p>
+                                    <p title="guntha" class="pa-1 text-body-2 modalbody">{{ (parseFloat(property?.totalArea) / 1089.000000).toFixed(6) }}</p>
+                                    <p title="square feet" class="pa-1 text-body-2 modalbody">{{ (parseFloat(property?.totalArea)).toFixed(6) }}</p>
+                                    <p title="square meter" class="pa-1 text-body-2 modalbody">{{ (parseFloat(property?.totalArea) / 10.763915).toFixed(6) }}</p>
+                                    <p title="acre" class="pa-1 text-body-2 modalbody">{{ (parseFloat(property?.totalArea) / 43560.057264).toFixed(6) }}</p>
+                                    <p title="hectare" class="pa-1 text-body-2 modalbody">{{ (parseFloat(property?.totalArea) / 107639.150512).toFixed(6) }}</p>
+                                    <p title="cent" class="pa-1 text-body-2 modalbody">{{ (parseFloat(property?.totalArea) / 435.560000).toFixed(6) }}</p>
+                                </v-col>
+                                <v-col cols="4">
+                                    <p  class="pa-1 text-body-1 font-weight-bold modalHead">Unit</p>
+                                    <p title="guntha" class="pa-1 text-body-2 modalbody">guntha</p>
+                                    <p title="square feet" class="pa-1 text-body-2 modalbody">sqft</p>
+                                    <p title="square meter" class="pa-1 text-body-2 modalbody">sqm</p>
+                                    <p title="acre" class="pa-1 text-body-2 modalbody">acre</p>
+                                    <p title="hectare" class="pa-1 text-body-2 modalbody">hectare</p>
+                                    <p title="cent" class="pa-1 text-body-2 modalbody">cent</p>
+                                </v-col>
+                            </v-row>
                         </v-card-text>
                         <v-card-actions class="d-flex justify-center">
                             <v-btn @click="dialog = false">OK</v-btn>
@@ -194,6 +193,14 @@ a:hover {
 .toolBar {
     background-color: rgba(0, 0, 0, 0.5);
     font-size: 11px;
+}
+
+.modalHead {
+    border: solid 1px black;
+}
+.modalbody {
+    border: solid 1px black;
+    border-top: none;
 }
 
 .v-overlay__content {

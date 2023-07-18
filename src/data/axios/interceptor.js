@@ -60,7 +60,6 @@ instanceWithToken.interceptors.response.use(
 );
 
 
-
 const instanceForPostMultiPart = axios.create({
   withCredentials: true,
   baseURL: "http://localhost:8080",
@@ -88,6 +87,7 @@ instanceForPostMultiPart.interceptors.response.use(
     return Promise.reject(err);
   }
 );
+
 
 export default {
   http,

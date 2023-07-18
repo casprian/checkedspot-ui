@@ -187,7 +187,7 @@
             prepend-icon="mdi-file-pdf-box"
             multiple
             name="planimgfile"
-            accept=".pdf"
+            accept="application/pdf"
           ></v-file-input>
         </v-col>
 
