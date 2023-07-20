@@ -57,7 +57,7 @@
 
                 <!-- Gallery -->
                 <v-row no-gutters class="mb-8">
-                    <property-image :propertyId="property?.data?.propertyId"/>
+                    <property-image :propertyId="property?.data?.propertyId" :image="property?.data?.propertyImage[0]" />
                 </v-row>
 
                 <!-- Description -->
@@ -85,7 +85,7 @@
 
                 <!-- Property Videos -->
                 <v-row no-gutters class="mb-8">
-                    <property-video :propertyId="property?.data?.propertyId"/>
+                    <property-video :propertyId="property?.data?.propertyId" />
                 </v-row>
 
                 <!-- Floor Plans -->
@@ -97,10 +97,11 @@
                             </v-card-item>
 
                             <v-row no-gutters class="px-4 pb-5">
-                                <v-cols cols="12">
-                                    <PDFViewer :rendering-text="'Loading Plan PDF'"
+                                <v-cols cols="12" style="height: 500px; width: 100%;">
+                                    <PDFViewer style="min-width: 300px !important;" :rendering-text="'Loading Plan PDF'"
                                         :source="property?.data?.propertyPlan ? property?.data?.propertyPlan[0] : ''"
-                                        @download="handleDownload" style="height: 100vh; width: 100%;" />
+                                        @download="handleDownload" 
+                                        :controls="['download', 'print', 'zoom', 'switchPage', 'catalog']" />
                                 </v-cols>
                             </v-row>
                         </v-card>
@@ -115,11 +116,13 @@
                                 <v-card-title class="title">Location</v-card-title>
                             </v-card-item>
                             <div class="d-flex justify-center">
-                                <span>                                    
-                                    <v-btn width="200" @click="showMap" v-if="!maploaded" prepend-icon="mdi-google-maps" color="deep-purple-lighten-2">Show Map</v-btn>
+                                <span>
+                                    <v-btn width="200" @click="showMap" v-if="!maploaded" prepend-icon="mdi-google-maps"
+                                        color="deep-purple-lighten-2">Show Map</v-btn>
                                 </span>
                             </div>
-                            <v-row no-gutters v-if="maploaded" class="px-4 pb-7" id="map" :class="pdStyle01" style="height: 500px;">
+                            <v-row no-gutters v-if="maploaded" class="px-4 pb-7" id="map" :class="pdStyle01"
+                                style="height: 500px;">
                             </v-row>
                         </v-card>
                     </v-col>
@@ -281,7 +284,7 @@ async function showMap() {
         ...additionalOptions,
     });
 
-    await loader?.load()?.then(async (google) => {
+    loader?.load()?.then(async (google) => {
         const { Map } = await google.maps.importLibrary("maps");
 
         map = new Map(document.getElementById("map"), {
@@ -290,7 +293,7 @@ async function showMap() {
             zoom: 16,
         });
     });
-    
+
     maploaded.value = true;
 }
 
@@ -304,13 +307,11 @@ async function propertydata() {
     if (res.status === 200) {
         count.value++;
         property.data = res.data;
-        
+
         costPerSqFt.value = res?.data?.totalArea !== 0 ? Math.ceil(res?.data?.cost / res?.data?.totalArea) : 0;
     } else {
         router.push({ path: '/error', query: { status: res?.status } })
     }
-
-
 }
 
 async function agentdata() {

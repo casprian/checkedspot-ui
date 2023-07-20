@@ -6,7 +6,7 @@ const http = axios.create({
   baseURL: "http://localhost:8080",
     // baseURL: "https://api.checkedspot.com",
   headers: {
-    Accept: "application/json",
+    "Accept": "application/json",
   },
 });
 
@@ -30,13 +30,12 @@ http.interceptors.response.use(
 );
 
 
-
 const instanceWithToken = axios.create({
   withCredentials: true,
   baseURL: "http://localhost:8080",
     // baseURL: "https://api.checkedspot.com",
   headers: {
-    Accept: "application/json",
+    "Accept": "application/json",
   },
 });
 

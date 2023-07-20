@@ -5,9 +5,8 @@
                 <v-card-title class="title">Video</v-card-title>
             </v-card-item>
 
-            <div v-if="!playVid" class="d-flex justify-center align-center" style="height: 200px;">
-                <v-btn @click="playVideo" icon="mdi-play-circle-outline" color="pink-accent-3">
-                </v-btn>
+            <div @click="playVideo" v-if="!playVid" class="d-flex justify-center align-center" style="padding: 10px 15px;">
+                <v-btn :loading="loader" variant="text" style="height: 400px; width: 100%;"><img style="height: 400px; width: 100%; object-fit: cover;" src="@/assets/videoplayergif.gif"/></v-btn>
             </div>
             <v-card-item v-else>
                 <video id="propVideo" muted controls autoplay>
@@ -27,11 +26,13 @@ import { ref } from 'vue';
 const props = defineProps(['propertyId'])
 const playVid = ref(false);
 const propertyVideo = ref('');
+const loader = ref(false);
 
 async function playVideo() {
-
+    loader.value = true;
     const res = await api?.property?.getPropertyVideo({ params: { propertyId: props?.propertyId } })
     if (res.data?.length > 0) {
+        loader.value = false;
         propertyVideo.value = res.data[0];
         playVid.value = true;
     }
