@@ -37,8 +37,8 @@
                     <v-btn class="text-none " variant="outlined" color="grey-darken-3" @click="router.push('/contactus')">Contact Us</v-btn>
                 </div>
                 <div class="pl-6 pt-5">
-                    <span v-for="icon in icons" :key="icon">
-                        <v-btn :icon="icon" variant="plain" size="small"></v-btn>
+                    <span v-for="(icon, index) in icons" :key="index">
+                        <a :href="icon.redirect" target="_blank"><v-btn :icon="icon.icon" variant="text" size="small"></v-btn></a>
                     </span>
                 </div>
             </v-col>
@@ -64,7 +64,12 @@ import { useCookies } from "vue3-cookies";
 const { cookies } = useCookies();
 const router = useRouter();
 
-const icons = reactive(['mdi-facebook', 'mdi-twitter', 'mdi-linkedin', 'mdi-instagram'])
+const icons = reactive([
+    {icon: 'mdi-facebook', redirect: 'https://www.facebook.com/profile.php?id=100087665173644&mibextid=ZbWKwL'}, 
+    {icon: 'mdi-twitter', redirect: 'https://twitter.com/checked_spot?s=11&t=JRmzWKcign7CxX39ZwKZLA'}, 
+    {icon: 'mdi-linkedin', redirect: 'https://www.linkedin.com/in/checked-spot-0b036126b'}, 
+    {icon: 'mdi-instagram', redirect: 'https://instagram.com/checkedspot?igshid=NjIwNzIyMDk2Mg=='}
+])
 
 const links = reactive([
     {

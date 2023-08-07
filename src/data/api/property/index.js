@@ -22,6 +22,26 @@ const getProperty = async (params) => {
     }
 };
 
+const getPropertyVideo = async (params) => {
+    try {
+        const baseURL = '/property/video';
+        const response = await call.callWithoutToken('get', baseURL, params);
+        return {status: 200, data: response?.data};
+    }catch(e) {
+        return {error: true, status: e?.response?.status, message: e?.response?.data?.message};
+    }
+}
+
+const getPropertyImage = async (params) => {
+    try {
+        const baseURL = '/property/image';
+        const response = await call.callWithoutToken('get', baseURL, params);
+        return {status: 200, data: response?.data};
+    }catch(e) {
+        return {error: true, status: e?.response?.status, message: e?.response?.data?.message};
+    }
+}
+
 const createProperty = async (params) => {
     try {
         const baseURL = "/property/individual";
@@ -35,5 +55,7 @@ const createProperty = async (params) => {
 export default {
     getProperties,
     getProperty,
+    getPropertyVideo,
+    getPropertyImage,
     createProperty,
 };

@@ -24,7 +24,7 @@
                                     cover
                                     class="hoverPointer"
                                 >
-                                    <!-- <v-toolbar class="propertyTitle" theme="dark" height="30"
+                                    <v-toolbar class="propertyTitle" theme="dark" height="30"
                                         style="background-color: rgba(0, 0, 0, 0.466);">
                                         <div class="w-100 text-caption text-center px-1">
                                             {{
@@ -33,7 +33,7 @@
                                                 "Property title - like, Fit for home etc."
                                             }}
                                         </div>
-                                    </v-toolbar> -->
+                                    </v-toolbar>
                                     <v-card-title title="verified by Checked Spot" v-if="property?.isVerifiedByCheckedSpot"
                                         class="px-2 py-1 verifiedTag">
                                         <v-chip variant="elevated" color="green" density="comfortable">
