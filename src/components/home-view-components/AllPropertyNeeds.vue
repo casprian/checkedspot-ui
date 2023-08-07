@@ -15,7 +15,6 @@
                         <div class="text-body-2 text-grey-darken-1 mb-1">BUY A HOME</div>
                         <div class="text-h5 mb-1 font-weight-medium">Find, buy and own your new home</div>
                         <div class="w-75 mb-5">Explore from apartments, land, builder floors, villas and more</div>
-
                     </v-col>
                 </v-row>
             </v-col>

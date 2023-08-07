@@ -96,8 +96,8 @@
             </v-col>
             <v-col cols="4" class="pl-1">
               <v-select
-                v-model="totalAreaUnit"
-                :hint="`${totalAreaUnit.unit}, ${totalAreaUnit.abbr}`"
+                v-model="bodyData.totalAreaUnit"
+                :hint="`${bodyData?.totalAreaUnit?.unit}, ${bodyData?.totalAreaUnit?.abbr}`"
                 :items="units"
                 item-title="unit"
                 item-value="abbr"
@@ -187,7 +187,7 @@
             prepend-icon="mdi-file-pdf-box"
             multiple
             name="planimgfile"
-            accept=".pdf"
+            accept="application/pdf"
           ></v-file-input>
         </v-col>
 
@@ -251,7 +251,6 @@ const units = reactive([
   { unit: "square feet", abbr: "sqft" },
   { unit: "square meter", abbr: "sqm" },
 ]);
-const totalAreaUnit = ref({ unit: "square feet", abbr: "sqft" });
 
 const bodyData = reactive({
   //@ts-ignore
@@ -265,7 +264,8 @@ const bodyData = reactive({
   country: "India",
   cost: null,
   totalArea: null,
-  builyupArea: null,
+  builyupArea: null,  
+  totalAreaUnit: { unit: "square feet", abbr: "sqft" },
   carpetArea: null,
   noOfBedroom: null,
   noOfBathroom: null,
@@ -382,21 +382,39 @@ const addProperty = handleSubmit(async (values) => {
     bodyData.longitude = bodyData?.googleMapLink?.toString().split("@")[1].split(",")[1];
     console.log(bodyData.latitude, bodyData.longitude);
   }
+
+  for(let key in bodyData) {
+    if (key === "totalAreaUnit") {
+      const unit = key?.slice(0,-4);
+      if(bodyData[key].unit === "guntha") {
+        //@ts-ignore
+        bodyData[unit] = 1089.000000 * bodyData[unit]; 
+      }else if(bodyData[key]?.unit === "hectare") {
+        //@ts-ignore
+        bodyData[unit] = 107639.150512 * bodyData[unit];
+      }else if(bodyData[key]?.unit === "acre") {
+        //@ts-ignore
+        bodyData[unit] = 43560.057264 * bodyData[unit];
+      }else if(bodyData[key]?.unit === "cent") {
+        //@ts-ignore
+        bodyData[unit] = 435.560000 * bodyData[unit];
+      }else if(bodyData[key]?.unit === "square meter") {
+        //@ts-ignore
+        bodyData[unit] = 10.763915 * bodyData[unit];
+      }else if (bodyData[key]?.unit === "square feet") {
+        //@ts-ignore
+        bodyData[unit]= 1.000000 * bodyData[unit];
+      }
+    }
+  }                  
   loading.value = true;
   const formData = new FormData();
   Object.entries(bodyData).forEach(([key, value]: any) => {
-    if (
-      value !== null &&
-      key !== "imgfile" &&
-      key !== "planimgfile" &&
-      key !== "vidfile"
-    ) {
+    if (key === "totalAreaUnit") {
+      formData?.append(key, "square feet")
+    }else if (value !== null && key !== "imgfile" && key !== "planimgfile" && key !== "vidfile") {
       formData.append(`${key}`, value);
-    } else if (
-      key === "imgfile" ||
-      key === "planimgfile" ||
-      key === "vidfile"
-    ) {
+    } else if (key === "imgfile" || key === "planimgfile" || key === "vidfile") {
       value.map((file: File) => {
         formData.append(key, file);
       });
