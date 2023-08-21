@@ -18,6 +18,14 @@
                 </div>
             </v-col>
         </v-row>
+
+        <v-row v-if="receivedProperties" no-gutters class="px-sm-14 py-5 d-flex justify-center align-center">
+            <v-col cols="5">
+                <div class="text-center text-h3">
+                    No data available of type {{ propertyFilterObj?.type }}.
+                </div>
+            </v-col>
+        </v-row>
         <!-- property cards Section -->
         <v-row no-gutters class="px-sm-14">
             <v-col class="px-2 my-2 px-md-4 my-md-4" v-for="(data, index) in propertiesData?.data" cols="12" md="6" lg="4"
@@ -84,6 +92,7 @@ const noOfData = ref(0);
 const noOfDataComputed = computed(() => {
     return noOfData.value;
 })
+const receivedProperties = ref(false);
 async function getAllProperty() {
     const formData = {
         params: {
@@ -105,6 +114,9 @@ async function getAllProperty() {
         propertiesData.data = res?.data;
         noOfData.value = res?.noOfdata;
         noOfPage.value = Math.ceil(noOfDataComputed.value / limit.value);
+        if(noOfData.value <= 0) {
+            receivedProperties.value = true;
+        }
     }else {
         router.push({path: '/error', query: {status: res?.status}})
     }
