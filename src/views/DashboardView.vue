@@ -17,9 +17,9 @@
                     @click="router.push('/dashboard')">Dashboard</v-btn>
 
 
-                <v-btn block variant="text" class="my-2 px-8 d-flex justify-start align-center" height="45"
+                <!-- <v-btn block variant="text" class="my-2 px-8 d-flex justify-start align-center" height="45"
                     prepend-icon="mdi-home-city-outline" color="grey-darken-3"
-                    @click="router.push('/dashboard/properties')">Properties</v-btn>
+                    @click="router.push('/dashboard/properties')">Properties</v-btn> -->
             </v-col>
 
             <v-col cols="12" sm="9" class="bg-grey-lighten-3">
