@@ -8,6 +8,9 @@
             <div @click="playVideo" v-if="!playVid" class="d-flex justify-center align-center" style="padding: 10px 15px;">
                 <v-btn :loading="loader" variant="text" style="height: 400px; width: 100%;"><img style="height: 400px; width: 100%; object-fit: cover;" src="@/assets/videoplayergif.gif"/></v-btn>
             </div>
+            <div v-else-if="videoUnavailable" class="text-h4 text-center pa-8">
+                No video has been uploaded for this property.
+            </div>
             <v-card-item v-else>
                 <video id="propVideo" muted controls autoplay>
                     <source :src="propertyVideo" type="video/mp4" />
@@ -27,14 +30,18 @@ const props = defineProps(['propertyId'])
 const playVid = ref(false);
 const propertyVideo = ref('');
 const loader = ref(false);
+const videoUnavailable = ref(false);
 
 async function playVideo() {
     loader.value = true;
     const res = await api?.property?.getPropertyVideo({ params: { propertyId: props?.propertyId } })
-    if (res.data?.length > 0) {
+    if (res?.status === 200) {
         loader.value = false;
         propertyVideo.value = res.data[0];
         playVid.value = true;
+        if(res.data.length === 0) {
+            videoUnavailable.value = true;
+        }
     }
 }
 </script>

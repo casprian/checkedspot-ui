@@ -154,6 +154,7 @@ const createUser = handleSubmit(async (values) => {
 })
 
 async function getAuthorizationUrl() {
+    loader.value = true;
     const res = await api?.user?.getAuthorizationUrl({params:{}});
     window.open(res?.data?.url, '_self');
 }

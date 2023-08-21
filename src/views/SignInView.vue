@@ -156,6 +156,7 @@ const loginHandler = handleSubmit(async (values: any) => {
 })
 
 async function getAuthorizationUrl() {
+    loader.value = true;
     const res = await api?.user?.getAuthorizationUrl({ params: {} });
     window.open(res?.data?.url, '_self');
 }
