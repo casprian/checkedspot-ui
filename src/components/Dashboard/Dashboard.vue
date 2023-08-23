@@ -48,7 +48,7 @@
                     <div>Name</div>:&emsp;
                     <v-progress-linear v-if="loading" indeterminate location="left" color="pink-accent-2">
                     </v-progress-linear>
-                    <span v-else>
+                    <span v-else style="text-transform: capitalize;">
                         {{
                             userdata?.name ?
                             userdata?.name :
@@ -70,12 +70,12 @@
                             "Not Found"
                         }}
                     </span>
-                    <span v-if="userdata.verified_email" class="pl-5" title="verified"><v-icon size="20"
+                    <span v-if="userdata.email_verified" class="pl-5" title="verified"><v-icon size="20"
                             color="green-darken-2" icon="mdi-check-decagram"></v-icon></span>
                     <span v-else class="pl-5" title="not verified"><v-icon size="20" color="red-darken-2"
                             icon="mdi-close-circle-outline"></v-icon></span>
                 </h2>
-                <verify-data v-if="userdata.email" name="email" verify="email" :data="userdata?.email" :isverified="userdata.verified_email" />
+                <verify-data v-if="userdata.email" name="email" verify="email" :data="userdata?.email" :isverified="userdata.email_verified" />
             </div>
 
             <div class="myProfileDetails d-flex justify-space-between align-center">
@@ -90,13 +90,13 @@
                             "Not Found"
                         }}
                     </span>
-                    <span v-if="userdata.verified_mobile" class="pl-5" title="verified"><v-icon size="20"
+                    <span v-if="userdata.mobile_verified" class="pl-5" title="verified"><v-icon size="20"
                             color="green-darken-2" icon="mdi-check-decagram"></v-icon></span>
                     <span v-else class="pl-5" title="not verified"><v-icon size="20" color="red-darken-2"
                             icon="mdi-close-circle-outline"></v-icon></span>
                 </h2>
                 <verify-data v-if="userdata.mobile" name="mobile number" verify="mobile" :data="userdata?.mobile"
-                    :isverified="userdata.verified_mobile" />
+                    :isverified="userdata.mobile_verified" />
             </div>
 
             <div class="myProfileDetails d-flex justify-space-between align-center">
@@ -172,8 +172,6 @@ import jwtDecode from "jwt-decode";
 import { onMounted, reactive, ref } from "vue";
 import { useCookies } from "vue3-cookies";
 import { useRouter } from "vue-router";
-import UpdateProfilePicture from "./UpdateProfilePicture.vue";
-import VerifyData from "./VerifyData.vue";
 
 const router = useRouter();
 const { cookies } = useCookies();
@@ -185,9 +183,9 @@ let userdata = ref({
     name: null,
     picture: null,
     email: null,
-    verified_email: null,
+    email_verified: null,
     mobile: null,
-    verified_mobile: null,
+    mobile_verified: null,
     address: null,
     city: null,
     state: null,

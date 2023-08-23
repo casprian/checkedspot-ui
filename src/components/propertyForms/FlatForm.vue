@@ -469,7 +469,7 @@ const addProperty = handleSubmit(async (values) => {
 
   if (res.status === 200) {
     loading.value = false;
-    alert(res?.data?.message);
+    router.push(`/propertydetails/${res.data.propertyId}`)
   } else {
     router.push({ path: "/error", query: { status: res?.status } });
   }
