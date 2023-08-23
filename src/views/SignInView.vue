@@ -161,7 +161,6 @@ async function getAuthorizationUrl() {
     window.open(res?.data?.url, '_self');
 }
 
-
 </script>
 
 <style scoped>
