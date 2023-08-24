@@ -42,7 +42,7 @@
                     </v-col>
                     <v-col v-if="props.details?.cost" class="pdLH" cols="12" sm="6" md="4">Property Price:
                         <span class="text-body-1 text-grey-darken-1">
-                            {{
+                            &nbsp;₹ {{
                                 props.details?.cost
                             }}
                         </span>
