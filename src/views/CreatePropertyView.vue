@@ -6,11 +6,14 @@
                     <div class="py-3 text-h5 font-weight-medium text-pink-accent-1">Choose Property Type</div>
                     <v-radio-group v-model="propertyType" inline>
                         <v-radio class="px-3" color="pink-accent-3" label="Plot" value="plot"></v-radio>
+                        <v-radio class="px-3" color="pink-accent-3" label="Farmland" value="farmland"></v-radio>
                         <v-radio class="px-3" color="pink-accent-3" label="Flat" value="flat"></v-radio>
                     </v-radio-group>
                 </v-col>
 
                 <plot-form v-if="propertyType==='plot'" type="plot" />
+
+                <farmland-form v-if="propertyType==='farmland'" type="farmland" />
 
                 <flat-form v-if="propertyType==='flat'" type="flat" />
             </v-row>
@@ -21,6 +24,7 @@
 <script lang="ts" setup>
 import PlotForm from '@/components/propertyForms/PlotForm.vue';
 import FlatForm from '@/components/propertyForms/FlatForm.vue';
+import FarmlandForm from '@/components/propertyForms/FarmlandForm.vue';
 import { ref } from "vue";
 import { useRouter } from 'vue-router';
 import { useCookies } from 'vue3-cookies';
