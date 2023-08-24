@@ -139,7 +139,7 @@
           </v-col>
           <v-col cols="12" class="py-1 px-3">
             <v-textarea
-              label="Plot Description"
+              label="Farmland Description"
               v-model="bodyData.description"
               auto-grow
               variant="outlined"
