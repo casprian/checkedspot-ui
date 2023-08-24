@@ -40,7 +40,7 @@
             <div
               class="text-h5 font-weight-medium text-decoration-underline text-pink-accent-1"
             >
-              Plot Details
+              Farmland Details
             </div>
           </v-col>
           <v-col cols="12" sm="6" class="py-1 px-3">
