@@ -133,9 +133,18 @@
               width="90%"
               class="px-2 mx-auto bg-grey-darken-3"
             >
-              <div class="text-body-2 pa-3">Is FreeHolds means</div>
+              <div class="text-body-2 pa-3">FreeHold means</div>
             </v-card>
           </v-expand-transition>
+        </v-col>
+        <v-col cols="12" sm="6" class="py-1 px-3">
+          <v-text-field
+            label="title"
+            v-model="bodyData.title"
+            clearable
+            hint="Property title - like, Fit for home etc."
+            variant="outlined"
+          ></v-text-field>
         </v-col>
         <v-col cols="12" class="py-1 px-3">
           <v-textarea
@@ -257,6 +266,7 @@ const bodyData = reactive({
   email: jwtDecode(jwt)?.userData?.email,
   type: props.type,
   description: null,
+  title: null,
   address: null,
   pincode: null,
   city: null,

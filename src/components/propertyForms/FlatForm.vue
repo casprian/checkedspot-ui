@@ -109,6 +109,15 @@
             </v-card>
           </v-expand-transition>
         </v-col>
+        <v-col cols="12" sm="6" class="py-1 px-3">
+          <v-text-field
+            label="title"
+            v-model="bodyData.title"
+            clearable
+            hint="Property title - like, Fit for home etc."
+            variant="outlined"
+          ></v-text-field>
+        </v-col>
 
         <v-row no-gutters>
           <v-col cols="12" sm="3" md="2" class="checkheight py-1 px-2">
@@ -256,6 +265,7 @@ const bodyData = reactive({
   email: jwtDecode(jwt)?.userData?.email,
   type: props.type,
   description: null,
+  title: null,
   address: null,
   pincode: null,
   city: null,
