@@ -3,7 +3,7 @@
         <v-img @click="openPropertyDetail"
             :src="property?.propertyImage ? property?.propertyImage[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
             height="200px" position="relative" cover class="hoverPointer">
-            <v-toolbar class="propertyTitle" theme="dark" height="35" style="background-color: rgba(0, 0, 0, 0.466);">
+            <v-toolbar v-if="property?.title && property?.title !== 'unavailable'" class="propertyTitle" theme="dark" height="35" style="background-color: rgba(0, 0, 0, 0.466);">
                 <div class="w-100 text-body-1 text-center px-3">
                     {{ property?.title ? property?.title : "Property title - like, Fit for home etc." }}
                 </div>

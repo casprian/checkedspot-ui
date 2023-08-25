@@ -20,7 +20,7 @@
     </v-expand-transition>
     <v-row no-gutters class="bgConstruction d-flex justify-space-between py-10 py-md-0">
       <v-col cols="12" md="4" class="px-16 pr-md-0 pl-md-16 my-5 mr-0 d-flex flex-column justify-center">
-        <h2 class="h2 text-white pb-3 text-center text-md-left">CheckedSpot Constuction Simplified</h2>
+        <h2 class="h2 text-white pb-3 text-center text-md-left">CheckedSpot Construction Simplified</h2>
         <p class="text-white text-h6 font-weight-regular text-center text-md-left">Step into the home you've always
           dreamed of, built to the highest standard of quality.</p>
       </v-col>
