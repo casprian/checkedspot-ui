@@ -24,7 +24,7 @@
                                     cover
                                     class="hoverPointer"
                                 >
-                                    <v-toolbar class="propertyTitle" theme="dark" height="30"
+                                    <v-toolbar v-if="property?.title && property?.title !== 'unavailable'"  class="propertyTitle" theme="dark" height="30"
                                         style="background-color: rgba(0, 0, 0, 0.466);">
                                         <div class="w-100 text-caption text-center px-1">
                                             {{

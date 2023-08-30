@@ -88,7 +88,7 @@
                     <property-video :propertyId="property?.data?.propertyId" />
                 </v-row>
 
-                <!-- Floor Plans -->
+                <!-- Plans -->
                 <v-row no-gutters class="mb-8">
                     <v-col cols="12">
                         <v-card class="rounded-0 px-2 pb-4 pt-2" elevation="2">
@@ -257,8 +257,8 @@ const property = reactive({
         'address': null,
         'name': null,
         'parkingLot': null,
-        longitude: null,
-        latitude: null,
+        'longitude': null,
+        'latitude': null,
     },
 });
 
