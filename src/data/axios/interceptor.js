@@ -3,13 +3,12 @@ import axios from "axios";
 const http = axios.create({
   // withCredentials: true, this statement is used to send cookie by default in request headers.
   withCredentials: true,
-  // baseURL: "http://localhost:8080",
-    baseURL: "https://api.checkedspot.com",
+  baseURL: "http://localhost:8080",
+    // baseURL: "https://api.checkedspot.com",
   headers: {
     "Accept": "application/json",
   },
 });
-
 
 http.interceptors.request.use((config) => {
   return {
@@ -32,13 +31,12 @@ http.interceptors.response.use(
 
 const instanceWithToken = axios.create({
   withCredentials: true,
-  // baseURL: "http://localhost:8080",
-    baseURL: "https://api.checkedspot.com",
+  baseURL: "http://localhost:8080",
+    // baseURL: "https://api.checkedspot.com",
   headers: {
     "Accept": "application/json",
   },
 });
-
 
 instanceWithToken.interceptors.request.use((config) => {
   return {
@@ -61,8 +59,8 @@ instanceWithToken.interceptors.response.use(
 
 const instanceForPostMultiPart = axios.create({
   withCredentials: true,
-  // baseURL: "http://localhost:8080",
-    baseURL: "https://api.checkedspot.com",
+  baseURL: "http://localhost:8080",
+    // baseURL: "https://api.checkedspot.com",
   headers: {
     "Accept": "application/json",
     "Content-Type": "multipart/form-data",
