@@ -1,5 +1,5 @@
 <template>
-    <v-container class="pa-0" style="height: 100%" fluid>
+    <v-container v-if="!cookies.get('token')" class="pa-0" style="height: 100%" fluid>
         <v-row v-if="message" class="ma-3 ml-12">
             <div class="text-h6 text-pink-accent-3 font-weight-medium pb-6">
                 Please Sign In to Add Property...
@@ -96,8 +96,13 @@ import { useField, useForm } from 'vee-validate';
 import { useCookies } from "vue3-cookies";
 
 const { cookies } = useCookies();
-const route = useRoute();
 const router = useRouter();
+
+if (cookies.get('token')) {
+    router.push('/');
+}
+
+const route = useRoute();
 const show1 = ref(false);
 
 //form Validation

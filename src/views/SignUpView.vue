@@ -1,5 +1,5 @@
 <template>
-    <v-container class="pa-0" style="height: 100%" fluid>
+    <v-container v-if="!cookies.get('token')" class="pa-0" style="height: 100%" fluid>
         <v-row no-gutters justify="center" :class="loader === true ? 'blurCont' : ''">
             <v-col cols="0" sm="5" class="px-7 py-10 leftSec">
                 
@@ -82,6 +82,16 @@
 import api from '@/data/api/index.js';
 import { ref } from "vue";
 import { useField, useForm } from 'vee-validate';
+import { useCookies } from 'vue3-cookies';
+import { useRouter } from 'vue-router';
+
+const { cookies } = useCookies();
+const router = useRouter();
+
+if (cookies.get('token')) {
+    router.push('/');
+}
+
 
 //form validation
 const show1 = ref(false);
