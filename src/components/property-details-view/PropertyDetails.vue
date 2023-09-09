@@ -146,7 +146,7 @@
                             props.details?.noOfBathroom
                         }}</span>
                     </v-col>
-                    <v-col v-if="props.details?.noOfKitchen > 0" class="pdLH" cols="12" sm="6" md="4">Bathrooms:
+                    <v-col v-if="props.details?.noOfKitchen > 0" class="pdLH" cols="12" sm="6" md="4">Kitchens:
                         <span class="text-body-1 text-grey-darken-1">{{
                             props.details?.noOfKitchen
                         }}</span>

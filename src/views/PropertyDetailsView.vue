@@ -129,7 +129,15 @@
                 </v-row>
             </v-col>
 
-            <v-col cols="12" md="4" class="pl-0 pl-md-3">
+            <v-col v-if="isSold === true" cols="12" md="4" class="pl-0 pl-md-3">
+                <v-card class="rounded-0" elevation="2">
+                    <v-card-item>
+                        <div class="text-h3 font-weight-regular pa-10 bg-yellow">Property is Sold!</div>
+                    </v-card-item>
+                </v-card>
+            </v-col>
+
+            <v-col v-else cols="12" md="4" class="pl-0 pl-md-3">
                 <v-card class="rounded-0" elevation="2">
                     <v-card-item>
                         <v-card-title class="pb-5 mx-3 mb-10 pt-2" style="border-bottom: 1px solid #e0e0e0">Sales
@@ -207,6 +215,7 @@ function handleDownload() {
 
 const route = useRoute();
 const router = useRouter();
+const isSold = ref(false);
 
 const pdStyle01 = ref("text-body-1 font-weight-medium text-grey-darken-2");
 
@@ -237,7 +246,7 @@ const property = reactive({
         'type': null,
         'wifi': null,
         'swimmingPool': null,
-        'propertyStatus': null,
+        'propertyStatus': [''],
         'laundryRoom': null,
         'city': null,
         'tvCable': null,
@@ -269,7 +278,7 @@ const agent = reactive({
         'mobile': [],
         'address': []
     }
-})
+});
 
 const maploaded = ref(false)
 async function showMap() {
@@ -307,8 +316,8 @@ async function propertydata() {
     if (res.status === 200) {
         count.value++;
         property.data = res.data;
-
         costPerSqFt.value = res?.data?.totalArea !== 0 ? Math.ceil(res?.data?.cost / res?.data?.totalArea) : 0;
+        isSold.value = property.data.propertyStatus.includes("sold");
     } else {
         router.push({ path: '/error', query: { status: res?.status } })
     }
