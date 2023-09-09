@@ -98,11 +98,9 @@ import { useCookies } from "vue3-cookies";
 const { cookies } = useCookies();
 const route = useRoute();
 const router = useRouter();
-
-
-//form Validation
 const show1 = ref(false);
 
+//form Validation
 let { handleSubmit, handleReset } = useForm({
     validationSchema: {
         email(value: any) {
@@ -137,7 +135,6 @@ const alreadyLoggedIn = ref(false);
 const loader = ref(false);
 const retrySignIn = ref(false);
 const notFound = ref(false);
-
 const loginHandler = handleSubmit(async (values: any) => {
     if (cookies.get('token')) {
         alreadyLoggedIn.value = true;
