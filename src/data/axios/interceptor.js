@@ -10,7 +10,6 @@ const http = axios.create({
   },
 });
 
-
 http.interceptors.request.use((config) => {
   return {
     ...config,
@@ -38,7 +37,6 @@ const instanceWithToken = axios.create({
     "Accept": "application/json",
   },
 });
-
 
 instanceWithToken.interceptors.request.use((config) => {
   return {

@@ -58,8 +58,11 @@
                                                     class="text-blue-accent-3" title="click here to reset password">forget
                                                     password</button></small>
                                         </div>
+                                        <div v-if="notFound" class="text-h6 text-pink-accent-3 font-weight-medium">
+                                            User Does Not Exist!
+                                        </div>
                                         <div v-if="retrySignIn" class="text-h6 text-pink-accent-3 font-weight-medium">
-                                            Invalid email or password
+                                            Incorrect Password for the email!
                                         </div>
                                     </v-col>
                                 </v-row>
@@ -88,17 +91,16 @@
 // @ts-ignore
 import api from '@/data/api/index.js';
 import { ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useField, useForm } from 'vee-validate';
 import { useCookies } from "vue3-cookies";
-import router from '@/router';
 
 const { cookies } = useCookies();
 const route = useRoute();
-
-//form Validation
+const router = useRouter();
 const show1 = ref(false);
 
+//form Validation
 let { handleSubmit, handleReset } = useForm({
     validationSchema: {
         email(value: any) {
@@ -132,25 +134,34 @@ setTimeout(() => {
 const alreadyLoggedIn = ref(false);
 const loader = ref(false);
 const retrySignIn = ref(false);
-
+const notFound = ref(false);
 const loginHandler = handleSubmit(async (values: any) => {
     if (cookies.get('token')) {
         alreadyLoggedIn.value = true;
         return;
     }
+
     loader.value = true;
     retrySignIn.value = false;
+    notFound.value = false;
+
     const res = await api?.user?.login({
         email: values.email,
         password: values.password,
     });
-
-    if (res?.status === 200) {
+    
+    if (res?.data?.status === 200) {
         retrySignIn.value = false;
         loader.value = false;
         location.replace(window.origin);
-    } else {
+    } else if (res?.data?.status === 404){
+        notFound.value = true;
+        loader.value = false;
+    } else if (res?.data?.status === 409){
         retrySignIn.value = true;
+        loader.value = false;
+    } else {
+        router.push({ path: "/error", query: { status: res?.data?.status } });
         loader.value = false;
     }
 })
