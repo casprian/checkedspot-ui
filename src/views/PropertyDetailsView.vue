@@ -96,7 +96,7 @@
                                 <v-card-title class="title">Plan</v-card-title>
                             </v-card-item>
 
-                            <v-row v-if="property?.data?.propertyPlan" no-gutters class="px-4 pb-5">
+                            <v-row v-if="property?.data?.propertyPlan.length > 0" no-gutters class="px-4 pb-5">
                                 <v-cols cols="12" style="height: 500px; width: 100%;">
                                     <PDFViewer style="min-width: 300px !important;" :rendering-text="'Loading Plan PDF'"
                                         :source="property?.data?.propertyPlan ? property?.data?.propertyPlan[0] : ''"
