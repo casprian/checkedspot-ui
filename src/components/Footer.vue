@@ -34,11 +34,11 @@
                     <v-img @click="router.push('/')" class="logo" width="200" src="https://checkedspot.blob.core.windows.net/assets/logocheckedspot.png" alt="logo"></v-img>
                 </div>
                 <div class="pl-6">
-                    <v-btn class="text-none " variant="outlined" color="grey-darken-3" @click="router.push('/contactus')">Contact Us</v-btn>
+                    <v-btn class="text-none " variant="outlined" color="pink-darken-2" @click="router.push('/contactus')">Contact Us</v-btn>
                 </div>
                 <div class="pl-6 pt-5">
                     <span v-for="(icon, index) in icons" :key="index">
-                        <a :href="icon.redirect" target="_blank"><v-btn :icon="icon.icon" variant="text" size="small"></v-btn></a>
+                        <a :href="icon.redirect" target="_blank"><v-btn :icon="icon.icon" variant="text" color="pink-darken-2" size="small"></v-btn></a>
                     </span>
                 </div>
             </v-col>

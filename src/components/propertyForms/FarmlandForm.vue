@@ -45,10 +45,8 @@
                                 hint="Enter Total area of the property" variant="outlined"></v-text-field>
                         </v-col>
                         <v-col cols="4" class="pl-1">
-                            <v-select v-model="bodyData.totalAreaUnit"
-                                :hint="`${bodyData?.totalAreaUnit?.unit}, ${bodyData?.totalAreaUnit?.abbr}`" :items="units"
-                                item-title="unit" item-value="abbr" label="Select" persistent-hint return-object single-line
-                                variant="outlined"></v-select>
+                            <v-select v-model="bodyData.totalAreaUnit" :hint="bodyData?.totalAreaUnit" :items="units"
+                                item-title="unit" label="Select" persistent-hint variant="outlined"></v-select>
                         </v-col>
                     </v-row>
                 </v-col>
@@ -110,7 +108,7 @@
         </v-row>
         <v-row no-gutters class="ma-6">
             <v-col cols="12" class="d-flex justify-center">
-                <v-btn width="300px" color="blue" :loading="loading" @click.prevent="addProperty">submit</v-btn>
+                <v-btn width="300px" color="pink-darken-2" :loading="loading" @click.prevent="addProperty">submit</v-btn>
             </v-col>
         </v-row>
     </v-container>
@@ -133,19 +131,11 @@ const expand = ref(false);
 const cities = reactive(["Bangalore", "Mysore", "Hassan"]);
 const states = reactive(["Karnataka"]);
 const countries = reactive(["India"]);
-const jwt = cookies?.get("token")?.split("Bearer ")[1];
-const units = reactive([
-    { unit: "guntha", abbr: "guntha" },
-    { unit: "hectare", abbr: "hectare" },
-    { unit: "acre", abbr: "acre" },
-    { unit: "cent", abbr: "cent" },
-    { unit: "square feet", abbr: "sqft" },
-    { unit: "square meter", abbr: "sqm" },
-]);
+const units = reactive(["guntha", "hectare", "acre", "cent", "square feet", "square meter"]);
 
 const bodyData = reactive({
     //@ts-ignore
-    email: jwtDecode(jwt)?.userData?.email,
+    email: null,
     type: props.type,
     description: null,
     title: null,
@@ -157,7 +147,7 @@ const bodyData = reactive({
     cost: null,
     totalArea: null,
     builyupArea: null,
-    totalAreaUnit: { unit: "square feet", abbr: "sqft" },
+    totalAreaUnit: "square feet",
     carpetArea: null,
     noOfBedroom: null,
     noOfBathroom: null,
@@ -259,47 +249,30 @@ const totalArea = useField("totalArea");
 const imgfile = useField<File[] | undefined>("imgfile");
 
 const loading = ref(false);
-const addProperty = handleSubmit(async (values) => {
-    for (let item in values) {
-        if (values[item]) {
+
+//autofill data in the form.
+if (sessionStorage.getItem('bodyData') && sessionStorage.getItem('formType') === 'farmLandForm') {
+    //@ts-ignore
+    const sessionData = JSON.parse(sessionStorage.getItem('bodyData'));
+    city.value.value = sessionData.city;
+    state.value.value = sessionData.state;
+    googleMapLink.value.value = sessionData.googleMapLink;
+    cost.value.value = sessionData.cost;
+    totalArea.value.value = sessionData.totalArea;
+    // imgfile.value.value = bodyData.imgfile;
+    for (const key in sessionData) {
+        if (sessionData[key] != null) {
             //@ts-ignore
-            bodyData[item] = values[item];
+            bodyData[key] = sessionData[key];
         }
     }
+}
 
-    if (bodyData?.googleMapLink) {
-        //@ts-ignore
-        bodyData.latitude = bodyData?.googleMapLink?.toString().split("@")[1].split(",")[0];
-        //@ts-ignore
-        bodyData.longitude = bodyData?.googleMapLink?.toString().split("@")[1].split(",")[1];
-        console.log(bodyData.latitude, bodyData.longitude);
-    }
+async function postingFarmland(bodyData: any) {
+    const jwt = cookies?.get("token")?.split("Bearer ")[1];
+    //@ts-ignore
+    bodyData.email = jwtDecode(jwt)?.userData?.email;
 
-    for (let key in bodyData) {
-        if (key === "totalAreaUnit") {
-            const unit = key?.slice(0, -4);
-            if (bodyData[key].unit === "guntha") {
-                //@ts-ignore
-                bodyData[unit] = 1089.000000 * bodyData[unit];
-            } else if (bodyData[key]?.unit === "hectare") {
-                //@ts-ignore
-                bodyData[unit] = 107639.150512 * bodyData[unit];
-            } else if (bodyData[key]?.unit === "acre") {
-                //@ts-ignore
-                bodyData[unit] = 43560.057264 * bodyData[unit];
-            } else if (bodyData[key]?.unit === "cent") {
-                //@ts-ignore
-                bodyData[unit] = 435.560000 * bodyData[unit];
-            } else if (bodyData[key]?.unit === "square meter") {
-                //@ts-ignore
-                bodyData[unit] = 10.763915 * bodyData[unit];
-            } else if (bodyData[key]?.unit === "square feet") {
-                //@ts-ignore
-                bodyData[unit] = 1.000000 * bodyData[unit];
-            }
-        }
-    }
-    loading.value = true;
     const formData = new FormData();
     Object.entries(bodyData).forEach(([key, value]: any) => {
         if (key === "totalAreaUnit") {
@@ -317,10 +290,66 @@ const addProperty = handleSubmit(async (values) => {
 
     if (res.status === 200) {
         loading.value = false;
+        sessionStorage.removeItem('bodyData');
+        sessionStorage.removeItem('formType');
         router.push(`/propertydetails/${res.data.propertyId}`)
     } else {
         router.push({ path: "/error", query: { status: res?.status } });
     }
+}
+const addProperty = handleSubmit(async (values) => {
+    loading.value = true;
+    for (let item in values) {
+        if (values[item]) {
+            //@ts-ignore
+            bodyData[item] = values[item];
+        }
+    }
+
+    if (bodyData?.googleMapLink) {
+        //@ts-ignore
+        bodyData.latitude = bodyData?.googleMapLink?.toString().split("@")[1].split(",")[0];
+        //@ts-ignore
+        bodyData.longitude = bodyData?.googleMapLink?.toString().split("@")[1].split(",")[1];
+        console.log(bodyData.latitude, bodyData.longitude);
+    }
+
+    //If not login setData in SessionStorage to use it again to autofill the 
+    if (!cookies.get('token')) {
+        sessionStorage.setItem('bodyData', JSON.stringify(bodyData));
+        sessionStorage.setItem('formType', 'farmLandForm');
+        loading.value = false;
+        router.push({ path: '/signin', query: { message: "createProperty" } });
+        return;
+    } else {
+        for (let key in bodyData) {
+            if (key === "totalAreaUnit") {
+                const unit = key?.slice(0, -4);
+                if (bodyData[key] === "guntha") {
+                    //@ts-ignore
+                    bodyData[unit] = 1089.000000 * bodyData[unit];
+                } else if (bodyData[key] === "hectare") {
+                    //@ts-ignore
+                    bodyData[unit] = 107639.150512 * bodyData[unit];
+                } else if (bodyData[key] === "acre") {
+                    //@ts-ignore
+                    bodyData[unit] = 43560.057264 * bodyData[unit];
+                } else if (bodyData[key] === "cent") {
+                    //@ts-ignore
+                    bodyData[unit] = 435.560000 * bodyData[unit];
+                } else if (bodyData[key] === "square meter") {
+                    //@ts-ignore
+                    bodyData[unit] = 10.763915 * bodyData[unit];
+                } else if (bodyData[key] === "square feet") {
+                    //@ts-ignore
+                    bodyData[unit] = 1.000000 * bodyData[unit];
+                }
+            }
+        }
+        await postingFarmland(bodyData);
+    }
+
+
 });
 </script>
   
