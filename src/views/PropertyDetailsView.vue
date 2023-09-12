@@ -96,14 +96,17 @@
                                 <v-card-title class="title">Plan</v-card-title>
                             </v-card-item>
 
-                            <v-row no-gutters class="px-4 pb-5">
+                            <v-row v-if="property?.data?.propertyPlan" no-gutters class="px-4 pb-5">
                                 <v-cols cols="12" style="height: 500px; width: 100%;">
                                     <PDFViewer style="min-width: 300px !important;" :rendering-text="'Loading Plan PDF'"
                                         :source="property?.data?.propertyPlan ? property?.data?.propertyPlan[0] : ''"
-                                        @download="handleDownload" 
+                                        @download="handleDownload"
                                         :controls="['download', 'print', 'zoom', 'switchPage', 'catalog']" />
                                 </v-cols>
                             </v-row>
+                            <div v-else class="text-h4 text-center pa-8">
+                                No Document has been uploaded for this property.
+                            </div>
                         </v-card>
                     </v-col>
                 </v-row>
@@ -317,6 +320,7 @@ async function propertydata() {
         count.value++;
         property.data = res.data;
         costPerSqFt.value = res?.data?.totalArea !== 0 ? Math.ceil(res?.data?.cost / res?.data?.totalArea) : 0;
+        //@ts-ignore
         isSold.value = property.data.propertyStatus.includes("sold");
     } else {
         router.push({ path: '/error', query: { status: res?.status } })
