@@ -1,6 +1,6 @@
 <template>
   <v-expand-transition>
-    <v-card style="position: fixed; top: 63px; z-index: 1" v-show="expandFailure" height="60" width="100%"
+    <v-card style="position: fixed; top: 56px; z-index: 1" v-show="expandFailure" height="60" width="100%"
       class="mx-auto bg-red">
       <div style="height: 100%" class="text-h5 text-center d-flex align-center justify-center">
         <h5>Message delivery Failed. Please try again!</h5>
@@ -8,7 +8,7 @@
     </v-card>
   </v-expand-transition>
   <v-expand-transition>
-    <v-card style="position: fixed; top: 63px; z-index: 1" v-show="expandSuccess" height="60" width="100%"
+    <v-card style="position: fixed; top: 56px; z-index: 1" v-show="expandSuccess" height="60" width="100%"
       class="mx-auto bg-green">
       <div style="height: 100%" class="text-h5 text-center d-flex align-center justify-center">
         <h5>
@@ -108,7 +108,7 @@
                 class="my-1 mb-2 text-green" @click.prevent="callWhatsappCloudApi">
                 <v-icon color="green" icon="mdi-whatsapp"></v-icon>&nbsp; Contact us on Whatsapp
               </v-btn>
-              <v-btn @click.prevent="handleReset" density="default" variant="elevated" elevation="4" color="red-darken-1" width="280px"
+              <v-btn @click.prevent="handleReset" density="default" variant="elevated" elevation="4" color="pink-darken-2" width="280px"
                 class="my-1">
                 Reset Form
               </v-btn>

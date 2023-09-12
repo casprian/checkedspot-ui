@@ -16,8 +16,8 @@
           <v-card-text class="d-flex justify-space-between align-center px-4 py-0 mx-9 mt-4 mb-5 rounded" style="border:1px solid rgb(197, 195, 195); max-height: 50px;">
             <v-icon icon="mdi-map-marker" class="mr-2" size="24"></v-icon>
             <v-combobox v-model="select" :items="items" menu-icon="" chips variant="plain" multiple></v-combobox>
-            <v-btn class="lgNav" @click="moveToListing" variant="flat" color="deep-purple-lighten-2" height="34px" density="default">SEARCH</v-btn>
-            <v-btn class="smNav pa-0" @click="moveToListing" variant="flat" color="deep-purple-lighten-2" height="34px" min-width="40" density="default">
+            <v-btn class="lgNav" @click="moveToListing" variant="flat" color="pink-darken-2" height="34px" density="default">SEARCH</v-btn>
+            <v-btn class="smNav pa-0" @click="moveToListing" variant="flat" color="pink-darken-2" height="34px" min-width="40" density="default">
               <v-icon size="20" icon="mdi-magnify"></v-icon>
             </v-btn>
           </v-card-text>

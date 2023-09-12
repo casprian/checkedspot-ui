@@ -2,233 +2,112 @@
   <v-container>
     <v-row no-gutters>
       <v-col cols="12" sm="6" class="py-1 px-3">
-        <v-select
-          v-model="bodyData.country"
-          :items="countries"
-          disabled
-          label="country"
-          variant="outlined"
-          clearable
-          hint="Choose from the countries list"
-        ></v-select>
+        <v-select v-model="bodyData.country" :items="countries" disabled label="country" variant="outlined" clearable
+          hint="Choose from the countries list"></v-select>
       </v-col>
       <v-col cols="12" sm="6" class="py-1 px-3">
-        <v-select
-          v-model="state.value.value"
-          :error-messages="state.errorMessage.value"
-          :items="states"
-          label="state"
-          variant="outlined"
-          clearable
-          hint="Choose from the states list"
-        ></v-select>
+        <v-select v-model="state.value.value" :error-messages="state.errorMessage.value" :items="states" label="state"
+          variant="outlined" clearable hint="Choose from the states list"></v-select>
       </v-col>
       <v-col cols="12" sm="6" class="py-1 px-3">
-        <v-select
-          v-model="city.value.value"
-          :error-messages="city.errorMessage.value"
-          :items="cities"
-          label="city"
-          variant="outlined"
-          clearable
-          hint="Choose from the cities list"
-        ></v-select>
+        <v-select v-model="city.value.value" :error-messages="city.errorMessage.value" :items="cities" label="city"
+          variant="outlined" clearable hint="Choose from the cities list"></v-select>
       </v-col>
 
       <v-row no-gutters class="py-3 mt-7 type">
         <v-col cols="12" class="pt-2 pb-7 px-4">
-          <div
-            class="text-h5 font-weight-medium text-decoration-underline text-pink-accent-1"
-          >
+          <div class="text-h5 font-weight-medium text-decoration-underline text-pink-accent-1">
             Plot Details
           </div>
         </v-col>
         <v-col cols="12" sm="6" class="py-1 px-3">
-          <v-text-field
-            prepend-inner-icon="mdi-link"
-            label="Google Map Link"
-            v-model="googleMapLink.value.value"
-            :error-messages="googleMapLink.errorMessage.value"
-            clearable
-            hint="Enter Google map link of the location"
-            variant="outlined"
-          ></v-text-field>
+          <v-text-field prepend-inner-icon="mdi-link" label="Google Map Link" v-model="googleMapLink.value.value"
+            :error-messages="googleMapLink.errorMessage.value" clearable hint="Enter Google map link of the location"
+            variant="outlined"></v-text-field>
         </v-col>
         <v-col cols="12" sm="6" class="py-1 px-3">
-          <v-text-field
-            label="Property Address"
-            v-model="bodyData.address"
-            clearable
-            hint="Enter property address"
-            variant="outlined"
-          ></v-text-field>
+          <v-text-field label="Property Address" v-model="bodyData.address" clearable hint="Enter property address"
+            variant="outlined"></v-text-field>
         </v-col>
         <v-col cols="12" sm="6" class="py-1 px-3">
-          <v-text-field
-            label="Property Area Pincode"
-            v-model="bodyData.pincode"
-            clearable
-            hint="Enter area pincode where property located"
-            variant="outlined"
-          ></v-text-field>
+          <v-text-field label="Property Area Pincode" v-model="bodyData.pincode" clearable
+            hint="Enter area pincode where property located" variant="outlined"></v-text-field>
         </v-col>
         <v-col cols="12" sm="6" class="py-1 px-3">
-          <v-text-field
-            label="Cost (INR)"
-            v-model="cost.value.value"
-            :error-messages="cost.errorMessage.value"
-            clearable
-            hint="Enter cost of the property in INR"
-            variant="outlined"
-          ></v-text-field>
+          <v-text-field label="Cost (INR)" v-model="cost.value.value" :error-messages="cost.errorMessage.value" clearable
+            hint="Enter cost of the property in INR" variant="outlined"></v-text-field>
         </v-col>
         <v-col cols="12" sm="6" class="py-1 px-3">
           <v-row no-gutters>
             <v-col cols="8" class="pr-1">
-              <v-text-field
-                label="Total Area"
-                v-model="totalArea.value.value"
-                :error-messages="totalArea.errorMessage.value"
-                clearable
-                hint="Enter Total area of the property"
-                variant="outlined"
-              ></v-text-field>
+              <v-text-field label="Total Area" v-model="totalArea.value.value"
+                :error-messages="totalArea.errorMessage.value" clearable hint="Enter Total area of the property"
+                variant="outlined"></v-text-field>
             </v-col>
             <v-col cols="4" class="pl-1">
-              <v-select
-                v-model="bodyData.totalAreaUnit"
-                :hint="`${bodyData?.totalAreaUnit?.unit}, ${bodyData?.totalAreaUnit?.abbr}`"
-                :items="units"
-                item-title="unit"
-                item-value="abbr"
-                label="Select"
-                persistent-hint
-                return-object
-                single-line
-                variant="outlined"
-              ></v-select>
+              <v-select v-model="bodyData.totalAreaUnit" :hint="bodyData?.totalAreaUnit" :items="units" item-title="unit"
+                label="Select" persistent-hint variant="outlined"></v-select>
             </v-col>
           </v-row>
         </v-col>
         <v-col cols="12" sm="6" class="py-1 px-3" style="position: relative">
-          <v-row
-            no-gutters
-            @mouseover="expand = true"
-            @mouseout="expand = false"
-          >
-            <v-switch
-              v-model="bodyData.isFreeHold"
-              true-value="true"
-              false-value="false"
-              label="Is Free Hold"
-              color="pink-accent-3"
-              hide-details
-            >
+          <v-row no-gutters @mouseover="expand = true" @mouseout="expand = false">
+            <v-switch v-model="bodyData.isFreeHold" true-value="true" false-value="false" label="Is Free Hold"
+              color="pink-accent-3" hide-details>
             </v-switch>
           </v-row>
           <v-expand-transition style="position: absolute">
-            <v-card
-              v-show="expand"
-              height="auto"
-              width="90%"
-              class="px-2 mx-auto bg-grey-darken-3"
-            >
+            <v-card v-show="expand" height="auto" width="90%" class="px-2 mx-auto bg-grey-darken-3">
               <div class="text-body-2 pa-3">FreeHold means</div>
             </v-card>
           </v-expand-transition>
         </v-col>
         <v-col cols="12" sm="6" class="py-1 px-3">
-          <v-text-field
-            label="title"
-            v-model="bodyData.title"
-            clearable
-            hint="Property title - like, Fit for home etc."
-            variant="outlined"
-          ></v-text-field>
+          <v-text-field label="title" v-model="bodyData.title" clearable hint="Property title - like, Fit for home etc."
+            variant="outlined"></v-text-field>
         </v-col>
         <v-col cols="12" class="py-1 px-3">
-          <v-textarea
-            label="Plot Description"
-            v-model="bodyData.description"
-            auto-grow
-            variant="outlined"
-            rows="6"
-            row-height="25"
-            shaped
-          ></v-textarea>
+          <v-textarea label="Plot Description" v-model="bodyData.description" auto-grow variant="outlined" rows="6"
+            row-height="25" shaped></v-textarea>
         </v-col>
       </v-row>
 
       <!-- Upload image, video section -->
       <v-row no-gutters class="py-3 mt-7 type">
         <v-col cols="12" class="pt-2 pb-7 px-14">
-          <div
-            class="text-h5 font-weight-medium text-decoration-underline text-pink-accent-1"
-          >
+          <div class="text-h5 font-weight-medium text-decoration-underline text-pink-accent-1">
             Upload Property Images
           </div>
         </v-col>
         <v-col cols="12" class="py-1 px-3">
-          <v-file-input
-            v-model="imgfile.value.value"
-            :error-messages="imgfile.errorMessage.value"
-            label="File input"
-            variant="filled"
-            prepend-icon="mdi-camera"
-            multiple
-            name="imgfile"
-            accept="image/*"
-          ></v-file-input>
+          <v-file-input v-model="imgfile.value.value" :error-messages="imgfile.errorMessage.value" label="File input"
+            variant="filled" prepend-icon="mdi-camera" multiple name="imgfile" accept="image/*"></v-file-input>
         </v-col>
 
         <v-col cols="12" class="pt-2 pb-7 px-14">
-          <div
-            class="text-h5 font-weight-medium text-decoration-underline text-pink-accent-1"
-          >
+          <div class="text-h5 font-weight-medium text-decoration-underline text-pink-accent-1">
             Upload Property Plans
           </div>
         </v-col>
         <v-col cols="12" class="py-1 px-3">
-          <v-file-input
-            v-model="bodyData.planimgfile"
-            label="File input"
-            variant="filled"
-            prepend-icon="mdi-file-pdf-box"
-            multiple
-            name="planimgfile"
-            accept="application/pdf"
-          ></v-file-input>
+          <v-file-input v-model="bodyData.planimgfile" label="File input" variant="filled" prepend-icon="mdi-file-pdf-box"
+            multiple name="planimgfile" accept="application/pdf"></v-file-input>
         </v-col>
 
         <v-col cols="12" class="pt-2 pb-7 px-14">
-          <div
-            class="text-h5 font-weight-medium text-decoration-underline text-pink-accent-1"
-          >
+          <div class="text-h5 font-weight-medium text-decoration-underline text-pink-accent-1">
             Upload Property Videos
           </div>
         </v-col>
         <v-col cols="12" class="py-1 px-3">
-          <v-file-input
-            v-model="bodyData.vidfile"
-            label="File input"
-            variant="filled"
-            prepend-icon="mdi-video"
-            multiple
-            name="vidfile"
-            accept="video/*"
-          ></v-file-input>
+          <v-file-input v-model="bodyData.vidfile" label="File input" variant="filled" prepend-icon="mdi-video" multiple
+            name="vidfile" accept="video/*"></v-file-input>
         </v-col>
       </v-row>
     </v-row>
     <v-row no-gutters class="ma-6">
       <v-col cols="12" class="d-flex justify-center">
-        <v-btn
-          width="300px"
-          color="blue"
-          :loading="loading"
-          @click.prevent="addProperty"
-          >submit</v-btn
-        >
+        <v-btn width="300px" color="pink-darken-2" :loading="loading" @click.prevent="addProperty">submit</v-btn>
       </v-col>
     </v-row>
   </v-container>
@@ -251,19 +130,12 @@ const expand = ref(false);
 const cities = reactive(["Bangalore", "Mysore", "Hassan"]);
 const states = reactive(["Karnataka"]);
 const countries = reactive(["India"]);
-const jwt = cookies?.get("token")?.split("Bearer ")[1];
-const units = reactive([
-  { unit: "guntha", abbr: "guntha" },
-  { unit: "hectare", abbr: "hectare" },
-  { unit: "acre", abbr: "acre" },
-  { unit: "cent", abbr: "cent" },
-  { unit: "square feet", abbr: "sqft" },
-  { unit: "square meter", abbr: "sqm" },
-]);
+const units = reactive(["guntha", "hectare", "acre", "cent", "square feet", "square meter"]);
+
 
 const bodyData = reactive({
   //@ts-ignore
-  email: jwtDecode(jwt)?.userData?.email,
+  email: null,
   type: props.type,
   description: null,
   title: null,
@@ -274,8 +146,8 @@ const bodyData = reactive({
   country: "India",
   cost: null,
   totalArea: null,
-  builyupArea: null,  
-  totalAreaUnit: { unit: "square feet", abbr: "sqft" },
+  builyupArea: null,
+  totalAreaUnit: "square feet",
   carpetArea: null,
   noOfBedroom: null,
   noOfBathroom: null,
@@ -377,7 +249,57 @@ const totalArea = useField("totalArea");
 const imgfile = useField<File[] | undefined>("imgfile");
 
 const loading = ref(false);
+
+//autofill data in the form.
+if (sessionStorage.getItem('bodyData') && sessionStorage.getItem('formType') === 'plotForm') {
+  //@ts-ignore
+  const sessionData = JSON.parse(sessionStorage.getItem('bodyData'));
+  city.value.value = sessionData.city;
+  state.value.value = sessionData.state;
+  googleMapLink.value.value = sessionData.googleMapLink;
+  cost.value.value = sessionData.cost;
+  totalArea.value.value = sessionData.totalArea;
+  // imgfile.value.value = bodyData.imgfile;
+  for (const key in sessionData) {
+    if (sessionData[key] != null) {
+      //@ts-ignore
+      bodyData[key] = sessionData[key];
+    }
+  }
+}
+
+async function postingPlot(bodyData: any) {
+  const jwt = cookies?.get("token")?.split("Bearer ")[1];
+  //@ts-ignore
+  bodyData.email = jwtDecode(jwt)?.userData?.email;
+
+  const formData = new FormData();
+  Object.entries(bodyData).forEach(([key, value]: any) => {
+    if (key === "totalAreaUnit") {
+      formData?.append(key, "square feet");
+    } else if (value !== null && key !== "imgfile" && key !== "planimgfile" && key !== "vidfile") {
+      formData.append(`${key}`, value);
+    } else if (key === "imgfile" || key === "planimgfile" || key === "vidfile") {
+      value.map((file: File) => {
+        formData.append(key, file);
+      });
+    }
+  });
+
+  const res = await api?.property?.createProperty(formData);
+
+  if (res.status === 200) {
+    loading.value = false;
+    sessionStorage.removeItem('bodyData');
+    sessionStorage.removeItem('formType');
+    router.push(`/propertydetails/${res.data.propertyId}`)
+  } else {
+    router.push({ path: "/error", query: { status: res?.status } });
+  }
+}
+
 const addProperty = handleSubmit(async (values) => {
+  loading.value = true;
   for (let item in values) {
     if (values[item]) {
       //@ts-ignore
@@ -393,51 +315,40 @@ const addProperty = handleSubmit(async (values) => {
     console.log(bodyData.latitude, bodyData.longitude);
   }
 
-  for(let key in bodyData) {
-    if (key === "totalAreaUnit") {
-      const unit = key?.slice(0,-4);
-      if(bodyData[key].unit === "guntha") {
-        //@ts-ignore
-        bodyData[unit] = 1089.000000 * bodyData[unit]; 
-      }else if(bodyData[key]?.unit === "hectare") {
-        //@ts-ignore
-        bodyData[unit] = 107639.150512 * bodyData[unit];
-      }else if(bodyData[key]?.unit === "acre") {
-        //@ts-ignore
-        bodyData[unit] = 43560.057264 * bodyData[unit];
-      }else if(bodyData[key]?.unit === "cent") {
-        //@ts-ignore
-        bodyData[unit] = 435.560000 * bodyData[unit];
-      }else if(bodyData[key]?.unit === "square meter") {
-        //@ts-ignore
-        bodyData[unit] = 10.763915 * bodyData[unit];
-      }else if (bodyData[key]?.unit === "square feet") {
-        //@ts-ignore
-        bodyData[unit]= 1.000000 * bodyData[unit];
+  //If not login setData in SessionStorage to use it again to autofill the 
+  if (!cookies.get('token')) {
+    sessionStorage.setItem('bodyData', JSON.stringify(bodyData));
+    sessionStorage.setItem('formType', 'plotForm');
+    loading.value = false;
+    router.push({ path: '/signin', query: { message: "createProperty" } });
+    return;
+  } else {
+    for (let key in bodyData) {
+      if (key === "totalAreaUnit") {
+        //slicing the totalArea out of totalAreaUnit to set the data into sqft in the totalArea property.
+        const unit = key?.slice(0, -4);
+        if (bodyData[key] === "guntha") {
+          //@ts-ignore
+          bodyData[unit] = 1089.000000 * bodyData[unit];
+        } else if (bodyData[key] === "hectare") {
+          //@ts-ignore
+          bodyData[unit] = 107639.150512 * bodyData[unit];
+        } else if (bodyData[key] === "acre") {
+          //@ts-ignore
+          bodyData[unit] = 43560.057264 * bodyData[unit];
+        } else if (bodyData[key] === "cent") {
+          //@ts-ignore
+          bodyData[unit] = 435.560000 * bodyData[unit];
+        } else if (bodyData[key] === "square meter") {
+          //@ts-ignore
+          bodyData[unit] = 10.763915 * bodyData[unit];
+        } else if (bodyData[key] === "square feet") {
+          //@ts-ignore
+          bodyData[unit] = 1.000000 * bodyData[unit];
+        }
       }
     }
-  }                  
-  loading.value = true;
-  const formData = new FormData();
-  Object.entries(bodyData).forEach(([key, value]: any) => {
-    if (key === "totalAreaUnit") {
-      formData?.append(key, "square feet")
-    }else if (value !== null && key !== "imgfile" && key !== "planimgfile" && key !== "vidfile") {
-      formData.append(`${key}`, value);
-    } else if (key === "imgfile" || key === "planimgfile" || key === "vidfile") {
-      value.map((file: File) => {
-        formData.append(key, file);
-      });
-    }
-  });
-
-  const res = await api?.property?.createProperty(formData);
-
-  if (res.status === 200) {
-    loading.value = false;
-    router.push(`/propertydetails/${res.data.propertyId}`)
-  } else {
-    router.push({ path: "/error", query: { status: res?.status } });
+    await postingPlot(bodyData);
   }
 });
 </script>

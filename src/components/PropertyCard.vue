@@ -1,5 +1,5 @@
 <template>
-    <v-card class="mx-auto" style="max-width: 480px; min-height: auto;" position="relative">
+    <v-card class="mx-auto" style="max-width: 480px; min-height: 100%;" position="relative">
         <v-img @click="openPropertyDetail"
             :src="property?.propertyImage ? property?.propertyImage[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
             height="200px" position="relative" cover class="hoverPointer">
@@ -91,12 +91,13 @@
                 </v-dialog>
             </v-col>
 
-            <v-col v-if="property?.address" cols="12" class="px-4 pb-1">
-                <div class="text-body-2 text-grey-darken-2 overflowText" title="Property address">
+            <v-col cols="12" class="px-4 pb-1">
+                <div v-if="property?.address" class="text-body-2 text-grey-darken-2 overflowText" title="Property address">
                     address: {{
                         property?.address
                     }}
-                </div>
+                </div>                
+                <div v-else class="text-body-2 text-grey-darken-2">&nbsp;</div>
             </v-col>
         </v-row>
 

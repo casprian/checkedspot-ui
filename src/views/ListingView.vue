@@ -82,7 +82,7 @@ let cities:any = null;
 if(!Array.isArray(route.query.city) && (typeof (route.query.city) === 'string')) {
     cities = [route.query.city];
 }else if(Array.isArray(route.query.city)) {
-    cities = [...route.query.city]
+    cities = [...route.query.city];
 }
 
 const pageNumber = ref(1)
