@@ -2,7 +2,7 @@
     <v-container v-if="!cookies.get('token')" class="pa-0" style="height: 100%" fluid>
         <v-row v-if="message" class="ma-3 ml-12">
             <div class="text-h6 text-pink-accent-3 font-weight-medium pb-6">
-                Please Sign In to Add Property...
+                Please Sign In to Post Property...
             </div>
         </v-row>
         <v-row no-gutters justify="center" :class="loader === true ? 'blurCont' : ''" class="login">

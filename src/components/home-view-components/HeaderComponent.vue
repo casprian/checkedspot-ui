@@ -27,8 +27,9 @@ import PropertyFilter from '@/components/PropertyFilter.vue';
 }
 
 .backgroundvideo {
+  margin-top: -7px;
   width: 100%;
-  height: 70vh;
+  height: 55vh;
   object-fit: cover;
 }
 

@@ -1,5 +1,5 @@
 <template>
-    <v-container v-if="token">
+    <v-container>
         <form>
             <v-row no-gutters>
                 <v-col cols="12" class="py-1 px-3">
@@ -22,23 +22,16 @@
 </template>
 
 <script lang="ts" setup>
+//@ts-ignore
 import PlotForm from '@/components/propertyForms/PlotForm.vue';
+//@ts-ignore
 import FlatForm from '@/components/propertyForms/FlatForm.vue';
+//@ts-ignore
 import FarmlandForm from '@/components/propertyForms/FarmlandForm.vue';
 import { ref } from "vue";
-import { useRouter } from 'vue-router';
-import { useCookies } from 'vue3-cookies';
 
-const { cookies } = useCookies();
-const router = useRouter();
-const propertyType = ref('plot')
-const token = ref(false)
+const propertyType = ref('plot');
 
-if (!cookies.get('token')) {
-    router.push('/')
-}else{
-    token.value = true
-}
 </script>
 
 <style scoped>
