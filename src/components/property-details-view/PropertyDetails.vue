@@ -33,7 +33,8 @@
                             }}
                         </span>
                     </v-col>
-                    <v-col v-if="props.details?.propertyStatus" class="pdLH" cols="12" sm="6" md="4">Property Status:
+                    
+                    <!-- <v-col v-if="props.details?.propertyStatus" class="pdLH" cols="12" sm="6" md="4">Property Status:
                         <span class="text-body-1 text-grey-darken-1">
                             {{
                                 props.details?.propertyStatus
@@ -48,7 +49,7 @@
                         </span>
                     </v-col>
                     
-                    <!-- <v-col v-if="props.details?.totalArea > 0" class="pdLH" cols="12" sm="6" md="4">
+                    <v-col v-if="props.details?.totalArea > 0" class="pdLH" cols="12" sm="6" md="4">
                         <v-btn class="pa-0 text-none" variant="text" color="" density="comfortable" v-bind="props">
                             <div class="text-body-1 font-weight-medium pdLH"
                                 title="total area of the property in square feet">
