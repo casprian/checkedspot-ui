@@ -70,27 +70,32 @@ const routes = [
         name: 'Terms of Services',
         component: () => import('@/views/TermOfServiceView.vue')
       },
+      {
+        path: 'userdashboard',
+        name: 'user_dashboard',
+        component: () => import('@/views/UserDashboardView.vue'),
+      },
     ],
   },
   {
-    path: '/dashboard',
-    name: 'Dashboard',
-    component: () => import('@/views/DashboardView.vue'),
+    path: '/profile',
+    name: 'Profile',
+    component: () => import('@/views/ProfileView.vue'),
     children: [
       {
-        path: '/dashboard',
-        name: 'Dashboard Home',
-        component: () => import('@/components/Dashboard/Dashboard.vue')
+        path: '/profile',
+        name: 'Profile Home',
+        component: () => import('@/components/profile/Profile.vue'),
       },
       {
-        path: '/dashboard/editprofile',
+        path: '/profile/editprofile',
         name: 'Edit Profile',
-        component: () => import('@/components/Dashboard/EditProfile.vue')
+        component: () => import('@/components/profile/EditProfile.vue'),
       },
       {
-        path: '/dashboard/properties',
+        path: '/profile/properties',
         name: 'Properties',
-        component: () => import('@/components/Dashboard/Properties.vue')
+        component: () => import('@/components/profile/Properties.vue'),
       }
     ],
   },

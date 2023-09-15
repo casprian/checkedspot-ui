@@ -1,15 +1,15 @@
 <template>
-    <v-container fluid class="pt-12 d-flex align-center wallpaper">
+    <v-container fluid class="pt-16 pb-16 d-flex align-center wallpaper">
         <v-row v-if="!verifiedUser" no-gutters class="d-flex justify-center">
             <v-col cols="12" sm="5">
                 <v-card class="pa-5 pb-sm-10 pt-sm-8 bg-grey-lighten-5 rounded-xl" elevation="8">
-                    <div class="mx-10 mb-7 text-h4 text-grey-darken-3">User Verification</div>
-                    <v-text-field class="my-2 mx-10" :disabled="!sendBtn ? true : false" v-model="email.value.value" :error-messages="email.errorMessage.value"
+                    <div class="mx-md-10 mb-7 text-h5 text-md-h4 text-grey-darken-3">User Verification</div>
+                    <v-text-field class="my-2 mx-md-10" :disabled="!sendBtn ? true : false" v-model="email.value.value" :error-messages="email.errorMessage.value"
                         variant="outlined" label="please enter your login email">
 
                     </v-text-field>
 
-                    <v-text-field v-if="!sendBtn" class="mx-10" v-model="otp.value.value" :error-messages="otp.errorMessage.value" variant="outlined"
+                    <v-text-field v-if="!sendBtn" class="mx-md-10" v-model="otp.value.value" :error-messages="otp.errorMessage.value" variant="outlined"
                         label="OTP" hint="Enter OTP">
                     </v-text-field>
 
@@ -17,13 +17,13 @@
                         <div v-if="!sendBtn" class="text-caption mb-5 text-center">if not received OTP on click of SEND OTP Button.
                             Click on RESEND OTP Button which will appear after 30 seconds.</div>
                         <div>
-                            <v-btn v-if="sendBtn" :disabled="!validEmail" class="mb-5" color="green" width="300" variant="elevated"
+                            <v-btn v-if="sendBtn" :disabled="!validEmail" :loading="loader1" class="mb-5" color="green" width="300" variant="elevated"
                                 @click="sendOTP">Send OTP</v-btn>
                             <div v-if="timer <= 30 && !sendBtn" class="text-body-1" style="width:300;">Resend OTP in
                                 00:{{ timer < 10 ? `0${timer}` : timer }} sec</div>
                             </div>
                             <div>
-                                <v-btn v-if="!sendBtn" :disabled="!validOtp" class="mb-5" color="green" width="300" variant="elevated"
+                                <v-btn v-if="!sendBtn" :disabled="!validOtp" :loading="loader2" class="mb-5" color="green" width="300" variant="elevated"
                                     @click="verifyEmail">Verify email</v-btn>
                             </div>
                             <div>
@@ -32,7 +32,7 @@
                                     OTP</v-btn>
                             </div>
                             <div>
-                                <v-btn color="red" width="300" variant="tonal" @click="router.back()">Close</v-btn>
+                                <v-btn color="red" width="300" variant="tonal" @click="deleteOTP">Close</v-btn>
                             </div>
                         </div>
                 </v-card>
@@ -66,7 +66,8 @@ const route = useRoute();
 const router = useRouter();
 const verifiedUser = ref(false);
 const { cookies } = useCookies();
-
+const loader1 = ref(false);
+const loader2 = ref(false);
 
 
 let { handleSubmit, handleReset } = useForm({
@@ -115,6 +116,7 @@ if (route?.query?.q === 'reset' && !cookies.get('token')) {
 }
 
 async function sendOTP() {
+    loader1.value = true;
     if(validEmail.value){        
         const res = await api?.email?.sendOTP({
             email: email?.value?.value
@@ -122,6 +124,7 @@ async function sendOTP() {
         if (res?.status === 200) {
             if (cookies.get('OTP')) {
                 sendBtn.value = false;
+                loader1.value = false;
             }
     
             refreshIntervalId.value = setInterval(() => {
@@ -135,18 +138,25 @@ async function sendOTP() {
 }
 
 async function verifyEmail() {
+    loader2.value = true;
     if(validOtp.value){
         const res = await api?.email?.verifyEmail({ email: email?.value?.value, OTP: otp?.value?.value });
         if (res?.data?.status === 200) {
             dialog.value = false;
             cookies.remove('OTP');
             verifiedUser.value = true;
+            loader2.value = false;
         } else {
             router.push({ path: '/error', query: { status: res?.data?.status } })
         }
     }
 }
-
+function deleteOTP() {
+    if(cookies.get('OTP')) {
+        cookies.remove("OTP");
+    }
+    router.back();
+}
 </script>
 
 <style scoped>

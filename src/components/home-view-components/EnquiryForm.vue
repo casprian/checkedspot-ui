@@ -1,6 +1,6 @@
 <template>
     <v-expand-transition>
-        <v-card style="position: fixed; top: 63px; z-index: 1" v-show="expandFailure" height="60" width="100%"
+        <v-card style="position: fixed; top: 56px; z-index: 1" v-show="expandFailure" height="60" width="100%"
             class="mx-auto bg-red">
             <div style="height: 100%" class="text-h5 text-center d-flex align-center justify-center">
                 <h5>Message delivery Failed. Please try again!</h5>
@@ -8,7 +8,7 @@
         </v-card>
     </v-expand-transition>
     <v-expand-transition>
-        <v-card style="position: fixed; top: 63px; z-index: 1" v-show="expandSuccess" height="60" width="100%"
+        <v-card style="position: fixed; top: 56px; z-index: 1" v-show="expandSuccess" height="60" width="100%"
             class="mx-auto bg-green">
             <div style="height: 100%" class="text-h5 text-center d-flex align-center justify-center">
                 <h5>
@@ -110,6 +110,8 @@ if (props.enquiryFor === 'maintenance') {
     enquiry.value = 'Maintenance Services'
 } else if (props.enquiryFor === 'legal') {
     enquiry.value = 'Legal Services'
+} else if (props.enquiryFor === 'rentCollection') {
+    enquiry.value = 'Rent Collection Services'
 }
 
 

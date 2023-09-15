@@ -22,7 +22,7 @@
             <p class="text-h6 font-weight-medium">Maintenance services</p>
           </v-col>
 
-          <v-col cols="12" md="6" @click="enquiryFor=''" class="px-4 px-sm-2 pr-md-4 py-6 py-sm-4 serviceCards">
+          <v-col cols="12" md="6" @click="handleEnquiryForm('rentCollection')" class="px-4 px-sm-2 pr-md-4 py-6 py-sm-4 serviceCards">
             <v-img cover height="250px" src="https://checkedspot.blob.core.windows.net/assets/RentCollectionServices.jpg"
               class="mb-1"></v-img>
             <p class="text-h6 font-weight-medium">Rent collection services</p>
@@ -38,6 +38,7 @@
         </v-row>
         <enquiry-form v-if="enquiryFor === 'maintenance'" :enquiryFor="enquiryFor" :dialog="dialog"/>
         <enquiry-form v-if="enquiryFor === 'legal'" :enquiryFor="enquiryFor" :dialog="dialog" />
+        <enquiry-form v-if="enquiryFor === 'rentCollection'" :enquiryFor="enquiryFor" :dialog="dialog" />
       </v-col>
     </v-row>
     
@@ -58,6 +59,8 @@ function handleEnquiryForm(enq: string) {
     enquiryFor.value = 'maintenance';
   } else if (enq === 'legal') {
     enquiryFor.value = 'legal';
+  }else if (enq === 'rentCollection') {
+    enquiryFor.value = 'rentCollection';
   }
   dialog.value = true;
 }

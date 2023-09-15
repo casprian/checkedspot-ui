@@ -1,19 +1,28 @@
 <template>
     <v-card class="mx-auto" style="max-width: 480px; min-height: auto;" position="relative">
-        <v-img @click="openPropertyDetail"
-            :src="property?.propertyImage ? property?.propertyImage[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
+        <v-img
+            :src="property?.propertyImage ? property.propertyImage[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
             height="200px" position="relative" cover class="hoverPointer">
-            <v-toolbar v-if="property?.title && property?.title !== 'unavailable'" class="propertyTitle" theme="dark" height="35" style="background-color: rgba(0, 0, 0, 0.466);">
+            <v-toolbar v-if="property?.title && property?.title !== 'unavailable'" class="propertyTitle" theme="dark"
+                height="35" style="background-color: rgba(0, 0, 0, 0.466);">
                 <div class="w-100 text-body-1 text-center px-3">
                     {{ property?.title ? property?.title : "Property title - like, Fit for home etc." }}
                 </div>
             </v-toolbar>
-            <v-card-title title="verified by Checked Spot" v-if="property?.isVerifiedByCheckedSpot"
+            <v-card-title v-if="property?.isVerifiedByCheckedSpot" title="verified by Checked Spot"
                 class="px-4 py-1 verifiedTag">
-                <v-chip variant="elevated" color="green" density="comfortable">
+                <v-chip variant="elevated" color="green-darken-2" density="comfortable">
                     Checked Spot <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon>
                 </v-chip>
             </v-card-title>
+            <v-row no-gutters>
+                <v-col cols="12" class="d-flex justify-space-between">
+                    <v-btn @click="() => { }" height="30" class="ma-2" variant="flat" elevation="4" color="green-darken-2"
+                        disabled>Edit</v-btn>
+                    <v-btn @click="deleteProperty(property.propertyId)" height="30" class="ma-2" variant="flat"
+                        elevation="4" color="red-darken-4">Delete</v-btn>
+                </v-col>
+            </v-row>
         </v-img>
 
         <v-row no-gutters>
@@ -66,15 +75,27 @@
                             <v-row no-gutters>
                                 <v-col cols="8">
                                     <p class="pa-1 text-body-1 font-weight-bold modalHead">Value</p>
-                                    <p title="guntha" class="pa-1 text-body-2 modalbody">{{ (parseFloat(property?.totalArea) / 1089.000000).toFixed(6) }}</p>
-                                    <p title="square feet" class="pa-1 text-body-2 modalbody">{{ (parseFloat(property?.totalArea)).toFixed(6) }}</p>
-                                    <p title="square meter" class="pa-1 text-body-2 modalbody">{{ (parseFloat(property?.totalArea) / 10.763915).toFixed(6) }}</p>
-                                    <p title="acre" class="pa-1 text-body-2 modalbody">{{ (parseFloat(property?.totalArea) / 43560.057264).toFixed(6) }}</p>
-                                    <p title="hectare" class="pa-1 text-body-2 modalbody">{{ (parseFloat(property?.totalArea) / 107639.150512).toFixed(6) }}</p>
-                                    <p title="cent" class="pa-1 text-body-2 modalbody">{{ (parseFloat(property?.totalArea) / 435.560000).toFixed(6) }}</p>
+                                    <p title="guntha" class="pa-1 text-body-2 modalbody">
+                                        {{ (parseFloat(property?.totalArea) / 1089.000000).toFixed(6) }}
+                                    </p>
+                                    <p title="square feet" class="pa-1 text-body-2 modalbody">
+                                        {{ (parseFloat(property?.totalArea)).toFixed(6) }}
+                                    </p>
+                                    <p title="square meter" class="pa-1 text-body-2 modalbody">
+                                        {{ (parseFloat(property?.totalArea) / 10.763915).toFixed(6) }}
+                                    </p>
+                                    <p title="acre" class="pa-1 text-body-2 modalbody">
+                                        {{ (parseFloat(property?.totalArea) / 43560.057264).toFixed(6) }}
+                                    </p>
+                                    <p title="hectare" class="pa-1 text-body-2 modalbody">
+                                        {{ (parseFloat(property?.totalArea) / 107639.150512).toFixed(6) }}
+                                    </p>
+                                    <p title="cent" class="pa-1 text-body-2 modalbody">
+                                        {{ (parseFloat(property?.totalArea) / 435.560000).toFixed(6) }}
+                                    </p>
                                 </v-col>
                                 <v-col cols="4">
-                                    <p  class="pa-1 text-body-1 font-weight-bold modalHead">Unit</p>
+                                    <p class="pa-1 text-body-1 font-weight-bold modalHead">Unit</p>
                                     <p title="guntha" class="pa-1 text-body-2 modalbody">guntha</p>
                                     <p title="square feet" class="pa-1 text-body-2 modalbody">sqft</p>
                                     <p title="square meter" class="pa-1 text-body-2 modalbody">sqm</p>
@@ -96,7 +117,7 @@
                     address: {{
                         property?.address
                     }}
-                </div>                
+                </div>
                 <div v-else class="text-body-2 text-grey-darken-2">&nbsp;</div>
             </v-col>
         </v-row>
@@ -117,20 +138,19 @@
                 </div>
             </v-col>
         </v-row>
+
     </v-card>
 </template>
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
-import { ref, reactive, onMounted, computed } from 'vue';
+import { ref, reactive, computed } from 'vue';
+//@ts-ignore
+import api from '@/data/api/index.js';
+
+const props = defineProps(['property', 'getUsersProperties']);
 const router = useRouter();
-
-const props = defineProps(['property', 'listingPath']);
 const dialog = ref(false);
-function openPropertyDetail() {
-    router.push({ path: `/propertydetails/${props?.property?.propertyId}` })
-}
-
 const months = reactive([
     { "name": "Jan" },
     { "name": "Feb" },
@@ -144,15 +164,25 @@ const months = reactive([
     { "name": "Oct" },
     { "name": "Nov" },
     { "name": "Dec" },
-])
-const postedDate = ref(props?.property?.propertyAddedDate);
+]);
 
+const postedDate = ref(props?.property?.propertyAddedDate);
 const computedDate = computed((postedDate) => {
     const yyyyddmm = (props?.property?.propertyAddedDate)?.split('-');
     const mm = parseInt(yyyyddmm[1]);
     return `${yyyyddmm[2]}-${months[mm - 1].name}-${yyyyddmm[0]}`;
-})
+});
 
+async function deleteProperty(propertyId: String) {
+    const res = await api?.property?.deleteProperty({ params: { propertyId } });
+
+    if (res?.data?.status === 200) {
+        await props.getUsersProperties();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+        router.push({ path: '/error', query: { status: res?.status } })
+    }
+}
 </script>
 
 <style scoped>
@@ -199,6 +229,7 @@ a:hover {
 .modalHead {
     border: solid 1px black;
 }
+
 .modalbody {
     border: solid 1px black;
     border-top: none;
@@ -208,12 +239,15 @@ a:hover {
     margin: 0;
 }
 
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
+table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
 }
 
-th, td {
+th,
+td {
     padding: 10px 10px;
 }
 </style>

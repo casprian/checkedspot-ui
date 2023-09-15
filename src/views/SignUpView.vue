@@ -123,7 +123,7 @@ let { handleSubmit, handleReset } = useForm({
         },
         password(value: any) {
             if (!value) return 'Required.';
-            if ((value.length < 8) || (value.length >= 8 && !(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d\s]).*$/.test(value)))) return 'Min 8 characters which muct include atleast one lowercase, one uppercase character, one digit and one special character'
+            if ((value.length < 8) || (value.length >= 8 && !(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d\s]).*$/.test(value)))) return 'Min 8 characters which must include atleast one lowercase, one uppercase character, one digit and one special character'
 
             if (value.length >= 8 && (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d\s]).*$/.test(value))) return true
         }

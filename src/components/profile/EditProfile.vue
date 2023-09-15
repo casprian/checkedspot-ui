@@ -114,6 +114,7 @@ const { cookies } = useCookies();
 if (!cookies.get("token")) {
     router.push("/");
 }
+window.scrollTo({ top: 0, behavior: 'smooth' });
 
 const cityitems = reactive(["Bangalore", "Hassan", "Mysore"]);
 const Stateitems = reactive(["Karnataka"]);
@@ -187,7 +188,7 @@ const uploadData = handleSubmit(async (values) => {
     const res = await api?.user?.updateProfile(userdata.value);
     if (res?.data?.status === 200) {
         loader.value = false;
-        router.push('/dashboard')
+        router.push('/profile')
     } else {
         router.push({ path: '/error', query: { status: res?.data?.status } })
     }
@@ -218,4 +219,5 @@ onMounted(async () => {
     width: 100px;
     font-size: 22px;
     font-weight: 400;
-}</style>
+}
+</style>

@@ -2,7 +2,7 @@
     <v-container class="ownerPropCont" fluid>
         <v-row no-gutters>
             <v-col cols="12">
-                <h2 class="text-h5 mx-15 mb-5">Popular owner properties</h2>
+                <h2 class="text-h5 mx-15 mx-xl-2 mb-5">Popular owner properties</h2>
             </v-col>
             <v-col cols="12" class="mb-10">
                 <v-sheet class="mx-auto" elevation="0">
