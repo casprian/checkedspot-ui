@@ -71,7 +71,7 @@ const routes = [
         component: () => import('@/views/TermOfServiceView.vue')
       },
       {
-        path: 'userdashboard',
+        path: '/userdashboard',
         name: 'user_dashboard',
         component: () => import('@/views/UserDashboardView.vue'),
       },

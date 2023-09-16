@@ -52,6 +52,16 @@ const getPropertyImage = async (params) => {
     }
 }
 
+const getRecentProperties = async (params) => {
+    try {
+        const baseURL = '/property/recent';
+        const response = await call.callWithoutToken('get', baseURL, params);
+        return {status: 200, data: response?.data};
+    } catch (e) {
+        return {error: true, status: e?.response?.status, message: e?.response?.data?.message};
+    }
+}
+
 const createProperty = async (params) => {
     try {
         const baseURL = "/property/individual";
@@ -78,6 +88,7 @@ export default {
     getPropertyForUser,
     getPropertyVideo,
     getPropertyImage,
+    getRecentProperties,
     createProperty,
     deleteProperty,
 };

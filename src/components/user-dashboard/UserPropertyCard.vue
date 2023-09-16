@@ -1,4 +1,23 @@
 <template>
+    <v-expand-transition>
+        <v-card style="position: fixed; top: 56px; left: 0; z-index: 1" v-show="expandFailure" height="60" width="100%"
+            class="mx-auto bg-red">
+            <div style="height: 100%" class="text-h5 text-center d-flex align-center justify-center">
+                <h5>Deletion Cancled!</h5>
+            </div>
+        </v-card>
+    </v-expand-transition>
+    <v-expand-transition>
+        <v-card style="position: fixed; top: 56px; left: 0; z-index: 1" v-show="expandSuccess" height="60" width="100%"
+            class="mx-auto bg-green">
+            <div style="height: 100%" class="text-h5 text-center d-flex align-center justify-center">
+                <h5>
+                    Property has been deleted successfully!
+                </h5>
+            </div>
+        </v-card>
+    </v-expand-transition>
+
     <v-card class="mx-auto" style="max-width: 480px; min-height: auto;" position="relative">
         <v-img
             :src="property?.propertyImage ? property.propertyImage[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
@@ -19,8 +38,21 @@
                 <v-col cols="12" class="d-flex justify-space-between">
                     <v-btn @click="() => { }" height="30" class="ma-2" variant="flat" elevation="4" color="green-darken-2"
                         disabled>Edit</v-btn>
-                    <v-btn @click="deleteProperty(property.propertyId)" height="30" class="ma-2" variant="flat"
-                        elevation="4" color="red-darken-4">Delete</v-btn>
+                    <v-btn height="30" class="ma-2" variant="flat" elevation="4" color="red-darken-4">Delete
+                        <v-dialog v-model="confirmDialog" width="auto" activator="parent">
+                            <v-card class="pa-5 pt-2">
+                                <v-card-text class="text-h6">
+                                    Confirm deleting the property!
+                                </v-card-text>
+                                <v-card-actions class="d-flex justify-center">
+                                    <v-btn width="100" color="red-darken-2" variant="flat"
+                                        @click="confirmDeletion(property.propertyId)" :loading="loader">Delete</v-btn>
+                                    <v-btn width="100" color="green-darken-2" variant="outlined"
+                                        @click="cancleDeletion">Cancle</v-btn>
+                                </v-card-actions>
+                            </v-card>
+                        </v-dialog>
+                    </v-btn>
                 </v-col>
             </v-row>
         </v-img>
@@ -138,7 +170,6 @@
                 </div>
             </v-col>
         </v-row>
-
     </v-card>
 </template>
 
@@ -150,7 +181,11 @@ import api from '@/data/api/index.js';
 
 const props = defineProps(['property', 'getUsersProperties']);
 const router = useRouter();
+const loader = ref(false);
 const dialog = ref(false);
+const confirmDialog = ref(false);
+const expandFailure = ref(false);
+const expandSuccess = ref(false);
 const months = reactive([
     { "name": "Jan" },
     { "name": "Feb" },
@@ -173,14 +208,34 @@ const computedDate = computed((postedDate) => {
     return `${yyyyddmm[2]}-${months[mm - 1].name}-${yyyyddmm[0]}`;
 });
 
-async function deleteProperty(propertyId: String) {
+async function cancleDeletion() {
+    confirmDialog.value = false;
+    expandFailure.value = true;
+    setTimeout(() => {
+        expandFailure.value = false;
+    }, 1000);
+}
+
+async function confirmDeletion(propertyId: String) {
+    loader.value = true;
+    expandSuccess.value = false;
+    expandFailure.value = false;
     const res = await api?.property?.deleteProperty({ params: { propertyId } });
 
     if (res?.data?.status === 200) {
-        await props.getUsersProperties();
+        expandSuccess.value = true;
+        confirmDialog.value = false;
+        setTimeout(async () => {
+            loader.value = false;
+            await props.getUsersProperties();
+            expandSuccess.value = false;
+        }, 1000)
         window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-        router.push({ path: '/error', query: { status: res?.status } })
+        expandFailure.value = true;
+        setTimeout(() => {
+            expandFailure.value = false;
+        }, 1000);
     }
 }
 </script>
