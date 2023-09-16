@@ -2,7 +2,7 @@
     <v-container v-if="!cookies.get('token')" class="pa-0" style="height: 100%" fluid>
         <v-row no-gutters justify="center" :class="loader === true ? 'blurCont' : ''">
             <v-col cols="0" sm="5" class="px-7 py-10 leftSec">
-                
+
             </v-col>
             <v-col cols="11" sm="7" class="py-10 pa-sm-10">
                 <v-sheet class="d-flex justify-center">
@@ -12,7 +12,9 @@
                         <v-row no-gutters class="pr-10 pb-14">
                             <v-col cols="12" class="pa-0">
                                 <button @click="getAuthorizationUrl" class="googlesignup" title="Sign in with Google">
-                                    <img class="google-icon mr-4" src="https://checkedspot.blob.core.windows.net/assets/Google_Logo.png" alt="G"/><span>Sign up with Google</span>
+                                    <img class="google-icon mr-4"
+                                        src="https://checkedspot.blob.core.windows.net/assets/Google_Logo.png"
+                                        alt="G" /><span>Sign up with Google</span>
                                 </button>
                             </v-col>
                         </v-row>
@@ -27,7 +29,7 @@
                             <v-col cols="12">
                                 <v-text-field v-model="name.value.value" :error-messages="name.errorMessage.value"
                                     class="mr-10" type="text" required variant="outlined" label="Full name*"
-                                    hint="use Sign Up email to Sign In"></v-text-field>
+                                    hint="Type your full name."></v-text-field>
                             </v-col>
                             <v-col cols="12">
                                 <v-text-field v-model="email.value.value" :error-messages="email.errorMessage.value"
@@ -38,11 +40,12 @@
                                 <v-text-field v-model="password.value.value" :error-messages="password.errorMessage.value"
                                     :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :type="show1 ? 'text' : 'password'"
                                     counter persistent-counter variant="outlined" label="Password*"
+                                    hint="Min 8 characters which must include atleast one lowercase, one uppercase character, one digit and one special character"
                                     @click:append="show1 = !show1"></v-text-field>
                             </v-col>
                             <v-col cols="12">
                                 <v-text-field v-model="mobile.value.value" :error-messages="mobile.errorMessage.value"
-                                    class="mr-10" variant="outlined" label="Mobile"
+                                    class="mr-10" variant="outlined" label="Mobile*"
                                     hint="Enter valid mibile number"></v-text-field>
                             </v-col>
                         </v-row>
@@ -52,16 +55,14 @@
                             </v-col>
                         </v-row>
                         <div v-if="welcome" class="text-h5 my-6 text-green">Welcome!!! You have successfully signed up
-                            <br>Login by clicking login button below
+                            <br>Login now!
                         </div>
-                        <div v-if="failed" class="text-h5 my-6 text-red">Error!!! Please Enter valid data to register
-                            <br /><small class="text-body-2">{{ errormessage }}</small>
-                        </div>
+                        <div v-if="failed" class="mt-4 text-red">{{ errormessage }}. Try login or register with new email.</div>
 
-                        <v-row no-gutters class="pr-10 pt-9">
+                        <v-row no-gutters class="pr-10 pt-6">
                             <v-col cols="12" class="pa-0">
-                                <v-btn @click="createUser" type="submit" density="default"
-                                    prepend-icon="mdi-account" elevation="4" variant="flat" color="green" width="100%">
+                                <v-btn @click="createUser" type="submit" density="default" prepend-icon="mdi-account"
+                                    elevation="4" variant="flat" color="green" width="100%">
                                     Sign Up
                                 </v-btn>
                             </v-col>
@@ -101,14 +102,14 @@ let { handleSubmit, handleReset } = useForm({
         name(value: any) {
             if (value?.length >= 2) return true
 
-            return 'Name needs to be at least 2 characters.'
+            return 'Name should be at least 2 characters long.'
         },
         mobile(value: any) {
             if (!value) {
-                return true
+                return 'required';
             } else if (value) {
                 if (value?.length === 10 && /[0-9-]+/.test(value)) {
-                    return true
+                    return true;
                 } else if (value?.length > 10 && /[0-9-]+/.test(value)) {
                     return 'Phone number needs to be at exactly 10 digits.'
                 } else {
@@ -123,7 +124,7 @@ let { handleSubmit, handleReset } = useForm({
         },
         password(value: any) {
             if (!value) return 'Required.';
-            if ((value.length < 8) || (value.length >= 8 && !(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d\s]).*$/.test(value)))) return 'Min 8 characters which muct include atleast one lowercase, one uppercase character, one digit and one special character'
+            if ((value.length < 8) || (value.length >= 8 && !(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d\s]).*$/.test(value)))) return 'Min 8 characters which must include atleast one lowercase, one uppercase character, one digit and one special character'
 
             if (value.length >= 8 && (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d\s]).*$/.test(value))) return true
         }
@@ -155,6 +156,7 @@ const createUser = handleSubmit(async (values) => {
         welcome.value = true;
         failed.value = false;
         loader.value = false;
+        handleReset();
     } else {
         errormessage.value = res?.data?.message;
         welcome.value = false;
@@ -165,7 +167,7 @@ const createUser = handleSubmit(async (values) => {
 
 async function getAuthorizationUrl() {
     loader.value = true;
-    const res = await api?.user?.getAuthorizationUrl({params:{}});
+    const res = await api?.user?.getAuthorizationUrl({ params: {} });
     window.open(res?.data?.url, '_self');
 }
 </script>
@@ -176,7 +178,7 @@ async function getAuthorizationUrl() {
 }
 
 .leftSec {
-    background-image: linear-gradient(180deg, rgba(255,255,255,0.7) 3%, rgba(252,252,252,0.7) 52%), url('https://checkedspot.blob.core.windows.net/assets/pexels-laura-tancredi-7078692.jpg');
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.7) 3%, rgba(252, 252, 252, 0.7) 52%), url('https://checkedspot.blob.core.windows.net/assets/pexels-laura-tancredi-7078692.jpg');
     background-size: cover;
 }
 
@@ -238,15 +240,18 @@ async function getAuthorizationUrl() {
     justify-content: center;
     align-items: center;
 }
+
 @media only screen and (max-width: 800px) {
     .formCont {
         width: 95%;
     }
 }
+
 @media only screen and (max-width: 599px) {
     .formCont {
         width: 90%;
     }
+
     .leftSec {
         display: none;
     }

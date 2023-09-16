@@ -25,8 +25,8 @@
           dreamed of, built to the highest standard of quality.</p>
       </v-col>
       <v-col cols="12" md="2" class="d-flex align-center justify-center py-10 py-md-0">
-        <v-btn @click="router.push('/quotation')" variant="elevated"
-          color="deep-orange-darken-1" class="text-h6 py-2 elevtion-5" height="120" width="200">GET
+        <v-btn @click="router.push('/quotation')" variant="elevated" color="deep-orange-darken-1"
+          class="text-h6 py-2 elevtion-5" height="120" width="200">GET
           YOUR<br>QUOTATION<br>NOW</v-btn>
       </v-col>
       <v-col cols="12" md="5" class="pr-md-16 pl-md-10 py-10 d-flex justify-center justify-md-end">
@@ -34,17 +34,19 @@
         <form class="bg-white px-8 pt-5 pb-8 rounded-lg" style="max-width:350px">
           <div class="pb-3 text-h5 font-weight-bold">Talk to our Expert</div>
           <v-text-field v-model="name.value.value" :error-messages="name.errorMessage.value" density="compact"
-            counter="40" class="my-2" label="Name" variant="outlined"></v-text-field>
+            counter="40" class="my-2" label="Name*" variant="outlined"></v-text-field>
 
           <v-text-field v-model="mobile.value.value" :error-messages="mobile.errorMessage.value" density="compact"
-            counter="10" class="my-2" label="Whatsapp Number" variant="outlined"></v-text-field>
+            counter="10" class="my-2" label="Whatsapp Number*" variant="outlined"></v-text-field>
 
 
           <v-text-field v-model="email.value.value" :error-messages="email.errorMessage.value" density="compact"
-            counter="30" class="my-2" label="Email" variant="outlined"></v-text-field>
+            counter="30" class="my-2" label="Email*" variant="outlined"></v-text-field>
 
           <v-text-field v-model="enquiryMessage.value.value" :error-messages="enquiryMessage.errorMessage.value"
             counter="40" density="compact" label="Enquiry Message" variant="outlined"></v-text-field>
+
+          <small>*indicates required field</small>
 
           <v-sheet class="d-flex flex-column justify-center align-center">
             <v-btn type="submit" variant="flat" color="pink-darken-2" width="300px" class="my-2"

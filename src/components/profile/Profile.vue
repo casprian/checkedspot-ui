@@ -159,7 +159,7 @@
                 </h2>
             </div>
 
-            <v-btn class="my-7" width="100%" height="40" color="blue" @click="router.push('/dashboard/editprofile')">Edit
+            <v-btn class="my-7" width="100%" height="40" color="blue" @click="router.push('/profile/editprofile')">Edit
                 Details</v-btn>
         </v-col>
     </v-row>
@@ -178,6 +178,7 @@ const { cookies } = useCookies();
 
 const loading = ref(true);
 const profilePicture = ref('');
+window.scrollTo({ top: 0, behavior: 'smooth' });
 
 let userdata = ref({
     name: null,

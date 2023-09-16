@@ -2,17 +2,17 @@
     <v-row no-gutters class="d-flex justify-center">
         <v-col cols="12" sm="5">
             <v-card class="pa-5 pb-sm-10 pt-sm-8 bg-grey-lighten-5 rounded-xl" elevation="8">
-                <div class="mx-10 mb-7 text-h4 text-grey-darken-3">Create new password</div>
-                <v-text-field class="my-2 mx-10" v-model="email" disabled
-                    variant="outlined" label="please enter your login email">
+                <div class="mx-md-10 mb-7 text-h5 text-md-h4 text-grey-darken-3">Create new password</div>
+                <v-text-field class="my-2 mx-10" v-model="email" disabled variant="outlined"
+                    label="please enter your login email">
 
                 </v-text-field>
-                <v-text-field class="my-2 ml-10" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                <v-text-field class="my-2 mx-md-10" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                     @click:append="show1 = !show1" :type="show1 ? 'text' : 'password'" v-model="newPassword.value.value"
                     :error-messages="newPassword.errorMessage.value" variant="outlined" label="new password">
 
                 </v-text-field>
-                <v-text-field class="mt-2 ml-10" :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                <v-text-field class="mt-2 mx-md-10" :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
                     @click:append="show2 = !show2" :type="show2 ? 'text' : 'password'" v-model="confirmPassword.value.value"
                     :error-messages="confirmPassword.errorMessage.value" variant="outlined" label="confirm password">
 
@@ -23,11 +23,12 @@
                 <div v-if="passwordCreated" class="px-10 mb-3 text-body-1 text-green">Password Updated!</div>
 
                 <div class="d-flex flex-column align-center justify-center">
-                    <div> 
-                        <v-btn color="green" width="300" variant="elevated" class="mb-5" @click="handleCreateNewPassword">Create New Password</v-btn>
+                    <div>
+                        <v-btn color="green" :loading="loader" width="300" variant="elevated" class="mb-5"
+                            @click="handleCreateNewPassword">Create New Password</v-btn>
                     </div>
                     <div>
-                        <v-btn color="red" width="300" variant="tonal" @click="router.back()">Close</v-btn>
+                        <v-btn color="red" width="300" variant="tonal" @click="deleteOTP">Close</v-btn>
                     </div>
                 </div>
             </v-card>
@@ -41,7 +42,9 @@ import { useField, useForm } from 'vee-validate';
 //@ts-ignore
 import api from '@/data/api/index.js';
 import { useRouter } from 'vue-router';
+import { useCookies } from 'vue3-cookies';
 
+const { cookies } = useCookies();
 const props = defineProps(['email'])
 const email = ref(props?.email);
 const router = useRouter();
@@ -49,6 +52,7 @@ const userNotFound = ref(false);
 const passwordCreated = ref(false);
 const show1 = ref(false);
 const show2 = ref(false);
+const loader = ref(false);
 
 const { handleSubmit, handleReset } = useForm({
     validationSchema: {
@@ -77,6 +81,7 @@ const newPassword = useField('newPassword');
 const confirmPassword = useField('confirmPassword');
 
 const handleCreateNewPassword = handleSubmit(async (values: any) => {
+    loader.value = true;
     userNotFound.value = false;
     passwordCreated.value = false;
 
@@ -89,6 +94,7 @@ const handleCreateNewPassword = handleSubmit(async (values: any) => {
 
         if (passwordUpdateRes?.status === 200) {
             passwordCreated.value = true;
+            loader.value = false;
             handleReset();
             setTimeout(() => {
                 router.push('/')
@@ -100,6 +106,13 @@ const handleCreateNewPassword = handleSubmit(async (values: any) => {
         userNotFound.value = true;
     }
 })
+
+function deleteOTP() {
+    if (cookies.get('OTP')) {
+        cookies.remove("OTP");
+    }
+    router.back();
+}
 
 </script>
 

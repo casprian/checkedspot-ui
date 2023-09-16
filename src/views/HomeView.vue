@@ -1,7 +1,7 @@
 <template>
   <div>
     <header-component/>
-    <owner-properties :properties="verifiedProperties.data"/>
+    <recent-property :properties="recent20Properties.data"/>
     <Construction/>
     <all-property-needs/>
     <!-- <properties-for-everyone/> -->
@@ -13,7 +13,7 @@
 //@ts-ignore
 import HeaderComponent from '@/components/home-view-components/HeaderComponent.vue';
 //@ts-ignore
-import OwnerProperties from '@/components/home-view-components/OwnerProperties.vue';
+import RecentProperty from '@/components/home-view-components/RecentProperty.vue';
 //@ts-ignore
 import AllPropertyNeeds from '@/components/home-view-components/AllPropertyNeeds.vue';
 //@ts-ignore
@@ -29,16 +29,16 @@ import { useRouter } from 'vue-router';
 
 
 const router = useRouter();
-const verifiedProperties = reactive({
+const recent20Properties = reactive({
   data: null
 })
 
 async function getAllVerifiedProperties() {
-  const res = await api?.property?.getProperties({ params: { isVerifiedByCheckedSpot: true } });
+  const res = await api?.property?.getRecentProperties({ params: { limit: 20 } });
   if (res.status === 200) {
-    verifiedProperties.data = res?.data;
+    recent20Properties.data = res?.data;
   } else {
-    router.push({ path: '/error', query: { status: res?.status } })
+    recent20Properties.data = res.status;    
   }
 }
 

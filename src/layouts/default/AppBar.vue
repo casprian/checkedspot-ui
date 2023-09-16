@@ -21,16 +21,19 @@
         <v-btn @click="router.push('/contactus')" variant="flat" class="ml-1" height="32">
           Contact
         </v-btn>
-        <v-btn v-if="!hastoken" @click="router.push('/signin')" variant="outlined" class="ml-1"
-          color="pink-darken-2" height="32">
+        <v-btn v-if="!hastoken" @click="router.push('/signin')" variant="outlined" class="ml-1" color="pink-darken-2"
+          height="32">
           LOGIN
         </v-btn>
         <v-btn v-if="!hastoken" @click="router.push('/signup')" variant="flat" class="ml-2 mr-2" height="32"
           color="pink-darken-2">
           REGISTER
         </v-btn>
-        <v-btn @click="handleCreateProperty" variant="flat" class="mr-4" color="pink-darken-4" height="32">
+        <v-btn @click="handleCreateProperty" variant="flat" class="mr-2" color="pink-darken-4" height="32">
           Post Property
+        </v-btn>
+        <v-btn v-if="hastoken" @click="router.push('/userdashboard')" variant="flat" class="mr-4" color="pink-darken-4" height="32">
+          My Dashboard
         </v-btn>
       </div>
       <div v-if="hastoken" class="pa-0 ma-0 mr-2 mr-md-0">
@@ -75,6 +78,9 @@
     <div class="px-5">
       <v-btn width="100%" @click="handleCreateProperty" variant="flat" class="my-3" color="pink-darken-4" height="32">
         Post Property
+      </v-btn>
+      <v-btn width="100%" v-if="hastoken" @click="router.push('/userdashboard')" variant="flat" class="my-3" color="pink-darken-4" height="32">
+        My Dashboard
       </v-btn>
     </div>
   </v-navigation-drawer>
