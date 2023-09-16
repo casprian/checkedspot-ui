@@ -145,7 +145,6 @@ const loginHandler = handleSubmit(async (values: any) => {
         alreadyLoggedIn.value = true;
         return;
     }
-
     loader.value = true;
     retrySignIn.value = false;
     notFound.value = false;

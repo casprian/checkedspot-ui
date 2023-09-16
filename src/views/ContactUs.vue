@@ -91,13 +91,13 @@
           <div class="pa-3 text-h6 text-sm-h5 font-weight-medium">Send Enquiry to Checked Spot</div>
           <form>
             <v-text-field v-model="name.value.value" :error-messages="name.errorMessage.value" density="compact"
-              class="ma-2" counter="40" label="Name" variant="outlined"></v-text-field>
+              class="ma-2" counter="40" label="Name*" variant="outlined"></v-text-field>
 
             <v-text-field v-model="mobile.value.value" :error-messages="mobile.errorMessage.value" density="compact"
-              class="ma-2" counter="10" label="Whatsapp Number" variant="outlined"></v-text-field>
+              class="ma-2" counter="10" label="Whatsapp Number*" variant="outlined"></v-text-field>
 
             <v-text-field v-model="email.value.value" :error-messages="email.errorMessage.value" density="compact"
-              class="ma-2" counter="30" label="Email" variant="outlined"></v-text-field>
+              class="ma-2" counter="30" label="Email*" variant="outlined"></v-text-field>
 
             <v-textarea v-model="enquiryMessage.value.value" :error-messages="enquiryMessage.errorMessage.value"
               counter="750" density="compact" class="mx-2" rows="2" label="Enquiry Message"

@@ -27,7 +27,7 @@
             <v-col cols="9" class="ml-0 mt-5">
               <h6 class="text-body-1 font-weight-medium">{{ user.name ? user.name : "xyz" }}</h6>
               <p class="text-body-2">{{ user.email ? user.email : "xyz@gmail.com" }}</p>
-              <v-btn @click="() => handleRouting('dashboard')" class="mt-5 rounded-lg" variant="outlined">Manage Your Account</v-btn>
+              <v-btn @click="() => handleRouting('profile')" class="mt-5 rounded-lg" variant="outlined">Manage Your Account</v-btn>
             </v-col>
           </v-row>
         </v-col>
@@ -63,7 +63,8 @@ import { reactive, ref } from 'vue';
 import { useCookies } from 'vue3-cookies';
 import { useRouter } from 'vue-router';
 import jwtDecode from 'jwt-decode';
-import UpdateProfilePicture from './Dashboard/UpdateProfilePicture.vue';
+//@ts-ignore
+import UpdateProfilePicture from './profile/UpdateProfilePicture.vue';
 
 const router = useRouter();
 const { cookies } = useCookies();

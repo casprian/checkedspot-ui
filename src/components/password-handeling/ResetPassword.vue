@@ -25,10 +25,11 @@
 
                 <div class="d-flex flex-column align-center justify-center">
                     <div>
-                        <v-btn color="green" width="300" variant="elevated" class="mb-5" @click="handelUpdate">Reset Password</v-btn>
+                        <v-btn color="green" width="300" variant="elevated" class="mb-5" @click="handelUpdate">Reset
+                            Password</v-btn>
                     </div>
                     <div>
-                        <v-btn color="red" width="300" variant="tonal" @click="router.back()">Close</v-btn>
+                        <v-btn color="red" width="300" variant="tonal" @click="deleteOTP">Close</v-btn>
                     </div>
                 </div>
             </v-card>
@@ -42,7 +43,9 @@ import { useField, useForm } from 'vee-validate';
 //@ts-ignore
 import api from '@/data/api/index.js';
 import { useRouter } from 'vue-router';
+import { useCookies } from 'vue3-cookies';
 
+const  { cookies } = useCookies();
 const props = defineProps(['email']);
 const router = useRouter();
 const currentPasswordIncorrect = ref(false);
@@ -109,6 +112,14 @@ const handelUpdate = handleSubmit(async (values: any) => {
     }
 
 })
+
+function deleteOTP() {
+    if (cookies.get('OTP')) {
+        cookies.remove("OTP");
+    }
+    router.back();
+}
+
 
 </script>
 

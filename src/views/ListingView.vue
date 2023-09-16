@@ -94,7 +94,7 @@ const noOfDataComputed = computed(() => {
 })
 const receivedProperties = ref(false);
 async function getAllProperty() {
-    const formData = {
+    const filterData = {
         params: {
             //@ts-ignore
             type: (propertyFilterObj?.type)?.length > 0 ? propertyFilterObj?.type : null,
@@ -109,7 +109,7 @@ async function getAllProperty() {
         },
     };
 
-    const res = await api.property.getProperties(formData);
+    const res = await api.property.getProperties(filterData);
     if(res.status === 200) {
         propertiesData.data = res?.data;
         noOfData.value = res?.noOfdata;
@@ -117,6 +117,7 @@ async function getAllProperty() {
         if(noOfData.value <= 0) {
             receivedProperties.value = true;
         }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }else {
         router.push({path: '/error', query: {status: res?.status}})
     }
