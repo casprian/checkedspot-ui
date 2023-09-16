@@ -1,17 +1,17 @@
 <template>
     <v-expand-transition>
-        <v-card style="position: fixed; top: 56px; z-index: 1" v-show="expandFailure" height="60" width="100%"
+        <v-card style="position: absolute; top: 0; left: 0; z-index: 1" v-show="expandFailure" height="60" width="100%"
             class="mx-auto bg-red">
-            <div style="height: 100%" class="text-h5 text-center d-flex align-center justify-center">
-                <h5>Message delivery Failed. Please try again!</h5>
+            <div style="height: 100%" class="text-h5 text-center d-flex align-center justify-center pa-4">
+                <h5 style="line-height: normal;">Message delivery Failed. Please try again!</h5>
             </div>
         </v-card>
     </v-expand-transition>
     <v-expand-transition>
-        <v-card style="position: fixed; top: 56px; z-index: 1" v-show="expandSuccess" height="60" width="100%"
+        <v-card style="position: absolute; top: 0; left: 0; z-index: 1" v-show="expandSuccess" height="60" width="100%"
             class="mx-auto bg-green">
-            <div style="height: 100%" class="text-h5 text-center d-flex align-center justify-center">
-                <h5>
+            <div style="height: 100%" class="text-h6 text-center d-flex align-center justify-center pa-4">
+                <h5 style="line-height: normal;">
                     Message has been delivered. Checkedspot Team will contact you soon.
                 </h5>
             </div>
@@ -19,17 +19,19 @@
     </v-expand-transition>
 
     <v-dialog v-model="dialog" activator="parent" width="auto">
-        <v-card class="ma-2 px-5 pt-3 pb-10 elevation-7 rounded-0" width="100%">
-            <div class="pa-3 text-h4 font-weight-bold">Send enquiry for {{ enquiry }}</div>
+        <v-card class="px-5 pt-3 pb-10 elevation-7 rounded-0" width="100%">
+            <div class="pa-3 text-h5 font-weight-bold">Send enquiry for {{ enquiry }}</div>
             <form>
                 <v-text-field v-model="name.value.value" :error-messages="name.errorMessage.value" density="comfortable"
-                    class="ma-2" counter="40" label="Name" variant="outlined"></v-text-field>
+                    class="ma-2" counter="40" label="Name*" variant="outlined"></v-text-field>
 
                 <v-text-field v-model="mobile.value.value" :error-messages="mobile.errorMessage.value" density="comfortable"
-                    class="ma-2" counter="10" label="Whatsapp Number" variant="outlined"></v-text-field>
+                    class="ma-2" counter="10" label="Whatsapp Number*" variant="outlined"></v-text-field>
 
                 <v-text-field v-model="email.value.value" :error-messages="email.errorMessage.value" density="comfortable"
-                    class="ma-2" counter="30" label="Email" variant="outlined"></v-text-field>
+                    class="ma-2" counter="30" label="Email*" variant="outlined"></v-text-field>
+
+                <small>*indicates required field</small>
 
                 <v-sheet class="d-flex flex-column justify-center align-center">
                     <v-btn type="submit" variant="elevated" elevation="5" color="blue" width="300px" class="my-2"
@@ -106,7 +108,9 @@ const mobile = useField("mobile");
 const expandSuccess = ref(false);
 const expandFailure = ref(false);
 
-if (props.enquiryFor === 'maintenance') {
+if (props.enquiryFor === 'decoration') {
+    enquiry.value = 'Interior Decoration Services'
+} else if (props.enquiryFor === 'maintenance') {
     enquiry.value = 'Maintenance Services'
 } else if (props.enquiryFor === 'legal') {
     enquiry.value = 'Legal Services'
@@ -117,12 +121,16 @@ if (props.enquiryFor === 'maintenance') {
 
 const callWhatsappCloudApi = handleSubmit(async (values) => {
     dialog.value = false;
-    if (props.enquiryFor === 'maintenance') {
+    if (props.enquiryFor === 'decoration') {
+        enquiryMessage.value = `Mr. ${values.name} wanted more Information About Your Interior decoration Services.`
+    } else if (props.enquiryFor === 'maintenance') {
         enquiryMessage.value = `Mr. ${values.name} wanted more Information About Your Maintenance Services.`
     } else if (props.enquiryFor === 'legal') {
         enquiryMessage.value = `Mr. ${values.name} wanted more Information About Your Legal Services.`
+    } else if (props.enquiryFor === 'rentCollection') {
+        enquiryMessage.value = `Mr. ${values.name} wanted more Information About Your Rent Collection Services.`
     }
-    
+
     api?.user
         ?.sendEnquiry({ ...values, enquiryMessage: enquiryMessage.value })
         .then((res: any) => {

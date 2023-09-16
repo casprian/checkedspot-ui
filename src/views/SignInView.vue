@@ -145,7 +145,6 @@ const loginHandler = handleSubmit(async (values: any) => {
         alreadyLoggedIn.value = true;
         return;
     }
-
     loader.value = true;
     retrySignIn.value = false;
     notFound.value = false;
@@ -174,7 +173,7 @@ const loginHandler = handleSubmit(async (values: any) => {
 async function getAuthorizationUrl() {
     loader.value = true;
     const res = await api?.user?.getAuthorizationUrl({ params: {} });
-    window.open(res?.data?.url, '_blank');
+    window.open(res?.data?.url, '_self');
 }
 
 </script>
