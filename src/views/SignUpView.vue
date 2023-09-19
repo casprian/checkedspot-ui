@@ -11,7 +11,7 @@
 
                         <v-row no-gutters class="pr-10 pb-14">
                             <v-col cols="12" class="pa-0">
-                                <botton @click="getAuthorizationUrl" class="googlesignup" title="Sign in with Google">
+                                <botton @click="getAuthorizationUrl" class="googlesignup" title="Sign un with Google">
                                     <img class="google-icon mr-4"
                                         src="https://checkedspot.blob.core.windows.net/assets/Google_Logo.png"
                                         alt="G" /><span>Sign up with Google</span>
@@ -180,7 +180,9 @@ const createUser = handleSubmit(async (values) => {
 async function getAuthorizationUrl() {
     loader.value = true;
     const res = await api?.user?.getAuthorizationUrl({ params: {} });
-    window.open(res?.data?.url, '_self');
+    setTimeout(() => {        
+        window.open(res?.data?.url, '_self');
+    }, 500);
     loader.value = false;
 }
 </script>
@@ -226,6 +228,10 @@ async function getAuthorizationUrl() {
     text-transform: uppercase;
     letter-spacing: 1px;
     box-shadow: 0px 3px 3px -2px var(--v-shadow-key-umbra-opacity, rgba(0, 0, 0, 0.2)), 0px 3px 4px 0px var(--v-shadow-key-penumbra-opacity, rgba(0, 0, 0, 0.14)), 0px 1px 8px 0px var(--v-shadow-key-penumbra-opacity, rgba(0, 0, 0, 0.12)) !important
+}
+
+.googlesignup:hover {
+    cursor: pointer;
 }
 
 .google-icon {
