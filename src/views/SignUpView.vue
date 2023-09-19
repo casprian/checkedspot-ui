@@ -11,11 +11,11 @@
 
                         <v-row no-gutters class="pr-10 pb-14">
                             <v-col cols="12" class="pa-0">
-                                <button @click="getAuthorizationUrl" class="googlesignup" title="Sign in with Google">
+                                <botton @click="getAuthorizationUrl" class="googlesignup" title="Sign in with Google">
                                     <img class="google-icon mr-4"
                                         src="https://checkedspot.blob.core.windows.net/assets/Google_Logo.png"
                                         alt="G" /><span>Sign up with Google</span>
-                                </button>
+                                </botton>
                             </v-col>
                         </v-row>
 
@@ -26,24 +26,34 @@
                         </div>
 
                         <v-row>
-                            <v-col cols="12">
+                            <v-col cols="12" class="pa-1 radioGroup pr-10">
+                                <input id="user" checked class="roleRadio" type="radio" name="role" value="user" v-model="role">
+                                <label for="user" title="Buyer/Owner/Tenant">Buyer/Owner/Tenant</label>
+    
+                                <input id="agent" class="roleRadio" type="radio" name="role" value="agent" v-model="role">
+                                <label for="agent" title="agent">Agent</label>
+    
+                                <input id="builder" class="roleRadio" type="radio" name="role" value="developer" v-model="role">
+                                <label for="builder" title="developer/builder">Developer</label>
+                            </v-col>
+                            <v-col cols="12" class="pa-1">
                                 <v-text-field v-model="name.value.value" :error-messages="name.errorMessage.value"
                                     class="mr-10" type="text" required variant="outlined" label="Full name*"
                                     hint="Type your full name."></v-text-field>
                             </v-col>
-                            <v-col cols="12">
+                            <v-col cols="12" class="pa-1">
                                 <v-text-field v-model="email.value.value" :error-messages="email.errorMessage.value"
                                     class="mr-10" type="email" variant="outlined" label="Email*"
                                     hint="Enter valid email"></v-text-field>
                             </v-col>
-                            <v-col cols="12">
+                            <v-col cols="12" class="pa-1">
                                 <v-text-field v-model="password.value.value" :error-messages="password.errorMessage.value"
                                     :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :type="show1 ? 'text' : 'password'"
                                     counter persistent-counter variant="outlined" label="Password*"
                                     hint="Min 8 characters which must include atleast one lowercase, one uppercase character, one digit and one special character"
                                     @click:append="show1 = !show1"></v-text-field>
                             </v-col>
-                            <v-col cols="12">
+                            <v-col cols="12" class="pa-1">
                                 <v-text-field v-model="mobile.value.value" :error-messages="mobile.errorMessage.value"
                                     class="mr-10" variant="outlined" label="Mobile*"
                                     hint="Enter valid mibile number"></v-text-field>
@@ -57,7 +67,8 @@
                         <div v-if="welcome" class="text-h5 my-6 text-green">Welcome!!! You have successfully signed up
                             <br>Login now!
                         </div>
-                        <div v-if="failed" class="mt-4 text-red">{{ errormessage }}. Try login or register with new email.</div>
+                        <div v-if="failed" class="mt-4 text-red">{{ errormessage }}. Try login or register with new email.
+                        </div>
 
                         <v-row no-gutters class="pr-10 pt-6">
                             <v-col cols="12" class="pa-0">
@@ -93,10 +104,9 @@ if (cookies.get('token')) {
     router.push('/');
 }
 
-
-//form validation
 const show1 = ref(false);
 
+//form validation
 let { handleSubmit, handleReset } = useForm({
     validationSchema: {
         name(value: any) {
@@ -135,17 +145,19 @@ const password = useField('password');
 const name = useField('name');
 const mobile = useField('mobile');
 
+const role = ref('user');
 const loader = ref(false);
-
 const welcome = ref(false);
 const failed = ref(false);
 const errormessage = ref('');
+
 const createUser = handleSubmit(async (values) => {
     loader.value = true;
     welcome.value = false;
     failed.value = false;
 
     const res = await api?.user?.signup({
+        role: role.value,
         name: values.name,
         email: values.email,
         password: values.password,
@@ -169,6 +181,7 @@ async function getAuthorizationUrl() {
     loader.value = true;
     const res = await api?.user?.getAuthorizationUrl({ params: {} });
     window.open(res?.data?.url, '_self');
+    loader.value = false;
 }
 </script>
 
@@ -239,6 +252,36 @@ async function getAuthorizationUrl() {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.radioGroup {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 5px;
+}
+
+.roleRadio + label {
+    margin: 10px 10px 10px 0;
+    border: solid 1px #d7d7d7;
+    padding: 8px 25px;
+    border-top-left-radius: 15px;
+    /* border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px; */
+    border-bottom-right-radius: 15px;
+}
+
+.roleRadio + label:hover {
+    cursor: pointer;
+}
+
+.roleRadio {
+    display: none;
+}
+
+.roleRadio:checked + label {
+    background-color: #c2185c3f;
+    border-color: #c2185b
 }
 
 @media only screen and (max-width: 800px) {
