@@ -10,13 +10,13 @@
             </v-col>
         </v-row>
     </v-container>
-    <v-container fluid class="pa-0 pt-16 px-4 bg-background">
-
-        <v-row v-if="count < 2" no-gutters class="px-sm-14 pb-16 mb-16">
-            <v-col cols="4" class="loader">
+    <v-container fluid class="pa-0 pt-16 px-4 bg-background" style="height: calc(100% - 54px);">
+        <v-row v-if="count < 2" no-gutters class="d-flex justify-center align-center" style="height: calc(100% - 64px);">
+            <v-col cols="4">
                 <v-progress-linear color="pink-accent-3" indeterminate rounded height="10"></v-progress-linear>
             </v-col>
         </v-row>
+
         <v-row v-else no-gutters class="px-sm-10">
             <v-col cols="12" md="8" class="pr-0 pr-md-3">
                 <v-row no-gutters class="mb-10">
@@ -352,13 +352,6 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.loader {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
 .description {
     line-height: 25px;
 }
@@ -374,17 +367,5 @@ onMounted(async () => {
     background-color: #f50057;
     position: absolute;
     top: 43px;
-}
-
-.uploadBtn {
-    background-color: #F50057;
-    padding: 5px 25px;
-    border-radius: 20px;
-    font-weight: 500;
-    color: white;
-}
-
-.uploadBtn>label:hover {
-    cursor: pointer;
 }
 </style>

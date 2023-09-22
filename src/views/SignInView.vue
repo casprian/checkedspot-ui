@@ -28,6 +28,8 @@
                             </v-col>
                         </v-row>
 
+                        <facebook-o-auth />
+
                         <div class="divider mb-14 mr-10">
                             <div class="circle-icon">
                                 OR
@@ -54,7 +56,8 @@
                                     <v-col cols="12" class="pa-0">
                                         <div class="d-flex justify-space-between mr-10 mt-3">
                                             <small>*indicates required field</small>
-                                            <small><button @click="router.push({ path: '/password', query: { q: 'forget' } })"
+                                            <small><button
+                                                    @click="router.push({ path: '/password', query: { q: 'forget' } })"
                                                     class="text-blue-accent-3" title="click here to reset password">forget
                                                     password</button></small>
                                         </div>
@@ -94,6 +97,7 @@ import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useField, useForm } from 'vee-validate';
 import { useCookies } from "vue3-cookies";
+import FacebookOAuth from '@/components/oauth/FacebookOAuth.vue';
 
 const { cookies } = useCookies();
 const router = useRouter();
@@ -153,15 +157,15 @@ const loginHandler = handleSubmit(async (values: any) => {
         email: values.email,
         password: values.password,
     });
-    
+
     if (res?.data?.status === 200) {
         retrySignIn.value = false;
         loader.value = false;
         location.replace(window.origin);
-    } else if (res?.data?.status === 404){
+    } else if (res?.data?.status === 404) {
         notFound.value = true;
         loader.value = false;
-    } else if (res?.data?.status === 409){
+    } else if (res?.data?.status === 409) {
         retrySignIn.value = true;
         loader.value = false;
     } else {
@@ -173,7 +177,7 @@ const loginHandler = handleSubmit(async (values: any) => {
 async function getAuthorizationUrl() {
     loader.value = true;
     const res = await api?.user?.getAuthorizationUrl({ params: {} });
-    setTimeout(() => {        
+    setTimeout(() => {
         window.open(res?.data?.url, '_self');
     }, 500);
     loader.value = false;
@@ -264,10 +268,12 @@ async function getAuthorizationUrl() {
         width: 95%;
     }
 }
+
 @media only screen and (max-width: 599px) {
     .formCont {
         width: 90%;
     }
+
     .leftSec {
         display: none;
     }

@@ -56,19 +56,20 @@
                                                                 title="google map link">Location</span>
                                                         </a>
                                                     </v-col>
-                                                    <v-col cols="12">
-                                                        <v-card-text class="px-3 py-3 pb-0">
+                                                    <v-col cols="12" class="pa-0">
+                                                        <v-card-text class="px-3 pt-3 pb-0">
                                                             Property type: <span class="text-pink-accent-3">{{ property?.type ?
                                                                 property?.type : 'Not Found' }}</span>
                                                         </v-card-text>
-                                                        <v-card-subtitle class="px-3 py-0">
-                                                            Hegde Nagar, Bengaluru
+                                                        <v-card-subtitle v-if="property?.address" class="px-3 py-0">
+                                                            {{ property?.address }}
                                                         </v-card-subtitle>
+                                                        <div v-else class="px-3 text-body-2 text-grey-darken-2">address unavailable</div>
                                                     </v-col>
         
                                                     <v-col cols="12">
                                                         <v-row
-                                                            class="cardBottom pa-0 mx-3 my-2 d-flex flex-row justify-space-between align-center">
+                                                            class="cardBottom pa-0 mx-3 my-0 d-flex flex-row justify-space-between align-center">
                                                             <v-col cols="auto" class="px-0 my-1">
                                                                 <v-avatar class="pa-0 mr-3"
                                                                     image="https://checkedspot.blob.core.windows.net/assets/parvez1.jpeg"

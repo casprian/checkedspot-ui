@@ -1,16 +1,27 @@
 <template>
-    <v-container fluid class="pa-0" v-if="cookies.get('token')">
+    <v-container fluid class="pa-0" v-if="cookies.get('token')" style="height: 100%;">
         <v-row no-gutters class="bg-grey-lighten-2 pb-2 mb-5">
             <v-col cols="12">
-                <h1
-                    class="py-3 text-h3 text-center font-weight-regular text-decoration-underline text-pink-darken-2">
+                <h1 class="py-3 text-h3 text-center font-weight-regular text-decoration-underline text-pink-darken-2">
                     My Properties</h1>
             </v-col>
         </v-row>
-        <v-container class="mb-5">
-            <v-row>
+        <v-container v-if="propertyLoaded" class="mb-5" style="height: calc(100% - 102px);">
+            <v-row v-if="properties.length > 0">
                 <v-col cols="12" md="6" lg="4" v-for="property in properties" :key="property.propertyId">
                     <UserPropertyCard :property="property" :getUsersProperties="getUsersProperties" />
+                </v-col>
+            </v-row>
+            <v-row class="d-flex justify-center align-center" width="100%" style="height: 100%;">
+                <h1 class="pa-7">You haven't posted any properties! <RouterLink to="/createproperty">Post property
+                    </RouterLink>
+                </h1>
+            </v-row>
+        </v-container>
+        <v-container v-else class="mb-5" style="height: calc(100% - 102px);">
+            <v-row no-gutters class="d-flex justify-center align-center" width="100%" style="height: 100%;">
+                <v-col cols="4">
+                    <v-progress-linear color="pink-accent-3" indeterminate rounded height="10"></v-progress-linear>
                 </v-col>
             </v-row>
         </v-container>
@@ -35,6 +46,7 @@ if (!cookies.get('token')) {
     router.back();
 }
 
+const propertyLoaded = ref(false);
 const properties = ref([{ propertyId: "" }]);
 const pageNum = ref(1);
 const limit = ref(6);
@@ -44,6 +56,7 @@ async function getUsersProperties() {
     const res = await api?.property?.getPropertyForUser({ params: { email: jwtDecode(jwt)?.userData?.email, pageNumber: pageNum.value, limit: limit.value } })
     if (res.status === 200) {
         properties.value = res.data;
+        propertyLoaded.value = true;
         window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
         router.push({ path: '/error', query: { status: res?.status } })

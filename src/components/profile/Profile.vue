@@ -26,7 +26,7 @@
                                 <v-progress-linear v-model="profileStatus" height="20" :color="profilecolor" class="mb-2">
                                     <strong>{{ profileStatus }}%</strong>
                                 </v-progress-linear>
-                                <v-btn @click="router.push('/dashboard/editprofile')"
+                                <v-btn @click="router.push('/profile/editprofile')"
                                     :class="['text-body-2 font-weight-light']" density="compact" variant="flat"
                                     :color="profilecolor">
                                     {{
@@ -220,7 +220,7 @@ async function getUser() {
                 count.value++;
             }
         }
-        profileStatus.value = Math.ceil((count.value / 13) * 100);
+        profileStatus.value = Math.ceil((count.value / 14) * 100);
 
         if (profileStatus.value <= 33) {
             profilecolor.value = 'red';
