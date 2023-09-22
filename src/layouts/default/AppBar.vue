@@ -114,7 +114,6 @@ import ProfileAvatar from '@/components/ProfileAvatar.vue';
 //@ts-ignore
 import { contact } from '../../../data.config.js';
 
-console.log(contact)
 const webWhatsapphref = `https://wa.me/${contact}`;
 const mobileContacthref = `tel:${contact}`;
 
