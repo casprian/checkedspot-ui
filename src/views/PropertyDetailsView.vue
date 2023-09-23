@@ -56,12 +56,12 @@
                 </v-row>
 
                 <!-- Gallery -->
-                <v-row no-gutters class="mb-8">
+                <v-row no-gutters class="mb-8" style="width: 100%; height: auto;">
                     <property-image :propertyId="property?.data?.propertyId" :image="property?.data?.propertyImage[0]" />
                 </v-row>
 
                 <!-- Description -->
-                <v-row no-gutters class="mb-8">
+                <v-row no-gutters class="mb-8" style="width: 100%; height: auto;">
                     <v-col cols="12">
                         <v-card class="rounded-0 px-2 pb-4 pt-2" elevation="2">
                             <v-card-item class="titleCont mb-5">
@@ -89,7 +89,7 @@
                 </v-row>
 
                 <!-- Plans -->
-                <v-row no-gutters class="mb-8">
+                <v-row no-gutters class="mb-8" style="width: 100%; height: auto;">
                     <v-col cols="12">
                         <v-card class="rounded-0 px-2 pb-4 pt-2" elevation="2">
                             <v-card-item class="titleCont mb-5">

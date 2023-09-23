@@ -12,7 +12,7 @@
                 No video has been uploaded for this property.
             </div>
             <v-card-item v-else>
-                <video id="propVideo" muted controls autoplay>
+                <video id="propVideo" muted controls autoplay style="width: 100%; height: 60vh; object-fit: contain;">
                     <source :src="propertyVideo" type="video/mp4" />
                     Your browser does not support the video tag.
                 </video>
