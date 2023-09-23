@@ -187,14 +187,6 @@ let isMobileDevice = ref(regexp.test(details.value));
   .smNav {
     display: block;
   }
-
-  .contact {
-    display: block;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1;
-  }
 }
 
 @media only screen and (min-width: 901px) {
@@ -205,10 +197,5 @@ let isMobileDevice = ref(regexp.test(details.value));
   .smNav {
     display: none;
   }
-
-  .contact {
-    display: none;
-  }
-
 }
 </style>

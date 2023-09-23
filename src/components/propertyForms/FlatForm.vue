@@ -188,7 +188,7 @@
         </v-col>
         <v-col cols="12" class="py-1 px-3">
           <v-file-input v-model="imgfile.value.value" :error-messages="imgfile.errorMessage.value" label="File input"
-            variant="filled" prepend-icon="mdi-camera" multiple name="imgfile" accept="image/*"></v-file-input>
+            variant="filled" prepend-icon="mdi-camera" multiple name="imgfile" accept=".jpg, .jpeg, .png, .gif, .webp, .avif, .apng, .svg"></v-file-input>
         </v-col>
 
         <v-col cols="12" class="pt-2 pb-7 px-14">
@@ -388,7 +388,7 @@ let { handleSubmit, handleReset } = useForm({
     },
     imgfile(value: any): any {
       if (!value) {
-        return "Required.";
+        return "Required! Allowed files: .jpg, .jpeg, .png, .gif, .webp, .avif, .apng, .svg";
       }
       return true;
     },

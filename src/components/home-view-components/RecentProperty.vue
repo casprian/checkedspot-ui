@@ -19,7 +19,7 @@
                                     <v-card class="mx-2 mb-4 elevation-2" style="max-width: 220px;" position="relative">
                                         <v-img
                                             @click="router.push(`/propertydetails/${property?.propertyId}`)"
-                                            :src="property?.propertyImage ? property?.propertyImage[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
+                                            :src="property?.propertyImage.length > 0 ? property?.propertyImage[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
                                             height="130px" 
                                             width="100%" 
                                             position="relative" 
@@ -61,10 +61,12 @@
                                                             Property type: <span class="text-pink-accent-3">{{ property?.type ?
                                                                 property?.type : 'Not Found' }}</span>
                                                         </v-card-text>
-                                                        <v-card-subtitle v-if="property?.address" class="px-3 py-0">
+                                                        <v-card-subtitle v-if="property?.address" class="px-3 py-0 font-weight-regular">
                                                             {{ property?.address }}
                                                         </v-card-subtitle>
-                                                        <div v-else class="px-3 text-body-2 text-grey-darken-2">address unavailable</div>
+                                                        <v-card-subtitle v-else class="px-3 text-body-2 text-grey-lighten-1">
+                                                            address unavailable
+                                                        </v-card-subtitle>
                                                     </v-col>
         
                                                     <v-col cols="12">
