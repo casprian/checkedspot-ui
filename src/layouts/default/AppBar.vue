@@ -123,7 +123,7 @@ async function getContact() {
 
   const contact = parseInt(response?.data?.contact);
   webWhatsapphref.value = `https://wa.me/91${contact}`;
-  mobileContacthref.value = `tel:91${contact}`;
+  mobileContacthref.value = `tel:${contact}`;
 }
 
 
