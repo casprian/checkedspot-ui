@@ -122,8 +122,8 @@ async function getContact() {
   const response = await axios.get(`${baseURL}/contact`);
 
   const contact = parseInt(response?.data?.contact);
-  webWhatsapphref.value = `https://wa.me/${contact}`;
-  mobileContacthref.value = `tel:${contact}`;
+  webWhatsapphref.value = `https://wa.me/91${contact}`;
+  mobileContacthref.value = `tel:91${contact}`;
 }
 
 
