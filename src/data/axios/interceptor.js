@@ -1,10 +1,12 @@
 import axios from "axios";
 
+// export let baseURL = "http://localhost:8080";
+export const baseURL = "https://api.checkedspot.com";
+
 const http = axios.create({
   // withCredentials: true, this statement is used to send cookie by default in request headers.
   withCredentials: true,
-  // baseURL: "http://localhost:8080",
-    baseURL: "https://api.checkedspot.com",
+  baseURL,
   headers: {
     "Accept": "application/json",
   },
@@ -31,8 +33,7 @@ http.interceptors.response.use(
 
 const instanceWithToken = axios.create({
   withCredentials: true,
-  // baseURL: "http://localhost:8080",
-    baseURL: "https://api.checkedspot.com",
+  baseURL,
   headers: {
     "Accept": "application/json",
   },
@@ -59,8 +60,7 @@ instanceWithToken.interceptors.response.use(
 
 const instanceForPostMultiPart = axios.create({
   withCredentials: true,
-  // baseURL: "http://localhost:8080",
-    baseURL: "https://api.checkedspot.com",
+  baseURL,
   headers: {
     "Accept": "application/json",
     "Content-Type": "multipart/form-data",
