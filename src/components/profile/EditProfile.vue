@@ -1,7 +1,7 @@
 <template>
     <v-row no-gutters class="px-6 py-5">
         <v-col cols="12" class="mt-2 mb-5">
-            <v-btn @click="router.push('/dashboard')">Back to Profile</v-btn>
+            <v-btn @click="router.push('/profile')">Back to Profile</v-btn>
         </v-col>
         <v-col cols="12" class="d-none d-md-block" :class="[showEdit ? 'd-none d-md-block' : 'd-block']">
             <v-form>

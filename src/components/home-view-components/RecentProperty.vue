@@ -19,7 +19,7 @@
                                     <v-card class="mx-2 mb-4 elevation-2" style="max-width: 220px;" position="relative">
                                         <v-img
                                             @click="router.push(`/propertydetails/${property?.propertyId}`)"
-                                            :src="property?.propertyImage ? property?.propertyImage[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
+                                            :src="property?.propertyImage.length > 0 ? property?.propertyImage[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
                                             height="130px" 
                                             width="100%" 
                                             position="relative" 
@@ -56,19 +56,22 @@
                                                                 title="google map link">Location</span>
                                                         </a>
                                                     </v-col>
-                                                    <v-col cols="12">
-                                                        <v-card-text class="px-3 py-3 pb-0">
+                                                    <v-col cols="12" class="pa-0">
+                                                        <v-card-text class="px-3 pt-3 pb-0">
                                                             Property type: <span class="text-pink-accent-3">{{ property?.type ?
                                                                 property?.type : 'Not Found' }}</span>
                                                         </v-card-text>
-                                                        <v-card-subtitle class="px-3 py-0">
-                                                            Hegde Nagar, Bengaluru
+                                                        <v-card-subtitle v-if="property?.address" class="px-3 py-0 font-weight-regular">
+                                                            {{ property?.address }}
+                                                        </v-card-subtitle>
+                                                        <v-card-subtitle v-else class="px-3 text-body-2 text-grey-lighten-1">
+                                                            address unavailable
                                                         </v-card-subtitle>
                                                     </v-col>
         
                                                     <v-col cols="12">
                                                         <v-row
-                                                            class="cardBottom pa-0 mx-3 my-2 d-flex flex-row justify-space-between align-center">
+                                                            class="cardBottom pa-0 mx-3 my-0 d-flex flex-row justify-space-between align-center">
                                                             <v-col cols="auto" class="px-0 my-1">
                                                                 <v-avatar class="pa-0 mr-3"
                                                                     image="https://checkedspot.blob.core.windows.net/assets/parvez1.jpeg"

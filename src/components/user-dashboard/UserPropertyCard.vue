@@ -21,7 +21,7 @@
     <v-card class="mx-auto" style="max-width: 480px; min-height: auto;" position="relative">
         <v-img
             :src="property?.propertyImage ? property.propertyImage[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
-            height="200px" position="relative" cover class="hoverPointer">
+            height="200px" position="relative" cover class="hoverPointer" alt="property Images">
             <v-toolbar v-if="property?.title && property?.title !== 'unavailable'" class="propertyTitle" theme="dark"
                 height="35" style="background-color: rgba(0, 0, 0, 0.466);">
                 <div class="w-100 text-body-1 text-center px-3">

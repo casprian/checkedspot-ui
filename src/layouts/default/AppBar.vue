@@ -15,9 +15,6 @@
         <v-btn @click="router.push('/aboutus')" variant="flat" height="32">
           WHO WE ARE
         </v-btn>
-        <!-- <v-btn @click="router.push('/whatwedo')" variant="flat" class="ml-1">
-          WHAT WE DO
-        </v-btn> -->
         <v-btn @click="router.push('/contactus')" variant="flat" class="ml-1" height="32">
           Contact
         </v-btn>
@@ -32,7 +29,8 @@
         <v-btn @click="handleCreateProperty" variant="flat" class="mr-2" color="pink-darken-4" height="32">
           Post Property
         </v-btn>
-        <v-btn v-if="hastoken" @click="router.push('/userdashboard')" variant="flat" class="mr-4" color="pink-darken-4" height="32">
+        <v-btn v-if="hastoken" @click="router.push('/userdashboard')" variant="flat" class="mr-4" color="pink-darken-4"
+          height="32">
           My Dashboard
         </v-btn>
       </div>
@@ -53,11 +51,6 @@
         WHO WE ARE
       </v-btn>
     </div>
-    <!-- <div class="px-5">
-      <v-btn width="100%" @click="router.push('/whatwedo')" variant="flat" class="my-2">
-        WHAT WE DO
-      </v-btn>
-    </div> -->
     <div class="px-5">
       <v-btn width="100%" @click="router.push('/contactus')" variant="flat" class="my-2" height="32">
         Contact
@@ -79,12 +72,37 @@
       <v-btn width="100%" @click="handleCreateProperty" variant="flat" class="my-3" color="pink-darken-4" height="32">
         Post Property
       </v-btn>
-      <v-btn width="100%" v-if="hastoken" @click="router.push('/userdashboard')" variant="flat" class="my-3" color="pink-darken-4" height="32">
+      <v-btn width="100%" v-if="hastoken" @click="router.push('/userdashboard')" variant="flat" class="my-3"
+        color="pink-darken-4" height="32">
         My Dashboard
       </v-btn>
     </div>
   </v-navigation-drawer>
-  <v-btn class="contact" density="comfortable" size="x-large" color="blue" icon="mdi-phone"></v-btn>
+  <a :href=webWhatsapphref style="text-decoration: none;"  target="_blank" v-if="!isMobileDevice">
+    <v-btn class="whatsapp1" density="comfortable" size="large" color="green" icon="mdi-whatsapp"></v-btn>
+  </a>
+  <v-dialog width="350" v-if="isMobileDevice">
+    <template v-slot:activator="{ props }">
+      <v-btn class="connectUs" v-bind="props" text="Open Dialog" density="comfortable" size="large"
+        color="blue" icon="mdi-account-box"></v-btn>
+    </template>
+
+    <template v-slot:default="{ isActive }">
+      <v-card class="rounded-pill">
+        <div class="d-flex pa-3 py-7 pt-10 justify-space-around">
+          <a :href=mobileContacthref style="text-decoration: none; width: 35%;" class="d-flex flex-column align-center">
+            <v-btn class="phone" size="small" color="blue" icon="mdi-phone"></v-btn>
+            <div class="text-center mt-1" style="font-size: 20px; color: grey; cursor: pointer;">Call</div>
+          </a>
+          <a :href=webWhatsapphref target="_blank" style="text-decoration: none; width: 45%;"
+            class="d-flex flex-column align-center">
+            <v-btn class="whatsapp2" size="small" color="green" icon="mdi-whatsapp"></v-btn>
+            <div class="text-center mt-1" style="font-size: 20px; color: grey; cursor: pointer;">Whatsapp</div>
+          </a>
+        </div>
+      </v-card>
+    </template>
+  </v-dialog>
 </template>
 
 <script lang="ts" setup>
@@ -92,13 +110,12 @@ import { ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useCookies } from "vue3-cookies";
 //@ts-ignore
-import ProfileAvatar from '@/components/ProfileAvatar.vue'
+import ProfileAvatar from '@/components/ProfileAvatar.vue';
+//@ts-ignore
+import { contact } from '../../../data.config.js';
 
-const showProfile = ref(false);
-
-watch(showProfile, (newshowProfile) => {
-  console.log(newshowProfile)
-})
+const webWhatsapphref = `https://wa.me/${contact}`;
+const mobileContacthref = `tel:${contact}`;
 
 const { cookies } = useCookies();
 const router = useRouter();
@@ -110,17 +127,12 @@ if (cookies.get('token')) {
 }
 
 function handleCreateProperty() {
-  // if (!cookies.get('token')) {
-  //   router.push({ path: '/authorization', query: { message: "createProperty" } });
-  //   return;
-  // } else {
   router.push('/createproperty');
-  //   return;
-  // }
 }
 
-// Profile header
-
+let details = ref(navigator.userAgent);
+let regexp = /android|iphone|kindle|ipad/i;
+let isMobileDevice = ref(regexp.test(details.value));
 </script>
 
 <style scoped>
@@ -141,6 +153,32 @@ function handleCreateProperty() {
   overflow: scroll;
 }
 
+.whatsapp1{
+    display: block;
+    position: fixed;
+    font-size: 16px;
+    z-index: 1;
+    bottom: 20px;
+    right: 20px;
+}
+
+.connectUs {
+    display: block;
+    position: fixed;
+    font-size: 16px;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1;
+  }
+
+  .phone{
+    font-size: 14px;
+  }
+  .whatsapp2{
+    font-size: 16px;
+    z-index: 1;
+  }
+
 @media only screen and (max-width: 900px) {
   .lgNav {
     display: none;
@@ -148,14 +186,6 @@ function handleCreateProperty() {
 
   .smNav {
     display: block;
-  }
-
-  .contact {
-    display: block;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1;
   }
 }
 
@@ -167,10 +197,5 @@ function handleCreateProperty() {
   .smNav {
     display: none;
   }
-
-  .contact {
-    display: none;
-  }
-
 }
 </style>
