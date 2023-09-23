@@ -11,7 +11,7 @@
 
                         <v-row no-gutters class="pr-10 pb-14">
                             <v-col cols="12" class="pa-0">
-                                <botton @click="getAuthorizationUrl" class="googlesignup" title="Sign un with Google">
+                                <botton @click="getAuthorizationUrl" class="googlesignup" title="Sign up with Google">
                                     <img class="google-icon mr-4"
                                         src="https://checkedspot.blob.core.windows.net/assets/Google_Logo.png"
                                         alt="G" /><span>Sign up with Google</span>

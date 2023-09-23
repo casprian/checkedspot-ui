@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid style="background-color: #FAFAFA">
+    <v-container fluid style="background-color: #FAFAFA; height: 100%;">
         <v-row no-gutters class="px-sm-14">
             <v-col cols="12">
                 <v-breadcrumbs :items="items">
@@ -33,8 +33,8 @@
                 <property-card :property="data"/>
             </v-col>
         </v-row>
-        <v-row v-if="!propertiesData?.data" no-gutters class="px-sm-14 pb-16 mb-16">
-            <v-col cols="4" class="loader">
+        <v-row v-if="!propertiesData?.data" no-gutters class="d-flex justify-center align-center" style="height: calc(100% - 54px);">
+            <v-col cols="4">
                 <v-progress-linear color="pink-accent-3" indeterminate rounded height="10"></v-progress-linear>
             </v-col>
         </v-row>
@@ -129,13 +129,4 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.cardCont:hover {
-    cursor: pointer;
-}
-.loader {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
 </style>
