@@ -213,15 +213,18 @@ if (cookies.get("token")) {
 async function getUser() {
     const res = await api?.user?.getUserData({ params: { email: user?.email } });
     if (res?.data?.status === 200) {
-        userdata.value = res?.data?.data;
-        name.value = res?.data?.data?.name?.toUpperCase();
-        for (let item in res?.data?.data) {
-            if ((typeof item) === 'string' && item.length > 0 && item !== 'null' && item !== 'undefined') {
+        for(let data in userdata.value) {
+            if(res?.data?.data[data] !== false && res?.data?.data[data] !== "") {
+                //@ts-ignore
+                userdata.value[data] = res?.data?.data[data];
                 count.value++;
+            }else {
+                continue;
             }
         }
-        profileStatus.value = Math.ceil((count.value / 14) * 100);
-
+        name.value = res?.data?.data?.name?.toUpperCase();
+        profileStatus.value = Math.ceil((count.value / Object.entries(userdata.value).length) * 100);
+        
         if (profileStatus.value <= 33) {
             profilecolor.value = 'red';
         } else if (profileStatus.value < 66) {

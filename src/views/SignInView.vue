@@ -28,7 +28,7 @@
                             </v-col>
                         </v-row>
 
-                        <facebook-o-auth />
+                        <!-- <facebook-o-auth /> -->
 
                         <div class="divider mb-14 mr-10">
                             <div class="circle-icon">
