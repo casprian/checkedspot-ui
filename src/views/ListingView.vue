@@ -157,6 +157,7 @@ onMounted(async () => {
         await getAllProperty();
     }
 });
+
 </script>
 
 <style scoped></style>
