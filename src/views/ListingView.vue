@@ -34,7 +34,7 @@
                 <property-card :property="data" />
             </v-col>
         </v-row>
-        <v-row v-if="!propertiesData?.data" no-gutters class="d-flex justify-center align-center"
+        <v-row v-if="!(propertiesData?.data?.length > 0)" no-gutters class="d-flex justify-center align-center"
             style="height: calc(100% - 54px);">
             <v-col cols="4">
                 <v-progress-linear color="pink-accent-3" indeterminate rounded height="10"></v-progress-linear>
@@ -49,14 +49,22 @@
                 </div>
             </v-col>
         </v-row> -->
+        <v-snackbar v-model="isFetchingData" color="pink">
+            {{ 'Loading properties...' }}
+
+            <template v-slot:actions>
+                <v-btn white icon="mdi-close" @click="isFetchingData = false">
+                </v-btn>
+            </template>
+        </v-snackbar>
     </v-container>
 </template>
 
 <script lang="ts" setup>
-
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import api from "@/data/api/index.js";
+//@ts-ignore
 import PropertyCard from '@/components/PropertyCard.vue';
 import { computed, onMounted, reactive, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
@@ -82,7 +90,7 @@ const items = reactive([
 const propertiesData = reactive({ data: [] });
 const propertyFilterObj = reactive({ ...route?.query });
 
-let cities:any = null;
+let cities: any = null;
 if (!Array.isArray(route.query.city) && (typeof (route.query.city) === 'string')) {
     cities = [route.query.city];
 } else if (Array.isArray(route.query.city)) {
@@ -134,6 +142,10 @@ window.addEventListener('scroll', async () => {
 
     if (scrollY + viewportHeight > pageHeight - 240 && noOfPage.value >= usePropertyStore().pageNumber) {
         // User has reached the 240px above the end of the page
+
+        /* isFetchingData is important to run the getAllProperty method only once when satisfy above conditions 
+        and the snackbar appearence is secondary */
+
         isFetchingData.value = true;
         await getAllProperty();
         isFetchingData.value = false;
