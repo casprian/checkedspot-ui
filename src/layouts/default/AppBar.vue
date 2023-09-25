@@ -149,6 +149,7 @@ onMounted(async() => {
 })
 </script>
 
+
 <style scoped>
 .logo {
   cursor: pointer;
