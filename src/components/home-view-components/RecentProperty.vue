@@ -14,8 +14,8 @@
                     </v-row>
                     <v-row v-else no-gutters>
                         <v-col v-if="props?.properties?.length > 0" cols="12">
-                            <v-slide-group  show-arrows>
-                                <v-slide-group-item v-for="(property, index) in props.properties" :key="index">
+                            <v-slide-group show-arrows>
+                                <v-slide-group-item v-for="(property) in props.properties" :key="property.propertyId">
                                     <v-card class="mx-2 mb-4 elevation-2" style="max-width: 220px;" position="relative">
                                         <v-img
                                             @click="router.push(`/propertydetails/${property?.propertyId}`)"
