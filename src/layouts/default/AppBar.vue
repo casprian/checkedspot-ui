@@ -106,16 +106,26 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useCookies } from "vue3-cookies";
 //@ts-ignore
 import ProfileAvatar from '@/components/ProfileAvatar.vue';
+import axios from 'axios';
 //@ts-ignore
-import { contact } from '../../../data.config.js';
+import { baseURL } from '@/data/axios/interceptor.js'
 
-const webWhatsapphref = `https://wa.me/${contact}`;
-const mobileContacthref = `tel:${contact}`;
+const webWhatsapphref = ref('');
+const mobileContacthref= ref('');
+
+async function getContact() {
+  const response = await axios.get(`${baseURL}/contact`);
+
+  const contact = parseInt(response?.data?.contact);
+  webWhatsapphref.value = `https://wa.me/91${contact}`;
+  mobileContacthref.value = `tel:${contact}`;
+}
+
 
 const { cookies } = useCookies();
 const router = useRouter();
@@ -133,7 +143,12 @@ function handleCreateProperty() {
 let details = ref(navigator.userAgent);
 let regexp = /android|iphone|kindle|ipad/i;
 let isMobileDevice = ref(regexp.test(details.value));
+
+onMounted(async() => {
+  await getContact();
+})
 </script>
+
 
 <style scoped>
 .logo {
