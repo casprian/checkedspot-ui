@@ -105,7 +105,7 @@ const handelUpdate = handleSubmit(async (values: any) => {
         passwordUpdated.value = true;
         handleReset();
         setTimeout(() => {
-            router.push('/');
+            router.push('/home');
         }, 2000);
     } else {
         currentPasswordIncorrect.value = true;

@@ -87,7 +87,7 @@ async function loadImages() {
 
 .overlay {
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
     right: 0;
     background-color: #0000008b;
