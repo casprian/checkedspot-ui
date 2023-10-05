@@ -1,21 +1,21 @@
 <template>
     <v-container fluid style="background-color: #FAFAFA; height: 100%;" id="prop_cont">
-        <v-row class="px-sm-14 py-10">
+        <v-row class="px-sm-14 pt-5 pb-10">
             <v-col cols="12">
                 <h1>Pick your plot</h1>
             </v-col>
 
-            <v-col class="py-0 px-2 px-md-4" cols="12" sm="3">
+            <v-col class="py-0 px-2 px-md-4" cols="12" sm="6" md="3">
                 <v-combobox v-model="locationSelect" label="Choose Location" :items="locations" closable-chips="true"
                     prepend-inner-icon="mdi-map-marker" chips variant="outlined" multiple></v-combobox>
             </v-col>
 
             <!-- property type Filter -->
-            <v-col class="py-0 px-2 px-md-4 mt-n2" cols="12" sm="3">
+            <v-col class="py-0 px-2 px-md-4 my-3 mt-n2 my-sm-0 mt-sm-n2" cols="12" sm="6" md="3">
                 <fieldset class="rounded pb-1">
                     <legend class="ml-2 text-body-2">Property Type:</legend>
-                    <v-btn block variant="text" class="text-h6 d-flex justify-start text-grey-darken-3 text-capitalize"
-                        style="margin-bottom: 3px;">
+                    <v-btn block variant="text" class="text-h6 d-flex justify-space-between text-grey-darken-3 text-capitalize"
+                        style="margin-bottom: 3px; height: 39px;" append-icon="mdi-chevron-down" >
                         {{ propertyType }}
 
                         <v-overlay activator="parent" location-strategy="connected" location="bottom start"
@@ -39,27 +39,30 @@
             </v-col>
 
             <!-- Verified Property Filter -->
-            <v-col class="py-0 px-2 px-md-4" cols="12" sm="3">
-                <v-switch class="px-4" :v-model="'people'" true-value="true" false-value="false" label="Verified Properties"
-                    color="pink-accent-3" hide-details style="border: solid 1px grey; border-radius: 5px;"></v-switch>
+            <v-col class="py-0 px-2 px-md-4 my-3 my-sm-0" cols="12"  sm="6" md="3">
+                <v-switch class="px-4" v-model="isVerified" :true-value="true" :false-value="false" label="Verified Properties"
+                    color="pink-accent-3" hide-details style="border: solid 1px grey; border-radius: 5px; height: 59px;"></v-switch>
             </v-col>
 
             <!-- Advanced Filter -->
-            <v-col class="py-0" cols="12" sm="3" style="position: relative">
-                <v-btn block height="55" variant="outlined"
+            <v-col class="py-0 px-2 my-3 my-sm-0" cols="12" sm="6" md="3" style="position: relative">
+                <v-btn block height="59" variant="outlined"
                     class="text-h6 d-flex justify-space-between text-grey-darken-3 text-capitalize"
                     append-icon="mdi-dots-vertical" @click="showAdvancedFilterOverlay = !showAdvancedFilterOverlay">
                     Advance Filter
                 </v-btn>
 
-
-                <v-card v-if="showAdvancedFilterOverlay" class="pa-3 pt-5 pb-8 mt-3 d-flex flex-column showAFO"
-                    style="border: solid 2px #880e4f" variant="flat">
+                <v-card 
+                    v-if="showAdvancedFilterOverlay"
+                    class="pa-3 pt-5 pb-8 mt-3 d-flex flex-column showAFO"
+                    variant="elevated"
+                    elevation="7"
+                >
                     <v-row no-gutters>
                         <v-col cols="12" md="9">
                             <!-- Area Filter -->
                             <v-col class="py-0 px-2 px-md-4 mb-5" cols="12">
-                                <area-filter v-model="areaf" />
+                                <area-filter v-model="areaRange" />
                             </v-col>
 
                             <!-- Cost Filter -->
@@ -89,9 +92,10 @@
                             <div class="">
                                 <!-- Freehold Filter  -->
                                 <v-col class="py-0 px-2 mb-4" cols="12">
-                                    <v-switch class="px-4" :v-model="'people'" true-value="true" false-value="false"
+                                    <v-switch class="px-4" v-model="isFreehold" :true-value="true" :false-value="false"
                                         label="Freehold Properties" color="pink-accent-3" hide-details style="border: solid 1px grey; border-radius: 5px;"></v-switch>
                                 </v-col>
+
                                 <!-- Date Filter -->
                                 <v-col class="py-0 px-2 mb-4" cols="12">
                                     <v-select variant="outlined" v-model="selectDate" label="Posted on" :items="posted"
@@ -100,8 +104,7 @@
                                     <v-dialog v-model="dateDialog" scroll-strategy="none" persistent width="auto">
                                         <v-card title="Choose Date">
                                             <v-card-text class="d-flex">
-                                                <v-text-field type="date" class="ma-3" v-model="selectedDateFrom"
-                                                    :rules="validateDateFrom"></v-text-field>
+                                                <v-text-field type="date" class="ma-3" v-model="selectedDateFrom"></v-text-field>
                                                 <v-text-field type="date" class="ma-3" v-model="selectedDateTo"></v-text-field>
                                             </v-card-text>
     
@@ -122,12 +125,12 @@
                     </v-row>
                 </v-card>
             </v-col>
-            <v-col cols="12" class="py-0 px-2 d-flex justify-center pl-4">
-                <v-btn @click="handleSubmit" class="text-white" variant="elevated" color="#880e4f" width="100%" height="45">Submit</v-btn>
+            <v-col cols="12" class="py-0 px-2 d-flex justify-center pl-4 mt-4 mt-md-0">
+                <v-btn @click="handleSubmit" class="text-white" variant="elevated" color="#880e4f" width="98%" height="45">Submit</v-btn>
             </v-col>
         </v-row>
 
-        <v-row no-gutters class="px-sm-14 py-5 d-flex justify-center align-center">
+        <v-row  v-if="receivedProperties" no-gutters class="px-sm-14 py-5 d-flex justify-center align-center">
             <v-col cols="5">
                 <div class="text-center text-h3">
                     No data available of type {{ propertyFilterObj?.type }}.
@@ -173,8 +176,6 @@ import AreaFilter from '@/components/property-filters/AreaFilter.vue';
 
 const route = useRoute();
 const router = useRouter();
-
-const areaf = ref({});
 
 const items = reactive([
     {
@@ -230,7 +231,6 @@ function getDate(dateLabel: String) {
         return { from, to };
     }
 }
-
 const dateDialog = ref(false);
 const selectedDateFrom = ref('');
 const selectedDateTo = ref('');
@@ -288,6 +288,10 @@ const propertyType = ref("All");
 
 //AdvancedFilter
 const showAdvancedFilterOverlay = ref(false);
+const isVerified = ref(false);
+const areaRange = ref({});
+const isFreehold = ref(false);
+   
 
 //Cost filter
 const costRange = ref([0, 500])
@@ -309,7 +313,13 @@ watch(costRange, (newCostRange) => {
 
 
 function handleSubmit() {
-    console.log(areaf.value)
+    console.log("location : ", locationSelect.value)
+    console.log("type : ", propertyType.value)
+    console.log("isVerified : ",isVerified.value)
+    console.log("areaRange : ", areaRange.value)
+    console.log("costFrom : ", costFrom.value, "  costTo : ", costTo.value)
+    console.log("isFreehold : ", isFreehold.value)
+    console.log("date : ", selectDate.value)
 }
 
 const propertiesData = reactive({ data: [] });
@@ -425,6 +435,5 @@ onMounted(async () => {
     position: absolute;
     right: 10px;
     width: 87vw;
-    border-radius: 5px;
 }
 </style>
