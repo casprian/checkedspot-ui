@@ -229,7 +229,6 @@ async function getAllProperty() {
         noOfPage.value = Math.ceil(res?.noOfdata / limit.value);
         if (res.noOfdata <= 0) {
             zeroProperties.value = true;
-            console.log(zeroProperties.value)
         }
     } else {
         router.push({ path: '/error', query: { status: res?.status } })
