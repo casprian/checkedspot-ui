@@ -14,8 +14,9 @@
             <v-col class="py-0 px-2 px-md-4 my-3 mt-n2 my-sm-0 mt-sm-n2" cols="12" sm="6" md="3">
                 <fieldset class="rounded pb-1">
                     <legend class="ml-2 text-body-2">Property Type:</legend>
-                    <v-btn block variant="text" class="text-h6 d-flex justify-space-between text-grey-darken-3 text-capitalize"
-                        style="margin-bottom: 3px; height: 39px;" append-icon="mdi-chevron-down" >
+                    <v-btn block variant="text"
+                        class="text-h6 d-flex justify-space-between text-grey-darken-3 text-capitalize"
+                        style="margin-bottom: 3px; height: 39px;" append-icon="mdi-chevron-down">
                         {{ propertyType }}
 
                         <v-overlay activator="parent" location-strategy="connected" location="bottom start"
@@ -39,9 +40,10 @@
             </v-col>
 
             <!-- Verified Property Filter -->
-            <v-col class="py-0 px-2 px-md-4 my-3 my-sm-0" cols="12"  sm="6" md="3">
-                <v-switch class="px-4" v-model="isVerified" :true-value="true" :false-value="false" label="Verified Properties"
-                    color="pink-accent-3" hide-details style="border: solid 1px grey; border-radius: 5px; height: 59px;"></v-switch>
+            <v-col class="py-0 px-2 px-md-4 my-3 my-sm-0" cols="12" sm="6" md="3">
+                <v-switch class="px-4" v-model="isVerified" :true-value="true" :false-value="false"
+                    label="Verified Properties" color="pink-accent-3" hide-details
+                    style="border: solid 1px grey; border-radius: 5px; height: 59px;"></v-switch>
             </v-col>
 
             <!-- Advanced Filter -->
@@ -52,12 +54,8 @@
                     Advance Filter
                 </v-btn>
 
-                <v-card 
-                    v-if="showAdvancedFilterOverlay"
-                    class="pa-3 pt-5 pb-8 mt-3 d-flex flex-column showAFO"
-                    variant="elevated"
-                    elevation="7"
-                >
+                <v-card v-if="showAdvancedFilterOverlay" class="pa-3 pt-5 pb-8 mt-3 d-flex flex-column showAFO"
+                    variant="elevated" elevation="7">
                     <v-row no-gutters>
                         <v-col cols="12" md="9">
                             <!-- Area Filter -->
@@ -67,23 +65,7 @@
 
                             <!-- Cost Filter -->
                             <v-col class="py-0 px-2 px-md-4 mt-8" cols="12" sm="">
-                                <fieldset class="rounded-xl">
-                                    <legend class="ml-6 text-h6">Cost Filter:</legend>
-                                    <v-row class="pt-3 px-5 py-5">
-                                        <v-col cols="12" class="py-0">
-                                            <div class="">
-                                                <h3 class="text-body-1 font-weight-medium">Choose Budget</h3>
-                                            </div>
-                                            <v-range-slider v-model="costRange" strict color="#880e4f" :max="500" :min="0"
-                                                :step="5" hide-details justify="align-center">
-                                            </v-range-slider>
-                                        </v-col>
-                                        <v-col cols="12" class="d-flex justify-space-between py-0">
-                                            <span>₹ {{ costFrom }}</span>
-                                            <span>₹ {{ costTo }}</span>
-                                        </v-col>
-                                    </v-row>
-                                </fieldset>
+                                <cost-filter v-model="costRange" />
                             </v-col>
 
                         </v-col>
@@ -93,44 +75,28 @@
                                 <!-- Freehold Filter  -->
                                 <v-col class="py-0 px-2 mb-4" cols="12">
                                     <v-switch class="px-4" v-model="isFreehold" :true-value="true" :false-value="false"
-                                        label="Freehold Properties" color="pink-accent-3" hide-details style="border: solid 1px grey; border-radius: 5px;"></v-switch>
+                                        label="Freehold Properties" color="pink-accent-3" hide-details
+                                        style="border: solid 1px grey; border-radius: 5px;"></v-switch>
                                 </v-col>
 
-                                <!-- Date Filter -->
-                                <v-col class="py-0 px-2 mb-4" cols="12">
-                                    <v-select variant="outlined" v-model="selectDate" label="Posted on" :items="posted"
-                                        item-title="title" item-value="value" return-object single-line>
-                                    </v-select>
-                                    <v-dialog v-model="dateDialog" scroll-strategy="none" persistent width="auto">
-                                        <v-card title="Choose Date">
-                                            <v-card-text class="d-flex">
-                                                <v-text-field type="date" class="ma-3" v-model="selectedDateFrom"></v-text-field>
-                                                <v-text-field type="date" class="ma-3" v-model="selectedDateTo"></v-text-field>
-                                            </v-card-text>
-    
-                                            <v-card-actions>
-                                                <v-spacer></v-spacer>
-                                                <v-btn text="Close Dialog" @click="hideDialog">close</v-btn>
-                                                <v-btn text="Close Dialog" @click="hideDialog">Okay</v-btn>
-                                            </v-card-actions>
-                                        </v-card>
-                                    </v-dialog>
-                                </v-col>
+                                <date-filter v-model="selectedDate" />
                             </div>
 
-                            <div class="py-0 px-2 d-flex justify-center">                                
-                                <v-btn @click="handleSubmit" class="text-white" variant="elevated" color="#880e4f" width="100%" height="45">Submit</v-btn>
+                            <div class="py-0 px-2 d-flex justify-center">
+                                <v-btn @click="handleSubmit" class="text-white" variant="elevated" color="#880e4f"
+                                    width="100%" height="45">Submit</v-btn>
                             </div>
                         </v-col>
                     </v-row>
                 </v-card>
             </v-col>
             <v-col cols="12" class="py-0 px-2 d-flex justify-center pl-4 mt-4 mt-md-0">
-                <v-btn @click="handleSubmit" class="text-white" variant="elevated" color="#880e4f" width="98%" height="45">Submit</v-btn>
+                <v-btn @click="handleSubmit" class="text-white" variant="elevated" color="#880e4f" width="98%"
+                    height="45">Submit</v-btn>
             </v-col>
         </v-row>
 
-        <v-row  v-if="receivedProperties" no-gutters class="px-sm-14 py-5 d-flex justify-center align-center">
+        <v-row v-if="receivedProperties" no-gutters class="px-sm-14 py-5 d-flex justify-center align-center">
             <v-col cols="5">
                 <div class="text-center text-h3">
                     No data available of type {{ propertyFilterObj?.type }}.
@@ -173,23 +139,19 @@ import PropertyCard from '@/components/PropertyCard.vue';
 import { computed, watch, onMounted, reactive, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import AreaFilter from '@/components/property-filters/AreaFilter.vue';
+import CostFilter from "@/components/property-filters/CostFilter.vue";
+import DateFilter from "@/components/property-filters/DateFilter.vue";
+import axios from "axios";
 
 const route = useRoute();
 const router = useRouter();
-
-const items = reactive([
-    {
-        title: "Home",
-        disabled: false,
-        href: "/",
-    },
-    {
-        title: "Listing",
-        disabled: true,
-        href: "/listing",
-    },
-]);
-
+const propertiesData = reactive({ data: [] });
+const pageNumber = ref(1);
+const limit = ref(6);
+const noOfPage = ref(0);
+const receivedProperties = ref(false);
+const isFetchingData = ref(false);
+const propertyFilterObj = reactive({ ...route?.query });
 
 let cities: any = null;
 if (!Array.isArray(route.query.city) && (typeof (route.query.city) === 'string')) {
@@ -198,132 +160,6 @@ if (!Array.isArray(route.query.city) && (typeof (route.query.city) === 'string')
     cities = [...route.query.city];
 }
 
-
-
-
-//Date Selection Filter
-function formatDate(date: Date, delemitter: String = "/", format: String = "ddmmyyyy") {
-    if (format === "yyyymmdd") {
-        const ddmmyyyyFormat = date.getFullYear().toString() + delemitter + (date.getMonth() + 1) + delemitter + date.getDate();
-        return ddmmyyyyFormat;
-    } else {
-        const ddmmyyyyFormat = date.getDate().toString() + delemitter + (date.getMonth() + 1) + delemitter + date.getFullYear();
-        return ddmmyyyyFormat;
-    }
-}
-
-function getDate(dateLabel: String) {
-    let today = new Date();
-    let from;
-    let to = formatDate(new Date(), "-", "ddmmyyyy");
-    if (dateLabel === "Today") {
-        from = formatDate(new Date(), "-", "ddmmyyyy");
-        return { from, to };
-    } else if (dateLabel === "This week") {
-        from = formatDate(new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7,), "-", "ddmmyyyy");
-        return { from, to };
-    } else if (dateLabel === "This month") {
-        from = formatDate(new Date(today.getFullYear(), today.getMonth() - 1, today.getDate(),), "-", "ddmmyyyy");
-        return { from, to };
-    } else {
-        from = formatDate(new Date(), "-", "ddmmyyyy");
-        to = formatDate(new Date(), "-", "ddmmyyyy");
-        return { from, to };
-    }
-}
-const dateDialog = ref(false);
-const selectedDateFrom = ref('');
-const selectedDateTo = ref('');
-const selectDate = ref({
-    title: "Today",
-    value: getDate("Today")
-});
-const posted = ref([
-    {
-        title: "Today",
-        value: getDate("Today")
-    },
-    {
-        title: "This week",
-        value: getDate("This week")
-    },
-    {
-        title: "This month",
-        value: getDate("This month")
-    },
-    {
-        title: "Select",
-        value: getDate("Select")
-    },
-])
-watch(selectDate, (newValue) => {
-    if (newValue.title === 'Select') {
-        dateDialog.value = true;
-    }
-},
-    { deep: true }
-);
-
-function hideDialog() {
-    const from = selectedDateFrom.value.split('-');
-    const to = selectedDateTo.value.split('-')
-    if (from.length === 3 && to.length === 3) {
-        const fromDate = from[2] + "-" + from[1] + "-" + from[0];
-        const toDate = to[2] + "-" + to[1] + "-" + to[0];
-
-        selectDate.value.value.from = fromDate;
-        selectDate.value.value.to = toDate;
-    }
-    console.log("selectedDateFrom : ", selectDate.value)
-    dateDialog.value = false;
-}
-
-
-//Location filter
-const locationSelect = ref("Bangalore")
-const locations = ref(['Bangalore', 'Hassan', 'Mysore']);
-
-//Property filter
-const propertyType = ref("All");
-
-//AdvancedFilter
-const showAdvancedFilterOverlay = ref(false);
-const isVerified = ref(false);
-const areaRange = ref({});
-const isFreehold = ref(false);
-   
-
-//Cost filter
-const costRange = ref([0, 500])
-const costFrom = ref("0 Lac");
-const costTo = ref("5.00 Cr");
-watch(costRange, (newCostRange) => {
-    if (newCostRange[0] >= 100) {
-        costFrom.value = (newCostRange[0] / 100).toFixed(2) + " Cr";
-    } else {
-        costFrom.value = (newCostRange[0]).toString() + " Lac";
-    }
-
-    if (newCostRange[1] >= 100) {
-        costTo.value = (newCostRange[1] / 100).toFixed(2) + " Cr";
-    } else {
-        costTo.value = (newCostRange[1]).toString() + " Lac";
-    }
-});
-
-
-function handleSubmit() {
-    console.log("location : ", locationSelect.value)
-    console.log("type : ", propertyType.value)
-    console.log("isVerified : ",isVerified.value)
-    console.log("areaRange : ", areaRange.value)
-    console.log("costFrom : ", costFrom.value, "  costTo : ", costTo.value)
-    console.log("isFreehold : ", isFreehold.value)
-    console.log("date : ", selectDate.value)
-}
-
-const propertiesData = reactive({ data: [] });
-const propertyFilterObj = reactive({ ...route?.query });
 const filterOptions = reactive({
     //@ts-ignore
     type: (propertyFilterObj?.type)?.length > 0 ? propertyFilterObj?.type : null,
@@ -333,23 +169,60 @@ const filterOptions = reactive({
     areaTo: propertyFilterObj?.areaTo || null,
     costFrom: propertyFilterObj?.costFrom || null,
     costTo: propertyFilterObj?.costTo || null,
+    limit: limit.value,
+    pageNumber: pageNumber.value
 })
 
-const pageNumber = ref(1);
-const limit = ref(6);
-const noOfPage = ref(0);
-const receivedProperties = ref(false);
-const isFetchingData = ref(false);
+//Location filter
+const locationSelect = ref(["Bangalore"]) // ["string"]
+const locations = ref(['Bangalore', 'Hassan', 'Mysore']);
 
+//Property filter
+const propertyType = ref("All"); // string
+
+const showAdvancedFilterOverlay = ref(false);
+//AdvancedFilter
+const isVerified = ref(false); // boolean
+const areaRange = ref(null); // {areaFrom: "0 sqft", areaTo: "50000 sqft"}
+const costRange = ref(null); //{costFrom: '0 Lac', costTo: '5.00 Cr'}
+//@ts-ignore
+const costFrom = ref(costRange.value === null ? null : costRange.value?.costFrom);
+//@ts-ignore
+const costTo = ref(costRange.value === null ? null : costRange.value?.costTo);
+//@ts-ignore
+const areaFrom = ref(areaRange.value === null ? null : areaRange.value?.areaFrom);
+//@ts-ignore
+const areaTo = ref(areaRange.value === null ? null : areaRange.value?.areaTo);
+
+const selectedDate = ref(null); // {title: 'Today', value: {from: '6-10-2023', to: '6-10-2023'}}
+const isFreehold = ref(false); //boolean
+
+console.log( undefined? "alkdsf" : "oioouoi");
+
+async function handleSubmit() {
+    const propertyFilters = {
+        city: locationSelect.value,
+        type: propertyType.value,
+        isVerified: isVerified.value,
+        areaRange: areaRange.value,
+        costRange: costRange.value,
+        isFreehold: isFreehold.value,
+        date: selectedDate.value,
+        limit: 6,
+        pageNumber: 2,
+    }
+
+    const res = await axios.get('http://localhost:8080/property/filtered', { params: { filters: JSON.stringify(propertyFilters) } });
+
+
+}
 
 
 async function getAllProperty() {
     // console.log(filterOptions)
     const filterData = {
         params: {
-            ...filterOptions,
-            limit: limit.value,
-            pageNumber: pageNumber.value,
+            filters: JSON.stringify({...filterOptions })            
         },
     };
 
@@ -434,6 +307,12 @@ onMounted(async () => {
     z-index: 1;
     position: absolute;
     right: 10px;
-    width: 87vw;
+    width: calc(100vw - 160px);
+}
+
+@media screen and (max-width: 599px) {
+    .showAFO {
+        width: calc(100vw - 30px)
+    }
 }
 </style>

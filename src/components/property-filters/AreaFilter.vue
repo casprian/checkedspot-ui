@@ -10,7 +10,7 @@
                 <div class="">
                     <h3 class="text-body-1 font-weight-medium">Choose Area</h3>
                 </div>
-                <v-range-slider class="" v-model="areaRange" strict color="#880e4f" :max="areaRangeMax" :min="0"
+                <v-range-slider class="" v-model="areaRange" strict color="#880e4f" :max="50000" :min="0"
                     :step="areaStep" hide-details justify="align-center">
                 </v-range-slider>
                 <div class="d-flex justify-space-between">
@@ -29,35 +29,20 @@ const props = defineProps(['modelValue'])
 const emit = defineEmits(['update:modelValue'])
 
 //Area Filter
-const sqftAreaRange = ref([0, 50000]); // step 200
-const sqyrdAreaRange = ref([0, 5500]); // step 50
-const sqmAreaRange = ref([0, 5000]); // step 50
-const areaRangeMax = ref(sqftAreaRange.value[1]);
 const areaStep = ref(200);
 
 const areaUnit = ref("sqft");
-const areaRange = ref(sqftAreaRange.value);
+const areaRange = ref([0, 50000]);
 
 const areaFrom = ref("0 sqft");
 const areaTo = ref("50000 sqft");
 
 watch(areaUnit, (newAreaUnit, oldAreaUnit) => {
     if (newAreaUnit !== oldAreaUnit) {
-        if (newAreaUnit === "sqyrd") {
-            areaRange.value = sqyrdAreaRange.value;
-            areaStep.value = 50;
-            areaRangeMax.value = sqyrdAreaRange.value[1];
-        } else if (newAreaUnit === "sqm") {
-            areaRange.value = sqmAreaRange.value;
-            areaStep.value = 50;
-            areaRangeMax.value = sqmAreaRange.value[1];
-        } else {
-            areaRange.value = sqftAreaRange.value;
-            areaStep.value = 200;
-            areaRangeMax.value = sqftAreaRange.value[1];
-        }
+        areaFrom.value = `${Number.parseInt(areaFrom.value)} ${newAreaUnit}`;
+        areaTo.value = `${Number.parseInt(areaTo.value)} ${newAreaUnit}`;
 
-        emit('update:modelValue', { areaFrom: areaRange.value[0], areaTo: areaRange.value[1] })
+        emit('update:modelValue', { areaFrom: areaFrom.value, areaTo: areaTo.value })
     }
 });
 
