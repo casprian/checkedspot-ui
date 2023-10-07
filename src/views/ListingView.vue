@@ -6,7 +6,7 @@
             </v-col>
 
             <v-col class="py-0 px-2 px-md-4" cols="12" sm="6" md="3">
-                <v-combobox v-model="locationSelect" label="Choose Location" :items="locations" closable-chips="true"
+                <v-combobox v-model="locationSelect" label="Choose Location" :items="locations"
                     prepend-inner-icon="mdi-map-marker" chips variant="outlined" multiple></v-combobox>
             </v-col>
 
@@ -202,6 +202,7 @@ watch([locationSelect, propertyType, isVerified, isFreeHold, areaRange, costRang
 });
 
 async function handleSubmit() {
+    zeroProperties.value = false;
     pageNumber.value = 1;
     propertyFilters.pageNumber = pageNumber.value;
     propertiesData.data = [];
