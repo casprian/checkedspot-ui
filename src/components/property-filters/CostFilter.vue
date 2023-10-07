@@ -1,12 +1,12 @@
 <template>
-    <fieldset class="rounded-xl">
-        <legend class="ml-6 text-h6">Cost Filter:</legend>
+    <fieldset class="rounded-xl"> 
+        <legend class="ml-6 text-h6 textColor legendText">Cost Filter:</legend>
         <v-row class="pt-3 px-5 py-5">
             <v-col cols="12" class="py-0">
                 <div class="">
-                    <h3 class="text-body-1 font-weight-medium">Choose Budget</h3>
+                    <h3 class="text-body-1 font-weight-regular textColor">Choose Budget</h3>
                 </div>
-                <v-range-slider v-model="costRange" strict color="#880e4f" :max="500" :min="0" :step="5" hide-details
+                <v-range-slider v-model="costRange" strict color="#c46d9a" :max="500" :min="0" :step="5" hide-details
                     justify="align-center">
                 </v-range-slider>
             </v-col>

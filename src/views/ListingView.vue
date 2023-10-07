@@ -54,31 +54,70 @@
                     Advance Filter
                 </v-btn>
 
-                <v-card v-if="showAdvancedFilterOverlay" class="pa-3 pt-5 pb-8 mt-3 d-flex flex-column showAFO"
+                <!-- ADVANCED FILTER CARD -->
+                <v-card v-if="showAdvancedFilterOverlay" class="pa-3 pt-3 pb-8 mt-3 d-flex flex-column showAFO"
                     variant="elevated" elevation="7">
                     <v-row no-gutters>
+                        <!-- <v-row no-gutters class="d-flex align-center">
+
+
+                            <v-col class="py-0 px-2 px-md-4 mt-5 mb-3 mt-sm-3 mb-sm-5 my-md-5" cols="12" sm="6" md="3">
+                                <div style="border: solid 1px red;">kjsjdfsd</div>
+                            </v-col>
+                        </v-row> -->
+
                         <v-col cols="12" md="9">
-                            <!-- Area Filter -->
-                            <v-col class="py-0 px-2 px-md-4 mb-5" cols="12">
-                                <area-filter v-model="areaRange" />
-                            </v-col>
-
-                            <!-- Cost Filter -->
-                            <v-col class="py-0 px-2 px-md-4 mt-8" cols="12" sm="">
-                                <cost-filter v-model="costRange" />
-                            </v-col>
-
+                            <v-row no-gutters>
+                                <v-col class="py-0 px-2 px-md-4 mb-4" cols="12" md="8">
+                                    <fieldset class="rounded-xl">
+                                        <legend class="ml-6 legendText textColor">Properties Posted By:</legend>
+                                        <div class="mb-3">
+                                            <v-radio-group v-model="ownershipType" inline color="#c46d9a"
+                                                class="d-flex justify-center">
+                                                <v-radio label="Owners" value="owner" class="mr-2"></v-radio>
+                                                <v-radio label="Agents" value="agent" class="mx-2"></v-radio>
+                                                <v-radio label="Developers" value="developer" class="mx-2"></v-radio>
+                                            </v-radio-group>
+                                        </div>
+                                    </fieldset>
+                                </v-col>
+    
+                                <!-- Freehold Filter  -->
+                                <v-col class="py-0 px-2 mb-4 mt-md-3 d-flex justify-center align-center" cols="12" md="4">
+                                    <v-switch class="px-3 textColor font-weight-medium text-body-2" v-model="isFreeHold"
+                                        :true-value="true" :false-value="false" label="Freehold Properties"
+                                        color="pink-accent-3" hide-details style="border: solid 1px grey; border-radius: 5px;"
+                                        append-icon="mdi-information"></v-switch>
+                                    <v-tooltip location="bottom center" origin="top center" activator="parent">
+                                        <div class="text-caption text-center" style="">Freehold property is inheritable and
+                                            there
+                                            <br> are no restrictions on the right of the property
+                                            <br> owner to further transfer the property.
+                                            <br>In a free hold property, there is no encumbrance to
+                                            <br>the absolute title of the property.
+                                            <br>A free hold is not akin to a condominium wherein
+                                            <br>the owner of the individual unit pays a maintenance charge.
+                                            <br>Free hold property can be inherited by a legal guardian.
+                                            <br>A freehold property can be transferred by
+                                            <br>registration of sale deed.
+                                        </div>
+                                    </v-tooltip>
+                                </v-col>
+    
+                                <!-- Area Filter -->
+                                <v-col class="py-0 px-2 px-md-4 mb-5" cols="12">
+                                    <area-filter v-model="areaRange" />
+                                </v-col>
+    
+                                <!-- Cost Filter -->
+                                <v-col class="py-0 px-2 px-md-4" cols="12" sm="">
+                                    <cost-filter v-model="costRange" />
+                                </v-col>
+                            </v-row>
                         </v-col>
 
                         <v-col cols="12" md="3" class="py-3 d-flex flex-column justify-space-between align-space-between">
-                            <div class="">
-                                <!-- Freehold Filter  -->
-                                <v-col class="py-0 px-2 mb-4" cols="12">
-                                    <v-switch class="px-4" v-model="isFreeHold" :true-value="true" :false-value="false"
-                                        label="Freehold Properties" color="pink-accent-3" hide-details
-                                        style="border: solid 1px grey; border-radius: 5px;"></v-switch>
-                                </v-col>
-
+                            <div class="mt-2">
                                 <date-filter v-model="selectedDate" />
                             </div>
 
@@ -170,6 +209,7 @@ const propertyType = ref('all'); // string
 
 const showAdvancedFilterOverlay = ref(false);
 //AdvancedFilter
+const ownershipType = ref(null);
 const isVerified = ref(propertyFilterObj?.isVerifiedByCheckedSpot || false); // boolean
 const isFreeHold = ref(false); //boolean
 const areaRange = ref(null); // {areaFrom: "0 sqft", areaTo: "50000 sqft"}
@@ -199,6 +239,7 @@ watch([locationSelect, propertyType, isVerified, isFreeHold, areaRange, costRang
     propertyFilters.selectedDate = selectedDate.value;
     propertyFilters.limit = limit.value;
     propertyFilters.pageNumber = pageNumber.value
+    console.log(propertyFilters)
 });
 
 async function handleSubmit() {

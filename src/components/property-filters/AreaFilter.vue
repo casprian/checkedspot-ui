@@ -1,6 +1,6 @@
 <template>
     <fieldset class="rounded-xl">
-        <legend class="ml-6 text-h6">Area Filter:</legend>
+        <legend class="ml-6 text-h6 textColor legendText">Area Filter:</legend>
         <v-row class="d-flex justify-space-between pt-3 px-5">
             <v-col cols="12" md="4" class="d-flex align-end pb-0 pb-md-3">
                 <v-select variant="outlined" v-model="areaUnit" label="choose area unit"
@@ -8,9 +8,9 @@
             </v-col>
             <v-col cols="12" md="8" class="pt-0 pb-6 pb-md-0">
                 <div class="">
-                    <h3 class="text-body-1 font-weight-medium">Choose Area</h3>
+                    <h3 class="text-body-1 font-weight-regular textColor">Choose Area</h3>
                 </div>
-                <v-range-slider class="" v-model="areaRange" strict color="#880e4f" :max="50000" :min="0"
+                <v-range-slider class="" v-model="areaRange" strict color="#c46d9a" :max="50000" :min="0"
                     :step="areaStep" hide-details justify="align-center">
                 </v-range-slider>
                 <div class="d-flex justify-space-between">
