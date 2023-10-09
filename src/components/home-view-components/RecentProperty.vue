@@ -14,42 +14,48 @@
                     </v-row>
                     <v-row v-else no-gutters>
                         <v-col v-if="props?.properties?.length > 0" cols="12">
-                            <v-slide-group  show-arrows>
-                                <v-slide-group-item v-for="(property, index) in props.properties" :key="index">
+                            <v-slide-group show-arrows>
+                                <v-slide-group-item v-for="(property) in props.properties" :key="property.propertyId">
                                     <v-card class="mx-2 mb-4 elevation-2" style="max-width: 220px;" position="relative">
-                                        <v-img
-                                            @click="router.push(`/propertydetails/${property?.propertyId}`)"
-                                            :src="property?.propertyImage.length > 0 ? property?.propertyImage[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
-                                            height="130px" 
-                                            width="100%" 
-                                            position="relative" 
-                                            cover
-                                            class="hoverPointer"
-                                        >
-                                            <v-toolbar v-if="property?.title && property?.title !== 'unavailable'"  class="propertyTitle" theme="dark" height="30"
-                                                style="background-color: rgba(0, 0, 0, 0.466);">
-                                                <div class="w-100 text-caption text-center px-1">
-                                                    {{
-                                                        property?.title ?
-                                                        property?.title :
-                                                        "Property title - like, Fit for home etc."
-                                                    }}
-                                                </div>
-                                            </v-toolbar>
-                                            <v-card-title title="verified by Checked Spot" v-if="property?.isVerifiedByCheckedSpot"
-                                                class="px-2 py-1 verifiedTag">
-                                                <v-chip variant="elevated" color="green" density="comfortable">
-                                                    Checked Spot <v-icon size="16" class="ml-2" icon="mdi-shield-check"
-                                                        color="white"></v-icon>
-                                                </v-chip>
-                                            </v-card-title>
-                                        </v-img>
-        
+                                        <v-hover v-slot="{ isHovering, props }">
+                                            <v-img @click="router.push(`/propertydetails/${property?.propertyId}`)" v-bind="props"
+                                                :src="property?.propertyImage.length > 0 ? property?.propertyImage[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
+                                                height="130px" width="100%" position="relative" cover class="hoverPointer">
+                                                <v-expand-transition>
+                                                    <div v-if="isHovering"
+                                                        class="d-flex flex-column justify-center align-center transition-fast-in-fast-out v-card--reveal text-white"
+                                                        style="height: 100%;background-color: #00000091;">
+                                                        <p class="overlayText">Click Here</p>
+                                                        <p class="overlayText">to</p>
+                                                        <p class="overlayText">See Details</p>
+                                                    </div>
+                                                </v-expand-transition>
+                                                <v-toolbar v-if="property?.title && property?.title !== 'unavailable'"
+                                                    class="propertyTitle" theme="dark" height="30"
+                                                    style="background-color: rgba(0, 0, 0, 0.466);">
+                                                    <div class="w-100 text-caption text-center px-1">
+                                                        {{
+                                                            property?.title ?
+                                                            property?.title :
+                                                            "Property title - like, Fit for home etc."
+                                                        }}
+                                                    </div>
+                                                </v-toolbar>
+                                                <v-card-title title="verified by Checked Spot"
+                                                    v-if="property?.isVerifiedByCheckedSpot" class="px-2 py-1 verifiedTag">
+                                                    <v-chip variant="elevated" color="green" density="comfortable">
+                                                        Checked Spot <v-icon size="16" class="ml-2" icon="mdi-shield-check"
+                                                            color="white"></v-icon>
+                                                    </v-chip>
+                                                </v-card-title>
+                                            </v-img>
+                                        </v-hover>
                                         <v-sheet>
                                             <v-container class="pa-0">
                                                 <v-row no-gutters>
                                                     <v-col cols="6" class="pa-0 pl-2 pt-2" style="height: 20px;">
-                                                        <a target="_blank" v-if="property?.googleMapLink" :href="property?.googleMapLink">
+                                                        <a target="_blank" v-if="property?.googleMapLink"
+                                                            :href="property?.googleMapLink">
                                                             <v-icon size="16" class="mt-n1 mr-2" icon="mdi-google-maps"
                                                                 color="grey-darken-2"></v-icon>
                                                             <span class="text-body-2 text-grey-darken-2"
@@ -58,17 +64,20 @@
                                                     </v-col>
                                                     <v-col cols="12" class="pa-0">
                                                         <v-card-text class="px-3 pt-3 pb-0">
-                                                            Property type: <span class="text-pink-accent-3">{{ property?.type ?
+                                                            Property type: <span class="text-pink-accent-3">{{
+                                                                property?.type ?
                                                                 property?.type : 'Not Found' }}</span>
                                                         </v-card-text>
-                                                        <v-card-subtitle v-if="property?.address" class="px-3 py-0 font-weight-regular">
+                                                        <v-card-subtitle v-if="property?.address"
+                                                            class="px-3 py-0 font-weight-regular">
                                                             {{ property?.address }}
                                                         </v-card-subtitle>
-                                                        <v-card-subtitle v-else class="px-3 text-body-2 text-grey-lighten-1">
+                                                        <v-card-subtitle v-else
+                                                            class="px-3 text-body-2 text-grey-lighten-1">
                                                             address unavailable
                                                         </v-card-subtitle>
                                                     </v-col>
-        
+
                                                     <v-col cols="12">
                                                         <v-row
                                                             class="cardBottom pa-0 mx-3 my-0 d-flex flex-row justify-space-between align-center">
@@ -82,12 +91,16 @@
                                                                     <v-col cols="auto pb-0" style="line-height: 16px;">
                                                                         <span
                                                                             class="text-body-2 mt-3 ml-0 mb-0 pb-0 text-uppercase text-center text-grey-darken-2 font-weight-medium">
-                                                                            {{ property?.agentName ? property?.agentName : "" }}
+                                                                            {{ property?.agentName ? property?.agentName :
+                                                                                "" }}
                                                                         </span>
                                                                     </v-col>
-                                                                    <v-col cols="auto mt-0 pt-0 mb-n1" style="line-height: 14px;">
+                                                                    <v-col cols="auto mt-0 pt-0 mb-n1"
+                                                                        style="line-height: 14px;">
                                                                         <span
-                                                                            class="text-caption text-grey-darken-1 mt-0 pt-0">{{ property?.agentMobile ? property?.agentMobile : "" }}</span>
+                                                                            class="text-caption text-grey-darken-1 mt-0 pt-0">{{
+                                                                                property?.agentMobile ? property?.agentMobile :
+                                                                                "" }}</span>
                                                                     </v-col>
                                                                 </v-row>
                                                             </v-col>
@@ -132,14 +145,16 @@ a:hover {
     text-decoration: underline !important;
 }
 
+.overlayText {
+    margin: 0;
+    line-height: normal;
+    font-size: 20px;
+}
 
 .ownerPropCont {
     margin-top: 150px;
 }
 
-.v-progress-circular {
-    margin: 1rem;
-}
 
 .verifiedTag {
     height: 42px;

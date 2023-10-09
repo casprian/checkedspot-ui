@@ -26,7 +26,7 @@
                 <v-row no-gutters>
                     <v-col cols="12"
                         class="d-flex justify-space-between align-center bg-grey-lighten-5 rightTopNaigation pt-2 px-5">
-                        <v-btn @click="router.push('/')" variant="outlined" prepend-icon="mdi-home">Home</v-btn>
+                        <v-btn @click="router.push('/home')" variant="outlined" prepend-icon="mdi-home">Home</v-btn>
                         <profile-avatar />
                     </v-col>
 

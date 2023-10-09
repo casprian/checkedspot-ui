@@ -12,7 +12,9 @@
             class="mx-auto bg-green">
             <div style="height: 100%" class="text-h5 text-center d-flex align-center justify-center">
                 <h5>
-                    Property has been deleted successfully!
+                    Property has been deleted successfully! 
+                    <!-- <br> -->
+                    <!-- If Deleted accidently <v-btn variant="text" @click="() => {console.log('UNdoDletion');}">Click here</v-btn> to Undo Deletion! -->
                 </h5>
             </div>
         </v-card>
@@ -20,7 +22,7 @@
 
     <v-card class="mx-auto" style="max-width: 480px; min-height: auto;" position="relative">
         <v-img
-            :src="property?.propertyImage ? property.propertyImage[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
+            :src="property?.propertyImage.length > 0 ? property?.propertyImage[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
             height="200px" position="relative" cover class="hoverPointer" alt="property Images">
             <v-toolbar v-if="property?.title && property?.title !== 'unavailable'" class="propertyTitle" theme="dark"
                 height="35" style="background-color: rgba(0, 0, 0, 0.466);">
@@ -88,7 +90,7 @@
             </v-col>
 
             <v-col v-if="property?.totalArea" cols="12" class="px-4">
-                <v-dialog v-model="dialog" width="auto" transition="dialog-bottom-transition">
+                <v-dialog v-model="dialog" width="auto" scroll-strategy="none" transition="dialog-bottom-transition">
                     <template v-slot:activator="{ props }">
                         <v-btn class="pa-0" variant="text" color="white" density="comfortable" v-bind="props">
                             <div class="text-body-2 text-grey-darken-2" title="total area of the property in square feet">

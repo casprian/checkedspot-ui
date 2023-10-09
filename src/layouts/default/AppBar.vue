@@ -3,13 +3,13 @@
     <template v-slot:prepend>
       <v-app-bar-nav-icon class="smNav" variant="text" @click.stop="drawer = !drawer">
       </v-app-bar-nav-icon>
-      <v-img @click="router.push('/')" class="logo" width="175px" height="70px"
+      <v-img @click="router.push('/home')" class="logo" width="175px" height="70px"
         src="https://checkedspot.blob.core.windows.net/assets/logocheckedspot.png" />
     </template>
 
     <template v-slot:append>
       <div class="lgNav">
-        <v-btn @click="router.push('/')" variant="flat" height="32">
+        <v-btn @click="router.push('/home')" variant="flat" height="32">
           HOME
         </v-btn>
         <v-btn @click="router.push('/aboutus')" variant="flat" height="32">
@@ -42,7 +42,7 @@
 
   <v-navigation-drawer v-model="drawer" location="left" temporary class="pt-3">
     <div class="px-5">
-      <v-btn width="100%" @click="router.push('/')" variant="flat" class="my-2" height="32">
+      <v-btn width="100%" @click="router.push('/home')" variant="flat" class="my-2" height="32">
         HOME
       </v-btn>
     </div>
@@ -113,7 +113,7 @@ import { useCookies } from "vue3-cookies";
 import ProfileAvatar from '@/components/ProfileAvatar.vue';
 import axios from 'axios';
 //@ts-ignore
-import { baseURL } from '@/data/axios/interceptor.js'
+import { baseURL } from '@/data/axios/interceptor.js';
 
 const webWhatsapphref = ref('');
 const mobileContacthref= ref('');
@@ -148,6 +148,7 @@ onMounted(async() => {
   await getContact();
 })
 </script>
+
 
 <style scoped>
 .logo {

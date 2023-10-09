@@ -1,20 +1,32 @@
 <template>
     <v-card class="mx-auto" style="max-width: 480px; min-height: auto;" position="relative">
-        <v-img @click="openPropertyDetail"
-            :src="property?.propertyImage.length > 0 ? property?.propertyImage[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
-            height="200px" position="relative" cover class="hoverPointer">
-            <v-toolbar v-if="property?.title && property?.title !== 'unavailable'" class="propertyTitle" theme="dark" height="35" style="background-color: rgba(0, 0, 0, 0.466);">
-                <div class="w-100 text-body-1 text-center px-3">
-                    {{ property?.title ? property?.title : "Property title - like, Fit for home etc." }}
-                </div>
-            </v-toolbar>
-            <v-card-title title="verified by Checked Spot" v-if="property?.isVerifiedByCheckedSpot"
-                class="px-4 py-1 verifiedTag">
-                <v-chip variant="elevated" color="green" density="comfortable">
-                    Checked Spot <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon>
-                </v-chip>
-            </v-card-title>
-        </v-img>
+        <v-hover v-slot="{ isHovering, props }">
+            <v-img @click="openPropertyDetail" v-bind="props"
+                :src="property?.propertyImage.length > 0 ? property?.propertyImage[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
+                height="200px" position="relative" cover class="hoverPointer">
+                <v-expand-transition>
+                    <div v-if="isHovering"
+                        class="d-flex flex-column justify-center align-center transition-fast-in-fast-out v-card--reveal text-h4 font-weight-regular text-white"
+                        style="height: 100%;background-color: #00000091;">
+                        <p>Click Here</p>
+                        <p>to</p>
+                        <p>See Details</p>
+                    </div>
+                </v-expand-transition>
+                <v-toolbar v-if="property?.title && property?.title !== 'unavailable'" class="propertyTitle" theme="dark"
+                    height="35" style="background-color: rgba(0, 0, 0, 0.466);">
+                    <div class="w-100 text-body-1 text-center px-3">
+                        {{ property?.title ? property?.title : "Property title - like, Fit for home etc." }}
+                    </div>
+                </v-toolbar>
+                <v-card-title title="verified by Checked Spot" v-if="property?.isVerifiedByCheckedSpot"
+                    class="px-4 py-1 verifiedTag">
+                    <v-chip variant="elevated" color="green" density="comfortable">
+                        Checked Spot <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon>
+                    </v-chip>
+                </v-card-title>
+            </v-img>
+        </v-hover>
 
         <v-row no-gutters>
             <v-card-text class="px-4 py-0 pt-4 d-flex justify-space-between">
@@ -47,14 +59,16 @@
             </v-col>
 
             <v-col v-if="property?.totalArea" cols="12" class="px-4">
-                <v-dialog v-model="dialog" width="auto" transition="dialog-bottom-transition">
+                <v-dialog v-model="dialog" scroll-strategy="none" width="auto" transition="dialog-bottom-transition">
                     <template v-slot:activator="{ props }">
                         <v-btn class="pa-0" variant="text" color="white" density="comfortable" v-bind="props">
                             <div class="text-body-2 text-grey-darken-2" title="total area of the property in square feet">
                                 Total Area: {{
                                     property?.totalArea
                                 }} {{ property?.totalAreaUnit ? property?.totalAreaUnit : "sqft" }}
+                                <v-icon icon="mdi-information-outline"></v-icon>
                             </div>
+                            <v-tooltip activator="parent" location="end">Show Areas</v-tooltip>
                         </v-btn>
                     </template>
 
@@ -66,15 +80,21 @@
                             <v-row no-gutters>
                                 <v-col cols="8">
                                     <p class="pa-1 text-body-1 font-weight-bold modalHead">Value</p>
-                                    <p title="guntha" class="pa-1 text-body-2 modalbody">{{ (parseFloat(property?.totalArea) / 1089.000000).toFixed(6) }}</p>
-                                    <p title="square feet" class="pa-1 text-body-2 modalbody">{{ (parseFloat(property?.totalArea)).toFixed(6) }}</p>
-                                    <p title="square meter" class="pa-1 text-body-2 modalbody">{{ (parseFloat(property?.totalArea) / 10.763915).toFixed(6) }}</p>
-                                    <p title="acre" class="pa-1 text-body-2 modalbody">{{ (parseFloat(property?.totalArea) / 43560.057264).toFixed(6) }}</p>
-                                    <p title="hectare" class="pa-1 text-body-2 modalbody">{{ (parseFloat(property?.totalArea) / 107639.150512).toFixed(6) }}</p>
-                                    <p title="cent" class="pa-1 text-body-2 modalbody">{{ (parseFloat(property?.totalArea) / 435.560000).toFixed(6) }}</p>
+                                    <p title="guntha" class="pa-1 text-body-2 modalbody">{{ (parseFloat(property?.totalArea)
+                                        / 1089.000000).toFixed(6) }}</p>
+                                    <p title="square feet" class="pa-1 text-body-2 modalbody">{{
+                                        (parseFloat(property?.totalArea)).toFixed(6) }}</p>
+                                    <p title="square meter" class="pa-1 text-body-2 modalbody">{{
+                                        (parseFloat(property?.totalArea) / 10.763915).toFixed(6) }}</p>
+                                    <p title="acre" class="pa-1 text-body-2 modalbody">{{ (parseFloat(property?.totalArea) /
+                                        43560.057264).toFixed(6) }}</p>
+                                    <p title="hectare" class="pa-1 text-body-2 modalbody">{{
+                                        (parseFloat(property?.totalArea) / 107639.150512).toFixed(6) }}</p>
+                                    <p title="cent" class="pa-1 text-body-2 modalbody">{{ (parseFloat(property?.totalArea) /
+                                        435.560000).toFixed(6) }}</p>
                                 </v-col>
                                 <v-col cols="4">
-                                    <p  class="pa-1 text-body-1 font-weight-bold modalHead">Unit</p>
+                                    <p class="pa-1 text-body-1 font-weight-bold modalHead">Unit</p>
                                     <p title="guntha" class="pa-1 text-body-2 modalbody">guntha</p>
                                     <p title="square feet" class="pa-1 text-body-2 modalbody">sqft</p>
                                     <p title="square meter" class="pa-1 text-body-2 modalbody">sqm</p>
@@ -96,7 +116,7 @@
                     address: {{
                         property?.address
                     }}
-                </div>                
+                </div>
                 <div v-else class="text-body-2 text-grey-darken-2">&nbsp;</div>
             </v-col>
         </v-row>
@@ -199,21 +219,21 @@ a:hover {
 .modalHead {
     border: solid 1px black;
 }
+
 .modalbody {
     border: solid 1px black;
     border-top: none;
 }
 
-.v-overlay__content {
-    margin: 0;
+table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
 }
 
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-}
-
-th, td {
+th,
+td {
     padding: 10px 10px;
 }
 </style>
