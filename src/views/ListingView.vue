@@ -292,7 +292,7 @@ watch([locationSelect, propertyType, isVerified, isFreeHold, areaRange, costRang
     propertyFilters.ownershipType = ownershipType.value;
     propertyFilters.limit = limit.value;
     propertyFilters.pageNumber = pageNumber.value;
-    propertiesData.sort = sort.value;
+    propertyFilters.sort = sort.value;
 });
 
 async function handleSubmit() {
