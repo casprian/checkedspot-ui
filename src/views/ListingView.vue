@@ -74,6 +74,7 @@
                                         <div class="mb-3">
                                             <v-radio-group v-model="ownershipType" inline color="#c46d9a"
                                                 class="d-flex justify-center">
+                                                <v-radio label="None" value="" class="mr-2"></v-radio>
                                                 <v-radio label="Owners" value="owner" class="mr-2"></v-radio>
                                                 <v-radio label="Agents" value="agent" class="mx-2"></v-radio>
                                                 <v-radio label="Developers" value="developer" class="mx-2"></v-radio>
@@ -209,7 +210,7 @@ const propertyType = ref('all'); // string
 
 const showAdvancedFilterOverlay = ref(false);
 //AdvancedFilter
-const ownershipType = ref(null);
+const ownershipType = ref("");
 const isVerified = ref(propertyFilterObj?.isVerifiedByCheckedSpot || false); // boolean
 const isFreeHold = ref(false); //boolean
 const areaRange = ref(null); // {areaFrom: "0 sqft", areaTo: "50000 sqft"}
@@ -225,11 +226,12 @@ const propertyFilters = reactive({
     costRange: costRange.value,
     isFreeHold: isFreeHold.value,
     selectedDate: selectedDate.value,
+    ownershipType: ownershipType.value,
     limit: limit.value,
     pageNumber: pageNumber.value,
 })
 
-watch([locationSelect, propertyType, isVerified, isFreeHold, areaRange, costRange, selectedDate], (newValues, oldValues) => {
+watch([locationSelect, propertyType, isVerified, isFreeHold, areaRange, costRange, selectedDate, ownershipType], (newValues, oldValues) => {
     propertyFilters.cities = locationSelect.value;
     propertyFilters.type = propertyType.value !== "all" ? propertyType.value : null;
     propertyFilters.isVerified = isVerified.value;
@@ -237,9 +239,9 @@ watch([locationSelect, propertyType, isVerified, isFreeHold, areaRange, costRang
     propertyFilters.costRange = costRange.value;
     propertyFilters.isFreeHold = isFreeHold.value;
     propertyFilters.selectedDate = selectedDate.value;
+    propertyFilters.ownershipType = ownershipType.value;
     propertyFilters.limit = limit.value;
-    propertyFilters.pageNumber = pageNumber.value
-    console.log(propertyFilters)
+    propertyFilters.pageNumber = pageNumber.value;
 });
 
 async function handleSubmit() {
@@ -247,8 +249,8 @@ async function handleSubmit() {
     pageNumber.value = 1;
     propertyFilters.pageNumber = pageNumber.value;
     propertiesData.data = [];
-    await getAllProperty()
     showAdvancedFilterOverlay.value = false;
+    await getAllProperty()
 }
 
 
