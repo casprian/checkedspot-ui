@@ -14,28 +14,30 @@
             <v-col class="py-0 px-2 px-md-4 my-3 mt-n2 my-sm-0 mt-sm-n2" cols="12" sm="6" md="3">
                 <fieldset class="rounded pb-1">
                     <legend class="ml-2 text-body-2">Property Type:</legend>
-                    <v-btn block variant="text"
-                        class="text-h6 d-flex justify-space-between text-grey-darken-3 text-capitalize"
-                        style="margin-bottom: 3px; height: 39px;" append-icon="mdi-chevron-down">
-                        {{ propertyType }}
 
-                        <v-overlay activator="parent" location-strategy="connected" location="bottom start"
-                            scroll-strategy="reposition">
-                            <v-card class="pa-3 mt-3 d-flex flex-column" color="#c2185b" variant="elevated">
-                                <input id="all" checked class="typeRadio" type="radio" name="propertytype" value="all"
-                                    v-model="propertyType">
-                                <label for="all" title="All">All</label>
+                    <v-menu transition="slide-x-transition">
+                        <template v-slot:activator="{ props }">
+                            <v-btn v-bind="props" block variant="text"
+                                class="text-h6 d-flex justify-space-between text-grey-darken-3 text-capitalize"
+                                style="margin-bottom: 3px; height: 39px;" append-icon="mdi-chevron-down">
+                                {{ propertyType }}
+                            </v-btn>
+                        </template>
 
-                                <input id="plot" class="typeRadio" type="radio" name="propertytype" value="plot"
-                                    v-model="propertyType">
-                                <label for="plot" title="Plot">Plot</label>
+                        <v-card class="pa-3 mt-3 d-flex flex-column" color="#c46d9a" variant="elevated">
+                            <input id="all" checked class="typeRadio" type="radio" name="propertytype" value="all"
+                                v-model="propertyType">
+                            <label for="all" title="All">All</label>
 
-                                <input id="farmland" class="typeRadio" type="radio" name="propertytype" value="farmland"
-                                    v-model="propertyType">
-                                <label for="farmland" title="Farm Land">Farm Land</label>
-                            </v-card>
-                        </v-overlay>
-                    </v-btn>
+                            <input id="plot" class="typeRadio" type="radio" name="propertytype" value="plot"
+                                v-model="propertyType">
+                            <label for="plot" title="Plot">Plot</label>
+
+                            <input id="farmland" class="typeRadio" type="radio" name="propertytype" value="farmland"
+                                v-model="propertyType">
+                            <label for="farmland" title="Farm Land">Farm Land</label>
+                        </v-card>
+                    </v-menu>
                 </fieldset>
             </v-col>
 
@@ -58,16 +60,9 @@
                 <v-card v-if="showAdvancedFilterOverlay" class="pa-3 pt-3 pb-8 mt-3 d-flex flex-column showAFO"
                     variant="elevated" elevation="7">
                     <v-row no-gutters>
-                        <!-- <v-row no-gutters class="d-flex align-center">
-
-
-                            <v-col class="py-0 px-2 px-md-4 mt-5 mb-3 mt-sm-3 mb-sm-5 my-md-5" cols="12" sm="6" md="3">
-                                <div style="border: solid 1px red;">kjsjdfsd</div>
-                            </v-col>
-                        </v-row> -->
-
                         <v-col cols="12" md="9">
                             <v-row no-gutters>
+                                <!-- Posted by filter -->
                                 <v-col class="py-0 px-2 px-md-4 mb-4" cols="12" md="8">
                                     <fieldset class="rounded-xl">
                                         <legend class="ml-6 legendText textColor">Properties Posted By:</legend>
@@ -82,12 +77,13 @@
                                         </div>
                                     </fieldset>
                                 </v-col>
-    
+
                                 <!-- Freehold Filter  -->
                                 <v-col class="py-0 px-2 mb-4 mt-md-3 d-flex justify-center align-center" cols="12" md="4">
                                     <v-switch class="px-3 textColor font-weight-medium text-body-2" v-model="isFreeHold"
                                         :true-value="true" :false-value="false" label="Freehold Properties"
-                                        color="pink-accent-3" hide-details style="border: solid 1px grey; border-radius: 5px;"
+                                        color="pink-accent-3" hide-details
+                                        style="border: solid 1px grey; border-radius: 5px;"
                                         append-icon="mdi-information"></v-switch>
                                     <v-tooltip location="bottom center" origin="top center" activator="parent">
                                         <div class="text-caption text-center" style="">Freehold property is inheritable and
@@ -104,12 +100,12 @@
                                         </div>
                                     </v-tooltip>
                                 </v-col>
-    
+
                                 <!-- Area Filter -->
                                 <v-col class="py-0 px-2 px-md-4 mb-5" cols="12">
                                     <area-filter v-model="areaRange" />
                                 </v-col>
-    
+
                                 <!-- Cost Filter -->
                                 <v-col class="py-0 px-2 px-md-4" cols="12" sm="">
                                     <cost-filter v-model="costRange" />
@@ -118,11 +114,63 @@
                         </v-col>
 
                         <v-col cols="12" md="3" class="py-3 d-flex flex-column justify-space-between align-space-between">
-                            <div class="mt-2">
+                            <div class="mt-1">
+                                <!-- Date Filter -->
                                 <date-filter v-model="selectedDate" />
+
+                                <!-- Sorting Filter -->
+                                <v-menu transition="slide-x-transition" :close-on-content-click="false">
+                                    <template v-slot:activator="{ props }">
+                                        <div class="px-2">
+                                            <v-btn class="d-flex justify-space-between" width="100%" height="50"
+                                                color="#000000b3" variant="outlined" v-bind="props"
+                                                append-icon="mdi-sort">Sort</v-btn>
+                                        </div>
+                                    </template>
+
+                                    <v-card class="pa-0 ma-0 py-1" color="#c46d9a">
+                                        <div>
+                                            <div class="pl-3 py-1 text-text-body-1 font-weight-medium text-white">Sort By
+                                            </div>
+                                            <v-divider color="white" :thickness="2"></v-divider>
+                                            <div class="pl-5 pr-4 d-flex flex-column">
+                                                <input id="none" checked class="typeRadio" type="radio" name="sortby"
+                                                    value="none" v-model="sort.sortBy">
+                                                <label for="none" title="None">None</label>
+
+                                                <input id="date" class="typeRadio" type="radio" name="sortby" value="date"
+                                                    v-model="sort.sortBy">
+                                                <label for="date" title="Date">Date</label>
+
+                                                <input id="cost" class="typeRadio" type="radio" name="sortby" value="cost"
+                                                    v-model="sort.sortBy">
+                                                <label for="cost" title="Cost">Cost</label>
+
+                                                <input id="area" class="typeRadio" type="radio" name="sortby" value="area"
+                                                    v-model="sort.sortBy">
+                                                <label for="area" title="Area">Area</label>
+                                            </div>
+                                        </div>
+
+                                        <div v-if="sort.sortBy !== 'none'">
+                                            <div class="pl-3 py-1 text-text-body-1 font-weight-medium text-white">Order By
+                                            </div>
+                                            <v-divider color="white" :thickness="2"></v-divider>
+                                            <div class="pl-5 pr-4 d-flex flex-column">
+                                                <input id="asc" checked class="typeRadio" type="radio" name="orderby"
+                                                    value="asc" v-model="sort.orderBy">
+                                                <label for="asc" title="Low-to-High">Low-to-High</label>
+
+                                                <input id="desc" class="typeRadio" type="radio" name="orderby" value="desc"
+                                                    v-model="sort.orderBy">
+                                                <label for="desc" title="High-to-Low">High-to-Low</label>
+                                            </div>
+                                        </div>
+                                    </v-card>
+                                </v-menu>
                             </div>
 
-                            <div class="py-0 px-2 d-flex justify-center">
+                            <div class="py-0 px-2 pt-7 d-flex justify-center">
                                 <v-btn @click="handleSubmit" class="text-white" variant="elevated" color="#880e4f"
                                     width="100%" height="45">Submit</v-btn>
                             </div>
@@ -143,6 +191,7 @@
                 </div>
             </v-col>
         </v-row>
+
         <v-row v-else-if="!(propertiesData?.data?.length > 0)" no-gutters class="d-flex justify-center align-center"
             style="height: calc(100% - 287px);">
             <v-col cols="4">
@@ -157,7 +206,6 @@
                 <property-card :property="data" />
             </v-col>
         </v-row>
-
 
         <v-snackbar v-model="isFetchingData" color="pink">
             {{ 'Loading properties...' }}
@@ -216,6 +264,7 @@ const isFreeHold = ref(false); //boolean
 const areaRange = ref(null); // {areaFrom: "0 sqft", areaTo: "50000 sqft"}
 const costRange = ref(null); //{costFrom: '0 Lac', costTo: '5.00 Cr'}
 const selectedDate = ref(null); // {title: 'Today', value: {from: '6-10-2023', to: '6-10-2023'}}
+const sort = ref({ sortBy: 'none', orderBy: 'asc' }) // sorting based on (date, area, cost) and order (asc || desc)
 
 const propertyFilters = reactive({
     //@ts-ignore
@@ -227,11 +276,12 @@ const propertyFilters = reactive({
     isFreeHold: isFreeHold.value,
     selectedDate: selectedDate.value,
     ownershipType: ownershipType.value,
+    sort: sort.value,
     limit: limit.value,
     pageNumber: pageNumber.value,
 })
 
-watch([locationSelect, propertyType, isVerified, isFreeHold, areaRange, costRange, selectedDate, ownershipType], (newValues, oldValues) => {
+watch([locationSelect, propertyType, isVerified, isFreeHold, areaRange, costRange, selectedDate, ownershipType, sort], (newValues, oldValues) => {
     propertyFilters.cities = locationSelect.value;
     propertyFilters.type = propertyType.value !== "all" ? propertyType.value : null;
     propertyFilters.isVerified = isVerified.value;
@@ -242,6 +292,7 @@ watch([locationSelect, propertyType, isVerified, isFreeHold, areaRange, costRang
     propertyFilters.ownershipType = ownershipType.value;
     propertyFilters.limit = limit.value;
     propertyFilters.pageNumber = pageNumber.value;
+    propertiesData.sort = sort.value;
 });
 
 async function handleSubmit() {
