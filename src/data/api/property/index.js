@@ -4,7 +4,7 @@ import * as call from '../../axios/client';
 
 const getProperties = async (params) => {
     try {
-        const baseURL = "/property/getAllProperties";
+        const baseURL = "/property/filtered";
         const response = await call.callWithoutToken('get',baseURL,params);
         return {status: 200, data: response?.data, noOfdata: response?.noOfdata};
     }catch(e) {

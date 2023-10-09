@@ -20,4 +20,14 @@
 a {
   color: #f5005696 !important;
 }
+
+.textColor {
+    color: black;
+    opacity: 0.7;
+}
+
+.legendText { 
+  font-size: 18px;
+  font-weight: 500;
+}
 </style>

@@ -97,7 +97,7 @@ const handleCreateNewPassword = handleSubmit(async (values: any) => {
             loader.value = false;
             handleReset();
             setTimeout(() => {
-                router.push('/')
+                router.push('/home')
             }, 3000);
         } else {
             alert("Password creation Unsuccessful");
