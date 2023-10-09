@@ -4,7 +4,7 @@
         <v-select variant="outlined" v-model="selectDate" hint="Posted on..." persistent-hint :items="posted"
             item-title="title" item-value="value" return-object single-line>
         </v-select>
-        <v-dialog v-model="dateDialog" scroll-strategy="none" persistent width="auto">
+        <!-- <v-dialog v-model="dateDialog" scroll-strategy="none" persistent width="auto">
             <v-card title="Choose Date">
                 <v-card-text class="d-flex">
                     <v-text-field label="Start date*" type="date" class="ma-3" v-model="selectedDateFrom"></v-text-field>
@@ -21,7 +21,7 @@
                     <v-btn text="Close Dialog" @click="hideDialog">Okay</v-btn>
                 </v-card-actions>
             </v-card>
-        </v-dialog>
+        </v-dialog> -->
     </v-col>
 </template>
 
