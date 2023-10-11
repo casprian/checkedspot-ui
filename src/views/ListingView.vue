@@ -5,20 +5,36 @@
                 <h1>Pick your plot</h1>
             </v-col>
 
-            <v-col class="py-0 px-2 px-md-4" cols="12" sm="6" md="3">
-                <v-combobox v-model="locationSelect" label="Choose Location" :items="locations"
-                    prepend-inner-icon="mdi-map-marker" chips variant="outlined" multiple></v-combobox>
+            <!-- Location Filter -->
+            <v-col class="py-0 px-2 px-md-4 mb-5 mt-1" cols="12" sm="6" md="3">
+                <v-menu location="bottom" :close-on-content-click="false" transition="slide-x-transition">
+                    <template v-slot:activator="{ props }">
+                        <v-btn block height="57" variant="outlined" class="text-none text-h6 d-flex justify-space-between textColor" dark
+                            v-bind="props">
+                            <v-icon class="mr-2" icon="mdi-map-marker" size="20"></v-icon>
+                            <!-- {{ citySelect ? citySelect?.join(", ") : 'Location' }} -->
+                           Choose location
+                        </v-btn>
+                    </template>
+
+                    <v-card class="px-3 pt-5 pb-0" color="#c46d9a">
+                        <v-combobox v-model="stateSelect" label="Choose State" :items="states" variant="outlined"
+                            style="color: white;"></v-combobox>
+                        <v-combobox v-model="citySelect" label="Choose City" :items="citiesforFilter" chips
+                            variant="outlined" multiple style="color: white;"></v-combobox>
+                    </v-card>
+                </v-menu>
             </v-col>
 
             <!-- property type Filter -->
             <v-col class="py-0 px-2 px-md-4 my-3 mt-n2 my-sm-0 mt-sm-n2" cols="12" sm="6" md="3">
                 <fieldset class="rounded pb-1">
-                    <legend class="ml-2 text-body-2">Property Type:</legend>
+                    <legend class="ml-2 text-body-2 textColor">Property Type:</legend>
 
                     <v-menu transition="slide-x-transition">
                         <template v-slot:activator="{ props }">
                             <v-btn v-bind="props" block variant="text"
-                                class="text-h6 d-flex justify-space-between text-grey-darken-3 text-capitalize"
+                                class="text-h6 textColor d-flex justify-space-between text-grey-darken-3 text-capitalize"
                                 style="margin-bottom: 3px; height: 39px;" append-icon="mdi-chevron-down">
                                 {{ propertyType }}
                             </v-btn>
@@ -51,7 +67,7 @@
             <!-- Advanced Filter -->
             <v-col class="py-0 px-2 my-3 my-sm-0" cols="12" sm="6" md="3" style="position: relative">
                 <v-btn block height="59" variant="outlined"
-                    class="text-h6 d-flex justify-space-between text-grey-darken-3 text-capitalize"
+                    class="text-h6 textColor d-flex justify-space-between text-capitalize"
                     append-icon="mdi-dots-vertical" @click="showAdvancedFilterOverlay = !showAdvancedFilterOverlay">
                     Advance Filter
                 </v-btn>
@@ -178,7 +194,7 @@
                     </v-row>
                 </v-card>
             </v-col>
-            <v-col cols="12" class="py-0 px-2 d-flex justify-center pl-4 mt-4 mt-md-0">
+            <v-col cols="12" class="py-0 px-2 pl-4 mt-4 mt-md-0 d-flex justify-center">
                 <v-btn @click="handleSubmit" class="text-white" variant="elevated" color="#880e4f" width="98%"
                     height="45">Submit</v-btn>
             </v-col>
@@ -250,8 +266,20 @@ if (!Array.isArray(route.query.city) && (typeof (route.query.city) === 'string')
 }
 
 //Location filter
-const locationSelect = ref(cities || null) // ["string"]
-const locations = ref(['Bangalore', 'Hassan', 'Mysore']);
+const states = ref([]);
+const stateSelect = ref('Karnataka');
+const citiesforFilter = ref([]);
+const citySelect = ref(null);
+async function getLocationData() {
+    //@ts-ignore
+    const location = JSON.parse(localStorage.getItem('location'));
+    //@ts-ignore
+    states.value = location?.states?.map(item => item.name);
+    //@ts-ignore
+    const state = location?.states?.find(state => state.name === 'Karnataka');
+    citiesforFilter.value = state?.cities;
+    citySelect.value = cities ? cities : citiesforFilter.value.find(city => city === 'Bangalore') ? ['Bangalore'] : null;
+}
 
 //Property filter
 const propertyType = ref('all'); // string
@@ -259,7 +287,7 @@ const propertyType = ref('all'); // string
 const showAdvancedFilterOverlay = ref(false);
 //AdvancedFilter
 const ownershipType = ref("");
-const isVerified = ref(propertyFilterObj?.isVerifiedByCheckedSpot || false); // boolean
+const isVerified = ref(propertyFilterObj?.isVerifiedByCheckedSpot || true); // boolean
 const isFreeHold = ref(false); //boolean
 const areaRange = ref(null); // {areaFrom: "0 sqft", areaTo: "50000 sqft"}
 const costRange = ref(null); //{costFrom: '0 Lac', costTo: '5.00 Cr'}
@@ -269,7 +297,7 @@ const sort = ref({ sortBy: 'none', orderBy: 'asc' }) // sorting based on (date, 
 const propertyFilters = reactive({
     //@ts-ignore
     type: (propertyFilterObj?.type)?.length > 0 ? propertyFilterObj?.type : null,
-    cities: locationSelect.value,
+    cities: citySelect.value,
     isVerified: isVerified.value,
     areaRange: areaRange.value,
     costRange: costRange.value,
@@ -281,8 +309,8 @@ const propertyFilters = reactive({
     pageNumber: pageNumber.value,
 })
 
-watch([locationSelect, propertyType, isVerified, isFreeHold, areaRange, costRange, selectedDate, ownershipType, sort], (newValues, oldValues) => {
-    propertyFilters.cities = locationSelect.value;
+watch([citySelect, propertyType, isVerified, isFreeHold, areaRange, costRange, selectedDate, ownershipType, sort], (newValues, oldValues) => {
+    propertyFilters.cities = citySelect.value;
     propertyFilters.type = propertyType.value !== "all" ? propertyType.value : null;
     propertyFilters.isVerified = isVerified.value;
     propertyFilters.areaRange = areaRange.value;
@@ -294,6 +322,17 @@ watch([locationSelect, propertyType, isVerified, isFreeHold, areaRange, costRang
     propertyFilters.pageNumber = pageNumber.value;
     propertyFilters.sort = sort.value;
 });
+
+watch(stateSelect, newStateSelected => {
+    //@ts-ignore
+    const location = JSON.parse(localStorage.getItem('location'));
+
+    //@ts-ignore
+    const state = location?.states?.find(state => state.name === newStateSelected);
+    citiesforFilter.value = state?.cities;
+    citySelect.value = null;
+})
+
 
 async function handleSubmit() {
     zeroProperties.value = false;
@@ -353,6 +392,7 @@ window.addEventListener('scroll', async () => {
 onMounted(async () => {
     if (pageNumber.value === 1) {
         await getAllProperty();
+        await getLocationData();
     }
 });
 

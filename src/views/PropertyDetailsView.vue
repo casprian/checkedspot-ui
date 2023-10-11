@@ -47,7 +47,7 @@
                     </v-col>
                     <v-col cols="12" sm="3" class="d-flex flex-column align-start align-sm-end">
                         <div class="text-h6 text-md-h5 font-weight-medium text-pink-accent-3">
-                            {{ property?.data?.cost ? `₹ ${property?.data?.cost}` : '' }}
+                            {{ property?.data?.cost ? `₹ ${ property?.data?.cost < 10000000 ? `${property?.data?.cost / 100000.0} Lac` :  `${property?.data?.cost / 10000000.0} Cr`}` : '' }}
                         </div>
                         <div class="text-body-1 text-md-h6 font-weight-regular text-black">
                             {{ costPerSqFt ? `₹ ${costPerSqFt} / sq ft` : '' }}

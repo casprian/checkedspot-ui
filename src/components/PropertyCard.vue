@@ -19,12 +19,22 @@
                         {{ property?.title ? property?.title : "Property title - like, Fit for home etc." }}
                     </div>
                 </v-toolbar>
-                <v-card-title title="verified by Checked Spot" v-if="property?.isVerifiedByCheckedSpot"
-                    class="px-4 py-1 verifiedTag">
-                    <v-chip variant="elevated" color="green" density="comfortable">
-                        Checked Spot <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon>
-                    </v-chip>
-                </v-card-title>
+                
+                <div class="verifiedTagContainer">
+                    <v-card-title title="verified by Checked Spot" v-if="property?.isVerifiedByCheckedSpot"
+                        class="px-0 py-1 verifiedTag">
+                        <v-chip variant="elevated" color="green" density="comfortable">
+                            Checked Spot <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon>
+                        </v-chip>
+                    </v-card-title>
+                    <v-card-title title="Freehold Property" v-if="property?.isFreeHold"
+                        class="px-0 py-1 verifiedTag">
+                        <v-chip variant="elevated" color="blue-grey-lighten-5" density="comfortable">
+                            Freehold
+                            <!-- <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon> -->
+                        </v-chip>
+                    </v-card-title>
+                </div>
             </v-img>
         </v-hover>
 
@@ -110,10 +120,18 @@
                     </v-card>
                 </v-dialog>
             </v-col>
+            
+            <v-col v-if="property?.cost" cols="12" class="px-4">
+                <div class="text-body-2 text-grey-darken-2 overflowText" title="property type">
+                    Cost: {{
+                        propertyCost
+                    }}
+                </div>
+            </v-col>
 
             <v-col cols="12" class="px-4 pb-1">
                 <div v-if="property?.address" class="text-body-2 text-grey-darken-2 overflowText" title="Property address">
-                    address: {{
+                    Address: {{
                         property?.address
                     }}
                 </div>
@@ -147,6 +165,8 @@ const router = useRouter();
 
 const props = defineProps(['property', 'listingPath']);
 const dialog = ref(false);
+const propertyCost = ref(props?.property?.cost < 10000000 ? `${props?.property?.cost / 100000.0} Lac` :  `${props?.property?.cost / 10000000.0} Cr`);
+
 function openPropertyDetail() {
     router.push({ path: `/propertydetails/${props?.property?.propertyId}` })
 }
@@ -184,17 +204,21 @@ a:hover {
     text-decoration: underline !important;
 }
 
-.verifiedTag {
-    height: 42px;
+.verifiedTagContainer {
+    width: 100%;
+    padding: 0 12px;
     position: absolute;
     bottom: 0;
+    display: flex;
+    justify-content: space-between;
+}
+.verifiedTag {
+    height: 42px;
 }
 
 .cardBottom {
     border-top: solid 1px rgb(217, 216, 216);
     height: 85px;
-    /* position: absolute;
-    bottom: 0; */
 }
 
 .hoverPointer:hover {
