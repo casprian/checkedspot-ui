@@ -128,7 +128,7 @@ const router = useRouter();
 
 const expand = ref(false);
 
-const cities = reactive(["Bangalore", "Mysore", "Hassan"]);
+const cities = reactive(["Bengaluru", "Mysuru", "Hassan"]);
 const states = reactive(["Karnataka"]);
 const countries = reactive(["India"]);
 const units = reactive(["guntha", "hectare", "acre", "cent", "square feet", "square meter"]);

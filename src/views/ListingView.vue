@@ -216,7 +216,7 @@
         </v-row>
 
         <!-- property cards Section  -->
-        <v-row v-else no-gutters class="px-sm-14">
+        <v-row v-else no-gutters class="px-sm-14 d-flex justify-center">
             <v-col class="px-2 my-2 px-md-4 my-md-4" v-for="(data, index) in propertiesData?.data" cols="12" md="6" lg="4"
                 :key="index">
                 <property-card :property="data" />
@@ -258,13 +258,24 @@ const isFetchingData = ref(false);
 const propertyFilterObj = reactive({ ...route?.query });
 
 //these cities are collected from the qyery parameter of the path routing from home page to listing page.
-let cities: any = null;
+let cities: any = ref(null);
 if (!Array.isArray(route.query.city) && (typeof (route.query.city) === 'string')) {
-    cities = [route.query.city];
+    cities.value = [route.query.city];
 } else if (Array.isArray(route.query.city)) {
-    cities = [...route.query.city];
+    cities.value = [...route.query.city];
 }
 
+const showAdvancedFilterOverlay = ref(false);
+//AdvancedFilter
+const ownershipType = ref("");
+const isVerified = ref(propertyFilterObj?.isVerifiedByCheckedSpot || true); // boolean
+const isFreeHold = ref(false); //boolean
+const areaRange = ref(null); // {areaFrom: "0 sqft", areaTo: "50000 sqft"}
+const costRange = ref(null); //{costFrom: '0 Lac', costTo: '5.00 Cr'}
+const selectedDate = ref(null); // {title: 'Today', value: {from: '6-10-2023', to: '6-10-2023'}}
+const sort = ref({ sortBy: 'none', orderBy: 'asc' }) // sorting based on (date, area, cost) and order (asc || desc)
+//Property type filter
+const propertyType = ref('all'); // string
 //Location filter
 const states = ref([]);
 const stateSelect = ref('Karnataka');
@@ -278,21 +289,8 @@ async function getLocationData() {
     //@ts-ignore
     const state = location?.states?.find(state => state.name === 'Karnataka');
     citiesforFilter.value = state?.cities;
-    citySelect.value = cities ? cities : citiesforFilter.value.find(city => city === 'Bangalore') ? ['Bangalore'] : null;
+    citySelect.value = cities.value ? cities.value : ['Bengaluru'];
 }
-
-//Property filter
-const propertyType = ref('all'); // string
-
-const showAdvancedFilterOverlay = ref(false);
-//AdvancedFilter
-const ownershipType = ref("");
-const isVerified = ref(propertyFilterObj?.isVerifiedByCheckedSpot || true); // boolean
-const isFreeHold = ref(false); //boolean
-const areaRange = ref(null); // {areaFrom: "0 sqft", areaTo: "50000 sqft"}
-const costRange = ref(null); //{costFrom: '0 Lac', costTo: '5.00 Cr'}
-const selectedDate = ref(null); // {title: 'Today', value: {from: '6-10-2023', to: '6-10-2023'}}
-const sort = ref({ sortBy: 'none', orderBy: 'asc' }) // sorting based on (date, area, cost) and order (asc || desc)
 
 const propertyFilters = reactive({
     //@ts-ignore
@@ -326,7 +324,6 @@ watch([citySelect, propertyType, isVerified, isFreeHold, areaRange, costRange, s
 watch(stateSelect, newStateSelected => {
     //@ts-ignore
     const location = JSON.parse(localStorage.getItem('location'));
-
     //@ts-ignore
     const state = location?.states?.find(state => state.name === newStateSelected);
     citiesforFilter.value = state?.cities;
@@ -391,8 +388,8 @@ window.addEventListener('scroll', async () => {
 
 onMounted(async () => {
     if (pageNumber.value === 1) {
-        await getAllProperty();
         await getLocationData();
+        await getAllProperty();
     }
 });
 

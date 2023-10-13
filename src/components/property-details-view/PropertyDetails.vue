@@ -33,6 +33,20 @@
                             }}
                         </span>
                     </v-col>
+                    <v-col class="pdLH" cols="12" sm="6" md="4">Property: 
+                        <span class="text-body-1 text-grey-darken-1">
+                            {{
+                               props.details?.isVerifiedByCheckedSpot ?  'Verified' : 'Unverified'
+                            }}
+                        </span>
+                    </v-col>
+                    <v-col v-if="props.details?.isFreeHold" class="pdLH" cols="12" sm="6" md="4">Property: 
+                        <span class="text-body-1 text-grey-darken-1">
+                            {{
+                                props.details?.isFreeHold ? 'Freehold' : '' 
+                            }}
+                        </span>
+                    </v-col>
                     
                     <!-- <v-col v-if="props.details?.propertyStatus" class="pdLH" cols="12" sm="6" md="4">Property Status:
                         <span class="text-body-1 text-grey-darken-1">

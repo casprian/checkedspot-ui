@@ -56,9 +56,9 @@
                             </v-text-field>
                         </v-col>
 
-                        <v-col cols="12" class="py-1">
-                            <div class="text-body-1 font-weight-medium">City</div>
-                            <v-select placeholder="Select" clearable :items="cityitems" v-model="userdata.city"
+                        <v-col cols="12" class="pt-1">
+                            <div class="text-body-1 font-weight-medium">State</div>
+                            <v-select placeholder="Select" clearable :items="Stateitems" v-model="selectedState"
                                 variant="outlined">
                                 <template v-slot:loader>
                                     <v-progress-linear v-if="loading" indeterminate color="pink-accent-2">
@@ -67,9 +67,9 @@
                             </v-select>
                         </v-col>
 
-                        <v-col cols="12" class="pt-1">
-                            <div class="text-body-1 font-weight-medium">State</div>
-                            <v-select placeholder="Select" clearable :items="Stateitems" v-model="userdata.state"
+                        <v-col cols="12" class="py-1">
+                            <div class="text-body-1 font-weight-medium">City</div>
+                            <v-select placeholder="Select" clearable :items="cityitems" v-model="selectedCity"
                                 variant="outlined">
                                 <template v-slot:loader>
                                     <v-progress-linear v-if="loading" indeterminate color="pink-accent-2">
@@ -104,7 +104,7 @@
 //@ts-ignore
 import api from "@/data/api/index.js";
 import jwtDecode from "jwt-decode";
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, reactive, ref, watch } from "vue";
 import { useCookies } from "vue3-cookies";
 import { useField, useForm } from 'vee-validate';
 
@@ -116,12 +116,28 @@ if (!cookies.get("token")) {
 }
 window.scrollTo({ top: 0, behavior: 'smooth' });
 
-const cityitems = reactive(["Bangalore", "Hassan", "Mysore"]);
-const Stateitems = reactive(["Karnataka"]);
+let userdata = ref({
+    picture: null,
+    email: null,
+    address: null,
+    city: null,
+    state: null,
+    country: null,
+});
+
+//@ts-ignore
+const location = JSON.parse(localStorage.getItem('location'));
+
+const Stateitems = ref([]);
+const selectedState = ref(null);
+const cityitems = ref([]);
+const selectedCity = ref(null);
+const count = ref(0);
+
 const countryitems = reactive(["India"]);
 const showEdit = ref(false);
 const loading = ref(true);
-const loader = ref(false)
+const loader = ref(false);
 const profilePicture = ref('https://checkedspot.blob.core.windows.net/assets/loader.gif');
 
 let { handleSubmit, handleReset } = useForm({
@@ -149,18 +165,19 @@ let { handleSubmit, handleReset } = useForm({
 const name = useField('name');
 const mobile = useField('mobile');
 
-let userdata = ref({
-    picture: null,
-    email: null,
-    address: null,
-    city: null,
-    state: null,
-    country: null,
-});
-
 let user = reactive({
     email: null,
 });
+
+watch(selectedState, newStateItem => {
+    count.value++;
+    const selectedState = location.states.find(state => state.name === newStateItem);
+    cityitems.value = selectedState?.cities;
+
+    if(count.value > 1){
+        selectedCity.value = null;
+    }
+})
 
 if (cookies.get("token")) {
     //@ts-ignore
@@ -171,6 +188,8 @@ async function getUser() {
     const res = await api?.user?.getUserData({ params: { email: user?.email } });
     if (res?.data?.status === 200) {
         userdata.value = res?.data?.data;
+        selectedState.value = userdata.value.state
+        selectedCity.value = userdata.value.city
         name.value.value = res?.data?.data?.name;
         mobile.value.value = res?.data?.data?.mobile;
     }
@@ -200,6 +219,9 @@ setTimeout(() => {
 
 onMounted(async () => {
     await getUser();
+
+    Stateitems.value = location.states.map(state => state.name);
+    cityitems.value = location.states.find(state => state.name === userdata.value.state)?.cities;
 });
 
 </script>

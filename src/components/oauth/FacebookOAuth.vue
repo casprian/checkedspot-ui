@@ -14,7 +14,8 @@
 import axios from 'axios';
 
 async function loginwithFacebook() {
-   const res = await axios.get('http://localhost:8080/user/getauthurl');
+   const res = await axios.get('https://api.checkedspot.com/user/getauthurl');
+   console.log(res?.data?.url)
    window.open(res?.data?.url, '_self')
    console.log(res)
    
