@@ -6,11 +6,11 @@
           hint="Choose from the countries list"></v-select>
       </v-col>
       <v-col cols="12" sm="6" class="py-1 px-3">
-        <v-select v-model="state.value.value" :error-messages="state.errorMessage.value" :items="states" label="state"
+        <v-select v-model="state.value.value" :error-messages="state.errorMessage.value" :items="states" label="state (required)"
           variant="outlined" clearable hint="Choose from the states list"></v-select>
       </v-col>
       <v-col cols="12" sm="6" class="py-1 px-3">
-        <v-select v-model="city.value.value" :error-messages="city.errorMessage.value" :items="cities" label="city"
+        <v-select :disabled="disableCities" v-model="city.value.value" :error-messages="city.errorMessage.value" :items="cities" label="city (required)"
           variant="outlined" clearable hint="Choose from the cities list"></v-select>
       </v-col>
       <v-row no-gutters class="py-3 mt-7 type">
@@ -33,13 +33,13 @@
             hint="Enter area pincode where property located" variant="outlined"></v-text-field>
         </v-col>
         <v-col cols="12" sm="6" class="py-1 px-3">
-          <v-text-field label="Cost (INR)" v-model="cost.value.value" :error-messages="cost.errorMessage.value" clearable
+          <v-text-field label="Cost (INR) (required)" v-model="cost.value.value" :error-messages="cost.errorMessage.value" clearable
             hint="Enter cost of the property in INR" variant="outlined"></v-text-field>
         </v-col>
         <v-col cols="12" sm="6" class="py-1 px-3">
           <v-row no-gutters>
             <v-col cols="8" class="pr-1">
-              <v-text-field label="Total Area" v-model="totalArea.value.value"
+              <v-text-field label="Total Area (required)" v-model="totalArea.value.value"
                 :error-messages="totalArea.errorMessage.value" clearable hint="Enter Total area of the property"
                 variant="outlined"></v-text-field>
             </v-col>
@@ -52,7 +52,7 @@
         <v-col cols="12" sm="6" class="py-1 px-3">
           <v-row no-gutters>
             <v-col cols="8" class="pr-1">
-              <v-text-field label="Builyup Area (sq/feet)" v-model="builtupArea.value.value"
+              <v-text-field label="Builyup Area (required)" v-model="builtupArea.value.value"
                 :error-messages="builtupArea.errorMessage.value" clearable
                 hint="Enter Builyup Area of the property in square feet" variant="outlined"></v-text-field>
             </v-col>
@@ -65,7 +65,7 @@
         <v-col cols="12" sm="6" class="py-1 px-3">
           <v-row no-gutters>
             <v-col cols="8" class="pr-1">
-              <v-text-field label="Carpet Area" v-model="carpetArea.value.value"
+              <v-text-field label="Carpet Area (required)" v-model="carpetArea.value.value"
                 :error-messages="carpetArea.errorMessage.value" clearable hint="Enter Carpet Area of the property"
                 variant="outlined"></v-text-field>
             </v-col>
@@ -76,17 +76,17 @@
           </v-row>
         </v-col>
         <v-col cols="12" sm="6" class="py-1 px-3">
-          <v-text-field label="Number of Bedrooms" v-model="noOfBedroom.value.value"
+          <v-text-field label="Number of Bedrooms (required)" v-model="noOfBedroom.value.value"
             :error-messages="noOfBedroom.errorMessage.value" clearable hint="Enter number of Bedrooms in the property"
             variant="outlined"></v-text-field>
         </v-col>
         <v-col cols="12" sm="6" class="py-1 px-3">
-          <v-text-field label="Number of Bathroom" v-model="noOfBathroom.value.value"
+          <v-text-field label="Number of Bathrooms (required)" v-model="noOfBathroom.value.value"
             :error-messages="noOfBathroom.errorMessage.value" clearable hint="Enter number of Bathroom in the property"
             variant="outlined"></v-text-field>
         </v-col>
         <v-col cols="12" sm="6" class="py-1 px-3">
-          <v-text-field label="Number of Kitchen" v-model="noOfKitchen.value.value"
+          <v-text-field label="Number of Kitchens (required)" v-model="noOfKitchen.value.value"
             :error-messages="noOfKitchen.errorMessage.value" clearable hint="Enter number of Kitchen in the property"
             variant="outlined"></v-text-field>
         </v-col>
@@ -187,7 +187,7 @@
           </div>
         </v-col>
         <v-col cols="12" class="py-1 px-3">
-          <v-file-input v-model="imgfile.value.value" :error-messages="imgfile.errorMessage.value" label="File input"
+          <v-file-input v-model="imgfile.value.value" :error-messages="imgfile.errorMessage.value" label="File input (required)"
             variant="filled" prepend-icon="mdi-camera" multiple name="imgfile" accept=".jpg, .jpeg, .png, .gif, .webp, .avif, .apng, .svg"></v-file-input>
         </v-col>
 
@@ -221,7 +221,7 @@
 </template>
   
 <script lang="ts" setup>
-import { reactive, ref } from "vue";
+import { onMounted, watch, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useField, useForm } from "vee-validate";
 import { useCookies } from "vue3-cookies";
@@ -235,8 +235,9 @@ const router = useRouter();
 const expand = ref(false);
 const units = reactive(["guntha", "hectare", "acre", "cent", "square feet", "square meter"]);
 
-const cities = reactive(["Bengaluru", "Mysuru", "Hassan"]);
-const states = reactive(["Karnataka"]);
+const cities = ref([]);
+const disableCities = ref(true);
+const states = ref([]);
 const countries = reactive(["India"]);
 const furnishedStatus = reactive([
   "unfurnished",
@@ -333,34 +334,34 @@ let { handleSubmit, handleReset } = useForm({
     cost(value: any) {
       if (!value) {
         return "Required.";
-      } else if (value.length >= 4 && /^[0-9]*$/.test(value)) {
+      } else if (value > 0 && /^[0.0-9.0]*$/.test(value)) {
         return true;
       }
-      return "min cost must exceed ₹ 9999 and it should contain only numbers";
+      return "cost should be greater than 0.";
     },
     totalArea(value: any) {
       if (!value) {
         return "Required.";
-      } else if (value.length >= 2 && /^[0-9]*$/.test(value)) {
+      } else if (value > 0 && /^[0.0-9.0]*$/.test(value)) {
         return true;
       }
-      return " it sholud exceed single digit, it should contain only numbers";
+      return "total area should be greater than 0.";
     },
     builtupArea(value: any) {
       if (!value) {
         return "Required.";
-      } else if (value.length >= 2 && /^[0-9]*$/.test(value)) {
+      } else if (value > 0 && /^[0.0-9.0]*$/.test(value)) {
         return true;
       }
-      return " it sholud exceed single digit, it should contain only numbers";
+      return "builtup area should be greater than 0.";
     },
     carpetArea(value: any) {
       if (!value) {
         return "Required.";
-      } else if (value.length >= 2 && /^[0-9]*$/.test(value)) {
+      } else if (value > 0 && /^[0.0-9.0]*$/.test(value)) {
         return true;
       }
-      return " it sholud exceed single digit, it should contain only numbers";
+      return "carpet area should be greater than 0.";
     },
     noOfBedroom(value: any) {
       if (!value) {
@@ -408,6 +409,17 @@ const noOfKitchen = useField("noOfKitchen");
 const imgfile = useField<File[] | undefined>("imgfile");
 
 const loading = ref(false);
+
+//@ts-ignore
+watch(state.value, newStateSelected => {
+  disableCities.value = false;
+  //@ts-ignore
+  const location = JSON.parse(localStorage.getItem('location'));
+  //@ts-ignore
+  const state = location?.states?.find(state => state.name === newStateSelected);
+  cities.value = state?.cities;
+  city.value.value = null;
+})
 
 //autofill data in the form.
 if (sessionStorage.getItem('bodyData') && sessionStorage.getItem('formType') === 'flatForm') {
@@ -488,32 +500,40 @@ const addProperty = handleSubmit(async (values) => {
 
     for (let key in bodyData) {
       if (key === "totalAreaUnit" || key === "builtupAreaUnit" || key === "carpetAreaUnit") {
-        const unit = key?.slice(0, -4);
+        const area = key?.slice(0, -4);
         if (bodyData[key] === "guntha") {
           //@ts-ignore
-          bodyData[unit] = 1089.000000 * bodyData[unit];
+          bodyData[area] = 1089.000000 * bodyData[area];
         } else if (bodyData[key] === "hectare") {
           //@ts-ignore
-          bodyData[unit] = 107639.150512 * bodyData[unit];
+          bodyData[area] = 107639.150512 * bodyData[area];
         } else if (bodyData[key] === "acre") {
           //@ts-ignore
-          bodyData[unit] = 43560.057264 * bodyData[unit];
+          bodyData[area] = 43560.057264 * bodyData[area];
         } else if (bodyData[key] === "cent") {
           //@ts-ignore
-          bodyData[unit] = 435.560000 * bodyData[unit];
+          bodyData[area] = 435.560000 * bodyData[area];
         } else if (bodyData[key] === "square meter") {
           //@ts-ignore
-          bodyData[unit] = 10.763915 * bodyData[unit];
+          bodyData[area] = 10.763915 * bodyData[area];
         } else if (bodyData[key] === "square feet") {
           //@ts-ignore
-          bodyData[unit] = 1.000000 * bodyData[unit];
+          bodyData[area] = 1.000000 * bodyData[area];
         }
       }
     }
     await postingFlat(bodyData);
   }
 });
-</script>
+
+
+onMounted(() => {
+  //@ts-ignore
+  const location = JSON.parse(localStorage.getItem('location'));
+  //@ts-ignore
+  states.value = location?.states?.map(item => item.name);
+})
+</script>  
   
 <style scoped>
 .type {

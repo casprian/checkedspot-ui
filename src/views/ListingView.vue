@@ -12,7 +12,6 @@
                         <v-btn block height="57" variant="outlined" class="text-none text-h6 d-flex justify-space-between textColor" dark
                             v-bind="props">
                             <v-icon class="mr-2" icon="mdi-map-marker" size="20"></v-icon>
-                            <!-- {{ citySelect ? citySelect?.join(", ") : 'Location' }} -->
                            Choose location
                         </v-btn>
                     </template>
@@ -21,7 +20,7 @@
                         <v-combobox v-model="stateSelect" label="Choose State" :items="states" variant="outlined"
                             style="color: white;"></v-combobox>
                         <v-combobox v-model="citySelect" label="Choose City" :items="citiesforFilter" chips
-                            variant="outlined" multiple style="color: white;"></v-combobox>
+                            variant="outlined" multiple style="color: white;" closable-chips></v-combobox>
                     </v-card>
                 </v-menu>
             </v-col>
@@ -85,7 +84,7 @@
                                         <div class="mb-3">
                                             <v-radio-group v-model="ownershipType" inline color="#c46d9a"
                                                 class="d-flex justify-center">
-                                                <v-radio label="None" value="" class="mr-2"></v-radio>
+                                                <v-radio label="All" value="" class="mr-2"></v-radio>
                                                 <v-radio label="Owners" value="owner" class="mr-2"></v-radio>
                                                 <v-radio label="Agents" value="agent" class="mx-2"></v-radio>
                                                 <v-radio label="Developers" value="developer" class="mx-2"></v-radio>
@@ -195,7 +194,7 @@
                 </v-card>
             </v-col>
             <v-col cols="12" class="py-0 px-2 pl-4 mt-4 mt-md-0 d-flex justify-center">
-                <v-btn @click="handleSubmit" class="text-white" variant="elevated" color="#880e4f" width="98%"
+                <v-btn @click="handleSubmit" class="text-white" variant="elevated" color="#880e4f" width="100%"
                     height="45">Submit</v-btn>
             </v-col>
         </v-row>
@@ -268,7 +267,7 @@ if (!Array.isArray(route.query.city) && (typeof (route.query.city) === 'string')
 const showAdvancedFilterOverlay = ref(false);
 //AdvancedFilter
 const ownershipType = ref("");
-const isVerified = ref(propertyFilterObj?.isVerifiedByCheckedSpot || true); // boolean
+const isVerified = ref(propertyFilterObj?.isVerifiedByCheckedSpot || false); // boolean
 const isFreeHold = ref(false); //boolean
 const areaRange = ref(null); // {areaFrom: "0 sqft", areaTo: "50000 sqft"}
 const costRange = ref(null); //{costFrom: '0 Lac', costTo: '5.00 Cr'}

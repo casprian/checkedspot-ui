@@ -6,12 +6,13 @@
           hint="Choose from the countries list"></v-select>
       </v-col>
       <v-col cols="12" sm="6" class="py-1 px-3">
-        <v-select v-model="state.value.value" :error-messages="state.errorMessage.value" :items="states" label="state"
-          variant="outlined" clearable hint="Choose from the states list"></v-select>
+        <v-select v-model="state.value.value" :error-messages="state.errorMessage.value" :items="states"
+          label="state (required)" variant="outlined" clearable hint="Choose from the states list"></v-select>
       </v-col>
       <v-col cols="12" sm="6" class="py-1 px-3">
-        <v-select v-model="city.value.value" :error-messages="city.errorMessage.value" :items="cities" label="city"
-          variant="outlined" clearable hint="Choose from the cities list"></v-select>
+        <v-select :disabled="disableCities" v-model="city.value.value" :error-messages="city.errorMessage.value"
+          :items="cities" label="city (required)" variant="outlined" clearable
+          hint="Choose from the cities list"></v-select>
       </v-col>
 
       <v-row no-gutters class="py-3 mt-7 type">
@@ -34,13 +35,13 @@
             hint="Enter area pincode where property located" variant="outlined"></v-text-field>
         </v-col>
         <v-col cols="12" sm="6" class="py-1 px-3">
-          <v-text-field label="Cost (INR)" v-model="cost.value.value" :error-messages="cost.errorMessage.value" clearable
-            hint="Enter cost of the property in INR" variant="outlined"></v-text-field>
+          <v-text-field label="Cost (INR) (required)" v-model="cost.value.value" :error-messages="cost.errorMessage.value"
+            clearable hint="Enter cost of the property in INR" variant="outlined"></v-text-field>
         </v-col>
         <v-col cols="12" sm="6" class="py-1 px-3">
           <v-row no-gutters>
             <v-col cols="8" class="pr-1">
-              <v-text-field label="Total Area" v-model="totalArea.value.value"
+              <v-text-field label="Total Area (required)" v-model="totalArea.value.value"
                 :error-messages="totalArea.errorMessage.value" clearable hint="Enter Total area of the property"
                 variant="outlined"></v-text-field>
             </v-col>
@@ -80,7 +81,9 @@
           </div>
         </v-col>
         <v-col cols="12" class="py-1 px-3">
-          <v-file-input v-model="imgfile.value.value" :error-messages="imgfile.errorMessage.value" label="File input" variant="filled" prepend-icon="mdi-camera" multiple name="imgfile" accept=".jpg, .jpeg, .png, .gif, .webp, .avif, .apng, .svg" ></v-file-input>
+          <v-file-input v-model="imgfile.value.value" :error-messages="imgfile.errorMessage.value"
+            label="File input (required)" variant="filled" prepend-icon="mdi-camera" multiple name="imgfile"
+            accept=".jpg, .jpeg, .png, .gif, .webp, .avif, .apng, .svg"></v-file-input>
         </v-col>
 
         <v-col cols="12" class="pt-2 pb-7 px-14">
@@ -109,11 +112,14 @@
         <v-btn width="300px" color="pink-darken-2" :loading="loading" @click.prevent="addProperty">submit</v-btn>
       </v-col>
     </v-row>
+    <v-alert closable v-model="alert" icon="mdi-alert" type="warning" title="Warning">
+      <div class="pa-3">Please Fill all the required Fields to post the property!</div>
+    </v-alert>
   </v-container>
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from "vue";
+import { watch, reactive, ref, onMounted } from "vue";
 import jwtDecode from "jwt-decode";
 import { useRouter } from "vue-router";
 import { useField, useForm } from "vee-validate";
@@ -125,12 +131,13 @@ const props = defineProps(["type"]);
 const router = useRouter();
 
 const expand = ref(false);
+const alert = ref(false);
+const cities = ref([]);
+const disableCities = ref(true);
+const states = ref([]);
 
-const cities = reactive(["Bengaluru", "Mysuru", "Hassan"]);
-const states = reactive(["Karnataka"]);
 const countries = reactive(["India"]);
 const units = reactive(["guntha", "hectare", "acre", "cent", "square feet", "square meter"]);
-
 
 const bodyData = reactive({
   //@ts-ignore
@@ -219,18 +226,18 @@ let { handleSubmit, handleReset } = useForm({
     cost(value: any) {
       if (!value) {
         return "Required.";
-      } else if (value.length >= 4 && /^[0-9]*$/.test(value)) {
+      } else if (value > 0 && /^[0.0-9.0]*$/.test(value)) {
         return true;
       }
-      return "min cost must exceed ₹ 9999 and it should contain only numbers";
+      return "cost should be greater than 0.";
     },
     totalArea(value: any) {
       if (!value) {
         return "Required.";
-      } else if (value.length >= 2 && /^[0-9]*$/.test(value)) {
+      } else if (value > 0 && /^[0.0-9.0]*$/.test(value)) {
         return true;
       }
-      return " it sholud exceed single digit, it should contain only numbers";
+      return "total area should be greater than 0.";
     },
     imgfile(value: any) {
       if (!value) {
@@ -246,6 +253,17 @@ const googleMapLink = useField("googleMapLink");
 const cost = useField("cost");
 const totalArea = useField("totalArea");
 const imgfile = useField<File[] | undefined>("imgfile");
+
+//@ts-ignore
+watch(state.value, newStateSelected => {
+  disableCities.value = false;
+  //@ts-ignore
+  const location = JSON.parse(localStorage.getItem('location'));
+  //@ts-ignore
+  const state = location?.states?.find(state => state.name === newStateSelected);
+  cities.value = state?.cities;
+  city.value.value = null;
+})
 
 const loading = ref(false);
 
@@ -325,31 +343,39 @@ const addProperty = handleSubmit(async (values) => {
     for (let key in bodyData) {
       if (key === "totalAreaUnit") {
         //slicing the totalArea out of totalAreaUnit to set the data into sqft in the totalArea property.
-        const unit = key?.slice(0, -4);
+        const area = key?.slice(0, -4);
         if (bodyData[key] === "guntha") {
           //@ts-ignore
-          bodyData[unit] = 1089.000000 * bodyData[unit];
+          bodyData[area] = 1089.000000 * bodyData[area];
         } else if (bodyData[key] === "hectare") {
           //@ts-ignore
-          bodyData[unit] = 107639.150512 * bodyData[unit];
+          bodyData[area] = 107639.150512 * bodyData[area];
         } else if (bodyData[key] === "acre") {
           //@ts-ignore
-          bodyData[unit] = 43560.057264 * bodyData[unit];
+          bodyData[area] = 43560.057264 * bodyData[area];
         } else if (bodyData[key] === "cent") {
           //@ts-ignore
-          bodyData[unit] = 435.560000 * bodyData[unit];
+          bodyData[area] = 435.560000 * bodyData[area];
         } else if (bodyData[key] === "square meter") {
           //@ts-ignore
-          bodyData[unit] = 10.763915 * bodyData[unit];
+          bodyData[area] = 10.763915 * bodyData[area];
         } else if (bodyData[key] === "square feet") {
           //@ts-ignore
-          bodyData[unit] = 1.000000 * bodyData[unit];
+          bodyData[area] = 1.000000 * bodyData[area];
         }
       }
     }
     await postingPlot(bodyData);
   }
 });
+
+
+onMounted(() => {
+  //@ts-ignore
+  const location = JSON.parse(localStorage.getItem('location'));
+  //@ts-ignore
+  states.value = location?.states?.map(item => item.name);
+})
 </script>
 
 <style scoped>

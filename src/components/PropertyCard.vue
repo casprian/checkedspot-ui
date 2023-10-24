@@ -1,6 +1,6 @@
 <template>
     <v-card class="mx-auto" style="max-width: 480px; min-height: auto;" position="relative">
-        <v-hover v-slot="{ isHovering, props }">
+        <v-hover v-if="!isMobileDevice" v-slot="{ isHovering, props }">
             <v-img @click="openPropertyDetail" v-bind="props"
                 :src="property?.propertyImage.length > 0 ? property?.propertyImage[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
                 height="200px" position="relative" cover class="hoverPointer">
@@ -19,7 +19,7 @@
                         {{ property?.title ? property?.title : "Property title - like, Fit for home etc." }}
                     </div>
                 </v-toolbar>
-                
+
                 <div class="verifiedTagContainer">
                     <v-card-title title="verified by Checked Spot" v-if="property?.isVerifiedByCheckedSpot"
                         class="px-0 py-1 verifiedTag">
@@ -27,8 +27,7 @@
                             Checked Spot <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon>
                         </v-chip>
                     </v-card-title>
-                    <v-card-title title="Freehold Property" v-if="property?.isFreeHold"
-                        class="px-0 py-1 verifiedTag">
+                    <v-card-title title="Freehold Property" v-if="property?.isFreeHold" class="px-0 py-1 verifiedTag">
                         <v-chip variant="elevated" color="blue-grey-lighten-5" density="comfortable">
                             Freehold
                             <!-- <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon> -->
@@ -37,6 +36,36 @@
                 </div>
             </v-img>
         </v-hover>
+
+        <v-img v-else @click="openPropertyDetail" v-bind="props"
+            :src="property?.propertyImage.length > 0 ? property?.propertyImage[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
+            height="200px" position="relative" cover class="hoverPointer">
+
+            <v-toolbar v-if="property?.title && property?.title !== 'unavailable'" class="propertyTitle" theme="dark"
+                height="35" style="background-color: rgba(0, 0, 0, 0.466);">
+                <div class="w-100 text-body-1 text-center px-3">
+                    {{ property?.title ? property?.title : "Property title - like, Fit for home etc." }}
+                </div>
+            </v-toolbar>
+
+            <div class="showDetailsBtnContainer">
+                <v-btn density="default" variant="elevated" class="text-none" color="pink-darken-3" append-icon="mdi-cursor-default-click">For details. Click here!</v-btn>
+            </div>
+            <div class="verifiedTagContainer">
+                <v-card-title title="verified by Checked Spot" v-if="property?.isVerifiedByCheckedSpot"
+                    class="px-0 py-1 verifiedTag">
+                    <v-chip variant="elevated" color="green" density="comfortable">
+                        Checked Spot <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon>
+                    </v-chip>
+                </v-card-title>
+                <v-card-title title="Freehold Property" v-if="property?.isFreeHold" class="px-0 py-1 verifiedTag">
+                    <v-chip variant="elevated" color="blue-grey-lighten-5" density="comfortable">
+                        Freehold
+                        <!-- <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon> -->
+                    </v-chip>
+                </v-card-title>
+            </div>
+        </v-img>
 
         <v-row no-gutters>
             <v-card-text class="px-4 py-0 pt-4 d-flex justify-space-between">
@@ -120,7 +149,7 @@
                     </v-card>
                 </v-dialog>
             </v-col>
-            
+
             <v-col v-if="property?.cost" cols="12" class="px-4">
                 <div class="text-body-2 text-grey-darken-2 overflowText" title="property type">
                     Cost: {{
@@ -163,9 +192,13 @@ import { useRouter } from 'vue-router';
 import { ref, reactive, onMounted, computed } from 'vue';
 const router = useRouter();
 
+const details = ref(navigator.userAgent);
+const regexp = /android|iphone|kindle|ipad/i;
+const isMobileDevice = ref(regexp.test(details.value));
+
 const props = defineProps(['property', 'listingPath']);
 const dialog = ref(false);
-const propertyCost = ref(props?.property?.cost < 10000000 ? `${props?.property?.cost / 100000.0} Lac` :  `${props?.property?.cost / 10000000.0} Cr`);
+const propertyCost = ref(props?.property?.cost < 10000000 ? `${props?.property?.cost / 100000.0} Lac` : `${props?.property?.cost / 10000000.0} Cr`);
 
 function openPropertyDetail() {
     router.push({ path: `/propertydetails/${props?.property?.propertyId}` })
@@ -204,6 +237,14 @@ a:hover {
     text-decoration: underline !important;
 }
 
+.showDetailsBtnContainer {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    
+}
+
 .verifiedTagContainer {
     width: 100%;
     padding: 0 12px;
@@ -212,6 +253,7 @@ a:hover {
     display: flex;
     justify-content: space-between;
 }
+
 .verifiedTag {
     height: 42px;
 }

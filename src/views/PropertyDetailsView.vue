@@ -1,16 +1,5 @@
 <template>
-    <v-container fluid class="pa-0 pt-8 bg-background">
-        <v-row no-gutters class="px-sm-14">
-            <v-col cols="12">
-                <v-breadcrumbs :items="items" class="pa-0">
-                    <template v-slot:prepend>
-                        <v-icon size="small" icon="mdi-vuetify"></v-icon>
-                    </template>
-                </v-breadcrumbs>
-            </v-col>
-        </v-row>
-    </v-container>
-    <v-container fluid class="pa-0 pt-16 px-4 bg-background" style="height: calc(100% - 54px);">
+    <v-container fluid class="pa-0 pt-10 px-4 bg-background" style="height: calc(100% - 54px);">
         <v-row v-if="count < 2" no-gutters class="d-flex justify-center align-center" style="height: calc(100% - 64px);">
             <v-col cols="4">
                 <v-progress-linear color="pink-accent-3" indeterminate rounded height="10"></v-progress-linear>
@@ -47,11 +36,11 @@
                     </v-col>
                     <v-col cols="12" sm="3" class="d-flex flex-column align-start align-sm-end">
                         <div class="text-h6 text-md-h5 font-weight-medium text-pink-accent-3">
-                            {{ property?.data?.cost ? `₹ ${ property?.data?.cost < 10000000 ? `${property?.data?.cost / 100000.0} Lac` :  `${property?.data?.cost / 10000000.0} Cr`}` : '' }}
-                        </div>
-                        <div class="text-body-1 text-md-h6 font-weight-regular text-black">
-                            {{ costPerSqFt ? `₹ ${costPerSqFt} / sq ft` : '' }}
-                        </div>
+                            {{ property?.data?.cost ? `₹ ${property?.data?.cost < 10000000 ? `${property?.data?.cost /
+                                100000.0} Lac` : `${property?.data?.cost / 10000000.0} Cr`}` : '' }} </div>
+                                <div class="text-body-1 text-md-h6 font-weight-regular text-black">
+                                    {{ costPerSqFt ? `₹ ${costPerSqFt} / sq ft` : '' }}
+                                </div>
                     </v-col>
                 </v-row>
 
@@ -79,21 +68,12 @@
                     </v-col>
                 </v-row>
 
-                <!-- Property Details -->
-                <property-details :details="property?.data" />
-
-
-                <!-- Property Videos -->
-                <v-row no-gutters class="mb-8">
-                    <property-video :propertyId="property?.data?.propertyId" />
-                </v-row>
-
                 <!-- Plans -->
                 <v-row no-gutters class="mb-8" style="width: 100%; height: auto;">
                     <v-col cols="12">
                         <v-card class="rounded-0 px-2 pb-4 pt-2" elevation="2">
                             <v-card-item class="titleCont mb-5">
-                                <v-card-title class="title">Plan</v-card-title>
+                                <v-card-title class="title">Document</v-card-title>
                             </v-card-item>
 
                             <v-row v-if="property?.data?.propertyPlan.length > 0" no-gutters class="px-4 pb-5">
@@ -130,68 +110,83 @@
                         </v-card>
                     </v-col>
                 </v-row>
+
+
+                <!-- Property Videos -->
+                <v-row no-gutters class="mb-8">
+                    <property-video :propertyId="property?.data?.propertyId" />
+                </v-row>
             </v-col>
 
-            <v-col v-if="isSold === true" cols="12" md="4" class="pl-0 pl-md-3">
-                <v-card class="rounded-0" elevation="2">
-                    <v-card-item>
-                        <div class="text-h3 font-weight-regular pa-10 bg-yellow">Property is Sold!</div>
-                    </v-card-item>
-                </v-card>
-            </v-col>
+            <v-col cols="12" md="4" class="pl-0 pl-md-3">
+                <v-row no-gutters>
+                    <v-col v-if="isSold === true" cols="12">
+                        <v-card class="rounded-0" elevation="2">
+                            <v-card-item>
+                                <div class="text-h3 font-weight-regular pa-10 bg-yellow">Property is Sold!</div>
+                            </v-card-item>
+                        </v-card>
+                    </v-col>
 
-            <v-col v-else cols="12" md="4" class="pl-0 pl-md-3">
-                <v-card class="rounded-0" elevation="2">
-                    <v-card-item>
-                        <v-card-title class="pb-5 mx-3 mb-10 pt-2" style="border-bottom: 1px solid #e0e0e0">Sales
-                            Coordinator
-                        </v-card-title>
-                        <v-card-actions>
-                            <v-avatar class="mx-2" size="75" color="grey-darken-3"
-                                image="https://checkedspot.blob.core.windows.net/assets/parvez1.jpeg"></v-avatar>
-                            <v-sheet class="px-5 mt-n7">
-                                <v-card-title>
-                                    {{
-                                        agent?.data?.name
-                                        ? agent?.data?.name
-                                        : 'Not Found'
-                                    }}
+                    <v-col v-else cols="12">
+                        <v-card class="rounded-0" elevation="2">
+                            <v-card-item>
+                                <v-card-title class="pb-5 mx-3 mb-10 pt-2" style="border-bottom: 1px solid #e0e0e0">Sales
+                                    Coordinator
                                 </v-card-title>
-                            </v-sheet>
-                        </v-card-actions>
-                        <v-row no-gutters class="pt-7 px-3 mx-3 pb-2 mb-2">
-                            <v-col cols="12" class="d-flex align-center pb-3">
-                                <v-icon icon="mdi-map-marker" size="19" color="#FF385C"></v-icon>
-                                <div class="text-subtitle-1 px-5 pt-2 text-grey-darken-1">
-                                    {{
-                                        agent?.data?.address
-                                        ? agent?.data?.address
-                                        : 'Not Found'
-                                    }}
-                                </div>
-                            </v-col>
-                            <v-col cols="12" class="d-flex align-center pb-3">
-                                <v-icon icon="mdi-phone" size="19" color="#FF385C"></v-icon>
-                                <div class="text-subtitle-1 px-5 pt-2 text-grey-darken-1">
-                                    {{
-                                        agent?.data?.mobile
-                                        ? agent?.data?.mobile
-                                        : 'Not Found'
-                                    }}
-                                </div>
-                            </v-col>
-                            <v-col cols="12" class="d-flex align-center">
-                                <v-icon icon="mdi-email" size="19" color="#FF385C"></v-icon>
-                                <div class="text-subtitle-1 px-5 pt-2 text-grey-darken-1">
-                                    {{
-                                        agent?.data?.email
-                                        ? agent?.data?.email
-                                        : 'Not Found' }}
-                                </div>
-                            </v-col>
-                        </v-row>
-                    </v-card-item>
-                </v-card>
+                                <v-card-actions>
+                                    <v-avatar class="mx-2" size="75" color="grey-darken-3"
+                                        image="https://checkedspot.blob.core.windows.net/assets/parvez1.jpeg"></v-avatar>
+                                    <v-sheet class="px-5 mt-n7">
+                                        <v-card-title>
+                                            {{
+                                                agent?.data?.name
+                                                ? agent?.data?.name
+                                                : 'Not Found'
+                                            }}
+                                        </v-card-title>
+                                    </v-sheet>
+                                </v-card-actions>
+                                <v-row no-gutters class="pt-7 px-3 mx-3 pb-2 mb-2">
+                                    <v-col cols="12" class="d-flex align-center pb-3">
+                                        <v-icon icon="mdi-map-marker" size="19" color="#FF385C"></v-icon>
+                                        <div class="text-subtitle-1 px-5 pt-2 text-grey-darken-1">
+                                            {{
+                                                agent?.data?.address
+                                                ? agent?.data?.address
+                                                : 'Not Found'
+                                            }}
+                                        </div>
+                                    </v-col>
+                                    <v-col cols="12" class="d-flex align-center pb-3">
+                                        <v-icon icon="mdi-phone" size="19" color="#FF385C"></v-icon>
+                                        <div class="text-subtitle-1 px-5 pt-2 text-grey-darken-1">
+                                            {{
+                                                agent?.data?.mobile
+                                                ? agent?.data?.mobile
+                                                : 'Not Found'
+                                            }}
+                                        </div>
+                                    </v-col>
+                                    <v-col cols="12" class="d-flex align-center">
+                                        <v-icon icon="mdi-email" size="19" color="#FF385C"></v-icon>
+                                        <div class="text-subtitle-1 px-5 pt-2 text-grey-darken-1">
+                                            {{
+                                                agent?.data?.email
+                                                ? agent?.data?.email
+                                                : 'Not Found' }}
+                                        </div>
+                                    </v-col>
+                                </v-row>
+                            </v-card-item>
+                        </v-card>
+                    </v-col>
+
+                    <!-- Property Details -->
+                    <v-col cols="12" class="my-8">
+                        <property-details :details="property?.data" />
+                    </v-col>
+                </v-row>
             </v-col>
         </v-row>
     </v-container>
@@ -221,24 +216,6 @@ const router = useRouter();
 const isSold = ref(false);
 
 const pdStyle01 = ref("text-body-1 font-weight-medium text-grey-darken-2");
-
-const items = reactive([
-    {
-        title: "Home",
-        disabled: false,
-        href: "/",
-    },
-    {
-        title: "Listing",
-        disabled: false,
-        href: router?.options?.history?.state?.back,
-    },
-    {
-        title: "Property Details",
-        disabled: true,
-        href: "/propertydetails",
-    },
-]);
 
 const costPerSqFt = ref(0);
 const count = ref(0);
@@ -321,7 +298,7 @@ async function propertydata() {
         property.data = res.data;
         costPerSqFt.value = res?.data?.totalArea !== 0 ? Math.ceil(res?.data?.cost / res?.data?.totalArea) : 0;
         //@ts-ignore
-        isSold.value = property.data.propertyStatus.includes("sold");
+        isSold.value = property?.data?.propertyStatus?.includes("sold");
     } else {
         router.push({ path: '/error', query: { status: res?.status } })
     }
@@ -333,9 +310,6 @@ async function agentdata() {
             propertyId: route?.params?.propertyId,
         },
     })
-    console.log(route?.params?.propertyId)
-    console.log(typeof route?.params?.propertyId)
-
 
     if (res.status === 200) {
         count.value++;

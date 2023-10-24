@@ -106,7 +106,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useCookies } from "vue3-cookies";
 //@ts-ignore
@@ -140,9 +140,9 @@ function handleCreateProperty() {
   router.push('/createproperty');
 }
 
-let details = ref(navigator.userAgent);
-let regexp = /android|iphone|kindle|ipad/i;
-let isMobileDevice = ref(regexp.test(details.value));
+const details = ref(navigator.userAgent);
+const regexp = /android|iphone|kindle|ipad/i;
+const isMobileDevice = ref(regexp.test(details.value));
 
 onMounted(async() => {
   await getContact();
