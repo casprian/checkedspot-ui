@@ -22,7 +22,7 @@
 
     <v-card class="mx-auto" style="max-width: 480px; min-height: auto;" position="relative">
         <v-img
-            :src="property?.propertyImage.length > 0 ? property?.propertyImage[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
+        @click="router.push(`/propertydetails/${property?.propertyId}`)" :src="property?.propertyImage.length > 0 ? property?.propertyImage[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
             height="200px" position="relative" cover class="hoverPointer" alt="property Images">
             <v-toolbar v-if="property?.title && property?.title !== 'unavailable'" class="propertyTitle" theme="dark"
                 height="35" style="background-color: rgba(0, 0, 0, 0.466);">

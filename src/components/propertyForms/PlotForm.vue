@@ -86,15 +86,6 @@
             accept=".jpg, .jpeg, .png, .gif, .webp, .avif, .apng, .svg"></v-file-input>
         </v-col>
 
-        <v-col cols="12" class="pt-2 pb-7 px-14">
-          <div class="text-h5 font-weight-medium text-decoration-underline text-pink-accent-1">
-            Upload Property Plans
-          </div>
-        </v-col>
-        <v-col cols="12" class="py-1 px-3">
-          <v-file-input v-model="bodyData.planimgfile" label="File input" variant="filled" prepend-icon="mdi-file-pdf-box"
-            multiple name="planimgfile" accept="application/pdf"></v-file-input>
-        </v-col>
 
         <v-col cols="12" class="pt-2 pb-7 px-14">
           <div class="text-h5 font-weight-medium text-decoration-underline text-pink-accent-1">
@@ -105,27 +96,67 @@
           <v-file-input v-model="bodyData.vidfile" label="File input" variant="filled" prepend-icon="mdi-video" multiple
             name="vidfile" accept="video/*"></v-file-input>
         </v-col>
+
+        <v-col cols="12" class="pt-2 pb-7 px-14">
+          <div class="text-h5 font-weight-medium text-decoration-underline text-pink-accent-1">
+            Upload Property Documents
+          </div>
+        </v-col>
+        <!-- <v-col cols="12" class="py-1 px-3">
+          <v-file-input v-model="bodyData.planimgfile" label="File input" variant="filled" prepend-icon="mdi-file-pdf-box"
+            multiple name="planimgfile" accept="application/pdf"></v-file-input>
+        </v-col> -->
+        <property-document-input @addDocument="docFunction" />
       </v-row>
     </v-row>
+
     <v-row no-gutters class="ma-6">
       <v-col cols="12" class="d-flex justify-center">
         <v-btn width="300px" color="pink-darken-2" :loading="loading" @click.prevent="addProperty">submit</v-btn>
       </v-col>
     </v-row>
-    <v-alert closable v-model="alert" icon="mdi-alert" type="warning" title="Warning">
-      <div class="pa-3">Please Fill all the required Fields to post the property!</div>
-    </v-alert>
+    <v-dialog v-model="alert" width="auto">
+      <v-card append-icon="$close" class="mx-auto" elevation="16" max-width="500">
+        <template v-slot:append>
+          <v-btn icon="$close" variant="text" @click="alert = false"></v-btn>
+        </template>
+        <template v-slot:title>
+          <div class="text-h4 font-weight-bold">Warning</div>
+        </template>
+
+        <v-divider></v-divider>
+
+        <div class="pa-10 text-center">
+          <v-icon class="mb-6" color="amber" icon="mdi-alert" size="100"></v-icon>
+
+          <div class="text-h5">Please fill all the required Fields inorder to post the property !!!</div>
+        </div>
+
+        <v-divider></v-divider>
+
+        <div class="pa-4 text-end">
+          <v-btn class="text-none" color="medium-emphasis" min-width="92" rounded variant="outlined"
+            @click="alert = false">
+            Close
+          </v-btn>
+        </div>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
 <script lang="ts" setup>
-import { watch, reactive, ref, onMounted } from "vue";
+import { watch, toRaw, reactive, ref, onMounted } from "vue";
 import jwtDecode from "jwt-decode";
 import { useRouter } from "vue-router";
 import { useField, useForm } from "vee-validate";
 //@ts-ignore
 import api from "@/data/api/index.js";
 import { useCookies } from "vue3-cookies";
+//@ts-ignore
+import PropertyDocumentInput from "@/components/propertyForms/customInputs/PropertyDocumentInput.vue";
+//@ts-ignore
+import FormErrorAlert from '@/components/propertyForms/alerts/FormErrorAlert.vue';
 const { cookies } = useCookies();
 const props = defineProps(["type"]);
 const router = useRouter();
@@ -176,9 +207,6 @@ const bodyData = reactive({
   outdoorShower: null,
   isFreeHold: false,
   isVerifiedByCheckedSpot: false,
-  documentId: null,
-  documentType: null,
-  documentDescription: null,
   agentName: null,
   agentMobile: null,
   agentEmail: null,
@@ -188,11 +216,12 @@ const bodyData = reactive({
   googleMapLink: null,
   propertySchedule: null,
   imgfile: [],
+  documents: null,
   planimgfile: [],
   vidfile: [],
 });
 
-let { handleSubmit, handleReset } = useForm({
+let { meta, values, errors, handleSubmit, handleReset } = useForm({
   validationSchema: {
     city(value: any) {
       if (!value) {
@@ -252,16 +281,22 @@ const state = useField("state");
 const googleMapLink = useField("googleMapLink");
 const cost = useField("cost");
 const totalArea = useField("totalArea");
-const imgfile = useField<File[] | undefined>("imgfile");
+const imgfile = useField("imgfile");
+
+function docFunction(documents: Array<Object>) {
+  //@ts-ignore
+  bodyData.documents = JSON.stringify(toRaw(documents));
+}
 
 //@ts-ignore
 watch(state.value, newStateSelected => {
+  console.log("kjhj")
   disableCities.value = false;
   //@ts-ignore
-  const location = JSON.parse(localStorage.getItem('location'));
+  const stateList = JSON.parse(localStorage.getItem('location'));
   //@ts-ignore
-  const state = location?.states?.find(state => state.name === newStateSelected);
-  cities.value = state?.cities;
+  const stateObj = stateList?.states?.find(state => state.name === newStateSelected);
+  cities.value = stateObj?.cities;
   city.value.value = null;
 })
 
@@ -315,7 +350,7 @@ async function postingPlot(bodyData: any) {
   }
 }
 
-const addProperty = handleSubmit(async (values) => {
+async function onSuccess(values: any) {
   loading.value = true;
   for (let item in values) {
     if (values[item]) {
@@ -367,14 +402,80 @@ const addProperty = handleSubmit(async (values) => {
     }
     await postingPlot(bodyData);
   }
-});
 
+}
+
+function onInvalidSubmit(invalidData: any) {
+  console.log("meta : ", meta.value)
+  console.log(invalidData?.values); // current form values
+  console.log(invalidData?.errors); // a map of field names and their first error message
+  console.log(invalidData?.results); // a detailed map of field names and their validation results
+  alert.value = true;
+}
+
+
+// This handles both valid and invalid submissions
+const addProperty = handleSubmit(onSuccess, onInvalidSubmit);
+
+// const addProperty = handleSubmit(async (values) => {
+//   loading.value = true;
+//   for (let item in values) {
+//     if (values[item]) {
+//       //@ts-ignore
+//       bodyData[item] = values[item];
+//     }
+//   }
+
+//   if (bodyData?.googleMapLink) {
+//     //@ts-ignore
+//     bodyData.latitude = bodyData?.googleMapLink?.toString().split("@")[1].split(",")[0];
+//     //@ts-ignore
+//     bodyData.longitude = bodyData?.googleMapLink?.toString().split("@")[1].split(",")[1];
+//     console.log(bodyData.latitude, bodyData.longitude);
+//   }
+
+//   //If not login setData in SessionStorage to use it again to autofill the 
+//   if (!cookies.get('token')) {
+//     sessionStorage.setItem('bodyData', JSON.stringify(bodyData));
+//     sessionStorage.setItem('formType', 'plotForm');
+//     loading.value = false;
+//     router.push({ path: '/signin', query: { message: "createProperty" } });
+//     return;
+//   } else {
+//     for (let key in bodyData) {
+//       if (key === "totalAreaUnit") {
+//         //slicing the totalArea out of totalAreaUnit to set the data into sqft in the totalArea property.
+//         const area = key?.slice(0, -4);
+//         if (bodyData[key] === "guntha") {
+//           //@ts-ignore
+//           bodyData[area] = 1089.000000 * bodyData[area];
+//         } else if (bodyData[key] === "hectare") {
+//           //@ts-ignore
+//           bodyData[area] = 107639.150512 * bodyData[area];
+//         } else if (bodyData[key] === "acre") {
+//           //@ts-ignore
+//           bodyData[area] = 43560.057264 * bodyData[area];
+//         } else if (bodyData[key] === "cent") {
+//           //@ts-ignore
+//           bodyData[area] = 435.560000 * bodyData[area];
+//         } else if (bodyData[key] === "square meter") {
+//           //@ts-ignore
+//           bodyData[area] = 10.763915 * bodyData[area];
+//         } else if (bodyData[key] === "square feet") {
+//           //@ts-ignore
+//           bodyData[area] = 1.000000 * bodyData[area];
+//         }
+//       }
+//     }
+//     await postingPlot(bodyData);
+//   }
+// });
 
 onMounted(() => {
   //@ts-ignore
-  const location = JSON.parse(localStorage.getItem('location'));
+  const stateList = JSON.parse(localStorage.getItem('location'));
   //@ts-ignore
-  states.value = location?.states?.map(item => item.name);
+  states.value = stateList?.states?.map(item => item.name);
 })
 </script>
 

@@ -26,6 +26,7 @@
 <script lang="ts" setup>
 //@ts-ignore
 import PlotForm from '@/components/propertyForms/PlotForm.vue';
+// import PlotForm from '@/components/propertyForms/PlotFormCopy.vue';
 //@ts-ignore
 import FlatForm from '@/components/propertyForms/FlatForm.vue';
 //@ts-ignore

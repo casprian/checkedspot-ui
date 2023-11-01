@@ -95,8 +95,8 @@
                     <span v-else class="pl-5" title="not verified"><v-icon size="20" color="red-darken-2"
                             icon="mdi-close-circle-outline"></v-icon></span>
                 </h2>
-                <verify-data v-if="userdata.mobile" name="mobile number" verify="mobile" :data="userdata?.mobile"
-                    :isverified="userdata.mobile_verified" />
+                <!-- <verify-data v-if="userdata.mobile" name="mobile number" verify="mobile" :data="userdata?.mobile"
+                    :isverified="userdata.mobile_verified" /> -->
             </div>
 
             <div class="myProfileDetails d-flex justify-space-between align-center">
@@ -172,6 +172,8 @@ import jwtDecode from "jwt-decode";
 import { onMounted, reactive, ref } from "vue";
 import { useCookies } from "vue3-cookies";
 import { useRouter } from "vue-router";
+//@ts-ignore
+import VerifyData from '@/components/profile/VerifyData.vue';
 
 const router = useRouter();
 const { cookies } = useCookies();

@@ -239,10 +239,13 @@
 import api from "@/data/api/index.js";
 //@ts-ignore
 import PropertyCard from '@/components/PropertyCard.vue';
-import { computed, watch, onMounted, reactive, ref } from "vue";
+import { computed, watch, onMounted, reactive, ref, onUnmounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
+//@ts-ignore
 import AreaFilter from '@/components/property-filters/AreaFilter.vue';
+//@ts-ignore
 import CostFilter from "@/components/property-filters/CostFilter.vue";
+//@ts-ignore
 import DateFilter from "@/components/property-filters/DateFilter.vue";
 
 
@@ -364,7 +367,7 @@ async function getAllProperty() {
     }
 }
 
-window.addEventListener('scroll', async () => {
+const scrollCallback = async () => {
     if (isFetchingData.value) return;
 
     const scrollY = window.scrollY;
@@ -383,7 +386,9 @@ window.addEventListener('scroll', async () => {
         await getAllProperty();
         isFetchingData.value = false;
     }
-});
+}
+
+window.addEventListener('scroll', scrollCallback);
 
 onMounted(async () => {
     if (pageNumber.value === 1) {
@@ -391,6 +396,10 @@ onMounted(async () => {
         await getAllProperty();
     }
 });
+
+onUnmounted(() => {
+    window.removeEventListener('scroll', scrollCallback)
+})
 
 </script>
 

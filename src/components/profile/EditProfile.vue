@@ -171,7 +171,7 @@ let user = reactive({
 
 watch(selectedState, newStateItem => {
     count.value++;
-    const selectedState = location.states.find(state => state.name === newStateItem);
+    const selectedState = location.states.find((state:any) => state?.name === newStateItem);
     cityitems.value = selectedState?.cities;
 
     if(count.value > 1){
@@ -220,8 +220,8 @@ setTimeout(() => {
 onMounted(async () => {
     await getUser();
 
-    Stateitems.value = location.states.map(state => state.name);
-    cityitems.value = location.states.find(state => state.name === userdata.value.state)?.cities;
+    Stateitems.value = location.states.map((state:any) => state.name);
+    cityitems.value = location.states.find((state:any) => state.name === userdata.value.state)?.cities;
 });
 
 </script>
