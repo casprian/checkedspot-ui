@@ -13,8 +13,8 @@
                 </v-col>
             </v-row>
             <v-row v-else class="d-flex justify-center align-center" style="width:100%; height: 100%;">
-                <h1 class="pa-7">You haven't posted any properties! <RouterLink to="/createproperty">Post property
-                    </RouterLink>
+                <h1 class="pa-7">You haven't posted any properties! 
+                    <RouterLink to="/createproperty">Post property</RouterLink>
                 </h1>
             </v-row>
         </v-container>

@@ -58,7 +58,7 @@ const addInputSet = () => {
   
 
 
-<template>
+<!-- <template>
     <v-sheet class="position-relative" min-height="450">
         <div class="position-absolute d-flex align-center justify-center w-100 h-100">
             <v-btn size="x-large" color="deep-purple-darken-2" @click="dialog = !dialog">
@@ -93,8 +93,8 @@ const addInputSet = () => {
         </v-fade-transition>
     </v-sheet>
 </template>
-  <script setup>
+  <script lang="ts" setup>
     import { ref } from 'vue'
   
     const dialog = ref(true)
-  </script>
+  </script> -->

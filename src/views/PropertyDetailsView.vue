@@ -86,7 +86,9 @@
 
                     <!-- Property Details -->
                     <v-col cols="12" class="my-8">
-                        <property-details :details="property?.data" />
+                        <v-card class="rounded-0" elevation="2">
+                            <property-details :details="property?.data" />
+                        </v-card>
                     </v-col>
                 </v-row>
             </v-col>
