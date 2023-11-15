@@ -215,10 +215,9 @@ const bodyData = reactive({
   latitude: null,
   googleMapLink: null,
   propertySchedule: null,
-  imgfile: [],
+  images: [],
+  videos: [],
   documents: null,
-  planimgfile: [],
-  vidfile: [],
 });
 
 let { meta, values, errors, handleSubmit, handleReset } = useForm({

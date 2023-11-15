@@ -24,7 +24,7 @@
 <script lang="ts" setup>
 //@ts-ignore
 import api from '@/data/api/index.js'
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const props = defineProps(['propertyId'])
 const playVid = ref(false);
@@ -37,7 +37,7 @@ async function playVideo() {
     const res = await api?.property?.getPropertyVideo({ params: { propertyId: props?.propertyId } })
     if (res?.status === 200) {
         loader.value = false;
-        propertyVideo.value = res.data[0];
+        propertyVideo.value = res.data[0]?.fileUrl;
         playVid.value = true;
         if(res.data.length === 0) {
             videoUnavailable.value = true;

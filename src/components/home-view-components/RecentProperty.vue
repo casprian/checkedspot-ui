@@ -19,7 +19,7 @@
                                     <v-card class="mx-2 mb-4 elevation-2" style="max-width: 220px;" position="relative">
                                         <v-hover v-slot="{ isHovering, props }">
                                             <v-img @click="router.push(`/propertydetails/${property?.propertyId}`)" v-bind="props"
-                                                :src="property?.propertyImage.length > 0 ? property?.propertyImage[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
+                                                :src="property?.images?.length > 0 ? property?.images[0]?.fileUrl : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
                                                 height="130px" width="100%" position="relative" cover class="hoverPointer">
                                                 <v-expand-transition>
                                                     <div v-if="isHovering"

@@ -46,7 +46,7 @@
 
                 <!-- Gallery -->
                 <v-row no-gutters class="mb-8" style="width: 100%; height: auto;">
-                    <property-image :propertyId="property?.data?.propertyId" :image="property?.data?.propertyImage[0]" />
+                    <property-image :propertyId="property?.data?.propertyId" :image="property?.data?.images?.fileUrl" />
                 </v-row>
 
                 <!-- Description -->
@@ -56,7 +56,7 @@
 
                 <!-- Document -->
                 <v-row no-gutters class="mb-8" style="width: 100%; height: auto;">
-                    <property-documents :documents="property?.data?.propertyPlan" />
+                    <property-documents :propertyId="property?.data?.propertyId" />
                 </v-row>
 
                 <!-- Location -->
@@ -138,9 +138,9 @@ const property = reactive({
         'noOfBathroom': null,
         'email': null,
         'description': null,
-        'propertyImage': [''],
-        'propertyPlan': [''],
-        'propertyVideo': [''],
+        'images': {fileUrl: ""},
+        'documents': [''],
+        'vodeos': [''],
         'address': null,
         'name': null,
         'parkingLot': null,

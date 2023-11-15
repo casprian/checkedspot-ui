@@ -2,7 +2,7 @@
     <v-card class="mx-auto" style="max-width: 480px; min-height: auto;" position="relative">
         <v-hover v-if="!isMobileDevice" v-slot="{ isHovering, props }">
             <v-img @click="openPropertyDetail" v-bind="props"
-                :src="property?.propertyImage.length > 0 ? property?.propertyImage[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
+                :src="property?.images?.length > 0 ? property?.images[0]?.fileUrl : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
                 height="200px" position="relative" cover class="hoverPointer">
                 <v-expand-transition>
                     <div v-if="isHovering"
@@ -38,7 +38,7 @@
         </v-hover>
 
         <v-img v-else @click="openPropertyDetail" v-bind="props"
-            :src="property?.propertyImage.length > 0 ? property?.propertyImage[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
+            :src="property?.images.length > 0 ? property?.images[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
             height="200px" position="relative" cover class="hoverPointer">
 
             <v-toolbar v-if="property?.title && property?.title !== 'unavailable'" class="propertyTitle" theme="dark"
