@@ -209,7 +209,6 @@ const months = reactive([
     { "name": "Dec" },
 ]);
 
-
 const postedDate = ref(props?.property?.propertyAddedDate);
 const computedDate = computed((postedDate) => {
     const yyyyddmm = (props?.property?.propertyAddedDate)?.split('-');
