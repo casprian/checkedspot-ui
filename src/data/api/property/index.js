@@ -50,7 +50,7 @@ const getPropertyVideo = async (params) => {
     } catch (e) {
         return { error: true, status: e?.response?.status, message: e?.response?.data?.message };
     }
-}W
+}
 
 const getPropertyDocument = async (params) => {
     try {
