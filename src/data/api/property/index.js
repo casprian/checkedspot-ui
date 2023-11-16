@@ -32,7 +32,6 @@ const getPropertyForUser = async (params) => {
     }
 };
 
-
 const getPropertyImage = async (params) => {
     try {
         const baseURL = '/property/image';
@@ -43,7 +42,6 @@ const getPropertyImage = async (params) => {
     }
 }
 
-
 const getPropertyVideo = async (params) => {
     try {
         const baseURL = '/property/video';
@@ -52,8 +50,7 @@ const getPropertyVideo = async (params) => {
     } catch (e) {
         return { error: true, status: e?.response?.status, message: e?.response?.data?.message };
     }
-}
-
+}W
 
 const getPropertyDocument = async (params) => {
     try {
