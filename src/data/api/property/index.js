@@ -77,7 +77,7 @@ const getRecentProperties = async (params) => {
 
 const createProperty = async (params) => {
     try {
-        const baseURL = "/property/individual";
+        const baseURL = "/property";
         const response = await call.callWithTokenForMultiPart('post', baseURL, params);
         return { status: 200, data: response }
     } catch (e) {
@@ -87,7 +87,7 @@ const createProperty = async (params) => {
 
 const uploadDocument = async (params) => {
     try {
-        const baseURL = "/property/document/upload";
+        const baseURL = "/property/upload/document";
         const response = await call.callWithTokenForMultiPart('post', baseURL, params);
         return { status: 200, data: response }
     } catch (e) {
@@ -97,7 +97,7 @@ const uploadDocument = async (params) => {
 
 const uploadImage = async (params) => {
     try {
-        const baseURL = "/property/gallery/upload";
+        const baseURL = "/property/upload/image";
         const response = await call.callWithTokenForMultiPart('post', baseURL, params);
         return { status: 200, data: response }
     } catch (e) {
@@ -107,7 +107,7 @@ const uploadImage = async (params) => {
 
 const uploadVideo = async (params) => {
     try {
-        const baseURL = "/property/video/upload";
+        const baseURL = "/property/upload/video";
         const response = await call.callWithTokenForMultiPart('post', baseURL, params);
         return { status: 200, data: response }
     } catch (e) {

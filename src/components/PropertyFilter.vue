@@ -46,8 +46,8 @@ export default {
         icon: "mdi-flag",
       },
     ],
-    items: ["Bangalore", "Hassan", "Mysore"],
-    select: ["Bangalore", "Hassan"],
+    items: ["Bengaluru", "Hassan", "Mysuru"],
+    select: ["Bengaluru", "Hassan"],
   }),
   methods: {
     moveToListing() {

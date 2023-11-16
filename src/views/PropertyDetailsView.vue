@@ -46,7 +46,7 @@
 
                 <!-- Gallery -->
                 <v-row no-gutters class="mb-8" style="width: 100%; height: auto;">
-                    <property-image :propertyId="property?.data?.propertyId" :image="property?.data?.images?.fileUrl" />
+                    <property-image :propertyId="property?.data?.propertyId" :image="property?.data?.image?.fileUrl" />
                 </v-row>
 
                 <!-- Description -->
@@ -138,7 +138,7 @@ const property = reactive({
         'noOfBathroom': null,
         'email': null,
         'description': null,
-        'images': {fileUrl: ""},
+        'image': {fileUrl: ""},
         'documents': [''],
         'vodeos': [''],
         'address': null,
