@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import CustomInput from '@/components/propertyForms/customInputs/CustomInput.vue';
 import PincodeInput from '@/components/propertyForms/customInputs/PincodeInput.vue';
+
 import { useField, useForm } from 'vee-validate';
 import { ref } from 'vue'
 

@@ -81,11 +81,11 @@
           </div>
         </v-col>
         <v-col cols="12" class="py-1 px-3">
-          <v-file-input v-model="imgfile.value.value" :error-messages="imgfile.errorMessage.value"
+          <v-file-input :v-model="imgfile.value.value" :error-messages="imgfile.errorMessage.value"
             label="File input (required)" variant="filled" prepend-icon="mdi-camera" multiple name="imgfile"
             accept=".jpg, .jpeg, .png, .gif, .webp, .avif, .apng, .svg"></v-file-input>
+          <!-- <property-image-input v-model="x" :error="imgfile?.errorMessage?.value"/> -->
         </v-col>
-
 
         <v-col cols="12" class="pt-2 pb-7 px-14">
           <div class="text-h5 font-weight-medium text-decoration-underline text-pink-accent-1">
@@ -93,7 +93,7 @@
           </div>
         </v-col>
         <v-col cols="12" class="py-1 px-3">
-          <v-file-input v-model="bodyData.vidfile" label="File input" variant="filled" prepend-icon="mdi-video" multiple
+          <v-file-input v-model="bodyData.videos" label="File input" variant="filled" prepend-icon="mdi-video" multiple
             name="vidfile" accept="video/*"></v-file-input>
         </v-col>
 
@@ -102,11 +102,7 @@
             Upload Property Documents
           </div>
         </v-col>
-        <!-- <v-col cols="12" class="py-1 px-3">
-          <v-file-input v-model="bodyData.planimgfile" label="File input" variant="filled" prepend-icon="mdi-file-pdf-box"
-            multiple name="planimgfile" accept="application/pdf"></v-file-input>
-        </v-col> -->
-        <property-document-input @addDocument="docFunction" />
+        <property-document-input @addDocument="addDocument" />
       </v-row>
     </v-row>
 
@@ -156,7 +152,8 @@ import { useCookies } from "vue3-cookies";
 //@ts-ignore
 import PropertyDocumentInput from "@/components/propertyForms/customInputs/PropertyDocumentInput.vue";
 //@ts-ignore
-import FormErrorAlert from '@/components/propertyForms/alerts/FormErrorAlert.vue';
+import PropertyImageInput from "@/components/propertyForms/customInputs/PropertyImageInput.vue"
+
 const { cookies } = useCookies();
 const props = defineProps(["type"]);
 const router = useRouter();
@@ -220,7 +217,7 @@ const bodyData = reactive({
   documents: null,
 });
 
-let { meta, values, errors, handleSubmit, handleReset } = useForm({
+let { meta, values, errors, handleSubmit, handleReset, defineComponentBinds } = useForm({
   validationSchema: {
     city(value: any) {
       if (!value) {
@@ -281,12 +278,21 @@ const googleMapLink = useField("googleMapLink");
 const cost = useField("cost");
 const totalArea = useField("totalArea");
 const imgfile = useField("imgfile");
+// const x = ref(imgfile.value.value);
 
-function docFunction(documents: Array<Object>) {
+function addDocument(documents: Array<Object>) {
   //@ts-ignore
   bodyData.documents = JSON.stringify(toRaw(documents));
 }
 
+// watch(x, newx => {
+//   imgfile.value.value = newx;
+// })
+// function imageuploaded(img:any) {
+//   console.log(img)
+
+//   imgfile.value.value = img;
+// }
 //@ts-ignore
 watch(state.value, newStateSelected => {
   console.log("kjhj")
@@ -324,18 +330,21 @@ async function postingPlot(bodyData: any) {
   //@ts-ignore
   bodyData.email = jwtDecode(jwt)?.userData?.email;
 
-  const formData = new FormData();
-  Object.entries(bodyData).forEach(([key, value]: any) => {
-    if (key === "totalAreaUnit") {
-      formData?.append(key, "square feet");
-    } else if (value !== null && key !== "imgfile" && key !== "planimgfile" && key !== "vidfile") {
-      formData.append(`${key}`, value);
-    } else if (key === "imgfile" || key === "planimgfile" || key === "vidfile") {
-      value.map((file: File) => {
-        formData.append(key, file);
-      });
-    }
-  });
+  Object.entries(bodyData).forEach(item => {
+
+  })
+  // const formData = new FormData();
+  // Object.entries(bodyData).forEach(([key, value]: any) => {
+  //   if (key === "totalAreaUnit") {
+  //     formData?.append(key, "square feet");
+  //   } else if (value !== null && key !== "imgfile" && key !== "planimgfile" && key !== "vidfile") {
+  //     formData.append(`${key}`, value);
+  //   } else if (key === "imgfile" || key === "planimgfile" || key === "vidfile") {
+  //     value.map((file: File) => {
+  //       formData.append(key, file);
+  //     });
+  //   }
+  // });
 
   const res = await api?.property?.createProperty(formData);
 
@@ -415,60 +424,6 @@ function onInvalidSubmit(invalidData: any) {
 
 // This handles both valid and invalid submissions
 const addProperty = handleSubmit(onSuccess, onInvalidSubmit);
-
-// const addProperty = handleSubmit(async (values) => {
-//   loading.value = true;
-//   for (let item in values) {
-//     if (values[item]) {
-//       //@ts-ignore
-//       bodyData[item] = values[item];
-//     }
-//   }
-
-//   if (bodyData?.googleMapLink) {
-//     //@ts-ignore
-//     bodyData.latitude = bodyData?.googleMapLink?.toString().split("@")[1].split(",")[0];
-//     //@ts-ignore
-//     bodyData.longitude = bodyData?.googleMapLink?.toString().split("@")[1].split(",")[1];
-//     console.log(bodyData.latitude, bodyData.longitude);
-//   }
-
-//   //If not login setData in SessionStorage to use it again to autofill the 
-//   if (!cookies.get('token')) {
-//     sessionStorage.setItem('bodyData', JSON.stringify(bodyData));
-//     sessionStorage.setItem('formType', 'plotForm');
-//     loading.value = false;
-//     router.push({ path: '/signin', query: { message: "createProperty" } });
-//     return;
-//   } else {
-//     for (let key in bodyData) {
-//       if (key === "totalAreaUnit") {
-//         //slicing the totalArea out of totalAreaUnit to set the data into sqft in the totalArea property.
-//         const area = key?.slice(0, -4);
-//         if (bodyData[key] === "guntha") {
-//           //@ts-ignore
-//           bodyData[area] = 1089.000000 * bodyData[area];
-//         } else if (bodyData[key] === "hectare") {
-//           //@ts-ignore
-//           bodyData[area] = 107639.150512 * bodyData[area];
-//         } else if (bodyData[key] === "acre") {
-//           //@ts-ignore
-//           bodyData[area] = 43560.057264 * bodyData[area];
-//         } else if (bodyData[key] === "cent") {
-//           //@ts-ignore
-//           bodyData[area] = 435.560000 * bodyData[area];
-//         } else if (bodyData[key] === "square meter") {
-//           //@ts-ignore
-//           bodyData[area] = 10.763915 * bodyData[area];
-//         } else if (bodyData[key] === "square feet") {
-//           //@ts-ignore
-//           bodyData[area] = 1.000000 * bodyData[area];
-//         }
-//       }
-//     }
-//     await postingPlot(bodyData);
-//   }
-// });
 
 onMounted(() => {
   //@ts-ignore

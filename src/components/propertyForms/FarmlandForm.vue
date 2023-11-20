@@ -113,6 +113,7 @@
                 <v-btn width="300px" color="pink-darken-2" :loading="loading" @click.prevent="addProperty">submit</v-btn>
             </v-col>
         </v-row>
+
         <v-dialog v-model="alert" width="auto">
             <v-card v-if="alert" append-icon="$close" class="mx-auto" elevation="16" max-width="500">
                 <template v-slot:append>
@@ -151,6 +152,7 @@ import { useField, useForm } from "vee-validate";
 //@ts-ignore
 import api from "@/data/api/index.js";
 import { useCookies } from "vue3-cookies";
+
 const { cookies } = useCookies();
 const props = defineProps(["type"]);
 const router = useRouter();

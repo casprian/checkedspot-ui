@@ -3,14 +3,8 @@
         <!-- Header Details section -->
         <v-col class="pa-2" cols="12">
             <v-card class="pa-4" color="cyan-accent-2">
-                <property-details :details="props.property" />
-                <!-- <v-col v-if="props.property?.title?.length > 0" class="pdLH" cols="12">Title:
-                    <span class="text-body-1 text-grey-darken-1">
-                        {{
-                            props?.property?.title
-                        }} 
-                    </span>
-                </v-col> -->
+                <property-details :details="props?.property?.details" />
+
                 <v-card-actions class="d-flex justify-end">
                     <v-btn variant="elevated" color="deep-purple-accent-4" @click="$emit('edit', 'Details')">
                         Add More details
@@ -26,13 +20,13 @@
                 <div class="titleCont pb-2">
                     <v-card-title class="title pl-0">Property Images</v-card-title>
                 </div>
-                <v-item-group v-model="selection" multiple>
+                <v-item-group multiple>
                     <v-row class="mt-2">
-                        <div v-if="props?.property?.propertyImage?.length === 0" class="text-h4 text-center pa-8 pt-6">
+                        <div v-if="props?.property?.images?.length === 0" class="text-h4 text-center pa-8 pt-6">
                             No Image has been uploaded for this property.
                         </div>
-                        <v-col v-for="(item, i) in props?.property?.propertyImage" :key="i" cols="12" md="6">
-                            <v-img :src="item" cover height="250" class="text-right pa-2"></v-img>
+                        <v-col v-for="(item, i) in props?.property?.images" :key="i" cols="12" md="6">
+                            <v-img :src="item?.fileUrl" cover height="250" class="text-right pa-2"></v-img>
                         </v-col>
                     </v-row>
                 </v-item-group>
@@ -51,16 +45,16 @@
                 <div class="titleCont pb-2">
                     <v-card-title class="title pl-0">Property Videos</v-card-title>
                 </div>
-                <v-item-group v-model="selection" multiple>
+                <v-item-group multiple>
                     <v-row class="mt-2">
-                        <div v-if="props?.property?.propertyVideo?.length === 0" class="text-h4 text-center pa-8 pt-6">
+                        <div v-if="props?.property?.videos?.length === 0" class="text-h4 text-center pa-8 pt-6">
                             No video has been uploaded for this property.
                         </div>
-                        <v-col v-else class="pa-2 d-flex justify-center" v-for="(item, i) in props?.property?.propertyVideo"
+                        <v-col v-else class="pa-2 d-flex justify-center" v-for="(item, i) in props?.property?.videos"
                             :key="i" cols="12" md="6">
-                            <video id="propVideo" muted controls autoplay
+                            <video id="propVideo" muted controls
                                 style="height: 250px; height:33vh; object-fit: contain;">
-                                <source :src="propertyVideo" type="video/mp4" />
+                                <source :src="item?.fileUrl" type="video/mp4" />
                                 Your browser does not support the video tag.
                             </video>
                         </v-col>
@@ -81,14 +75,15 @@
                 <div class="titleCont pb-2">
                     <v-card-title class="title pl-0">Property Documents</v-card-title>
                 </div>
-                <v-item-group v-model="selection" multiple>
+                <v-item-group multiple>
                     <v-row class="mt-2">
-                        <div v-if="props?.property?.propertyPlan?.length === 0" class="text-h4 text-center pa-8 pt-6">
+                        <div v-if="props?.property?.documents?.length === 0" class="text-h4 text-center pa-8 pt-6">
                             No Document has been uploaded for this property.
                         </div>
-                        <v-col v-for="(item, i) in props?.property?.propertyPlan" :key="i" cols="12" md="6">
-                            <v-img :src="item" cover height="250" class="text-right pa-2"></v-img>
-                        </v-col>
+                        <property-documents :propertyId="props?.property?.propertyId"/>
+                        <!-- <v-col v-for="(item, i) in props?.property?.documents" :key="i" cols="12" md="6">
+                            <v-img :src="item?.fileUrl" cover height="250" class="text-right pa-2"></v-img>
+                        </v-col> -->
                     </v-row>
                 </v-item-group>
                 <v-card-actions class="d-flex justify-end">
@@ -107,6 +102,7 @@ const props = defineProps(['property'])
 const emit = defineEmits(['edit'])
 
 const PropertyDetails = defineAsyncComponent(() => import('@/components/property-details-view-components/PropertyDetails.vue'))
+const PropertyDocuments = defineAsyncComponent(() => import('@/components/property-details-view-components/PropertyDocuments.vue'))
 </script>
 
 <style scoped>

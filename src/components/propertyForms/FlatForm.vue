@@ -417,7 +417,7 @@ let { meta, values, errors, handleSubmit, handleReset } = useForm({
       }
       return "it should contain only numbers";
     },
-    imgfile(value: any): any {
+    imgfile(value: any) {
       if (!value) {
         return "Required! Allowed files: .jpg, .jpeg, .png, .gif, .webp, .avif, .apng, .svg";
       }

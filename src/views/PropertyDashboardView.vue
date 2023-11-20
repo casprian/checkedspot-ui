@@ -31,6 +31,8 @@
                             </v-tab>
                         </v-tabs>
                     </v-col>
+
+
                     <v-col cols="12" sm="8" md="9">
                         <v-window v-model="tab" style="width: 100%; height: 100%;">
                             <v-window-item value="Preview Details">
@@ -124,11 +126,16 @@ const { cookies } = useCookies();
 const router = useRouter();
 const route = useRoute();
 
-const property = ref(null);
+const property = ref({
+    details: null,
+    images: null,
+    videos: null,
+    documents: null
+});
 
 const tab = ref('Preview Details')
 
-function changeTab(newtab:String) {
+function changeTab(newtab: String) {
     //@ts-ignore
     tab.value = newtab;
 }
@@ -140,15 +147,49 @@ if (!cookies.get('token')) {
 async function fetchPropertydetails() {
     const res = await api?.property?.getProperty({ params: { propertyId: route?.query?.propertyId } })
     if (res.status === 200) {
-        property.value = res.data;
+        property.value.details = res.data;
         window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
         router.push({ path: '/error', query: { status: res?.status } })
     }
 }
 
-onMounted(() => {
-    fetchPropertydetails();
+async function fetchPropertyImages() {
+    const res = await api?.property?.getPropertyImage({ params: { propertyId: route?.query?.propertyId } })
+    if (res.status === 200) {
+        property.value.images = res.data;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+        router.push({ path: '/error', query: { status: res?.status } })
+    }
+}
+
+async function fetchPropertyVideos() {
+    const res = await api?.property?.getPropertyVideo({ params: { propertyId: route?.query?.propertyId } })
+    if (res.status === 200) {
+        property.value.videos = res.data;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+        router.push({ path: '/error', query: { status: res?.status } })
+    }
+}
+
+// async function fetchPropertyDocuments() {
+//     const res = await api?.property?.getPropertyDocument({ params: { propertyId: route?.query?.propertyId } })
+//     if (res.status === 200) {
+//         property.value.documents = res.data;
+//         window.scrollTo({ top: 0, behavior: 'smooth' });
+//     } else {
+//         router.push({ path: '/error', query: { status: res?.status } })
+//     }
+// }
+
+onMounted(async () => {
+    await fetchPropertydetails();
+    await fetchPropertyImages();
+    await fetchPropertyVideos();
+    // await fetchPropertyDocuments();
+
 })
 
 </script>
