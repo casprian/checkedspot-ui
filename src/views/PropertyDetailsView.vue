@@ -12,7 +12,7 @@
                     <v-col cols="12" sm="9">
                         <div class="d-flex justify-space-between align-center justify-sm-start">
                             <div class="text-h6 text-sm-h5 font-weight-medium">
-                                Checkedspot Property
+                                Plotwala Property
                             </div>
                             <div v-if="property?.data">
                                 <v-btn v-if="property?.data.propertyStatus" variant="flat" color="pink-accent-3"

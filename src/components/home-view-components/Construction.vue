@@ -13,14 +13,14 @@
         class="mx-auto bg-green">
         <div style="height: 100%" class="text-h5 text-center d-flex align-center justify-center">
           <h5>
-            Message has been delivered. Checkedspot Team will contact you soon.
+            Message has been delivered. Plotwala Team will contact you soon.
           </h5>
         </div>
       </v-card>
     </v-expand-transition>
     <v-row no-gutters class="bgConstruction d-flex justify-space-between py-10 py-md-0">
       <v-col cols="12" md="4" class="px-16 pr-md-0 pl-md-16 my-5 mr-0 d-flex flex-column justify-center">
-        <h2 class="h2 text-white pb-3 text-center text-md-left">CheckedSpot Construction Simplified</h2>
+        <h2 class="h2 text-white pb-3 text-center text-md-left">Plotwala Construction Simplified</h2>
         <p class="text-white text-h6 font-weight-regular text-center text-md-left">Step into the home you've always
           dreamed of, built to the highest standard of quality.</p>
       </v-col>
@@ -54,7 +54,7 @@
               book free consultation
             </v-btn>
             <p class="caption"><span class="text-red">* </span>By submitting this form, I confirm that I have read and
-              agreed to accept CheckedSpot's <RouterLink to="/privacypolicy">privacy policy</RouterLink>
+              agreed to accept Plotwala's <RouterLink to="/privacypolicy">privacy policy</RouterLink>
             </p>
           </v-sheet>
         </form>

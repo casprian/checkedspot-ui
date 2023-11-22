@@ -40,7 +40,7 @@
                         of our Service.</li>
 
                     <li><strong>Company</strong> (referred to as either “the Company”, “We”, “Us” or “Our” in this
-                        Agreement) refers to Checkedspot, 1st floor - Above Queens Collection, Subhash Square - Hassan
+                        Agreement) refers to Plotwala, 1st floor - Above Queens Collection, Subhash Square - Hassan
                         573201</li>
 
                     <li><strong>Cookies</strong> are small files that are placed on Your computer, mobile device or any
@@ -66,7 +66,7 @@
                         of the Service or from the Service infrastructure itself (for example, the duration of a page
                         visit).</li>
 
-                    <li><strong>Website</strong> refers to Checkedspot, accessible from <a
+                    <li><strong>Website</strong> refers to Plotwala, accessible from <a
                             href="https://www.checkedspot.com" target="_blank">https://www.checkedspot.com</a>
                     </li>
 

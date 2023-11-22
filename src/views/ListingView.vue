@@ -346,9 +346,7 @@ async function handleSubmit() {
 async function getAllProperty() {
     // console.log(filterOptions)
     const filterData = {
-        params: {
-            filters: JSON.stringify({ ...propertyFilters })
-        },
+        params: propertyFilters,
     };
 
     const res = await api.property.getProperties(filterData);

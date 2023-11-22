@@ -46,7 +46,7 @@
             </v-row>
             <v-row no-gutters class="bg-grey-darken-3">
                 <v-col cols="12" sm="6" class="px-4 pt-2 py-sm-2 text-caption font-weight-light text-grey-lighten-5 text-center">
-                    Copyright © 2023 <strong>Checked Spot</strong> - All Rights Reserved.
+                    Copyright © 2023 <strong>Plotwala</strong> - All Rights Reserved.
                 </v-col>
                 <v-col cols="12" sm="6" class="px-4 pb-2 py-sm-2 text-caption font-weight-light text-grey-lighten-5 text-center">
                     <button @click="router.push('/privacypolicy')">privacy policy</button>

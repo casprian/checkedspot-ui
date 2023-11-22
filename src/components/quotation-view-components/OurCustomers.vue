@@ -6,7 +6,7 @@
           Our Customers
         </h2>
         <p class="py-3 text-indigo-lighten-1 text-center text-body-1">
-          Over 100 happy family members are part of CheckedSpot family.
+          Over 100 happy family members are part of Plotwala family.
         </p>
       </v-col>
       <v-col cols="12" class="py-4 pr-md-0 pb-8">
@@ -38,7 +38,7 @@ const customerDetails = reactive([
   {
     img1: "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg",
     detail:
-      "I would recommend CheckedSpot to all our family and friends. Keep up the good work!",
+      "I would recommend Plotwala to all our family and friends. Keep up the good work!",
     name: "Divyashant",
   },
   {
@@ -49,24 +49,24 @@ const customerDetails = reactive([
   },
   {
     img1: "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg",
-    detail: "What helps truly was that CheckedSpot was always there with us!",
+    detail: "What helps truly was that Plotwala was always there with us!",
     name: "Divyashant",
   },
   {
     img1: "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg",
     detail:
-      "My wife Swati and I had a fantastic house-building experience with CheckedSpot",
+      "My wife Swati and I had a fantastic house-building experience with Plotwala",
     name: "Vivek",
   },
   {
     img1: "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg",
     detail:
-      "Thank you CheckedSpot for all your support, it was a great journey",
+      "Thank you Plotwala for all your support, it was a great journey",
     name: "Divyashant",
   },
   {
     img1: "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg",
-    detail: "CheckedSpot helped me achieve this journey without much hassle",
+    detail: "Plotwala helped me achieve this journey without much hassle",
     name: "Vivek",
   },
 ]);

@@ -21,10 +21,10 @@
                 </v-toolbar>
 
                 <div class="verifiedTagContainer">
-                    <v-card-title title="verified by Checked Spot" v-if="property?.isVerifiedByCheckedSpot"
+                    <v-card-title title="verified by PLotwala" v-if="property?.isVerifiedByCheckedSpot"
                         class="px-0 py-1 verifiedTag">
                         <v-chip variant="elevated" color="green" density="comfortable">
-                            Checked Spot <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon>
+                            Plotwala <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon>
                         </v-chip>
                     </v-card-title>
                     <v-card-title title="Freehold Property" v-if="property?.isFreeHold" class="px-0 py-1 verifiedTag">
@@ -52,10 +52,10 @@
                 <v-btn density="default" variant="elevated" class="text-none" color="pink-darken-3" append-icon="mdi-cursor-default-click">For details. Click here!</v-btn>
             </div>
             <div class="verifiedTagContainer">
-                <v-card-title title="verified by Checked Spot" v-if="property?.isVerifiedByCheckedSpot"
+                <v-card-title title="verified by Plotwala" v-if="property?.isVerifiedByCheckedSpot"
                     class="px-0 py-1 verifiedTag">
                     <v-chip variant="elevated" color="green" density="comfortable">
-                        Checked Spot <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon>
+                        Plotwala <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon>
                     </v-chip>
                 </v-card-title>
                 <v-card-title title="Freehold Property" v-if="property?.isFreeHold" class="px-0 py-1 verifiedTag">

@@ -8,7 +8,7 @@
         <v-row no-gutters justify="center">
             <v-col cols="5" class="pb-8 pt-4">
                 <h1 class="text-h5 text-center font-weight-light">
-                    Checked Spots are those properties which are not just those
+                    Plotwala verified(Checked Spots) are those properties which are not just those
                     properties posted in web but they are,
                 </h1>
             </v-col>
@@ -22,7 +22,7 @@
                 <div class="d-flex align-center mb-3 pr-2">
                     <p class="text-h6 font-weight-light">
                         Properties are digitally and physically verified by one ore more
-                        of our checkedspot representative such that you can save your
+                        of our Plotwala representative such that you can save your
                         time and be sure on what you are buying.
                     </p>
                 </div>
@@ -66,7 +66,7 @@
                 <p class="my-4 text-body-1 font-weight-light pl-8">
                     To see a sample report on each of property listed is verified who
                     can click here to see a
-                    <a href="#">Sample Report - Checked Spot</a>
+                    <a href="#">Sample Report - Checked Spots</a>
                     , Otherwise, you're done!
                 </p>
             </v-col>

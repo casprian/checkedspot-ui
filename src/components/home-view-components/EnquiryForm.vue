@@ -12,7 +12,7 @@
             class="mx-auto bg-green">
             <div style="height: 100%" class="text-h6 text-center d-flex align-center justify-center pa-4">
                 <h5 style="line-height: normal;">
-                    Message has been delivered. Checkedspot Team will contact you soon.
+                    Message has been delivered. Plotwala Team will contact you soon.
                 </h5>
             </div>
         </v-card>

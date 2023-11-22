@@ -12,7 +12,7 @@
       class="mx-auto bg-green">
       <div style="height: 100%" class="text-h5 text-center d-flex align-center justify-center">
         <h5>
-          Message has been delivered. Checkedspot Team will contact you soon.
+          Message has been delivered. Plotwala Team will contact you soon.
         </h5>
       </div>
     </v-card>
@@ -35,8 +35,7 @@
 
           <v-parallax :src="item.parallaxSrc" :alt="item.name" class="parallax">
             <div class="h-75 d-flex flex-column justify-center align-center text-white parallaxMask">
-              <p class="text-h4 text-sm-h3 font-weight-regular pt-10 text-center" title="Checked Spot - Bangalore">Checked
-                Spot - {{ item.name }}</p>
+              <p class="text-h4 text-sm-h3 font-weight-regular pt-10 text-center" title="Plotwala - Bangalore">Plotwala - {{ item.name }}</p>
             </div>
 
             <v-row class="mx-0 mt-0 px-6 pb-4 d-flex justify-space-between align-end parallaxMask"
