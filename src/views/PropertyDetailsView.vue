@@ -10,13 +10,13 @@
             </v-col>
         </v-row>
     </v-container>
-    <v-container fluid class="pa-0 pt-16 px-4 bg-background">
-
-        <v-row v-if="count < 2" no-gutters class="px-sm-14">
-            <v-col cols="4" class="loader">
+    <v-container fluid class="pa-0 pt-16 px-4 bg-background" style="height: calc(100% - 54px);">
+        <v-row v-if="count < 2" no-gutters class="d-flex justify-center align-center" style="height: calc(100% - 64px);">
+            <v-col cols="4">
                 <v-progress-linear color="pink-accent-3" indeterminate rounded height="10"></v-progress-linear>
             </v-col>
         </v-row>
+
         <v-row v-else no-gutters class="px-sm-10">
             <v-col cols="12" md="8" class="pr-0 pr-md-3">
                 <v-row no-gutters class="mb-10">
@@ -56,29 +56,12 @@
                 </v-row>
 
                 <!-- Gallery -->
-                <v-row no-gutters class="mb-8">
-                    <v-col cols="12">
-                        <v-card class="rounded-0 px-2 pb-4 pt-2" elevation="2">
-                            <v-card-item class="titleCont mb-3">
-                                <v-card-title class="title">Gallery</v-card-title>
-                            </v-card-item>
-
-                            <v-card-item>
-                                <v-carousel height="400" show-arrows="hover" progress="pink-accent-3" continuous
-                                    hide-delimiter-background>
-                                    <v-carousel-item v-for="(image, i) in property?.data?.propertyImage" :key="i">
-                                        <v-sheet height="100%">
-                                            <img class="propGallery" :src="image" alt="property Gallery">
-                                        </v-sheet>
-                                    </v-carousel-item>
-                                </v-carousel>
-                            </v-card-item>
-                        </v-card>
-                    </v-col>
+                <v-row no-gutters class="mb-8" style="width: 100%; height: auto;">
+                    <property-image :propertyId="property?.data?.propertyId" :image="property?.data?.propertyImage[0]" />
                 </v-row>
 
                 <!-- Description -->
-                <v-row no-gutters class="mb-8">
+                <v-row no-gutters class="mb-8" style="width: 100%; height: auto;">
                     <v-col cols="12">
                         <v-card class="rounded-0 px-2 pb-4 pt-2" elevation="2">
                             <v-card-item class="titleCont mb-5">
@@ -97,202 +80,67 @@
                 </v-row>
 
                 <!-- Property Details -->
-                <v-row no-gutters class="mb-8">
-                    <v-col cols="12">
-                        <v-card class="rounded-0 px-2 pb-4 pt-2" elevation="2">
-                            <v-card-item class="titleCont mb-5">
-                                <v-card-title class="title">Property Details</v-card-title>
-                            </v-card-item>
+                <property-details :details="property?.data" />
 
-                            <v-row no-gutters class="px-4 pb-7" :class="pdStyle01">
-                                <v-col class="pdLH" cols="12" sm="6" md="4">Property ID:
-                                    <span :class="pdStyle02">
-                                        {{
-                                            property?.data?.propertyId ? property?.data?.propertyId : 'Not Found'
-                                        }}
-                                    </span>
-                                </v-col>
-                                <v-col class="pdLH" cols="12" sm="6" md="4">Property Type:
-                                    <span :class="pdStyle02">
-                                        {{
-                                            property?.data?.type ? property?.data?.type : "plot"
-                                        }}
-                                    </span>
-                                </v-col>
-                                <v-col class="pdLH" cols="12" sm="6" md="4">Property Status:
-                                    <span :class="pdStyle02">
-                                        {{
-                                            property?.data?.propertyStatus
-                                            ? property?.data?.propertyStatus
-                                            : 'Not Found'
-                                        }}
-                                    </span>
-                                </v-col>
-                                <v-col class="pdLH" cols="12" sm="6" md="4">Property Price:
-                                    <span :class="pdStyle02">
-                                        {{
-                                            property?.data?.cost ? property?.data?.cost : 'unavailable'
-                                        }}
-                                    </span>
-                                </v-col>
-                                <v-col class="pdLH" cols="12" sm="6" md="4">Bedrooms:
-                                    <span :class="pdStyle02">
-                                        {{
-                                            property?.data?.noOfBedroom
-                                            ? property?.data?.noOfBedroom
-                                            : 'unavailable'
-                                        }}
-                                    </span>
-                                </v-col>
-                                <v-col class="pdLH" cols="12" sm="6" md="4">Bathrooms:
-                                    <span :class="pdStyle02">{{
-                                        property?.data?.noOfBathroom
-                                        ? property?.data?.noOfBathroom
-                                        : 'unavailable'
-                                    }}</span></v-col>
-                                <v-col class="pdLH" cols="12" sm="6" md="4">Year Built:
-                                    <span :class="pdStyle02">
-                                        {{
-                                            property?.data?.yearOfBuilt
-                                            ? property?.data?.yearOfBuilt
-                                            : 'unavailable'
-                                        }}
-                                    </span>
-                                </v-col>
-                                <v-col class="pdLH" cols="12" sm="6" md="4">Refrigerator:
-                                    <span :class="pdStyle02">
-                                        {{
-                                            property?.data?.refrigerator !== "unavailable"
-                                            ? property?.data?.refrigerator
-                                            : 'unavailable'
-                                        }}
-                                    </span>
-                                </v-col>
-                                <v-col class="pdLH" cols="12" sm="6" md="4">Air Conditioning:
-                                    <span :class="pdStyle02">
-                                        {{
-                                            property?.data?.airConditioning !== "unavailable"
-                                            ? property?.data?.airConditioning
-                                            : 'unavailable'
-                                        }}
-                                    </span>
-                                </v-col><v-col class="pdLH" cols="12" sm="6" md="4">Dish Washer:
-                                    <span :class="pdStyle02">
-                                        {{
-                                            property?.data?.dishWasher !== "unavailable"
-                                            ? property?.data?.dishWasher
-                                            : 'unavailable'
-                                        }}
-                                    </span>
-                                </v-col><v-col class="pdLH" cols="12" sm="6" md="4">Elivator:
-                                    <span :class="pdStyle02">
-                                        {{
-                                            property?.data?.elivator !== "unavailable"
-                                            ? property?.data?.elivator
-                                            : 'unavailable'
-                                        }}
-                                    </span>
-                                </v-col><v-col class="pdLH" cols="12" sm="6" md="4">TV Cable:
-                                    <span :class="pdStyle02">
-                                        {{
-                                            property?.data?.tvCable !== "unavailable"
-                                            ? property?.data?.tvCable
-                                            : 'unavailable'
-                                        }}
-                                    </span>
-                                </v-col><v-col class="pdLH" cols="12" sm="6" md="4">Laundry Room:
-                                    <span :class="pdStyle02">
-                                        {{
-                                            property?.data?.laundryRoom !== "unavailable"
-                                            ? property?.data?.laundryRoom
-                                            : 'unavailable'
-                                        }}
-                                    </span>
-                                </v-col><v-col class="pdLH" cols="12" sm="6" md="4">Swimming Pool:
-                                    <span :class="pdStyle02">
-                                        {{
-                                            property?.data?.swimmingPool !== "unavailable"
-                                            ? property?.data?.swimmingPool
-                                            : 'unavailable'
-                                        }}
-                                    </span>
-                                </v-col><v-col class="pdLH" cols="12" sm="6" md="4">Wi Fi:
-                                    <span :class="pdStyle02">
-                                        {{
-                                            property?.data?.wifi !== "unavailable"
-                                            ? property?.data?.wifi
-                                            : 'unavailable'
-                                        }}
-                                    </span>
-                                </v-col><v-col class="pdLH" cols="12" sm="6" md="4">Parking Lot:
-                                    <span :class="pdStyle02">
-                                        {{
-                                            property?.data?.parkingLot !== "unavailable"
-                                            ? property?.data?.parkingLot
-                                            : 'unavailable'
-                                        }}
-                                    </span>
-                                </v-col>
-                            </v-row>
-                        </v-card>
-                    </v-col>
-                </v-row>
 
                 <!-- Property Videos -->
                 <v-row no-gutters class="mb-8">
-                    <v-col cols="12">
-                        <v-card class="rounded-0 px-2 pb-4 pt-2" elevation="2">
-                            <v-card-item class="titleCont mb-3">
-                                <v-card-title class="title">Video</v-card-title>
-                            </v-card-item>
-
-                            <v-card-item>
-                                <video id="propVideo" muted controls autoplay>
-                                    <source :src="property?.data?.propertyVideo[0]" type="video/mp4" />
-                                    Your browser does not support the video tag.
-                                </video>
-                            </v-card-item>
-                        </v-card>
-                    </v-col>
+                    <property-video :propertyId="property?.data?.propertyId" />
                 </v-row>
 
-                <!-- Floor Plans -->
-                <v-row no-gutters class="mb-8">
+                <!-- Plans -->
+                <v-row no-gutters class="mb-8" style="width: 100%; height: auto;">
                     <v-col cols="12">
                         <v-card class="rounded-0 px-2 pb-4 pt-2" elevation="2">
                             <v-card-item class="titleCont mb-5">
                                 <v-card-title class="title">Plan</v-card-title>
                             </v-card-item>
 
-                            <v-row no-gutters class="px-4 pb-7">
-                                <PDFViewer 
-                                    :rendering-text="'Loading Plan PDF'" 
-                                    :source="property?.data?.propertyPlan ? property?.data?.propertyPlan[0] : ''" 
-                                    @download="handleDownload" 
-                                    style="height: 100vh; width: 100vw"
-                                />
+                            <v-row v-if="property?.data?.propertyPlan.length > 0" no-gutters class="px-4 pb-5">
+                                <v-cols cols="12" style="height: 500px; width: 100%;">
+                                    <PDFViewer style="min-width: 300px !important;" :rendering-text="'Loading Plan PDF'"
+                                        :source="property?.data?.propertyPlan ? property?.data?.propertyPlan[0] : ''"
+                                        @download="handleDownload"
+                                        :controls="['download', 'print', 'zoom', 'switchPage', 'catalog']" />
+                                </v-cols>
                             </v-row>
+                            <div v-else class="text-h4 text-center pa-8">
+                                No Document has been uploaded for this property.
+                            </div>
                         </v-card>
                     </v-col>
                 </v-row>
 
                 <!-- Location -->
-                <v-row no-gutters class="mb-8">
+                <v-row v-if="property?.data?.longitude && property?.data?.latitude" no-gutters class="mb-8">
                     <v-col cols="12">
-                        <v-card class="rounded-0 px-2 pb-4 pt-2" elevation="2">
-                            <v-card-item class="titleCont mb-5">
+                        <v-card class="rounded-0 px-5 pb-8 pt-2" elevation="2">
+                            <v-card-item class="titleCont mb-6 pa-0 pb-4">
                                 <v-card-title class="title">Location</v-card-title>
                             </v-card-item>
-
-                            <v-row no-gutters class="px-4 pb-7" :class="pdStyle01">
-
+                            <div class="d-flex justify-center">
+                                <span>
+                                    <v-btn width="200" @click="showMap" v-if="!maploaded" prepend-icon="mdi-google-maps"
+                                        color="deep-purple-lighten-2">Show Map</v-btn>
+                                </span>
+                            </div>
+                            <v-row no-gutters v-if="maploaded" class="px-4 pb-7" id="map" :class="pdStyle01"
+                                style="height: 500px;">
                             </v-row>
                         </v-card>
                     </v-col>
                 </v-row>
             </v-col>
 
-            <v-col cols="12" md="4" class="pl-0 pl-md-3">
+            <v-col v-if="isSold === true" cols="12" md="4" class="pl-0 pl-md-3">
+                <v-card class="rounded-0" elevation="2">
+                    <v-card-item>
+                        <div class="text-h3 font-weight-regular pa-10 bg-yellow">Property is Sold!</div>
+                    </v-card-item>
+                </v-card>
+            </v-col>
+
+            <v-col v-else cols="12" md="4" class="pl-0 pl-md-3">
                 <v-card class="rounded-0" elevation="2">
                     <v-card-item>
                         <v-card-title class="pb-5 mx-3 mb-10 pt-2" style="border-bottom: 1px solid #e0e0e0">Sales
@@ -300,7 +148,7 @@
                         </v-card-title>
                         <v-card-actions>
                             <v-avatar class="mx-2" size="75" color="grey-darken-3"
-                                image="/src/assets/photos/parvez1.jpeg"></v-avatar>
+                                image="https://checkedspot.blob.core.windows.net/assets/parvez1.jpeg"></v-avatar>
                             <v-sheet class="px-5 mt-n7">
                                 <v-card-title>
                                     {{
@@ -356,6 +204,13 @@ import api from '@/data/api/index.js';
 import { onMounted, reactive, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import PDFViewer from 'pdf-viewer-vue';
+//@ts-ignore
+import PropertyDetails from '@/components/property-details-view/PropertyDetails.vue';
+//@ts-ignore
+import PropertyVideo from '@/components/property-details-view/PropertyVideo.vue';
+//@ts-ignore
+import PropertyImage from '@/components/property-details-view/PropertyImage.vue'
+import { Loader } from '@googlemaps/js-api-loader';
 
 function handleDownload() {
     window.location.href = property?.data?.propertyPlan[0];
@@ -363,9 +218,9 @@ function handleDownload() {
 
 const route = useRoute();
 const router = useRouter();
+const isSold = ref(false);
 
 const pdStyle01 = ref("text-body-1 font-weight-medium text-grey-darken-2");
-const pdStyle02 = ref("text-body-1 text-grey-darken-1");
 
 const items = reactive([
     {
@@ -376,10 +231,10 @@ const items = reactive([
     {
         title: "Listing",
         disabled: false,
-        href: `${route?.query?.listingPath}`,
+        href: router?.options?.history?.state?.back,
     },
     {
-        title: "PropertyDetails",
+        title: "Property Details",
         disabled: true,
         href: "/propertydetails",
     },
@@ -394,7 +249,7 @@ const property = reactive({
         'type': null,
         'wifi': null,
         'swimmingPool': null,
-        'propertyStatus': null,
+        'propertyStatus': [''],
         'laundryRoom': null,
         'city': null,
         'tvCable': null,
@@ -413,7 +268,9 @@ const property = reactive({
         'propertyVideo': [''],
         'address': null,
         'name': null,
-        'parkingLot': null
+        'parkingLot': null,
+        'longitude': null,
+        'latitude': null,
     },
 });
 
@@ -424,15 +281,33 @@ const agent = reactive({
         'mobile': [],
         'address': []
     }
-})
+});
 
-const propetyDocument = reactive({
-    data: {
-        'documentDescription': null,
-        'documentId': null,
-        'documentType': null,
-    }
-})
+const maploaded = ref(false)
+async function showMap() {
+    let map;
+    const additionalOptions = {};
+
+    const loader = new Loader({
+        //@ts-ignore
+        apiKey: process.env.GOOGLE_API_KEY,
+        version: "weekly",
+        libraries: ["places"],
+        ...additionalOptions,
+    });
+
+    loader?.load()?.then(async (google) => {
+        const { Map } = await google.maps.importLibrary("maps");
+
+        map = new Map(document.getElementById("map"), {
+            //@ts-ignore
+            center: { lat: parseFloat(property?.data?.latitude), lng: parseFloat(property?.data?.longitude) },
+            zoom: 16,
+        });
+    });
+
+    maploaded.value = true;
+}
 
 async function propertydata() {
     const res = await api?.property?.getProperty({
@@ -444,13 +319,12 @@ async function propertydata() {
     if (res.status === 200) {
         count.value++;
         property.data = res.data;
-        console.log(res);
         costPerSqFt.value = res?.data?.totalArea !== 0 ? Math.ceil(res?.data?.cost / res?.data?.totalArea) : 0;
+        //@ts-ignore
+        isSold.value = property.data.propertyStatus.includes("sold");
     } else {
         router.push({ path: '/error', query: { status: res?.status } })
     }
-
-
 }
 
 async function agentdata() {
@@ -478,19 +352,6 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.loader {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.propGallery {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
 .description {
     line-height: 25px;
 }
@@ -506,27 +367,5 @@ onMounted(async () => {
     background-color: #f50057;
     position: absolute;
     top: 43px;
-}
-
-.pdLH {
-    line-height: 38px;
-}
-
-#propVideo {
-    object-fit: cover;
-    width: 100%;
-    height: auto;
-}
-
-.uploadBtn {
-    background-color: #F50057;
-    padding: 5px 25px;
-    border-radius: 20px;
-    font-weight: 500;
-    color: white;
-}
-
-.uploadBtn>label:hover {
-    cursor: pointer;
 }
 </style>

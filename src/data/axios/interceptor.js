@@ -1,15 +1,16 @@
 import axios from "axios";
 
+// export const baseURL= "http://localhost:8080";
+export const baseURL= "https://api.checkedspot.com";
+
 const http = axios.create({
   // withCredentials: true, this statement is used to send cookie by default in request headers.
   withCredentials: true,
-  //baseURL: "http://localhost:8080",
-  baseURL: "https://apicheckedspot.azurewebsites.net",
+  baseURL,
   headers: {
-    Accept: "application/json",
+    "Accept": "application/json",
   },
 });
-
 
 http.interceptors.request.use((config) => {
   return {
@@ -18,7 +19,6 @@ http.interceptors.request.use((config) => {
       ...config.headers,
     },
   }
-  // return config;
 });
 
 http.interceptors.response.use(
@@ -31,17 +31,13 @@ http.interceptors.response.use(
 );
 
 
-
 const instanceWithToken = axios.create({
   withCredentials: true,
-  // baseURL: "http://localhost:8080",
-  baseURL: "https://apicheckedspot.azurewebsites.net",
+  baseURL,
   headers: {
-    Accept: "application/json",
-    Authorization: `Bearer ${sessionStorage.getItem('token')}`
+    "Accept": "application/json",
   },
 });
-
 
 instanceWithToken.interceptors.request.use((config) => {
   return {
@@ -50,7 +46,6 @@ instanceWithToken.interceptors.request.use((config) => {
       ...config.headers,
     },
   }
-  // return config;
 });
 
 instanceWithToken.interceptors.response.use(
@@ -63,15 +58,12 @@ instanceWithToken.interceptors.response.use(
 );
 
 
-
-const instanceForPostMultiPart = axios.create({ 
+const instanceForPostMultiPart = axios.create({
   withCredentials: true,
-  //baseURL: "http://localhost:8080",
-   baseURL: "https://apicheckedspot.azurewebsites.net",
+  baseURL,
   headers: {
     "Accept": "application/json",
     "Content-Type": "multipart/form-data",
-    "Authorization": `Bearer ${sessionStorage.getItem('token')}`
   },
 });
 
@@ -82,7 +74,6 @@ instanceForPostMultiPart.interceptors.request.use((config) => {
       ...config.headers,
     },
   }
-  // return config;
 });
 
 instanceForPostMultiPart.interceptors.response.use(
@@ -94,8 +85,9 @@ instanceForPostMultiPart.interceptors.response.use(
   }
 );
 
-export default { 
-  http, 
-  instanceWithToken, 
-  instanceForPostMultiPart 
+
+export default {
+  http,
+  instanceWithToken,
+  instanceForPostMultiPart
 }

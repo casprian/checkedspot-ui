@@ -10,7 +10,7 @@
                 </div> 
                 <div width="100%" class="d-flex flex-column justify-center align-center pa-7">
                     <v-btn prepend-icon="mdi-arrow-left-bold" width="200px"  height="48px" variant="elevated" color="pink-accent-3" class="text-h5 ma-2" @click="router.back()">Back</v-btn>
-                    <v-btn prepend-icon="mdi-home" width="200px"  height="48px" variant="elevated" color="pink-accent-3" class="text-h5 ma-2" @click="router.push('/')">Home</v-btn>
+                    <v-btn prepend-icon="mdi-home" width="200px"  height="48px" variant="elevated" color="pink-accent-3" class="text-h5 ma-2" @click="router.push('/home')">Home</v-btn>
                 </div>       
             </v-col>
             <v-col v-else-if="400 <= status && status <= 499" cols="auto">
@@ -19,7 +19,7 @@
                 </div> 
                 <div width="100%" class="d-flex flex-column justify-center align-center pa-7">
                     <v-btn prepend-icon="mdi-arrow-left-bold" width="200px"  height="48px" variant="elevated" color="pink-accent-3" class="text-h5 ma-2" @click="router.back()">Back</v-btn>
-                    <v-btn prepend-icon="mdi-home" width="200px"  height="48px" variant="elevated" color="pink-accent-3" class="text-h5 ma-2" @click="router.push('/')">Home</v-btn>
+                    <v-btn prepend-icon="mdi-home" width="200px"  height="48px" variant="elevated" color="pink-accent-3" class="text-h5 ma-2" @click="router.push('/home')">Home</v-btn>
                 </div>       
             </v-col>
             <v-col v-else-if="500 <= status && status <= 599" cols="auto">
@@ -28,7 +28,7 @@
                 </div>
                 <div width="100%" class="d-flex flex-column justify-center align-center pa-7">
                     <v-btn prepend-icon="mdi-arrow-left-bold" width="200px"  height="48px" variant="elevated" color="pink-accent-3" class="text-h5 ma-2" @click="router.back()">Back</v-btn>
-                    <v-btn prepend-icon="mdi-home" width="200px"  height="48px" variant="elevated" color="pink-accent-3" class="text-h5 ma-2" @click="router.push('/')">Home</v-btn>
+                    <v-btn prepend-icon="mdi-home" width="200px"  height="48px" variant="elevated" color="pink-accent-3" class="text-h5 ma-2" @click="router.push('/home')">Home</v-btn>
                 </div>   
             </v-col>
             <v-col v-else cols="auto">
@@ -37,7 +37,7 @@
                 </div>
                 <div width="100%" class="d-flex flex-column justify-center align-center pa-7">
                     <v-btn prepend-icon="mdi-arrow-left-bold" width="200px"  height="48px" variant="elevated" color="pink-accent-3" class="text-h5 ma-2" @click="router.back()">Back</v-btn>
-                    <v-btn prepend-icon="mdi-home" width="200px"  height="48px" variant="elevated" color="pink-accent-3" class="text-h5 ma-2" @click="router.push('/')">Home</v-btn>
+                    <v-btn prepend-icon="mdi-home" width="200px"  height="48px" variant="elevated" color="pink-accent-3" class="text-h5 ma-2" @click="router.push('/home')">Home</v-btn>
                 </div>  
             </v-col>
 
@@ -59,7 +59,7 @@ status.value = parseInt(JSON.parse(JSON.stringify(route?.query?.status ? route?.
 <style scoped>
 .container {
     height: 100vh; 
-    background-image: url('../assets/images/b-12.jpg');
+    background-image: url('https://checkedspot.blob.core.windows.net/assets/b-12.jpg');
     background-size: cover;   
     background-position-y: bottom;
 }
