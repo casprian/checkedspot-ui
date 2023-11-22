@@ -103,12 +103,11 @@
                                     <p title="cent" class="pa-1 text-body-2 modalbody">cent</p>
                                 </v-col>
                             </v-row>
-<<<<<<< HEAD
-                        </v-col>
-                    </v-row>
-                </v-container>
-            </v-sheet>
-        </v-img>
+                        </v-card-text>
+                    </v-card>
+                </v-dialog>
+            </v-col>
+        </v-row>
 
         <v-sheet height="260px">
             <v-container class="pa-0">
@@ -128,25 +127,23 @@
                                     : 'Not Found'
                                 }}
                             </span>
-=======
->>>>>>> e2cc33be1ace43703fec4a4ee8e7b8b96dd388ee
                         </v-card-text>
                         <v-card-actions class="d-flex justify-center">
                             <v-btn @click="dialog = false">OK</v-btn>
                         </v-card-actions>
-                    </v-card>
-                </v-dialog>
-            </v-col>
+                    </v-col>
+                </v-row>
+            </v-container>
+        </v-sheet>
 
-            <v-col cols="12" class="px-4 pb-1">
-                <div v-if="property?.address" class="text-body-2 text-grey-darken-2 overflowText" title="Property address">
-                    address: {{
-                        property?.address
-                    }}
-                </div>
-                <div v-else class="text-body-2 text-grey-darken-2">&nbsp;</div>
-            </v-col>
-        </v-row>
+        <v-col cols="12" class="px-4 pb-1">
+            <div v-if="property?.address" class="text-body-2 text-grey-darken-2 overflowText" title="Property address">
+                address: {{
+                    property?.address
+                }}
+            </div>
+            <div v-else class="text-body-2 text-grey-darken-2">&nbsp;</div>
+        </v-col>
 
         <v-row class="cardBottom pa-0 mx-6 my-2 d-flex justify-space-between align-center">
             <v-col cols="auto" class="px-0 my-1 d-flex justify-center align-center">
