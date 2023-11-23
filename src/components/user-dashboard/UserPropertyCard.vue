@@ -31,7 +31,7 @@
             <v-card-title v-if="property?.isVerifiedByCheckedSpot" title="verified by Plotwala"
                 class="px-4 py-1 verifiedTag">
                 <v-chip variant="elevated" color="green-darken-2" density="comfortable">
-                    Plotwala <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon>
+                    Plotwala verified <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon>
                 </v-chip>
             </v-card-title>
             <v-row no-gutters>

@@ -8,7 +8,7 @@
         <v-row no-gutters justify="center">
             <v-col cols="5" class="pb-8 pt-4">
                 <h1 class="text-h5 text-center font-weight-light">
-                    Plotwala verified(Checked Spots) are those properties which are not just those
+                    Plotwala verified are those properties which are not just those
                     properties posted in web but they are,
                 </h1>
             </v-col>

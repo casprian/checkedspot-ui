@@ -24,7 +24,7 @@
                     <v-card-title title="verified by PLotwala" v-if="property?.isVerifiedByCheckedSpot"
                         class="px-0 py-1 verifiedTag">
                         <v-chip variant="elevated" color="green" density="comfortable">
-                            Plotwala <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon>
+                            Plotwala verified <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon>
                         </v-chip>
                     </v-card-title>
                     <v-card-title title="Freehold Property" v-if="property?.isFreeHold" class="px-0 py-1 verifiedTag">
@@ -55,7 +55,7 @@
                 <v-card-title title="verified by Plotwala" v-if="property?.isVerifiedByCheckedSpot"
                     class="px-0 py-1 verifiedTag">
                     <v-chip variant="elevated" color="green" density="comfortable">
-                        Plotwala <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon>
+                        Plotwala verified <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon>
                     </v-chip>
                 </v-card-title>
                 <v-card-title title="Freehold Property" v-if="property?.isFreeHold" class="px-0 py-1 verifiedTag">
@@ -110,7 +110,7 @@
                             <v-tooltip activator="parent" location="end">Show Areas</v-tooltip>
                         </v-btn>
                     </template>
-
+                    
                     <v-card>
                         <v-card-text class="mx-2">
                             <div class="text-h6">Total Area in other Units</div>

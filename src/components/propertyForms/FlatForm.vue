@@ -195,23 +195,20 @@
 
         <v-col cols="12" class="pt-2 pb-7 px-14">
           <div class="text-h5 font-weight-medium text-decoration-underline text-pink-accent-1">
-            Upload Property Documents
-          </div>
-        </v-col>
-        <v-col cols="12" class="py-1 px-3">
-          <v-file-input v-model="bodyData.planimgfile" label="File input" variant="filled" prepend-icon="mdi-file-pdf-box"
-            multiple name="planimgfile" accept="application/pdf"></v-file-input>
-        </v-col>
-
-        <v-col cols="12" class="pt-2 pb-7 px-14">
-          <div class="text-h5 font-weight-medium text-decoration-underline text-pink-accent-1">
             Upload Property Videos
           </div>
         </v-col>
         <v-col cols="12" class="py-1 px-3">
-          <v-file-input v-model="bodyData.vidfile" label="File input" variant="filled" prepend-icon="mdi-video" multiple
+          <v-file-input v-model="videos" label="File input" variant="filled" prepend-icon="mdi-video" multiple
             name="vidfile" accept="video/*"></v-file-input>
         </v-col>
+
+        <v-col cols="12" class="pt-2 pb-7 px-14">
+          <div class="text-h5 font-weight-medium text-decoration-underline text-pink-accent-1">
+            Upload Property Documents
+          </div>
+        </v-col>
+        <property-document-input @addDocument="addDocument" />
       </v-row>
     </v-row>
     <v-row no-gutters class="ma-6">
@@ -250,13 +247,15 @@
 </template>
   
 <script lang="ts" setup>
-import { onMounted, watch, reactive, ref } from "vue";
+import { onMounted, watch, reactive, ref, toRaw } from "vue";
 import { useRouter } from "vue-router";
 import { useField, useForm } from "vee-validate";
 import { useCookies } from "vue3-cookies";
 import jwtDecode from "jwt-decode";
 //@ts-ignore
 import api from "@/data/api/index.js";
+//@ts-ignore
+import PropertyDocumentInput from "@/components/propertyForms/customInputs/PropertyDocumentInput.vue";
 
 const { cookies } = useCookies();
 const props = defineProps(["type"]);
@@ -274,6 +273,7 @@ const furnishedStatus = reactive([
   "semi-furnished",
   "full-furnished",
 ]);
+const videos = ref([]);
 
 const bodyData = reactive({
   //@ts-ignore
@@ -325,9 +325,9 @@ const bodyData = reactive({
   latitude: null,
   googleMapLink: null,
   propertySchedule: null,
-  imgfile: [],
-  planimgfile: [],
-  vidfile: [],
+  images: [],
+  videos: [],
+  documents: [],
 });
 
 let { meta, values, errors, handleSubmit, handleReset } = useForm({
@@ -440,6 +440,81 @@ const imgfile = useField<File[] | undefined>("imgfile");
 
 const loading = ref(false);
 
+
+function addDocument(documents: Array<Object>) {
+  //@ts-ignore
+  const receiveddocuments = toRaw(documents);
+  if (receiveddocuments?.length > 0) {
+    //@ts-ignore
+    bodyData.documents = receiveddocuments?.map(document => {
+      //@ts-ignore
+      if (document?.type) {
+        return {
+          //@ts-ignore
+          ...document?.file,
+          //@ts-ignore
+          type: document?.type
+        }
+      } else {
+        return;
+      }
+    })
+  } else {
+    //@ts-ignore
+    bodyData.documents = [];
+  }
+
+  console.log(bodyData.documents, typeof bodyData.documents, Array.isArray(bodyData.documents))
+}
+
+watch(imgfile?.value, async (newImages) => {
+  const imagefiles = newImages;
+  const formData = new FormData();
+  //@ts-ignore
+  if (imagefiles?.length > 0) {
+    //@ts-ignore
+    for (let i = 0; i < imagefiles.length; i++) {
+      //@ts-ignore
+      formData.append('image', imagefiles[i]);
+    }
+
+    const res = await api?.property?.uploadImage(formData);
+
+    if (res?.data?.images === undefined || res?.data?.images?.length <= 0) {
+      bodyData.images = [];
+    } else {
+      bodyData.images = res?.data?.images;
+    }
+  } else {
+    //@ts-ignore
+    imgfile.value.value = null;
+    bodyData.images = [];
+  }
+})
+
+watch(videos, async (newVideos) => {
+  const videofiles = newVideos;
+  const formData = new FormData();
+  //@ts-ignore
+  if (videofiles?.length > 0) {
+    //@ts-ignore
+    for (let i = 0; i < videofiles.length; i++) {
+      //@ts-ignore
+      formData.append('video', videofiles[i]);
+    }
+
+    const res = await api?.property?.uploadVideo(formData);
+
+    if (res?.data?.videos === undefined || res?.data?.videos?.length <= 0) {
+      bodyData.videos = [];
+    } else {
+      bodyData.videos = res?.data?.videos;
+    }
+  } else {
+    bodyData.videos = [];
+  }
+})
+
 //@ts-ignore
 watch(state.value, newStateSelected => {
   disableCities.value = false;
@@ -478,21 +553,8 @@ async function postingFlat(bodyData: any) {
   const jwt = cookies?.get("token")?.split("Bearer ")[1];
   //@ts-ignore
   bodyData.email = jwtDecode(jwt)?.userData?.email;
-  const formData = new FormData();
 
-  Object.entries(bodyData).forEach(([key, value]: any) => {
-    if (key === "totalAreaUnit" || key === "builtupAreaUnit" || key === "carpetAreaUnit") {
-      formData?.append(key, "square feet")
-    } else if (value !== null && key !== "imgfile" && key !== "planimgfile" && key !== "vidfile") {
-      formData?.append(`${key}`, value);
-    } else if (key === "imgfile" || key === "planimgfile" || key === "vidfile") {
-      value.map((file: File) => {
-        formData?.append(key, file);
-      });
-    }
-  });
-
-  const res = await api?.property?.createProperty(formData);
+  const res = await api?.property?.createProperty(bodyData);
 
   if (res.status === 200) {
     loading.value = false;
@@ -564,58 +626,6 @@ function onInvalidSubmit(invalidData: any) {
 }
 
 const addProperty = handleSubmit(onSuccess, onInvalidSubmit);
-
-// const addProperty = handleSubmit(async (values) => {
-//   loading.value = true;
-
-//   for (let item in values) {
-//     //@ts-ignore
-//     bodyData[item] = values[item];
-//   }
-//   if (bodyData?.googleMapLink) {
-//     //@ts-ignore
-//     bodyData.latitude = bodyData?.googleMapLink?.toString().split("@")[1].split(",")[0];
-//     //@ts-ignore
-//     bodyData.longitude = bodyData?.googleMapLink?.toString().split("@")[1].split(",")[1];
-//   }
-
-//   //If not login setData in SessionStorage to use it again to autofill the 
-//   if (!cookies.get('token')) {
-//     sessionStorage.setItem('bodyData', JSON.stringify(bodyData));
-//     sessionStorage.setItem('formType', 'flatForm');
-//     loading.value = false;
-//     router.push({ path: '/signin', query: { message: "createProperty" } });
-//     return;
-//   } else {
-
-//     for (let key in bodyData) {
-//       if (key === "totalAreaUnit" || key === "builtupAreaUnit" || key === "carpetAreaUnit") {
-//         const area = key?.slice(0, -4);
-//         if (bodyData[key] === "guntha") {
-//           //@ts-ignore
-//           bodyData[area] = 1089.000000 * bodyData[area];
-//         } else if (bodyData[key] === "hectare") {
-//           //@ts-ignore
-//           bodyData[area] = 107639.150512 * bodyData[area];
-//         } else if (bodyData[key] === "acre") {
-//           //@ts-ignore
-//           bodyData[area] = 43560.057264 * bodyData[area];
-//         } else if (bodyData[key] === "cent") {
-//           //@ts-ignore
-//           bodyData[area] = 435.560000 * bodyData[area];
-//         } else if (bodyData[key] === "square meter") {
-//           //@ts-ignore
-//           bodyData[area] = 10.763915 * bodyData[area];
-//         } else if (bodyData[key] === "square feet") {
-//           //@ts-ignore
-//           bodyData[area] = 1.000000 * bodyData[area];
-//         }
-//       }
-//     }
-//     await postingFlat(bodyData);
-//   }
-// });
-
 
 onMounted(() => {
   //@ts-ignore

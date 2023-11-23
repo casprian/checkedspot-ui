@@ -81,10 +81,9 @@
           </div>
         </v-col>
         <v-col cols="12" class="py-1 px-3">
-          <v-file-input :v-model="imgfile.value.value" :error-messages="imgfile.errorMessage.value"
+          <v-file-input v-model="imgfile.value.value" :error-messages="imgfile.errorMessage.value"
             label="File input (required)" variant="filled" prepend-icon="mdi-camera" multiple name="imgfile"
             accept=".jpg, .jpeg, .png, .gif, .webp, .avif, .apng, .svg"></v-file-input>
-          <!-- <property-image-input v-model="x" :error="imgfile?.errorMessage?.value"/> -->
         </v-col>
 
         <v-col cols="12" class="pt-2 pb-7 px-14">
@@ -93,8 +92,8 @@
           </div>
         </v-col>
         <v-col cols="12" class="py-1 px-3">
-          <v-file-input v-model="bodyData.videos" label="File input" variant="filled" prepend-icon="mdi-video" multiple
-            name="vidfile" accept="video/*"></v-file-input>
+          <v-file-input v-model="videos" label="File input" variant="filled"
+            prepend-icon="mdi-video" multiple name="vidfile" accept="video/*"></v-file-input>
         </v-col>
 
         <v-col cols="12" class="pt-2 pb-7 px-14">
@@ -151,8 +150,6 @@ import api from "@/data/api/index.js";
 import { useCookies } from "vue3-cookies";
 //@ts-ignore
 import PropertyDocumentInput from "@/components/propertyForms/customInputs/PropertyDocumentInput.vue";
-//@ts-ignore
-import PropertyImageInput from "@/components/propertyForms/customInputs/PropertyImageInput.vue"
 
 const { cookies } = useCookies();
 const props = defineProps(["type"]);
@@ -163,9 +160,9 @@ const alert = ref(false);
 const cities = ref([]);
 const disableCities = ref(true);
 const states = ref([]);
-
 const countries = reactive(["India"]);
 const units = reactive(["guntha", "hectare", "acre", "cent", "square feet", "square meter"]);
+const videos = ref([]);
 
 const bodyData = reactive({
   //@ts-ignore
@@ -182,26 +179,6 @@ const bodyData = reactive({
   totalArea: null,
   builyupArea: null,
   totalAreaUnit: "square feet",
-  carpetArea: null,
-  noOfBedroom: null,
-  noOfBathroom: null,
-  noOfKitchen: null,
-  lobby: null,
-  balcony: null,
-  diningArea: null,
-  garden: null,
-  parkingLot: null,
-  elivator: null,
-  furnishedStatus: null,
-  airConditioning: null,
-  swimmingPool: null,
-  laundryRoom: null,
-  gym: null,
-  wifi: null,
-  tvCable: null,
-  dishWasher: null,
-  refrigerator: null,
-  outdoorShower: null,
   isFreeHold: false,
   isVerifiedByCheckedSpot: false,
   agentName: null,
@@ -277,25 +254,85 @@ const state = useField("state");
 const googleMapLink = useField("googleMapLink");
 const cost = useField("cost");
 const totalArea = useField("totalArea");
-const imgfile = useField("imgfile");
-// const x = ref(imgfile.value.value);
+const imgfile = useField<File[] | undefined>("imgfile");
+
 
 function addDocument(documents: Array<Object>) {
   //@ts-ignore
-  bodyData.documents = JSON.stringify(toRaw(documents));
+  const receiveddocuments = toRaw(documents);
+  if (receiveddocuments?.length > 0) {
+    //@ts-ignore
+    bodyData.documents = receiveddocuments?.map(document => {
+      //@ts-ignore
+      if (document?.type) {
+        return {
+          //@ts-ignore
+          ...document?.file,
+          //@ts-ignore
+          type: document?.type
+        }
+      } else {
+        return;
+      }
+    })
+  } else {
+    //@ts-ignore
+    bodyData.documents = [];
+  }
+
+  console.log(bodyData.documents, typeof bodyData.documents, Array.isArray(bodyData.documents))
 }
 
-// watch(x, newx => {
-//   imgfile.value.value = newx;
-// })
-// function imageuploaded(img:any) {
-//   console.log(img)
+watch(imgfile?.value, async (newImages) => {
+  const imagefiles = newImages;
+  const formData = new FormData();
+  //@ts-ignore
+  if (imagefiles?.length > 0) {
+    //@ts-ignore
+    for (let i = 0; i < imagefiles.length; i++) {
+      //@ts-ignore
+      formData.append('image', imagefiles[i]);
+    }
 
-//   imgfile.value.value = img;
-// }
+    const res = await api?.property?.uploadImage(formData);
+
+    if (res?.data?.images === undefined || res?.data?.images?.length <= 0) {
+      bodyData.images = [];
+    } else {
+      bodyData.images = res?.data?.images;
+    }
+  } else {
+    //@ts-ignore
+    imgfile.value.value = null;
+    bodyData.images = [];
+  }
+})
+
+watch(videos, async (newVideos) => {
+  const videofiles = newVideos;
+  const formData = new FormData();
+  //@ts-ignore
+  if (videofiles?.length > 0) {
+    //@ts-ignore
+    for (let i = 0; i < videofiles.length; i++) {
+      //@ts-ignore
+      formData.append('video', videofiles[i]);
+    }
+
+    const res = await api?.property?.uploadVideo(formData);
+
+    if (res?.data?.videos === undefined || res?.data?.videos?.length <= 0) {
+      bodyData.videos = [];
+    } else {
+      bodyData.videos = res?.data?.videos;
+    }
+  } else {
+    bodyData.videos = [];
+  }
+})
+
 //@ts-ignore
 watch(state.value, newStateSelected => {
-  console.log("kjhj")
   disableCities.value = false;
   //@ts-ignore
   const stateList = JSON.parse(localStorage.getItem('location'));
@@ -330,23 +367,7 @@ async function postingPlot(bodyData: any) {
   //@ts-ignore
   bodyData.email = jwtDecode(jwt)?.userData?.email;
 
-  Object.entries(bodyData).forEach(item => {
-
-  })
-  // const formData = new FormData();
-  // Object.entries(bodyData).forEach(([key, value]: any) => {
-  //   if (key === "totalAreaUnit") {
-  //     formData?.append(key, "square feet");
-  //   } else if (value !== null && key !== "imgfile" && key !== "planimgfile" && key !== "vidfile") {
-  //     formData.append(`${key}`, value);
-  //   } else if (key === "imgfile" || key === "planimgfile" || key === "vidfile") {
-  //     value.map((file: File) => {
-  //       formData.append(key, file);
-  //     });
-  //   }
-  // });
-
-  const res = await api?.property?.createProperty(formData);
+  const res = await api?.property?.createProperty(bodyData);
 
   if (res.status === 200) {
     loading.value = false;

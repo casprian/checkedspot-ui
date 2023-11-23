@@ -134,7 +134,7 @@ watch(documents, async (newDocuments) => {
                             emitDocuments[emitIndex].file = file;
                         } else {
                             //@ts-ignore
-                            emitDocuments.push({ id: newId, type: document.type, file: file });
+                            emitDocuments.push({ id: newId, type: document.type, file: toRaw(file) });
                         }
                         emit('addDocument', emitDocuments);
                     } else {
@@ -158,8 +158,8 @@ async function uploadfile(file: File) {
     formData.append('document', file);
 
     const res = await api?.property?.uploadDocument(formData);
-
-    if (res?.data.status === 200) {
+console.log(res)
+    if (res?.status === 200) {
         return res?.data?.document;
     }
 }

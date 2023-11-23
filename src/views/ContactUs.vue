@@ -87,7 +87,7 @@
 
       <v-col cols="12" md="5" class="px-4 pr-6 mb-10 formCont">
         <v-card class="ma-2 pt-3 pb-6 elevation-0 card" width="100%">
-          <div class="pa-3 text-h6 text-sm-h5 font-weight-medium">Send Enquiry to Checked Spot</div>
+          <div class="pa-3 text-h6 text-sm-h5 font-weight-medium">Send Enquiry to Plotwala</div>
           <form>
             <v-text-field v-model="name.value.value" :error-messages="name.errorMessage.value" density="compact"
               class="ma-2" counter="40" label="Name*" variant="outlined"></v-text-field>

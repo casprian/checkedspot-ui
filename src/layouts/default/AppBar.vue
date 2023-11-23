@@ -1,32 +1,32 @@
 <template>
-  <v-app-bar :elevation="2" density="comfortable">
+  <v-app-bar :elevation="2" density="comfortable" color="red-darken-3">
     <template v-slot:prepend>
       <v-app-bar-nav-icon class="smNav" variant="text" @click.stop="drawer = !drawer">
       </v-app-bar-nav-icon>
-      <v-img @click="router.push('/home')" class="logo" width="175px" height="70px"
-        src="https://checkedspot.blob.core.windows.net/assets/logocheckedspot.png" />
+      <v-img @click="router.push('/home')" class="logo" width="150" height="20"
+        :src="logo" />
     </template>
 
     <template v-slot:append>
       <div class="lgNav">
-        <v-btn @click="router.push('/home')" variant="flat" height="32">
+        <v-btn @click="router.push('/home')" variant="text" height="32">
           HOME
         </v-btn>
-        <v-btn @click="router.push('/aboutus')" variant="flat" height="32">
+        <v-btn @click="router.push('/aboutus')" variant="text" height="32">
           WHO WE ARE
         </v-btn>
-        <v-btn @click="router.push('/contactus')" variant="flat" class="ml-1" height="32">
+        <v-btn @click="router.push('/contactus')" variant="text" class="ml-1" height="32">
           Contact
         </v-btn>
-        <v-btn v-if="!hastoken" @click="router.push('/signin')" variant="outlined" class="ml-1" color="pink-darken-2"
+        <v-btn v-if="!hastoken" @click="router.push('/signin')" variant="outlined" class="ml-1" color="grey-lighten-5"
           height="32">
           LOGIN
         </v-btn>
         <v-btn v-if="!hastoken" @click="router.push('/signup')" variant="flat" class="ml-2 mr-2" height="32"
-          color="pink-darken-2">
+          color="grey-lighten-5">
           REGISTER
         </v-btn>
-        <v-btn @click="handleCreateProperty" variant="flat" class="mr-2" color="pink-darken-4" height="32">
+        <v-btn @click="handleCreateProperty" variant="flat" class="mr-2" color="grey-lighten-5" height="32">
           Post Property
         </v-btn>
         <v-btn v-if="hastoken" @click="router.push('/userdashboard')" variant="flat" class="mr-4" color="pink-darken-4"
@@ -40,40 +40,40 @@
     </template>
   </v-app-bar>
 
-  <v-navigation-drawer v-model="drawer" location="left" temporary class="pt-3">
+  <v-navigation-drawer color="red-lighten-1" v-model="drawer" location="left" temporary class="pt-3">
     <div class="px-5">
-      <v-btn width="100%" @click="router.push('/home')" variant="flat" class="my-2" height="32">
+      <v-btn width="100%" @click="router.push('/home')" variant="text" class="my-2" height="32">
         HOME
       </v-btn>
     </div>
     <div class="px-5">
-      <v-btn width="100%" @click="router.push('/aboutus')" variant="flat" class="my-2" height="32">
+      <v-btn width="100%" @click="router.push('/aboutus')" variant="text" class="my-2" height="32">
         WHO WE ARE
       </v-btn>
     </div>
     <div class="px-5">
-      <v-btn width="100%" @click="router.push('/contactus')" variant="flat" class="my-2" height="32">
+      <v-btn width="100%" @click="router.push('/contactus')" variant="text" class="my-2" height="32">
         Contact
       </v-btn>
     </div>
     <div class="px-5">
       <v-btn width="100%" v-if="!hastoken" @click="router.push('/signin')" variant="outlined" class="my-2"
-        color="pink-darken-2" height="32">
+        color="grey-lighten-5" height="32">
         LOGIN
       </v-btn>
     </div>
     <div class="px-5">
       <v-btn width="100%" v-if="!hastoken" @click="router.push('/signup')" variant="flat" class="my-3"
-        color="pink-darken-2" height="32">
+        color="grey-lighten-5" height="32">
         REGISTER
       </v-btn>
     </div>
     <div class="px-5">
-      <v-btn width="100%" @click="handleCreateProperty" variant="flat" class="my-3" color="pink-darken-4" height="32">
+      <v-btn width="100%" @click="handleCreateProperty" variant="flat" class="my-3" color="grey-lighten-5" height="32">
         Post Property
       </v-btn>
       <v-btn width="100%" v-if="hastoken" @click="router.push('/userdashboard')" variant="flat" class="my-3"
-        color="pink-darken-4" height="32">
+        color="grey-lighten-5" height="32">
         My Dashboard
       </v-btn>
     </div>
@@ -114,6 +114,7 @@ import ProfileAvatar from '@/components/ProfileAvatar.vue';
 import axios from 'axios';
 //@ts-ignore
 import { baseURL } from '@/data/axios/interceptor.js';
+import logo from '@/assets/plotwalalogo.png';
 
 const webWhatsapphref = ref('');
 const mobileContacthref= ref('');

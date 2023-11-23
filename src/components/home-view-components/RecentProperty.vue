@@ -2,7 +2,7 @@
     <v-container class="ownerPropCont" fluid>
         <v-row no-gutters>
             <v-col cols="12">
-                <h2 class="text-h5 mx-15 mx-xl-2 mb-5">Recently added properties</h2>
+                <h2 class="text-h5 mx-2 mx-xl-2 mb-5">Recently added properties</h2>
             </v-col>
             <v-col cols="12" class="mb-10">
                 <v-sheet class="mx-auto" elevation="0">
@@ -44,7 +44,7 @@
                                                 <v-card-title title="verified by Plotwala"
                                                     v-if="property?.isVerifiedByCheckedSpot" class="px-2 py-1 verifiedTag">
                                                     <v-chip variant="elevated" color="green" density="comfortable">
-                                                        Plotwala <v-icon size="16" class="ml-2" icon="mdi-shield-check"
+                                                        Plotwala verified <v-icon size="16" class="ml-2" icon="mdi-shield-check"
                                                             color="white"></v-icon>
                                                     </v-chip>
                                                 </v-card-title>

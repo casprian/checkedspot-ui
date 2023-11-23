@@ -31,8 +31,8 @@
                     </div>
                 </v-col>
                 <v-col cols="12" sm="6" class="d-flex flex-column align-start align-sm-center mt-5 mt-sm-0">
-                    <div>
-                        <v-img @click="router.push('/home')" class="logo" width="200" src="https://checkedspot.blob.core.windows.net/assets/logocheckedspot.png" alt="logo"></v-img>
+                    <div style="padding: 0px 0px 15px 30px;">
+                        <v-img @click="router.push('/home')" style="width: 150px; height: 25px;" class="logo" :src="logo" alt="logo"></v-img>
                     </div>
                     <div class="pl-6">
                         <v-btn class="text-none " variant="outlined" color="pink-darken-2" @click="router.push('/contactus')">Contact Us</v-btn>
@@ -58,10 +58,12 @@
     </footer>
 </template>
 
+
 <script lang="ts" setup>
 import { reactive } from "vue";
 import { useRouter } from "vue-router";
 import { useCookies } from "vue3-cookies";
+import logo from '@/assets/plotwalalogocolored.png';
 
 const { cookies } = useCookies();
 const router = useRouter();

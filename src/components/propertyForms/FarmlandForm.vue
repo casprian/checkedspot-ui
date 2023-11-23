@@ -83,18 +83,8 @@
                 </v-col>
                 <v-col cols="12" class="py-1 px-3">
                     <v-file-input v-model="imgfile.value.value" :error-messages="imgfile.errorMessage.value"
-                        label="File input (required)" variant="filled" prepend-icon="mdi-camera" multiple name="imgfile"
-                        accept=".jpg, .jpeg, .png, .gif, .webp, .avif, .apng, .svg"></v-file-input>
-                </v-col>
-
-                <v-col cols="12" class="pt-2 pb-7 px-14">
-                    <div class="text-h5 font-weight-medium text-decoration-underline text-pink-accent-1">
-                        Upload Property Documents
-                    </div>
-                </v-col>
-                <v-col cols="12" class="py-1 px-3">
-                    <v-file-input v-model="bodyData.planimgfile" label="File input" variant="filled"
-                        prepend-icon="mdi-file-pdf-box" multiple name="planimgfile" accept="application/pdf"></v-file-input>
+                         label="File input (required)" variant="filled" prepend-icon="mdi-camera"
+                        multiple name="imgfile" accept=".jpg, .jpeg, .png, .gif, .webp, .avif, .apng, .svg"></v-file-input>
                 </v-col>
 
                 <v-col cols="12" class="pt-2 pb-7 px-14">
@@ -103,9 +93,16 @@
                     </div>
                 </v-col>
                 <v-col cols="12" class="py-1 px-3">
-                    <v-file-input v-model="bodyData.vidfile" label="File input" variant="filled" prepend-icon="mdi-video"
-                        multiple name="vidfile" accept="video/*"></v-file-input>
+                    <v-file-input v-model="videos" label="File input" variant="filled"
+                        prepend-icon="mdi-video" multiple name="vidfile" accept="video/*"></v-file-input>
                 </v-col>
+
+                <v-col cols="12" class="pt-2 pb-7 px-14">
+                    <div class="text-h5 font-weight-medium text-decoration-underline text-pink-accent-1">
+                        Upload Property Documents
+                    </div>
+                </v-col>
+                <property-document-input @addDocument="addDocument" />
             </v-row>
         </v-row>
         <v-row no-gutters class="ma-6">
@@ -145,13 +142,15 @@
 </template>
   
 <script lang="ts" setup>
-import { onMounted, watch, reactive, ref } from "vue";
+import { onMounted, watch, reactive, ref, toRaw } from "vue";
 import jwtDecode from "jwt-decode";
 import { useRouter } from "vue-router";
 import { useField, useForm } from "vee-validate";
 //@ts-ignore
 import api from "@/data/api/index.js";
 import { useCookies } from "vue3-cookies";
+//@ts-ignore
+import PropertyDocumentInput from "@/components/propertyForms/customInputs/PropertyDocumentInput.vue";
 
 const { cookies } = useCookies();
 const props = defineProps(["type"]);
@@ -164,56 +163,36 @@ const disableCities = ref(true);
 const states = ref([]);
 const countries = reactive(["India"]);
 const units = reactive(["guntha", "hectare", "acre", "cent", "square feet", "square meter"]);
+const videos = ref([]);
 
 const bodyData = reactive({
-    //@ts-ignore
-    email: null,
-    type: props.type,
-    description: null,
-    title: null,
-    address: null,
-    pincode: null,
-    city: null,
-    state: null,
-    country: "India",
-    cost: null,
-    totalArea: null,
-    builyupArea: null,
-    totalAreaUnit: "square feet",
-    carpetArea: null,
-    noOfBedroom: null,
-    noOfBathroom: null,
-    noOfKitchen: null,
-    lobby: null,
-    balcony: null,
-    diningArea: null,
-    garden: null,
-    parkingLot: null,
-    elivator: null,
-    furnishedStatus: null,
-    airConditioning: null,
-    swimmingPool: null,
-    laundryRoom: null,
-    gym: null,
-    wifi: null,
-    tvCable: null,
-    dishWasher: null,
-    refrigerator: null,
-    outdoorShower: null,
-    isFreeHold: false,
-    isVerifiedByCheckedSpot: false,
-    agentName: null,
-    agentMobile: null,
-    agentEmail: null,
-    agentAddress: null,
-    longitude: null,
-    latitude: null,
-    googleMapLink: null,
-    propertySchedule: null,
-    imgfile: [],
-    documents: [{ type: 'RTC', file: null }],
-    planimgfile: [],
-    vidfile: [],
+  //@ts-ignore
+  email: null,
+  type: props.type,
+  description: null,
+  title: null,
+  address: null,
+  pincode: null,
+  city: null,
+  state: null,
+  country: "India",
+  cost: null,
+  totalArea: null,
+  builyupArea: null,
+  totalAreaUnit: "square feet",
+  isFreeHold: false,
+  isVerifiedByCheckedSpot: false,
+  agentName: null,
+  agentMobile: null,
+  agentEmail: null,
+  agentAddress: null,
+  longitude: null,
+  latitude: null,
+  googleMapLink: null,
+  propertySchedule: null,
+  images: [],
+  videos: [],
+  documents: null,
 });
 
 let { meta, values, errors, handleSubmit, handleReset } = useForm({
@@ -278,6 +257,80 @@ const cost = useField("cost");
 const totalArea = useField("totalArea");
 const imgfile = useField<File[] | undefined>("imgfile");
 
+
+function addDocument(documents: Array<Object>) {
+  //@ts-ignore
+  const receiveddocuments = toRaw(documents);
+  if (receiveddocuments?.length > 0) {
+    //@ts-ignore
+    bodyData.documents = receiveddocuments?.map(document => {
+      //@ts-ignore
+      if (document?.type) {
+        return {
+          //@ts-ignore
+          ...document?.file,
+          //@ts-ignore
+          type: document?.type
+        }
+      }else {
+        return;
+      }
+    })
+  } else {
+    //@ts-ignore
+    bodyData.documents = [];
+  }
+
+  console.log(bodyData.documents, typeof bodyData.documents, Array.isArray(bodyData.documents))
+}
+
+watch(imgfile?.value, async (newimgfile) => {
+  const imagefiles = newimgfile;
+  const formData = new FormData();
+  //@ts-ignore
+  if (imagefiles?.length > 0) {
+    //@ts-ignore
+    for (let i = 0; i < imagefiles.length; i++) {
+      //@ts-ignore
+      formData.append('image', imagefiles[i]);
+    }
+    const res = await api?.property?.uploadImage(formData);
+
+    if (res?.data?.images === undefined || res?.data?.images?.length <= 0) {
+      bodyData.images = [];
+    } else {
+      bodyData.images = res?.data?.images;
+    }
+  } else {
+    //@ts-ignore
+    imgfile.value.value = null;
+    bodyData.images = [];
+  }
+})
+
+watch(videos, async (newVideos) => {
+  const videofiles = newVideos;
+  const formData = new FormData();
+  //@ts-ignore
+  if (videofiles?.length > 0) {
+    //@ts-ignore
+    for (let i = 0; i < videofiles.length; i++) {
+      //@ts-ignore
+      formData.append('video', videofiles[i]);
+    }
+
+    const res = await api?.property?.uploadVideo(formData);
+
+    if (res?.data?.videos === undefined || res?.data?.videos?.length <= 0) {
+      bodyData.videos = [];
+    } else {
+      bodyData.videos = res?.data?.videos;
+    }
+  } else {
+    bodyData.videos = [];
+  }
+})
+
 const loading = ref(false);
 
 //@ts-ignore
@@ -314,20 +367,7 @@ async function postingFarmland(bodyData: any) {
     //@ts-ignore
     bodyData.email = jwtDecode(jwt)?.userData?.email;
 
-    const formData = new FormData();
-    Object.entries(bodyData).forEach(([key, value]: any) => {
-        if (key === "totalAreaUnit") {
-            formData?.append(key, "square feet")
-        } else if (value !== null && key !== "imgfile" && key !== "planimgfile" && key !== "vidfile") {
-            formData.append(`${key}`, value);
-        } else if (key === "imgfile" || key === "planimgfile" || key === "vidfile") {
-            value.map((file: File) => {
-                formData.append(key, file);
-            });
-        }
-    });
-
-    const res = await api?.property?.createProperty(formData);
+    const res = await api?.property?.createProperty(bodyData);
 
     if (res.status === 200) {
         loading.value = false;
@@ -400,60 +440,6 @@ function onInvalidSubmit(invalidData: any) {
     alert.value = true;
 }
 const addProperty = handleSubmit(onSuccess, onInvalidSubmit);
-
-// const addProperty = handleSubmit(async (values) => {
-//     loading.value = true;
-//     for (let item in values) {
-//         if (values[item]) {
-//             //@ts-ignore
-//             bodyData[item] = values[item];
-//         }
-//     }
-
-//     if (bodyData?.googleMapLink) {
-//         //@ts-ignore
-//         bodyData.latitude = bodyData?.googleMapLink?.toString().split("@")[1].split(",")[0];
-//         //@ts-ignore
-//         bodyData.longitude = bodyData?.googleMapLink?.toString().split("@")[1].split(",")[1];
-//         console.log(bodyData.latitude, bodyData.longitude);
-//     }
-
-//     //If not login setData in SessionStorage to use it again to autofill the 
-//     if (!cookies.get('token')) {
-//         sessionStorage.setItem('bodyData', JSON.stringify(bodyData));
-//         sessionStorage.setItem('formType', 'farmLandForm');
-//         loading.value = false;
-//         router.push({ path: '/signin', query: { message: "createProperty" } });
-//         return;
-//     } else {
-//         for (let key in bodyData) {
-//             if (key === "totalAreaUnit") {
-//                 const area = key?.slice(0, -4);
-//                 if (bodyData[key] === "guntha") {
-//                     //@ts-ignore
-//                     bodyData[area] = 1089.000000 * bodyData[area];
-//                 } else if (bodyData[key] === "hectare") {
-//                     //@ts-ignore
-//                     bodyData[area] = 107639.150512 * bodyData[area];
-//                 } else if (bodyData[key] === "acre") {
-//                     //@ts-ignore
-//                     bodyData[area] = 43560.057264 * bodyData[area];
-//                 } else if (bodyData[key] === "cent") {
-//                     //@ts-ignore
-//                     bodyData[area] = 435.560000 * bodyData[area];
-//                 } else if (bodyData[key] === "square meter") {
-//                     //@ts-ignore
-//                     bodyData[area] = 10.763915 * bodyData[area];
-//                 } else if (bodyData[key] === "square feet") {
-//                     //@ts-ignore
-//                     bodyData[area] = 1.000000 * bodyData[area];
-//                 }
-//             }
-//         }
-//         await postingFarmland(bodyData);
-//     }
-// });
-
 
 onMounted(() => {
     //@ts-ignore

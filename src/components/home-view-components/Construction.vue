@@ -28,7 +28,7 @@
         <v-btn @click="router.push('/quotation')" variant="elevated" color="deep-orange-darken-1"
           class="text-h6 py-2 elevtion-5" height="120" width="200">GET
           YOUR<br>QUOTATION<br>NOW</v-btn>
-      </v-col>
+        </v-col>
       <v-col cols="12" md="5" class="pr-md-16 pl-md-10 py-10 d-flex justify-center justify-md-end">
 
         <form class="bg-white px-8 pt-5 pb-8 rounded-lg" style="max-width:350px">
@@ -60,6 +60,9 @@
         </form>
       </v-col>
     </v-row>
+    <a href="https://checkedspot57.wordpress.com/our-completed-projects/" style="padding:10px; font-size: 30px;color: black !important;">our projects</a>
+    <a href="https://checkedspot57.wordpress.com/under-construction-projects/" style="padding:10px; font-size: 30px;color: black !important;">under construction projects</a>
+
   </v-container>
 </template>
 

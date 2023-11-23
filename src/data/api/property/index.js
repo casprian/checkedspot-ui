@@ -74,8 +74,8 @@ const getRecentProperties = async (params) => {
 
 const createProperty = async (params) => {
     try {
-        const baseURL = "/property/individual";
-        const response = await call.callWithTokenForMultiPart('post', baseURL, params);
+        const baseURL = "/property";
+        const response = await call.callWithToken('post', baseURL, params);
         return { status: 200, data: response }
     } catch (e) {
         return { error: true, status: e?.response?.status, message: e?.response?.data?.message }
