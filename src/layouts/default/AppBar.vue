@@ -29,7 +29,7 @@
         <v-btn @click="handleCreateProperty" variant="flat" class="mr-2" color="grey-lighten-5" height="32">
           Post Property
         </v-btn>
-        <v-btn v-if="hastoken" @click="router.push('/userdashboard')" variant="flat" class="mr-4" color="pink-darken-4"
+        <v-btn v-if="hastoken" @click="router.push('/userdashboard')" variant="flat" class="mr-4" color="grey-lighten-5"
           height="32">
           My Dashboard
         </v-btn>
