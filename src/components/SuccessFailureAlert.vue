@@ -12,7 +12,7 @@
             class="mx-auto bg-green">
             <div style="height: 100%" class="text-h5 text-center d-flex align-center justify-center">
                 <h5>
-                    Message has been delivered. Plotwala Team will contact you soon.
+                    Message has been delivered. Checked Spot Team will contact you soon.
                 </h5>
             </div>
         </v-card>

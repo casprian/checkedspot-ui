@@ -41,10 +41,10 @@
                                                         }}
                                                     </div>
                                                 </v-toolbar>
-                                                <v-card-title title="verified by Plotwala"
+                                                <v-card-title title="verified by Checked Spot"
                                                     v-if="property?.isVerifiedByCheckedSpot" class="px-2 py-1 verifiedTag">
                                                     <v-chip variant="elevated" color="green" density="comfortable">
-                                                        Plotwala verified <v-icon size="16" class="ml-2" icon="mdi-shield-check"
+                                                        Checked Spot verified <v-icon size="16" class="ml-2" icon="mdi-shield-check"
                                                             color="white"></v-icon>
                                                     </v-chip>
                                                 </v-card-title>

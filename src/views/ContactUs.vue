@@ -12,7 +12,7 @@
       class="mx-auto bg-green">
       <div style="height: 100%" class="text-h5 text-center d-flex align-center justify-center">
         <h5>
-          Message has been delivered. Plotwala Team will contact you soon.
+          Message has been delivered. Checked Spot Team will contact you soon.
         </h5>
       </div>
     </v-card>
@@ -35,7 +35,7 @@
 
           <v-parallax :src="item.parallaxSrc" :alt="item.name" class="parallax">
             <div class="h-75 d-flex flex-column justify-center align-center text-white parallaxMask">
-              <p class="text-h4 text-sm-h3 font-weight-regular pt-10 text-center" title="Plotwala - Bangalore">Plotwala - {{ item.name }}</p>
+              <p class="text-h4 text-sm-h3 font-weight-regular pt-10 text-center" title="Checked Spot - Bangalore">Checked Spot - {{ item.name }}</p>
             </div>
 
             <v-row class="mx-0 mt-0 px-6 pb-4 d-flex justify-space-between align-end parallaxMask"
@@ -87,7 +87,7 @@
 
       <v-col cols="12" md="5" class="px-4 pr-6 mb-10 formCont">
         <v-card class="ma-2 pt-3 pb-6 elevation-0 card" width="100%">
-          <div class="pa-3 text-h6 text-sm-h5 font-weight-medium">Send Enquiry to Plotwala</div>
+          <div class="pa-3 text-h6 text-sm-h5 font-weight-medium">Send Enquiry to Checked Spot</div>
           <form>
             <v-text-field v-model="name.value.value" :error-messages="name.errorMessage.value" density="compact"
               class="ma-2" counter="40" label="Name*" variant="outlined"></v-text-field>

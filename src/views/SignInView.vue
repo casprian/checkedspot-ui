@@ -16,7 +16,7 @@
                             Logged In!
                             Please refresh you page.
                         </div>
-                        <div class="text-h5 font-weight-medium pb-14">Sign in to Plotwala</div>
+                        <div class="text-h5 font-weight-medium pb-14">Sign in to Checked Spot</div>
 
                         <v-row no-gutters class="pr-10 pb-14">
                             <v-col cols="12" class="pa-0">
