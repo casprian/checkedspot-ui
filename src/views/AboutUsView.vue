@@ -1,7 +1,7 @@
 <template>
     <v-container fluid class="pa-0">
         <div class="whoWeAreSec1 text-center pt-16">
-            <h1 class="heading">
+            <h1 class="text-h3 font-weight-bold">
                 About Us
             </h1>
         </div>

@@ -56,7 +56,7 @@
 
                 <!-- Document -->
                 <v-row no-gutters class="mb-8" style="width: 100%; height: auto;">
-                    <property-documents :propertyId="property?.data?.propertyId" />
+                    <property-documents :propertyId="property?.data?.propertyId" :documentsExist="property?.data?.documentsExist" />
                 </v-row>
 
                 <!-- Location -->
@@ -66,7 +66,7 @@
                 
                 <!-- Property Videos -->
                 <v-row no-gutters class="mb-8">
-                    <property-video :propertyId="property?.data?.propertyId" />
+                    <property-video :propertyId="property?.data?.propertyId" :videosExist="property?.data?.videosExist" />
                 </v-row>
             </v-col>
 
@@ -80,12 +80,13 @@
                         </v-card>
                     </v-col>
 
-                    <v-col v-else cols="12">
+                    <!-- PROPERTY aGENTS -->
+                    <v-col v-else cols="12 pb-0">
                         <property-agents :propertyId="property?.data?.propertyId"/>
                     </v-col>
 
                     <!-- Property Details -->
-                    <v-col cols="12" class="my-8">
+                    <v-col cols="12" class="mt-4 mb-8">
                         <v-card class="rounded-0" elevation="2">
                             <property-details :details="property?.data" />
                         </v-card>
@@ -139,8 +140,8 @@ const property = reactive({
         'email': null,
         'description': null,
         'image': {fileUrl: ""},
-        'documents': [''],
-        'vodeos': [''],
+        'videosExist': null,
+        'documentsExist': null,
         'address': null,
         'name': null,
         'parkingLot': null,

@@ -4,7 +4,7 @@
             <v-card-item class="titleCont mb-5">
                 <v-card-title class="title">Document</v-card-title>
             </v-card-item>
-            <v-row v-if="documents.length > 0" no-gutters class="px-4 pb-5">
+            <v-row v-if="isDocumentsExist && documents.length > 0" no-gutters class="px-4 pb-5">
                 <v-cols cols="12" style="height: 500px; width: 100%;">
                     <PDFViewer style="min-width: 300px !important;" :rendering-text="'Loading Plan PDF'"
                         :source="documents ? documents[0]?.fileUrl : ''"
@@ -25,12 +25,14 @@ import { onMounted, ref } from 'vue';
 //@ts-ignore
 import api from '@/data/api/index.js';
 
-const props = defineProps(['propertyId'])
+const props = defineProps(['propertyId', 'documentsExist'])
 let documents = ref([{fileUrl: ""}]);
+const isDocumentsExist = ref(props.documentsExist);
 
 function handleDownload() {
     window.location.href = documents.value[0]?.fileUrl;
 }
+
 async function loadDocuments(propertyId:String) {
     const res = await api?.property?.getPropertyDocument({ params: { propertyId: propertyId } })
     documents.value = res?.data;

@@ -164,7 +164,7 @@ const createUser = handleSubmit(async (values) => {
         mobile: values.mobile
     })
 
-    if (res?.data?.status === 200) {
+    if (res?.status === 200) {
         welcome.value = true;
         failed.value = false;
         loader.value = false;

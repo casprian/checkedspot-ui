@@ -22,6 +22,16 @@ const getProperty = async (params) => {
     }
 };
 
+const getPropertyAgents = async (params) => {
+    try {
+        const baseURL = "/property/agent";
+        const response = await call.callWithoutToken('get', baseURL, params)
+        return { status: 200, data: response?.data };
+    } catch (e) {
+        return { error: true, status: e?.response?.status, message: e?.response?.data?.message };
+    } 
+};
+
 const getPropertyForUser = async (params) => {
     try {
         const baseURL = "/property/user/properties";
@@ -125,6 +135,7 @@ const deleteProperty = async (params) => {
 export default {
     getProperties,
     getProperty,
+    getPropertyAgents,
     getPropertyForUser,
     getPropertyImage,
     getPropertyVideo,

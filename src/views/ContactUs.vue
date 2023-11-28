@@ -20,8 +20,8 @@
 
   <v-container class="pa-0" fluid>
     <v-row no-gutters>
-      <v-col cols="12" md="7" class="px-4 mb-10 mt-5">
-        <h1 class="text-h3 text-sm-h2 font-weight-bold text-center">
+      <v-col cols="12" md="7" class="px-4 mb-8 mt-5">
+        <h1 class="text-h3 text-sm-h4 font-weight-bold text-center text-grey-darken-3">
           Contact Us
         </h1>
       </v-col>

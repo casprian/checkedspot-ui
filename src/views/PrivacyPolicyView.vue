@@ -2,9 +2,9 @@
     <v-container fluid class="pa-0">
         <v-row no-gutters>
             <v-col cols="12" style="position: relative;">
-                <v-img height="350" src="https://checkedspot.blob.core.windows.net/assets/privacypolicy.jpg" cover></v-img>
+                <v-img style="filter: blur(4px);" height="170" src="https://checkedspot.blob.core.windows.net/assets/privacypolicy.jpg" cover></v-img>
                 <div class="mainHeading">
-                    <h1 class="text-h1 font-weight-regular text-white">Privacy Policy</h1>
+                    <h1 class="text-h2 font-weight-regular text-white">Privacy Policy</h1>
                 </div>
             </v-col>
         </v-row>

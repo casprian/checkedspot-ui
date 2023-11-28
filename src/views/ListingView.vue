@@ -1,8 +1,8 @@
 <template>
     <v-container fluid style="background-color: #FAFAFA; height: 100%;" id="prop_cont">
-        <v-row class="px-sm-14 pt-5 pb-10" id="filterSection">
-            <v-col cols="12">
-                <h1>Pick your plot</h1>
+        <v-row class="px-sm-14 pt-5 pb-3" id="filterSection">
+            <v-col cols="12 pt-0">
+                <h1 class="text-h5 font-weight-medium">Pick your plot</h1>
             </v-col>
 
             <!-- Location Filter -->
@@ -65,8 +65,8 @@
 
             <!-- Advanced Filter -->
             <v-col class="py-0 px-2 my-3 my-sm-0" cols="12" sm="6" md="3" style="position: relative">
-                <v-btn block height="59" variant="outlined"
-                    class="text-h6 textColor d-flex justify-space-between text-capitalize"
+                <v-btn block height="59" variant="elevated" color="pink-darken-2"
+                    class="text-h6 d-flex justify-space-between text-capitalize"
                     append-icon="mdi-dots-vertical" @click="showAdvancedFilterOverlay = !showAdvancedFilterOverlay">
                     Advance Filter
                 </v-btn>
@@ -186,16 +186,18 @@
                             </div>
 
                             <div class="py-0 px-2 pt-7 d-flex justify-center">
-                                <v-btn @click="handleSubmit" class="text-white" variant="elevated" color="#880e4f"
-                                    width="100%" height="45">Submit</v-btn>
+                                <v-btn @click="handleSubmit" prepend-icon="mdi-magnify" class="text-white" variant="elevated" color="primary"
+                                    width="100%" height="45">Search</v-btn>
                             </div>
                         </v-col>
                     </v-row>
                 </v-card>
             </v-col>
-            <v-col cols="12" class="py-0 px-2 pl-4 mt-4 mt-md-0 d-flex justify-center">
-                <v-btn @click="handleSubmit" class="text-white" variant="elevated" color="#880e4f" width="100%"
-                    height="45">Submit</v-btn>
+        </v-row>
+        <v-row no-gutters class="px-sm-14 pb-10 d-flex justify-center align-center">
+            <v-col cols="12" sm="3" class="pa-0 ma-0">
+                <v-btn @click="handleSubmit" prepend-icon="mdi-magnify" class="text-h6" variant="elevated" color="primary" width="100%"
+                    height="45">Search</v-btn>
             </v-col>
         </v-row>
 

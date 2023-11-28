@@ -40,8 +40,13 @@
                             <v-col cols="12">
                                 <v-row no-gutters>
                                     <v-col cols="12">
-                                        <v-text-field v-model="email.value.value" :error-messages="email.errorMessage.value"
-                                            variant="outlined" class="mr-10" label="Email*"></v-text-field>
+                                        <v-text-field 
+                                            v-model="email.value.value" 
+                                            :error-messages="email.errorMessage.value"
+                                            variant="outlined" 
+                                            class="mr-10" 
+                                            label="Email*"
+                                        ></v-text-field>
                                     </v-col>
                                     <v-col cols="12">
                                         <v-text-field v-model="password.value.value"
@@ -49,7 +54,8 @@
                                             :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                                             :type="show1 ? 'text' : 'password'" counter persistent-counter
                                             variant="outlined" label="Password*"
-                                            @click:append="show1 = !show1"></v-text-field>
+                                            @click:append="show1 = !show1"
+                                        ></v-text-field>
                                     </v-col>
                                 </v-row>
                                 <v-row no-gutters>
@@ -157,15 +163,16 @@ const loginHandler = handleSubmit(async (values: any) => {
         email: values.email,
         password: values.password,
     });
+    console.log(res)
 
-    if (res?.data?.status === 200) {
+    if (res?.status === 200) {
         retrySignIn.value = false;
         loader.value = false;
         location.replace(window.origin);
-    } else if (res?.data?.status === 404) {
+    } else if (res?.status === 404) {
         notFound.value = true;
         loader.value = false;
-    } else if (res?.data?.status === 409) {
+    } else if (res?.status === 409) {
         retrySignIn.value = true;
         loader.value = false;
     } else {

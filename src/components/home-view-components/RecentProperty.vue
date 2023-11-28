@@ -12,10 +12,10 @@
                                 indeterminate></v-progress-circular>
                         </v-col>
                     </v-row>
-                    <v-row v-else no-gutters>
-                        <v-col v-if="props?.properties?.length > 0" cols="12">
+                    <v-row v-else-if="props.properties?.status === 200" no-gutters>
+                        <v-col v-if="props.properties?.data?.length > 0" cols="12">
                             <v-slide-group show-arrows>
-                                <v-slide-group-item v-for="(property) in props.properties" :key="property.propertyId">
+                                <v-slide-group-item v-for="(property) in props.properties?.data" :key="property.propertyId">
                                     <v-card class="mx-2 mb-4 elevation-2" style="max-width: 220px;" position="relative">
                                         <v-hover v-slot="{ isHovering, props }">
                                             <v-img @click="router.push(`/propertydetails/${property?.propertyId}`)" v-bind="props"
@@ -83,7 +83,7 @@
                                                             class="cardBottom pa-0 mx-3 my-0 d-flex flex-row justify-space-between align-center">
                                                             <v-col cols="auto" class="px-0 my-1">
                                                                 <v-avatar class="pa-0 mr-3"
-                                                                    image="https://checkedspot.blob.core.windows.net/assets/parvez1.jpeg"
+                                                                    :image="property?.agent?.picture"
                                                                     size="32"></v-avatar>
                                                             </v-col>
                                                             <v-col class="px-0">
@@ -91,7 +91,7 @@
                                                                     <v-col cols="auto pb-0" style="line-height: 16px;">
                                                                         <span
                                                                             class="text-body-2 mt-3 ml-0 mb-0 pb-0 text-uppercase text-center text-grey-darken-2 font-weight-medium">
-                                                                            {{ property?.agentName ? property?.agentName :
+                                                                            {{ property?.agent?.name ? property?.agent?.name :
                                                                                 "" }}
                                                                         </span>
                                                                     </v-col>
@@ -99,7 +99,7 @@
                                                                         style="line-height: 14px;">
                                                                         <span
                                                                             class="text-caption text-grey-darken-1 mt-0 pt-0">{{
-                                                                                property?.agentMobile ? property?.agentMobile :
+                                                                                property?.agent?.mobile ? property?.agent?.mobile :
                                                                                 "" }}</span>
                                                                     </v-col>
                                                                 </v-row>
@@ -113,11 +113,16 @@
                                 </v-slide-group-item>
                             </v-slide-group>
                         </v-col>
-                        <v-col class="px-14" v-else-if="props?.properties === 500" cols="12">
-                            <h1 class="text-grey-darken-1">500 Server Error</h1>
+                        <v-col class="px-2" v-else-if="props.properties?.data?.length === 0" cols="12">
+                            <h1 class="text-grey-darken-1">0 Properties found</h1>
                         </v-col>
-                        <v-col class="px-14" v-else cols="12">
+                        <v-col class="px-2" v-else cols="12">
                             <h1 class="text-grey-darken-1">Unexpected Error</h1>
+                        </v-col>
+                    </v-row>
+                    <v-row v-else>                        
+                        <v-col class="px-2" cols="12">
+                            <h1 class="text-grey-darken-1">{{ props.properties?.status }} Error!</h1>
                         </v-col>
                     </v-row>
                 </v-sheet>

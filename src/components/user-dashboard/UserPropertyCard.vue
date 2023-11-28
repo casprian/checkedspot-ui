@@ -37,7 +37,7 @@
             <v-row no-gutters>
                 <v-col cols="12" class="d-flex justify-space-between">
                     <v-btn @click="router.push({ path: '/propertydashboard', query: { propertyId: property.propertyId } })"
-                        height="30" class="ma-2" variant="flat" elevation="4" color="green-darken-2">Edit</v-btn>
+                        height="30" class="ma-2" variant="flat" elevation="4" color="green-darken-2" disabled>Edit</v-btn>
 
                     <v-btn height="30" class="ma-2" variant="flat" elevation="4" color="pink-darken-3">Delete
                         <v-dialog v-model="confirmDialog" width="auto" activator="parent">
@@ -164,11 +164,11 @@
 
         <v-row class="cardBottom pa-0 mx-6 my-2 d-flex justify-space-between align-center">
             <v-col cols="auto" class="px-0 my-1 d-flex justify-center align-center">
-                <v-avatar class="pa-0 mr-2" image="https://checkedspot.blob.core.windows.net/assets/parvez1.jpeg"
+                <v-avatar class="pa-0 mr-2" :image="property?.agent?.picture"
                     size="45"></v-avatar>
                 <div class="text-body-2 mt-1 ml-0 text-uppercase text-center text-grey-darken-2">
-                    <p class="text-start pa-0 ma-0">{{ property?.agentName }}</p>
-                    <p class="text-start pa-0 ma-0">{{ property?.agentMobile }}</p>
+                    <p class="text-start pa-0 ma-0">{{ property?.agent?.name }}</p>
+                    <p class="text-start pa-0 ma-0">{{ property?.agent?.mobile }}</p>
                 </div>
             </v-col>
             <v-col v-if="property?.propertyAddedDate" cols="auto" class="px-0">

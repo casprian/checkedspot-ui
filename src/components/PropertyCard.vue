@@ -170,11 +170,11 @@
 
         <v-row class="cardBottom pa-0 mx-6 my-2 d-flex justify-space-between align-center">
             <v-col cols="auto" class="px-0 my-1 d-flex justify-center align-center">
-                <v-avatar class="pa-0 mr-2" image="https://checkedspot.blob.core.windows.net/assets/parvez1.jpeg"
+                <v-avatar class="pa-0 mr-2" :image="property?.agent?.picture"
                     size="45"></v-avatar>
                 <div class="text-body-2 mt-1 ml-0 text-uppercase text-center text-grey-darken-2">
-                    <p class="text-start pa-0 ma-0">{{ property?.agentName }}</p>
-                    <p class="text-start pa-0 ma-0">{{ property?.agentMobile }}</p>
+                    <p class="text-start pa-0 ma-0">{{ property?.agent?.name }}</p>
+                    <p class="text-start pa-0 ma-0">{{ property?.agent?.mobile }}</p>
                 </div>
             </v-col>
             <v-col v-if="property?.propertyAddedDate" cols="auto" class="px-0">

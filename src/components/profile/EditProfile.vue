@@ -58,7 +58,7 @@
 
                         <v-col cols="12" class="pt-1">
                             <div class="text-body-1 font-weight-medium">State</div>
-                            <v-select placeholder="Select" clearable :items="Stateitems" v-model="selectedState"
+                            <v-select placeholder="Select" clearable :items="stateitems" v-model="selectedState"
                                 variant="outlined">
                                 <template v-slot:loader>
                                     <v-progress-linear v-if="loading" indeterminate color="pink-accent-2">
@@ -128,7 +128,7 @@ let userdata = ref({
 //@ts-ignore
 const location = JSON.parse(localStorage.getItem('location'));
 
-const Stateitems = ref([]);
+const stateitems = ref([]);
 const selectedState = ref(null);
 const cityitems = ref([]);
 const selectedCity = ref(null);
@@ -186,13 +186,15 @@ if (cookies.get("token")) {
 
 async function getUser() {
     const res = await api?.user?.getUserData({ params: { email: user?.email } });
-    if (res?.data?.status === 200) {
+
+    if (res?.status === 200) {
         userdata.value = res?.data?.data;
-        selectedState.value = userdata.value.state
-        selectedCity.value = userdata.value.city
+        selectedState.value = res?.data?.data?.state
+        selectedCity.value = res?.data?.data?.city
         name.value.value = res?.data?.data?.name;
         mobile.value.value = res?.data?.data?.mobile;
     }
+
     loading.value = false;
 }
 
@@ -203,6 +205,8 @@ const uploadData = handleSubmit(async (values) => {
             userdata.value[item] = values[item];
         }
     }
+    userdata.value.state = selectedState.value;
+    userdata.value.city = selectedCity.value;
     loader.value = true;
     const res = await api?.user?.updateProfile(userdata.value);
     if (res?.data?.status === 200) {
@@ -220,7 +224,7 @@ setTimeout(() => {
 onMounted(async () => {
     await getUser();
 
-    Stateitems.value = location.states.map((state:any) => state.name);
+    stateitems.value = location.states.map((state:any) => state.name);
     cityitems.value = location.states.find((state:any) => state.name === userdata.value.state)?.cities;
 });
 
