@@ -15,7 +15,7 @@
                 <v-carousel height="400" class="galleryheight" show-arrows="hover" progress="pink-accent-3" continuous hide-delimiter-background>
                     <v-carousel-item selected-class="item" v-for="(image, i) in propertyImage.data" :key="i">
                         <v-sheet height="100%">
-                            <img class="propGallery" :src="image" alt="property Gallery">
+                            <img class="propGallery" :src="image?.fileUrl" alt="property Gallery">
                         </v-sheet>
                     </v-carousel-item>
                 </v-carousel>
@@ -32,7 +32,7 @@ import { onMounted, reactive, ref } from 'vue';
 const props = defineProps(['propertyId', 'image']);
 const showImage = ref(false);
 let propertyImage = reactive({
-    data: [""]
+    data: [{fileUrl: ''}]
 });
 const loader = ref(false);
 

@@ -1,24 +1,39 @@
 <template>
     <v-container fluid style="background-color: #FAFAFA; height: 100%;" id="prop_cont">
-        <v-row class="px-sm-14 pt-5 pb-10" id="filterSection">
-            <v-col cols="12">
-                <h1>Pick your plot</h1>
+        <v-row class="px-sm-14 pt-5 pb-3" id="filterSection">
+            <v-col cols="12 pt-0">
+                <h1 class="text-h5 font-weight-medium">Pick your plot</h1>
             </v-col>
 
-            <v-col class="py-0 px-2 px-md-4" cols="12" sm="6" md="3">
-                <v-combobox v-model="locationSelect" label="Choose Location" :items="locations"
-                    prepend-inner-icon="mdi-map-marker" chips variant="outlined" multiple></v-combobox>
+            <!-- Location Filter -->
+            <v-col class="py-0 px-2 px-md-4 mb-5 mt-1" cols="12" sm="6" md="3">
+                <v-menu location="bottom" :close-on-content-click="false" transition="slide-x-transition">
+                    <template v-slot:activator="{ props }">
+                        <v-btn block height="57" variant="outlined" class="text-none text-h6 d-flex justify-space-between textColor" dark
+                            v-bind="props">
+                            <v-icon class="mr-2" icon="mdi-map-marker" size="20"></v-icon>
+                           Choose location
+                        </v-btn>
+                    </template>
+
+                    <v-card class="px-3 pt-5 pb-0" color="#c46d9a">
+                        <v-combobox v-model="stateSelect" label="Choose State" :items="states" variant="outlined"
+                            style="color: white;"></v-combobox>
+                        <v-combobox v-model="citySelect" label="Choose City" :items="citiesforFilter" chips
+                            variant="outlined" multiple style="color: white;" closable-chips></v-combobox>
+                    </v-card>
+                </v-menu>
             </v-col>
 
             <!-- property type Filter -->
             <v-col class="py-0 px-2 px-md-4 my-3 mt-n2 my-sm-0 mt-sm-n2" cols="12" sm="6" md="3">
                 <fieldset class="rounded pb-1">
-                    <legend class="ml-2 text-body-2">Property Type:</legend>
+                    <legend class="ml-2 text-body-2 textColor">Property Type:</legend>
 
                     <v-menu transition="slide-x-transition">
                         <template v-slot:activator="{ props }">
                             <v-btn v-bind="props" block variant="text"
-                                class="text-h6 d-flex justify-space-between text-grey-darken-3 text-capitalize"
+                                class="text-h6 textColor d-flex justify-space-between text-grey-darken-3 text-capitalize"
                                 style="margin-bottom: 3px; height: 39px;" append-icon="mdi-chevron-down">
                                 {{ propertyType }}
                             </v-btn>
@@ -50,8 +65,8 @@
 
             <!-- Advanced Filter -->
             <v-col class="py-0 px-2 my-3 my-sm-0" cols="12" sm="6" md="3" style="position: relative">
-                <v-btn block height="59" variant="outlined"
-                    class="text-h6 d-flex justify-space-between text-grey-darken-3 text-capitalize"
+                <v-btn block height="59" variant="elevated" color="pink-darken-2"
+                    class="text-h6 d-flex justify-space-between text-capitalize"
                     append-icon="mdi-dots-vertical" @click="showAdvancedFilterOverlay = !showAdvancedFilterOverlay">
                     Advance Filter
                 </v-btn>
@@ -69,7 +84,7 @@
                                         <div class="mb-3">
                                             <v-radio-group v-model="ownershipType" inline color="#c46d9a"
                                                 class="d-flex justify-center">
-                                                <v-radio label="None" value="" class="mr-2"></v-radio>
+                                                <v-radio label="All" value="" class="mr-2"></v-radio>
                                                 <v-radio label="Owners" value="owner" class="mr-2"></v-radio>
                                                 <v-radio label="Agents" value="agent" class="mx-2"></v-radio>
                                                 <v-radio label="Developers" value="developer" class="mx-2"></v-radio>
@@ -171,16 +186,18 @@
                             </div>
 
                             <div class="py-0 px-2 pt-7 d-flex justify-center">
-                                <v-btn @click="handleSubmit" class="text-white" variant="elevated" color="#880e4f"
-                                    width="100%" height="45">Submit</v-btn>
+                                <v-btn @click="handleSubmit" prepend-icon="mdi-magnify" class="text-white" variant="elevated" color="primary"
+                                    width="100%" height="45">Search</v-btn>
                             </div>
                         </v-col>
                     </v-row>
                 </v-card>
             </v-col>
-            <v-col cols="12" class="py-0 px-2 d-flex justify-center pl-4 mt-4 mt-md-0">
-                <v-btn @click="handleSubmit" class="text-white" variant="elevated" color="#880e4f" width="98%"
-                    height="45">Submit</v-btn>
+        </v-row>
+        <v-row no-gutters class="px-sm-14 pb-10 d-flex justify-center align-center">
+            <v-col cols="12" sm="3" class="pa-0 ma-0">
+                <v-btn @click="handleSubmit" prepend-icon="mdi-magnify" class="text-h6" variant="elevated" color="primary" width="100%"
+                    height="45">Search</v-btn>
             </v-col>
         </v-row>
 
@@ -200,7 +217,7 @@
         </v-row>
 
         <!-- property cards Section  -->
-        <v-row v-else no-gutters class="px-sm-14">
+        <v-row v-else no-gutters class="px-sm-14 d-flex justify-center">
             <v-col class="px-2 my-2 px-md-4 my-md-4" v-for="(data, index) in propertiesData?.data" cols="12" md="6" lg="4"
                 :key="index">
                 <property-card :property="data" />
@@ -224,10 +241,13 @@
 import api from "@/data/api/index.js";
 //@ts-ignore
 import PropertyCard from '@/components/PropertyCard.vue';
-import { computed, watch, onMounted, reactive, ref } from "vue";
+import { computed, watch, onMounted, reactive, ref, onUnmounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
+//@ts-ignore
 import AreaFilter from '@/components/property-filters/AreaFilter.vue';
+//@ts-ignore
 import CostFilter from "@/components/property-filters/CostFilter.vue";
+//@ts-ignore
 import DateFilter from "@/components/property-filters/DateFilter.vue";
 
 
@@ -242,19 +262,12 @@ const isFetchingData = ref(false);
 const propertyFilterObj = reactive({ ...route?.query });
 
 //these cities are collected from the qyery parameter of the path routing from home page to listing page.
-let cities: any = null;
+let cities: any = ref(null);
 if (!Array.isArray(route.query.city) && (typeof (route.query.city) === 'string')) {
-    cities = [route.query.city];
+    cities.value = [route.query.city];
 } else if (Array.isArray(route.query.city)) {
-    cities = [...route.query.city];
+    cities.value = [...route.query.city];
 }
-
-//Location filter
-const locationSelect = ref(cities || null) // ["string"]
-const locations = ref(['Bangalore', 'Hassan', 'Mysore']);
-
-//Property filter
-const propertyType = ref('all'); // string
 
 const showAdvancedFilterOverlay = ref(false);
 //AdvancedFilter
@@ -265,11 +278,28 @@ const areaRange = ref(null); // {areaFrom: "0 sqft", areaTo: "50000 sqft"}
 const costRange = ref(null); //{costFrom: '0 Lac', costTo: '5.00 Cr'}
 const selectedDate = ref(null); // {title: 'Today', value: {from: '6-10-2023', to: '6-10-2023'}}
 const sort = ref({ sortBy: 'none', orderBy: 'asc' }) // sorting based on (date, area, cost) and order (asc || desc)
+//Property type filter
+const propertyType = ref('all'); // string
+//Location filter
+const states = ref([]);
+const stateSelect = ref('Karnataka');
+const citiesforFilter = ref([]);
+const citySelect = ref(null);
+async function getLocationData() {
+    //@ts-ignore
+    const location = JSON.parse(localStorage.getItem('location'));
+    //@ts-ignore
+    states.value = location?.states?.map(item => item.name);
+    //@ts-ignore
+    const state = location?.states?.find(state => state.name === 'Karnataka');
+    citiesforFilter.value = state?.cities;
+    citySelect.value = cities.value ? cities.value : ['Bengaluru'];
+}
 
 const propertyFilters = reactive({
     //@ts-ignore
     type: (propertyFilterObj?.type)?.length > 0 ? propertyFilterObj?.type : null,
-    cities: locationSelect.value,
+    cities: citySelect.value,
     isVerified: isVerified.value,
     areaRange: areaRange.value,
     costRange: costRange.value,
@@ -281,8 +311,8 @@ const propertyFilters = reactive({
     pageNumber: pageNumber.value,
 })
 
-watch([locationSelect, propertyType, isVerified, isFreeHold, areaRange, costRange, selectedDate, ownershipType, sort], (newValues, oldValues) => {
-    propertyFilters.cities = locationSelect.value;
+watch([citySelect, propertyType, isVerified, isFreeHold, areaRange, costRange, selectedDate, ownershipType, sort], (newValues, oldValues) => {
+    propertyFilters.cities = citySelect.value;
     propertyFilters.type = propertyType.value !== "all" ? propertyType.value : null;
     propertyFilters.isVerified = isVerified.value;
     propertyFilters.areaRange = areaRange.value;
@@ -294,6 +324,16 @@ watch([locationSelect, propertyType, isVerified, isFreeHold, areaRange, costRang
     propertyFilters.pageNumber = pageNumber.value;
     propertyFilters.sort = sort.value;
 });
+
+watch(stateSelect, newStateSelected => {
+    //@ts-ignore
+    const location = JSON.parse(localStorage.getItem('location'));
+    //@ts-ignore
+    const state = location?.states?.find(state => state.name === newStateSelected);
+    citiesforFilter.value = state?.cities;
+    citySelect.value = null;
+})
+
 
 async function handleSubmit() {
     zeroProperties.value = false;
@@ -308,9 +348,7 @@ async function handleSubmit() {
 async function getAllProperty() {
     // console.log(filterOptions)
     const filterData = {
-        params: {
-            filters: JSON.stringify({ ...propertyFilters })
-        },
+        params: propertyFilters,
     };
 
     const res = await api.property.getProperties(filterData);
@@ -329,7 +367,7 @@ async function getAllProperty() {
     }
 }
 
-window.addEventListener('scroll', async () => {
+const scrollCallback = async () => {
     if (isFetchingData.value) return;
 
     const scrollY = window.scrollY;
@@ -348,13 +386,20 @@ window.addEventListener('scroll', async () => {
         await getAllProperty();
         isFetchingData.value = false;
     }
-});
+}
+
+window.addEventListener('scroll', scrollCallback);
 
 onMounted(async () => {
     if (pageNumber.value === 1) {
+        await getLocationData();
         await getAllProperty();
     }
 });
+
+onUnmounted(() => {
+    window.removeEventListener('scroll', scrollCallback)
+})
 
 </script>
 

@@ -13,14 +13,14 @@
         class="mx-auto bg-green">
         <div style="height: 100%" class="text-h5 text-center d-flex align-center justify-center">
           <h5>
-            Message has been delivered. Checkedspot Team will contact you soon.
+            Message has been delivered. Checked Spot Team will contact you soon.
           </h5>
         </div>
       </v-card>
     </v-expand-transition>
     <v-row no-gutters class="bgConstruction d-flex justify-space-between py-10 py-md-0">
       <v-col cols="12" md="4" class="px-16 pr-md-0 pl-md-16 my-5 mr-0 d-flex flex-column justify-center">
-        <h2 class="h2 text-white pb-3 text-center text-md-left">CheckedSpot Construction Simplified</h2>
+        <h2 class="h2 text-white pb-3 text-center text-md-left">Checked Spot Construction Simplified</h2>
         <p class="text-white text-h6 font-weight-regular text-center text-md-left">Step into the home you've always
           dreamed of, built to the highest standard of quality.</p>
       </v-col>
@@ -28,7 +28,7 @@
         <v-btn @click="router.push('/quotation')" variant="elevated" color="deep-orange-darken-1"
           class="text-h6 py-2 elevtion-5" height="120" width="200">GET
           YOUR<br>QUOTATION<br>NOW</v-btn>
-      </v-col>
+        </v-col>
       <v-col cols="12" md="5" class="pr-md-16 pl-md-10 py-10 d-flex justify-center justify-md-end">
 
         <form class="bg-white px-8 pt-5 pb-8 rounded-lg" style="max-width:350px">
@@ -54,12 +54,15 @@
               book free consultation
             </v-btn>
             <p class="caption"><span class="text-red">* </span>By submitting this form, I confirm that I have read and
-              agreed to accept CheckedSpot's <RouterLink to="/privacypolicy">privacy policy</RouterLink>
+              agreed to accept Checked Spot's <RouterLink to="/privacypolicy">privacy policy</RouterLink>
             </p>
           </v-sheet>
         </form>
       </v-col>
     </v-row>
+    <a href="https://checkedspot57.wordpress.com/our-completed-projects/" style="padding:10px; font-size: 30px;color: black !important;">our projects</a>
+    <a href="https://checkedspot57.wordpress.com/under-construction-projects/" style="padding:10px; font-size: 30px;color: black !important;">under construction projects</a>
+
   </v-container>
 </template>
 

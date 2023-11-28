@@ -30,20 +30,20 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const recent20Properties = reactive({
-  data: null
+  data: {}
 })
 
-async function getAllVerifiedProperties() {
+async function recentproperties() {
   const res = await api?.property?.getRecentProperties({ params: { limit: 20 } });
-  if (res.status === 200) {
-    recent20Properties.data = res?.data;
+  if (res?.status === 200) {
+    recent20Properties.data = res;
   } else {
-    recent20Properties.data = res.status;    
+    recent20Properties.data = res;    
   }
 }
 
 onMounted(async () => {
-  await getAllVerifiedProperties();
+  await recentproperties();
 })
 
 </script>

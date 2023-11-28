@@ -18,8 +18,8 @@
                     </v-row>
                 </v-col> -->
                 <v-col cols="12" style="background-color: #fff6f4" class="px-5 px-sm-16 py-8">
-                    <p class="text-indigo-lighten-1 text-body-1 px-5 px-sm-0 px-md-5 pb-6"><span class="text-pink-accent-3">CheckedSpot</span> is India's No.1 tech-enabled construction company that aims to make construction simple, transparent, and reliable. We provide end-to-end aka design-to-build construction services. We execute projects on a turnkey basis and provide real-time tracking, communication, quality checks, and updates on projects from day one till the handover of the keys. Our solution offers money safety to the customers, assured quality, transparency at every stage of construction, and zero tolerance for delays in the project lifecycle. Speak to our technical expert now to get started on the construction of your dream project.</p>
-                    <p class="text-indigo-lighten-1 text-body-1 px-5 px-sm-0 px-md-5">© 2023 CheckedSpot.com All rights reserved.</p>
+                    <p class="text-indigo-lighten-1 text-body-1 px-5 px-sm-0 px-md-5 pb-6"><span class="text-pink-accent-3">Checked Spot</span> is India's No.1 tech-enabled construction company that aims to make construction simple, transparent, and reliable. We provide end-to-end aka design-to-build construction services. We execute projects on a turnkey basis and provide real-time tracking, communication, quality checks, and updates on projects from day one till the handover of the keys. Our solution offers money safety to the customers, assured quality, transparency at every stage of construction, and zero tolerance for delays in the project lifecycle. Speak to our technical expert now to get started on the construction of your dream project.</p>
+                    <p class="text-indigo-lighten-1 text-body-1 px-5 px-sm-0 px-md-5">© 2023 checkedspot.com All rights reserved.</p>
                 </v-col>
             </v-row>
         </v-container>
