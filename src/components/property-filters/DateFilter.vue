@@ -1,8 +1,18 @@
 <template>
     <!-- Date Filter -->
     <v-col class="py-0 px-2 mb-4" cols="12">
-        <v-select variant="outlined" v-model="selectDate" hint="Posted on..." persistent-hint :items="posted"
-            item-title="title" item-value="value" return-object single-line>
+        <v-select 
+            variant="outlined" 
+            prepend-inner-icon="mdi-sort-calendar-ascending" 
+            hint="Posted on..." 
+            persistent-hint 
+            v-model="selectDate" 
+            :items="posted"
+            item-title="title" 
+            item-value="value" 
+            return-object 
+            single-line
+        >
         </v-select>
         <!-- <v-dialog v-model="dateDialog" scroll-strategy="none" persistent width="auto">
             <v-card title="Choose Date">

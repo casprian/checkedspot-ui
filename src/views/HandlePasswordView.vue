@@ -144,7 +144,7 @@ async function verifyEmail() {
     loader2.value = true;
     if (validOtp.value) {
         const res = await api?.email?.verifyEmail({ email: email?.value?.value, OTP: otp?.value?.value });
-        if (res?.data?.status === 200) {
+        if (res?.status === 200) {
             dialog.value = false;
             cookies.remove('OTP');
             verifiedUser.value = true;

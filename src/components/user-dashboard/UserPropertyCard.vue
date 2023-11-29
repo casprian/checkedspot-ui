@@ -12,9 +12,7 @@
             class="mx-auto bg-green">
             <div style="height: 100%" class="text-h5 text-center d-flex align-center justify-center">
                 <h5>
-                    Property has been deleted successfully! 
-                    <!-- <br> -->
-                    <!-- If Deleted accidently <v-btn variant="text" @click="() => {console.log('UNdoDletion');}">Click here</v-btn> to Undo Deletion! -->
+                    Property has been deleted successfully!
                 </h5>
             </div>
         </v-card>
@@ -22,7 +20,7 @@
 
     <v-card class="mx-auto" style="max-width: 480px; min-height: auto;" position="relative">
         <v-img
-            :src="property?.propertyImage.length > 0 ? property?.propertyImage[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
+            :src="property?.image !== undefined ? property?.image?.fileUrl : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
             height="200px" position="relative" cover class="hoverPointer" alt="property Images">
             <v-toolbar v-if="property?.title && property?.title !== 'unavailable'" class="propertyTitle" theme="dark"
                 height="35" style="background-color: rgba(0, 0, 0, 0.466);">
@@ -33,14 +31,15 @@
             <v-card-title v-if="property?.isVerifiedByCheckedSpot" title="verified by Checked Spot"
                 class="px-4 py-1 verifiedTag">
                 <v-chip variant="elevated" color="green-darken-2" density="comfortable">
-                    Checked Spot <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon>
+                    Checked Spot verified <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon>
                 </v-chip>
             </v-card-title>
             <v-row no-gutters>
                 <v-col cols="12" class="d-flex justify-space-between">
-                    <v-btn @click="() => { }" height="30" class="ma-2" variant="flat" elevation="4" color="green-darken-2"
-                        disabled>Edit</v-btn>
-                    <v-btn height="30" class="ma-2" variant="flat" elevation="4" color="red-darken-4">Delete
+                    <v-btn @click="router.push({ path: '/propertydashboard', query: { propertyId: property.propertyId } })"
+                        height="30" class="ma-2" variant="flat" elevation="4" color="green-darken-2" disabled>Edit</v-btn>
+
+                    <v-btn height="30" class="ma-2" variant="flat" elevation="4" color="pink-darken-3">Delete
                         <v-dialog v-model="confirmDialog" width="auto" activator="parent">
                             <v-card class="pa-5 pt-2">
                                 <v-card-text class="text-h6">
@@ -55,6 +54,13 @@
                             </v-card>
                         </v-dialog>
                     </v-btn>
+                </v-col>
+            </v-row>
+            <v-row no-gutters>
+                <v-col cols="auto" class="showDetailsBtnContainer">
+                    <v-btn @click="router.push(`/propertydetails/${property?.propertyId}`)" density="default"
+                        variant="elevated" class="text-none" color="pink-darken-3"
+                        append-icon="mdi-cursor-default-click">Preview Details</v-btn>
                 </v-col>
             </v-row>
         </v-img>
@@ -158,11 +164,11 @@
 
         <v-row class="cardBottom pa-0 mx-6 my-2 d-flex justify-space-between align-center">
             <v-col cols="auto" class="px-0 my-1 d-flex justify-center align-center">
-                <v-avatar class="pa-0 mr-2" image="https://checkedspot.blob.core.windows.net/assets/parvez1.jpeg"
+                <v-avatar class="pa-0 mr-2" :image="property?.agent?.picture"
                     size="45"></v-avatar>
                 <div class="text-body-2 mt-1 ml-0 text-uppercase text-center text-grey-darken-2">
-                    <p class="text-start pa-0 ma-0">{{ property?.agentName }}</p>
-                    <p class="text-start pa-0 ma-0">{{ property?.agentMobile }}</p>
+                    <p class="text-start pa-0 ma-0">{{ property?.agent?.name }}</p>
+                    <p class="text-start pa-0 ma-0">{{ property?.agent?.mobile }}</p>
                 </div>
             </v-col>
             <v-col v-if="property?.propertyAddedDate" cols="auto" class="px-0">
@@ -277,6 +283,16 @@ a:hover {
 .overflowText:hover {
     white-space: normal;
 }
+
+
+.showDetailsBtnContainer {
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    transform: translate(-50%, -50%);
+
+}
+
 
 .toolBar {
     background-color: rgba(0, 0, 0, 0.5);

@@ -42,7 +42,7 @@
 
   <v-navigation-drawer v-model="drawer" location="left" temporary class="pt-3">
     <div class="px-5">
-      <v-btn width="100%" @click="router.push('/home')" variant="flat" class="my-2" height="32">
+      <v-btn width="100%" @click="router.push('/')" variant="flat" class="my-2" height="32">
         HOME
       </v-btn>
     </div>
@@ -113,7 +113,7 @@ import { useCookies } from "vue3-cookies";
 import ProfileAvatar from '@/components/ProfileAvatar.vue';
 import axios from 'axios';
 //@ts-ignore
-import { baseURL } from '@/data/axios/interceptor.js';
+import { baseURL } from '@/data/axios/interceptor.js'
 
 const webWhatsapphref = ref('');
 const mobileContacthref= ref('');

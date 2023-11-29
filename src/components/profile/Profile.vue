@@ -75,7 +75,7 @@
                     <span v-else class="pl-5" title="not verified"><v-icon size="20" color="red-darken-2"
                             icon="mdi-close-circle-outline"></v-icon></span>
                 </h2>
-                <verify-data v-if="userdata.email" name="email" verify="email" :data="userdata?.email" :isverified="userdata.email_verified" />
+                <verify-data v-if="userdata.email" name="email" verify="email" :data="userdata?.email" :isverified="userdata.email_verified"/>
             </div>
 
             <div class="myProfileDetails d-flex justify-space-between align-center">
@@ -95,8 +95,7 @@
                     <span v-else class="pl-5" title="not verified"><v-icon size="20" color="red-darken-2"
                             icon="mdi-close-circle-outline"></v-icon></span>
                 </h2>
-                <verify-data v-if="userdata.mobile" name="mobile number" verify="mobile" :data="userdata?.mobile"
-                    :isverified="userdata.mobile_verified" />
+                <!-- <verify-data v-if="userdata.mobile" name="mobile number" verify="mobile" :data="userdata?.mobile" :isverified="userdata.mobile_verified" /> -->
             </div>
 
             <div class="myProfileDetails d-flex justify-space-between align-center">
@@ -172,6 +171,8 @@ import jwtDecode from "jwt-decode";
 import { onMounted, reactive, ref } from "vue";
 import { useCookies } from "vue3-cookies";
 import { useRouter } from "vue-router";
+//@ts-ignore
+import VerifyData from '@/components/profile/VerifyData.vue';
 
 const router = useRouter();
 const { cookies } = useCookies();
@@ -197,8 +198,6 @@ const name = ref(null);
 const count = ref(0);
 const profileStatus = ref(0);
 const profilecolor = ref('');
-const dialog = ref(false);
-const menu = ref(false);
 
 let user = reactive({
     email: null,
@@ -212,14 +211,14 @@ if (cookies.get("token")) {
 
 async function getUser() {
     const res = await api?.user?.getUserData({ params: { email: user?.email } });
-    if (res?.data?.status === 200) {
+    if (res?.status === 200) {        
         for(let data in userdata.value) {
-            if(res?.data?.data[data] !== false && res?.data?.data[data] !== "") {
+            if(res?.data?.data[data] === false || res?.data?.data[data] === "" || res?.data?.data[data] === undefined) {
+                continue;
+            }else {
                 //@ts-ignore
                 userdata.value[data] = res?.data?.data[data];
                 count.value++;
-            }else {
-                continue;
             }
         }
         name.value = res?.data?.data?.name?.toUpperCase();

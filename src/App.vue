@@ -3,6 +3,12 @@
 </template>
 
 <script lang="ts" setup>
+import axios from 'axios';
+import { onMounted } from 'vue';
+onMounted(async() => {
+  const res = await axios.get('http://localhost:8080/location');
+  localStorage.setItem('location', JSON.stringify(res?.data[0]));
+})
 </script>
 
 <style>

@@ -1,8 +1,8 @@
 <template>
     <v-container fluid class="pa-0" v-if="cookies.get('token')" style="height: 100%;">
-        <v-row no-gutters class="bg-grey-lighten-2 pb-2 mb-5">
+        <v-row no-gutters class="bg-grey-lighten-3 pb-2 mb-5">
             <v-col cols="12">
-                <h1 class="py-3 text-h3 text-center font-weight-regular text-decoration-underline text-pink-darken-2">
+                <h1 class="py-1 pt-3 pl-6 text-h5 text-left font-weight-medium text-grey-darken-3">
                     My Properties</h1>
             </v-col>
         </v-row>
@@ -13,8 +13,8 @@
                 </v-col>
             </v-row>
             <v-row v-else class="d-flex justify-center align-center" style="width:100%; height: 100%;">
-                <h1 class="pa-7">You haven't posted any properties! <RouterLink to="/createproperty">Post property
-                    </RouterLink>
+                <h1 class="pa-7">You haven't posted any properties! 
+                    <RouterLink to="/createproperty">Post property</RouterLink>
                 </h1>
             </v-row>
         </v-container>

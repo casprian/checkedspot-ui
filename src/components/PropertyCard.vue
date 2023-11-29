@@ -1,8 +1,8 @@
 <template>
     <v-card class="mx-auto" style="max-width: 480px; min-height: auto;" position="relative">
-        <v-hover v-slot="{ isHovering, props }">
+        <v-hover v-if="!isMobileDevice" v-slot="{ isHovering, props }">
             <v-img @click="openPropertyDetail" v-bind="props"
-                :src="property?.propertyImage.length > 0 ? property?.propertyImage[0] : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
+                :src="property?.image !== undefined ? property?.image?.fileUrl : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
                 height="200px" position="relative" cover class="hoverPointer">
                 <v-expand-transition>
                     <div v-if="isHovering"
@@ -19,14 +19,53 @@
                         {{ property?.title ? property?.title : "Property title - like, Fit for home etc." }}
                     </div>
                 </v-toolbar>
-                <v-card-title title="verified by Checked Spot" v-if="property?.isVerifiedByCheckedSpot"
-                    class="px-4 py-1 verifiedTag">
-                    <v-chip variant="elevated" color="green" density="comfortable">
-                        Checked Spot <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon>
-                    </v-chip>
-                </v-card-title>
+
+                <div class="verifiedTagContainer">
+                    <v-card-title title="verified by Checked Spot" v-if="property?.isVerifiedByCheckedSpot"
+                        class="px-0 py-1 verifiedTag">
+                        <v-chip variant="elevated" color="green" density="comfortable">
+                            Checked Spot verified <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon>
+                        </v-chip>
+                    </v-card-title>
+                    <v-card-title title="Freehold Property" v-if="property?.isFreeHold" class="px-0 py-1 verifiedTag">
+                        <v-chip variant="elevated" color="blue-grey-lighten-5" density="comfortable">
+                            Freehold
+                            <!-- <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon> -->
+                        </v-chip>
+                    </v-card-title>
+                </div>
             </v-img>
         </v-hover>
+
+        <v-img v-else @click="openPropertyDetail" v-bind="props"
+            :src="property?.image !== undefined ? property?.image?.fileUrl : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
+            height="200px" position="relative" cover class="hoverPointer">
+
+            <v-toolbar v-if="property?.title && property?.title !== 'unavailable'" class="propertyTitle" theme="dark"
+                height="35" style="background-color: rgba(0, 0, 0, 0.466);">
+                <div class="w-100 text-body-1 text-center px-3">
+                    {{ property?.title ? property?.title : "Property title - like, Fit for home etc." }}
+                </div>
+            </v-toolbar>
+
+            <div class="showDetailsBtnContainer">
+                <v-btn density="default" variant="elevated" class="text-none" color="pink-darken-3" append-icon="mdi-cursor-default-click">For details. Click here!</v-btn>
+            </div>
+            <div class="verifiedTagContainer">
+                <v-card-title title="verified by Checked Spot" v-if="property?.isVerifiedByCheckedSpot"
+                    class="px-0 py-1 verifiedTag">
+                    <v-chip variant="elevated" color="green" density="comfortable">
+                        Checked Spot verified <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon>
+                    </v-chip>
+                </v-card-title>
+                <v-card-title title="Freehold Property" v-if="property?.isFreeHold" class="px-0 py-1 verifiedTag">
+                    <v-chip variant="elevated" color="blue-grey-lighten-5" density="comfortable">
+                        Freehold
+                        <!-- <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon> -->
+                    </v-chip>
+                </v-card-title>
+            </div>
+        </v-img>
 
         <v-row no-gutters>
             <v-card-text class="px-4 py-0 pt-4 d-flex justify-space-between">
@@ -71,7 +110,7 @@
                             <v-tooltip activator="parent" location="end">Show Areas</v-tooltip>
                         </v-btn>
                     </template>
-
+                    
                     <v-card>
                         <v-card-text class="mx-2">
                             <div class="text-h6">Total Area in other Units</div>
@@ -104,54 +143,38 @@
                                 </v-col>
                             </v-row>
                         </v-card-text>
-                    </v-card>
-                </v-dialog>
-            </v-col>
-        </v-row>
-
-        <v-sheet height="260px">
-            <v-container class="pa-0">
-                <v-row no-gutters>
-                    <v-col cols="12">
-                        <v-card-title class="px-4 py-1">
-                            <v-chip v-if="property?.isVerifiedByCheckedSpot" variant="elevated" color="red">
-                                Checked Spot <v-icon size="16" class="mr-2" icon="mdi-map-marker" color="white"></v-icon>
-                            </v-chip>
-                        </v-card-title>
-                        <v-card-text class="px-4 py-0">
-                            <v-icon size="16" class="mt-n1 mr-2" icon="mdi-map-marker" color="grey-darken-2"></v-icon>
-                            <span class="text-body-1 text-grey-darken-2" title="City">
-                                {{
-                                    property.city
-                                    ? property.city
-                                    : 'Not Found'
-                                }}
-                            </span>
-                        </v-card-text>
                         <v-card-actions class="d-flex justify-center">
                             <v-btn @click="dialog = false">OK</v-btn>
                         </v-card-actions>
-                    </v-col>
-                </v-row>
-            </v-container>
-        </v-sheet>
+                    </v-card>
+                </v-dialog>
+            </v-col>
 
-        <v-col cols="12" class="px-4 pb-1">
-            <div v-if="property?.address" class="text-body-2 text-grey-darken-2 overflowText" title="Property address">
-                address: {{
-                    property?.address
-                }}
-            </div>
-            <div v-else class="text-body-2 text-grey-darken-2">&nbsp;</div>
-        </v-col>
+            <v-col v-if="property?.cost" cols="12" class="px-4">
+                <div class="text-body-2 text-grey-darken-2 overflowText" title="property type">
+                    Cost: {{
+                        propertyCost
+                    }}
+                </div>
+            </v-col>
+
+            <v-col cols="12" class="px-4 pb-1">
+                <div v-if="property?.address" class="text-body-2 text-grey-darken-2 overflowText" title="Property address">
+                    Address: {{
+                        property?.address
+                    }}
+                </div>
+                <div v-else class="text-body-2 text-grey-darken-2">&nbsp;</div>
+            </v-col>
+        </v-row>
 
         <v-row class="cardBottom pa-0 mx-6 my-2 d-flex justify-space-between align-center">
             <v-col cols="auto" class="px-0 my-1 d-flex justify-center align-center">
-                <v-avatar class="pa-0 mr-2" image="https://checkedspot.blob.core.windows.net/assets/parvez1.jpeg"
+                <v-avatar class="pa-0 mr-2" :image="property?.agent?.picture"
                     size="45"></v-avatar>
                 <div class="text-body-2 mt-1 ml-0 text-uppercase text-center text-grey-darken-2">
-                    <p class="text-start pa-0 ma-0">{{ property?.agentName }}</p>
-                    <p class="text-start pa-0 ma-0">{{ property?.agentMobile }}</p>
+                    <p class="text-start pa-0 ma-0">{{ property?.agent?.name }}</p>
+                    <p class="text-start pa-0 ma-0">{{ property?.agent?.mobile }}</p>
                 </div>
             </v-col>
             <v-col v-if="property?.propertyAddedDate" cols="auto" class="px-0">
@@ -169,8 +192,14 @@ import { useRouter } from 'vue-router';
 import { ref, reactive, onMounted, computed } from 'vue';
 const router = useRouter();
 
+const details = ref(navigator.userAgent);
+const regexp = /android|iphone|kindle|ipad/i;
+const isMobileDevice = ref(regexp.test(details.value));
+
 const props = defineProps(['property', 'listingPath']);
 const dialog = ref(false);
+const propertyCost = ref(props?.property?.cost < 10000000 ? `${props?.property?.cost / 100000.0} Lac` : `${props?.property?.cost / 10000000.0} Cr`);
+
 function openPropertyDetail() {
     router.push({ path: `/propertydetails/${props?.property?.propertyId}` })
 }
@@ -208,17 +237,30 @@ a:hover {
     text-decoration: underline !important;
 }
 
-.verifiedTag {
-    height: 42px;
+.showDetailsBtnContainer {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    
+}
+
+.verifiedTagContainer {
+    width: 100%;
+    padding: 0 12px;
     position: absolute;
     bottom: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.verifiedTag {
+    height: 42px;
 }
 
 .cardBottom {
     border-top: solid 1px rgb(217, 216, 216);
     height: 85px;
-    /* position: absolute;
-    bottom: 0; */
 }
 
 .hoverPointer:hover {

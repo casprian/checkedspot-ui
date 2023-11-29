@@ -16,7 +16,7 @@
                             Logged In!
                             Please refresh you page.
                         </div>
-                        <div class="text-h5 font-weight-medium pb-14">Sign in to Checkedspot</div>
+                        <div class="text-h5 font-weight-medium pb-14">Sign in to Checked Spot</div>
 
                         <v-row no-gutters class="pr-10 pb-14">
                             <v-col cols="12" class="pa-0">
@@ -40,8 +40,13 @@
                             <v-col cols="12">
                                 <v-row no-gutters>
                                     <v-col cols="12">
-                                        <v-text-field v-model="email.value.value" :error-messages="email.errorMessage.value"
-                                            variant="outlined" class="mr-10" label="Email*"></v-text-field>
+                                        <v-text-field 
+                                            v-model="email.value.value" 
+                                            :error-messages="email.errorMessage.value"
+                                            variant="outlined" 
+                                            class="mr-10" 
+                                            label="Email*"
+                                        ></v-text-field>
                                     </v-col>
                                     <v-col cols="12">
                                         <v-text-field v-model="password.value.value"
@@ -49,7 +54,8 @@
                                             :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                                             :type="show1 ? 'text' : 'password'" counter persistent-counter
                                             variant="outlined" label="Password*"
-                                            @click:append="show1 = !show1"></v-text-field>
+                                            @click:append="show1 = !show1"
+                                        ></v-text-field>
                                     </v-col>
                                 </v-row>
                                 <v-row no-gutters>
@@ -97,7 +103,7 @@ import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useField, useForm } from 'vee-validate';
 import { useCookies } from "vue3-cookies";
-import FacebookOAuth from '@/components/oauth/FacebookOAuth.vue';
+// import FacebookOAuth from '@/components/oauth/FacebookOAuth.vue';
 
 const { cookies } = useCookies();
 const router = useRouter();
@@ -157,15 +163,16 @@ const loginHandler = handleSubmit(async (values: any) => {
         email: values.email,
         password: values.password,
     });
+    console.log(res)
 
-    if (res?.data?.status === 200) {
+    if (res?.status === 200) {
         retrySignIn.value = false;
         loader.value = false;
         location.replace(window.origin);
-    } else if (res?.data?.status === 404) {
+    } else if (res?.status === 404) {
         notFound.value = true;
         loader.value = false;
-    } else if (res?.data?.status === 409) {
+    } else if (res?.status === 409) {
         retrySignIn.value = true;
         loader.value = false;
     } else {
@@ -177,6 +184,7 @@ const loginHandler = handleSubmit(async (values: any) => {
 async function getAuthorizationUrl() {
     loader.value = true;
     const res = await api?.user?.getAuthorizationUrl({ params: {} });
+    console.log(res)
     setTimeout(() => {
         window.open(res?.data?.url, '_self');
     }, 500);
