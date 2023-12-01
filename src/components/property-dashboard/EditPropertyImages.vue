@@ -18,10 +18,10 @@
         </v-card>
     </v-expand-transition>
 
-    <v-container fluid>
-        <v-row no-gutters>
-            <v-col cols="12">
-                <div class="text-h5 my-3">
+    <v-container fluid class="pa-0">
+        <v-row no-gutters class="mb-3">
+            <v-col cols="12" class="pa-0" style="border-bottom: solid 2px grey;">
+                <div class="text-h5 text-grey-darken-2 font-weight-medium">
                     Edit Images
                 </div>
             </v-col>
@@ -55,13 +55,41 @@
                             </div>
 
                             <div class="imageAction d-flex justify-center align-center">
-                                <v-btn class="mx-2" density="comfortable" color="amber">Edit</v-btn>
-                                <v-btn class="mx-2" density="comfortable" color="red-darken-1" @click="() => {confirmDeletion(image.id)}">Delete</v-btn>
+                                <v-btn class="mx-2" density="comfortable" color="amber"
+                                    @click="() => { getImageId(image.id) }">Edit</v-btn>
+                                <v-btn class="mx-2" density="comfortable" color="red-darken-1"
+                                    @click="() => { confirmDeletion(image.id) }">Delete</v-btn>
                             </div>
                         </v-col>
                     </v-row>
                 </v-col>
 
+
+                <!-- update Image Dialog box -->
+                <v-dialog v-model="updateDialog" width="auto">
+                    <v-card width="50vw" color="grey-lighten-5">
+                        <v-row no-gutters class="pa-10 pt-7">
+                            <v-col cols="12" class="text-h6 pb-5">
+                                Update image properties
+                            </v-col>
+                            <v-col cols="12">
+                                <v-text-field v-model="title" label="title" variant="filled" name="title"></v-text-field>
+                            </v-col>
+                            <v-col cols="12">
+                                <v-text-field v-model="description" label="description" variant="filled"
+                                    name="description"></v-text-field>
+                            </v-col>
+                            <v-col cols="12" class="pt-5 d-flex justify-center">
+                                <v-btn variant="elevated" color="amber" width="200" :loading="loader"
+                                    @click="updateImage">Update</v-btn>
+                                <v-btn class="ml-4" width="100" color="green-darken-2" variant="outlined"
+                                    @click="updateDialog = false">Cancle</v-btn>
+                            </v-col>
+                        </v-row>
+                    </v-card>
+                </v-dialog>
+
+                
                 <!-- Delete Confirmation dialog -->
                 <v-dialog v-model="confirmDelete" width="auto">
                     <v-card class="pa-5 pt-2">
@@ -76,6 +104,7 @@
                         </v-card-actions>
                     </v-card>
                 </v-dialog>
+
             </v-row>
         </v-row>
 
@@ -92,13 +121,15 @@
                                 Add new image
                             </v-col>
                             <v-col cols="12">
-                                <v-file-input v-model="images" label="File input (required)" variant="filled"
-                                    prepend-icon="mdi-camera" name="imgfile"
+                                <v-file-input v-model="images" label="File input" variant="filled" prepend-icon="mdi-camera"
+                                    name="imgfile"
                                     accept=".jpg, .jpeg, .png, .gif, .webp, .avif, .apng, .svg"></v-file-input>
                             </v-col>
                             <v-col cols="12" class="pt-5 d-flex justify-center">
                                 <v-btn variant="elevated" color="primary" width="200" :loading="loader"
                                     @click="addImage">Add Image</v-btn>
+                                <v-btn class="ml-4" width="100" color="green-darken-2" variant="outlined"
+                                    @click="addImageDialog = false">Cancle</v-btn>
                             </v-col>
                         </v-row>
                     </v-card>
@@ -115,15 +146,20 @@ import api from '@/data/api/index.js'
 
 const props = defineProps(['images', 'propertyId'])
 
-const addImageDialog = ref(false);
-const confirmDelete = ref(false);
 const images = ref([]);
 const imageId = ref('');
+
+const addImageDialog = ref(false);
+
+const updateDialog = ref(false);
+const title = ref('');
+const description = ref('');
+
+const confirmDelete = ref(false);
 
 const loader = ref(false);
 const expandSuccess = ref(false);
 const expandFailure = ref(false);
-
 const messageType = ref('');
 
 function addImageFailure() {
@@ -143,13 +179,13 @@ async function addImage() {
         const res = await api?.property?.uploadImage(formData);
 
         if (res?.data?.images.length > 0) {
-            console.log(res?.data, res?.data?.images)
+
             const response = await api?.property?.addImage({
                 "propertyId": props.propertyId,
                 "imageObj": res?.data?.images[0]
             })
 
-            if(response?.status === 200) {
+            if (response?.status === 200) {
                 addImageDialog.value = false;
                 loader.value = false;
                 expandSuccess.value = true;
@@ -168,7 +204,39 @@ async function addImage() {
     }, 2000);
 }
 
-function confirmDeletion (id:any) {
+function getImageId(id: any) {
+    imageId.value = id;
+    updateDialog.value = true;
+}
+async function updateImage() {
+    messageType.value = " Image Updation ";
+    loader.value = true;
+
+    const res = await api.property.updateImage({
+        propertyId: props.propertyId,
+        imageId: imageId.value,
+        imageObj: {
+            title: title.value,
+            description: description.value,
+        }
+    })
+
+    if (res?.status === 200) {
+        loader.value = false;
+        updateDialog.value = false;
+        expandSuccess.value = true;
+    } else {
+        loader.value = false;
+        updateDialog.value = false;
+        expandFailure.value = true;
+    }
+    setTimeout(() => {
+        expandSuccess.value = false;
+        expandFailure.value = false;
+    }, 2000);
+}
+
+function confirmDeletion(id: any) {
     imageId.value = id;
     confirmDelete.value = true;
 }
