@@ -132,11 +132,22 @@ async function fetchPropertyVideos() {
     }
 }
 
+async function fetchPropertyDocuments() {
+    const res = await api?.property?.getPropertyDocument({ params: { propertyId: route?.query?.propertyId } })
+
+    if (res.status === 200) {
+        property.value.documents = res.data;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+        router.push({ path: '/error', query: { status: res?.status } })
+    }
+}
 
 onMounted(async () => {
     await fetchPropertydetails();
     await fetchPropertyImages();
     await fetchPropertyVideos();
+    await fetchPropertyDocuments();
 })
 
 </script>
