@@ -37,7 +37,7 @@
             <v-row no-gutters>
                 <v-col cols="12" class="d-flex justify-space-between">
                     <v-btn @click="router.push({ path: '/propertydashboard', query: { propertyId: property.propertyId } })"
-                        height="30" class="ma-2" variant="flat" elevation="4" color="green-darken-2" disabled>Edit</v-btn>
+                        height="30" class="ma-2" variant="flat" elevation="4" color="green-darken-2">Edit</v-btn>
 
                     <v-btn height="30" class="ma-2" variant="flat" elevation="4" color="pink-darken-3">Delete
                         <v-dialog v-model="confirmDialog" width="auto" activator="parent">
