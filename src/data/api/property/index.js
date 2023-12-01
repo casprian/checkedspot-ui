@@ -92,6 +92,16 @@ const createProperty = async (params) => {
     }
 }
 
+const addImage = async (params) => {
+    try {
+        const baseURL = "/property/image";
+        const response = await call.callWithToken('post', baseURL, params);
+        return { status: 200, data: response }
+    } catch (e) {
+        return { error: true, status: e?.response?.status, message: e?.response?.data?.message }
+    }
+}
+
 const uploadDocument = async (params) => {
     try {
         const baseURL = "/property/upload/document";
@@ -132,6 +142,16 @@ const deleteProperty = async (params) => {
     }
 }
 
+const deleteImage = async (params) => {
+    try {
+        const baseURL = "/property/image";
+        const response = await call.callWithToken('delete', baseURL, params);
+        return { status: 200, data: response }
+    } catch (e) {
+        return { error: true, status: e?.response?.status, message: e?.response?.data?.message }
+    }
+}
+
 export default {
     getProperties,
     getProperty,
@@ -142,8 +162,10 @@ export default {
     getPropertyDocument,
     getRecentProperties,
     createProperty,
+    addImage,
     uploadDocument,
     uploadImage,
     uploadVideo,
     deleteProperty,
+    deleteImage,
 };

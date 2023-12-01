@@ -10,22 +10,19 @@
 </template>
 
 <script lang="ts" setup>
-//@ts-ignore
-import HeaderComponent from '@/components/home-view-components/HeaderComponent.vue';
-//@ts-ignore
-import RecentProperty from '@/components/home-view-components/RecentProperty.vue';
-//@ts-ignore
-import AllPropertyNeeds from '@/components/home-view-components/AllPropertyNeeds.vue';
-//@ts-ignore
-import PropertiesForEveryone from '@/components/home-view-components/PropertiesForEveryone.vue';
-//@ts-ignore
-import PropertyServices from '@/components/home-view-components/PropertyServices.vue';
-//@ts-ignore
-import Construction from '@/components/home-view-components/Construction.vue';
+import { defineAsyncComponent, onMounted, reactive } from 'vue';
+import { useRouter } from 'vue-router';
+
 //@ts-ignore
 import api from '@/data/api/index.js';
-import { onMounted, reactive } from 'vue';
-import { useRouter } from 'vue-router';
+
+const HeaderComponent = defineAsyncComponent(() => import('@/components/home-view-components/HeaderComponent.vue'))
+const RecentProperty = defineAsyncComponent(() => import('@/components/home-view-components/RecentProperty.vue'))
+const AllPropertyNeeds = defineAsyncComponent(() => import('@/components/home-view-components/AllPropertyNeeds.vue'))
+const PropertiesForEveryone = defineAsyncComponent(() => import('@/components/home-view-components/PropertiesForEveryone.vue'))
+const PropertyServices = defineAsyncComponent(() => import('@/components/home-view-components/PropertyServices.vue'))
+const Construction = defineAsyncComponent(() => import('@/components/home-view-components/Construction.vue'))
+
 
 
 const router = useRouter();

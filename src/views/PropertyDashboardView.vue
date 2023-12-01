@@ -34,69 +34,21 @@
 
 
                     <v-col cols="12" sm="8" md="9">
-                        <v-window v-model="tab" style="width: 100%; height: 100%;">
+                        <v-window v-model="tab" style="width: 100%; height: 100vh; overflow-y: scroll;">
                             <v-window-item value="Preview Details">
                                 <property-preview :property="property" @edit="changeTab" />
                             </v-window-item>
-                            <v-window-item value="Details">
-                                <v-card flat>
-                                    <v-card-text>
-                                        <p>
-                                            Sed aliquam ultrices mauris. Donec posuere vulputate arcu. Morbi
-                                            ac felis. Etiam feugiat lorem non metus. Sed a libero. Sed aliquam ultrices
-                                            mauris. Donec posuere vulputate arcu. Morbi
-                                            ac felis. Etiam feugiat lorem non metus. Sed a libero. Sed aliquam ultrices
-                                            mauris. Donec posuere vulputate arcu. Morbi
-                                            ac felis. Etiam feugiat lorem non metus. Sed a libero. Sed aliquam ultrices
-                                            mauris. Donec posuere vulputate arcu. Morbi
-                                            ac felis. Etiam feugiat lorem non metus. Sed a libero. Sed aliquam ultrices
-                                            mauris. Donec posuere vulputate arcu. Morbi
-                                            ac felis. Etiam feugiat lorem non metus. Sed a libero. Sed aliquam ultrices
-                                            mauris. Donec posuere vulputate arcu. Morbi
-                                            ac felis. Etiam feugiat lorem non metus. Sed a libero. Sed aliquam ultrices
-                                            mauris. Donec posuere vulputate arcu. Morbi
-                                            ac felis. Etiam feugiat lorem non metus. Sed a libero. Sed aliquam ultrices
-                                            mauris. Donec posuere vulputate arcu. Morbi
-                                            ac felis. Etiam feugiat lorem non metus. Sed a libero.
-                                        </p>
-                                    </v-card-text>
-                                </v-card>
+                            <v-window-item value="Details" class="pa-10">
+                                <edit-property-details :details="property.details" />
                             </v-window-item>
-                            <v-window-item value="Images">
-                                <v-card flat>
-                                    <v-card-text>
-                                        <p>Fusce a</p>
-
-                                        <p class="mb-0">
-                                            Cras sagittis. P, ultricies nec,m at tortor in tellus interdum
-                                            sagittis.
-                                        </p>
-                                    </v-card-text>
-                                </v-card>
+                            <v-window-item value="Images" class="pa-10">
+                                <edit-property-images :images="property.images" :propertyId="property.propertyId"/>
                             </v-window-item>
-                            <v-window-item value="Videos">
-                                <v-card flat>
-                                    <v-card-text>
-                                        <p>Fusce a</p>
-
-                                        <p class="mb-0">
-                                            Cras sagittis. P, ultricies nec,m at tortor in tellus interdum
-                                            sagittis.
-                                        </p>
-                                    </v-card-text>
-                                </v-card>
+                            <v-window-item value="Videos" class="pa-10">
+                                <edit-property-videos :videos="property.videos" :propertyId="property.propertyId"/>
                             </v-window-item>
-                            <v-window-item value="Documents">
-                                <v-card flat>
-                                    <v-card-text>
-                                        <p>Fusce a</p>
-
-                                        <p class="mb-0">
-                                            Cras sagittis. P, ultricies nec,m at tortor in tellus interdum
-                                            sagittis.
-                                        </p>
-                                    </v-card-text>
-                                </v-card>
+                            <v-window-item value="Documents" class="pa-10">
+                                <edit-property-documents :documents="property.documents" :propertyId="property.propertyId"/>
                             </v-window-item>
                         </v-window>
                     </v-col>
@@ -114,19 +66,24 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, defineAsyncComponent } from 'vue';
 import { useCookies } from 'vue3-cookies';
 import { useRouter, useRoute } from 'vue-router';
 //@ts-ignore
 import api from '@/data/api/index.js';
 
-import PropertyPreview from '@/components/property-dashboard/PropertyPreview.vue';
+const PropertyPreview = defineAsyncComponent(() => import('@/components/property-dashboard/PropertyPreview.vue'));
+const EditPropertyDetails = defineAsyncComponent(() => import('@/components/property-dashboard/EditPropertyDetails.vue'));
+const EditPropertyImages = defineAsyncComponent(() => import('@/components/property-dashboard/EditPropertyImages.vue'));
+const EditPropertyVideos = defineAsyncComponent(() => import('@/components/property-dashboard/EditPropertyVideos.vue'));
+const EditPropertyDocuments = defineAsyncComponent(() => import('@/components/property-dashboard/EditPropertyDocuments.vue'));
 
 const { cookies } = useCookies();
 const router = useRouter();
 const route = useRoute();
 
 const property = ref({
+    propertyId: null,
     details: null,
     images: null,
     videos: null,
@@ -148,6 +105,7 @@ async function fetchPropertydetails() {
     const res = await api?.property?.getProperty({ params: { propertyId: route?.query?.propertyId } })
     if (res.status === 200) {
         property.value.details = res.data;
+        property.value.propertyId = res?.data?.propertyId;
         window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
         router.push({ path: '/error', query: { status: res?.status } })
@@ -174,22 +132,11 @@ async function fetchPropertyVideos() {
     }
 }
 
-// async function fetchPropertyDocuments() {
-//     const res = await api?.property?.getPropertyDocument({ params: { propertyId: route?.query?.propertyId } })
-//     if (res.status === 200) {
-//         property.value.documents = res.data;
-//         window.scrollTo({ top: 0, behavior: 'smooth' });
-//     } else {
-//         router.push({ path: '/error', query: { status: res?.status } })
-//     }
-// }
 
 onMounted(async () => {
     await fetchPropertydetails();
     await fetchPropertyImages();
     await fetchPropertyVideos();
-    // await fetchPropertyDocuments();
-
 })
 
 </script>
