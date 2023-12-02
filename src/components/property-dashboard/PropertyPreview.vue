@@ -25,8 +25,8 @@
                         <div v-if="props?.property?.images?.length === 0" class="text-h4 text-center pa-8 pt-6">
                             No Image has been uploaded for this property.
                         </div>
-                        <v-col v-for="(item, i) in props?.property?.images" :key="i" cols="12" md="6">
-                            <v-img :src="item?.fileUrl" cover height="250" class="text-right pa-2"></v-img>
+                        <v-col v-else v-for="image in props?.property?.images" :key="image.id" cols="12" md="6">
+                            <v-img :src="image?.fileUrl" cover height="250" class="text-right pa-2"></v-img>
                         </v-col>
                     </v-row>
                 </v-item-group>
@@ -80,10 +80,7 @@
                         <div v-if="props?.property?.documents?.length === 0" class="text-h4 text-center pa-8 pt-6">
                             No Document has been uploaded for this property.
                         </div>
-                        <property-documents :propertyId="props?.property?.propertyId"/>
-                        <!-- <v-col v-for="(item, i) in props?.property?.documents" :key="i" cols="12" md="6">
-                            <v-img :src="item?.fileUrl" cover height="250" class="text-right pa-2"></v-img>
-                        </v-col> -->
+                        <property-documents v-else :propertyId="props.property?.propertyId" :documentsExist="props?.property?.documents?.length > 0"/>
                     </v-row>
                 </v-item-group>
                 <v-card-actions class="d-flex justify-end">
@@ -97,12 +94,12 @@
 </template>
 
 <script lang="ts" setup>
-import { defineAsyncComponent } from 'vue'
-const props = defineProps(['property'])
-const emit = defineEmits(['edit'])
-
+import { defineAsyncComponent } from 'vue';
 const PropertyDetails = defineAsyncComponent(() => import('@/components/property-details-view-components/PropertyDetails.vue'))
 const PropertyDocuments = defineAsyncComponent(() => import('@/components/property-details-view-components/PropertyDocuments.vue'))
+
+const props = defineProps(['property']);
+const emit = defineEmits(['edit']);
 </script>
 
 <style scoped>

@@ -39,7 +39,7 @@ async function loadDocuments(propertyId:String) {
 }
 
 onMounted(async () => {
-    await loadDocuments(props?.propertyId);
+    await loadDocuments(props.propertyId);
 })
 </script>
 
