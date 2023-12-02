@@ -1,8 +1,8 @@
 import axios from "axios";
 
-// export const baseURL= "http://localhost:8080";
-// // export const baseURL= "https://checkedspotnodedocker.azurewebsites.net";
-export const baseURL= "https://api.checkedspot.com";
+export const baseURL= "http://localhost:8080";
+// export const baseURL= "https://checkedspotnodedocker.azurewebsites.net";
+// export const baseURL= "https://api.checkedspot.com";
 
 
 const http = axios.create({
