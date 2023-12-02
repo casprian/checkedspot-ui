@@ -34,6 +34,7 @@ import { useForm, useField } from 'vee-validate';
 import { ref } from 'vue';
 //@ts-ignore
 import { convertToSqft } from '@/composables/area.js'
+//@ts-ignore
 import api from '@/data/api/index.js';
 
 const props = defineProps(['propertyId', 'totalArea']);
