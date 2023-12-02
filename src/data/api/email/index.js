@@ -20,7 +20,18 @@ const verifyEmail = async (params)  => {
     }
 }
 
+const sendEnquiry = async (params)  => {
+    try {
+        const baseURL = "/email/user/enquiry";
+        const response = await call.callWithToken('post', baseURL, params);
+        return {status: 200, data: response}
+    } catch (e) {
+        return {error: true, status: e?.response?.status, message: e?.response?.data?.message}
+    }
+}
+
 export default {
     sendOTP,
-    verifyEmail
+    verifyEmail,
+    sendEnquiry
 };

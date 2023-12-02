@@ -274,7 +274,8 @@
 import { useRouter } from 'vue-router';
 import { ref, reactive, computed } from 'vue';
 import { useField, useForm } from 'vee-validate';
-import axios from 'axios';
+//@ts-ignore
+import api from '@/data/api/index.js';
 
 const router = useRouter();
 
@@ -354,7 +355,7 @@ const message = useField('message');
 
 async function onSuccess(values: any) {
     enquiryloader.value = true;
-    const res = await axios.post('http://localhost:8080/email/user/enquiry', {
+    const res = await api?.email?.sendEnquiry({
         propertyId: props?.property?.propertyId,
         email: values?.email,
         name: values?.name,
