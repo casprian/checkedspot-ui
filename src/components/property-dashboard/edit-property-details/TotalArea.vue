@@ -22,7 +22,7 @@
                 <v-col cols="12" class="pt-5 d-flex justify-center">
                     <v-btn variant="elevated" color="primary" width="200" :loading="loader" @click="update">Save</v-btn>
                     <v-btn class="ml-4" width="100" color="green-darken-2" variant="outlined"
-                        @click="dialog = false">Cancle</v-btn>
+                        @click="dialog = false">Cancel</v-btn>
                 </v-col>
             </v-row>
         </v-card>

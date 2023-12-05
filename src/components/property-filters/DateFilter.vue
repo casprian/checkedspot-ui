@@ -27,7 +27,7 @@
                 </div>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn text="Close Dialog" @click="handleCancle">close</v-btn>
+                    <v-btn text="Close Dialog" @click="handleCancel">close</v-btn>
                     <v-btn text="Close Dialog" @click="hideDialog">Okay</v-btn>
                 </v-card-actions>
             </v-card>
@@ -125,7 +125,7 @@ watch(selectDate, (newValue) => {
     { deep: true }
 );
 
-// function handleCancle() {
+// function handleCancel() {
 //     dateDialog.value = false;
 //     unselectedDateMsg.value = false;
 //     posted.value.pop();

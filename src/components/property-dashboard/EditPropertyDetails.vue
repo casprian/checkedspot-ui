@@ -36,6 +36,7 @@
                 />
                 <v-divider></v-divider>
             </v-col>
+
             <v-col cols="12">
                 <google-map-link
                     :propertyId="props.details.propertyId" 
@@ -45,10 +46,51 @@
                 />
                 <v-divider></v-divider>
             </v-col>
+            
             <v-col cols="12">
                 <property-title
                     :propertyId="props.details.propertyId" 
                     :title="props.details.title" 
+                    @success="handleUpdateSuccess" 
+                    @failure="handleUpdateFailure"
+                />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <property-description
+                    :propertyId="props.details.propertyId" 
+                    :description="props.details.description" 
+                    @success="handleUpdateSuccess" 
+                    @failure="handleUpdateFailure"
+                />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <property-address
+                    :propertyId="props.details.propertyId" 
+                    :address="props.details.address" 
+                    @success="handleUpdateSuccess" 
+                    @failure="handleUpdateFailure"
+                />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <property-status
+                    :propertyId="props.details.propertyId" 
+                    :propertyStatus="props.details.propertyStatus" 
+                    @success="handleUpdateSuccess" 
+                    @failure="handleUpdateFailure"
+                />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <ready-to-movein
+                    :propertyId="props.details.propertyId" 
+                    :readyToMoveIn="props.details.readyToMoveIn" 
                     @success="handleUpdateSuccess" 
                     @failure="handleUpdateFailure"
                 />
@@ -77,7 +119,7 @@
                     <v-col cols="12" class="pt-5 d-flex justify-center">
                         <v-btn variant="elevated" color="primary" width="200" @click="updateTextField">Save</v-btn>
                         <v-btn class="ml-4" width="100" color="green-darken-2" variant="outlined"
-                            @click="textfieldDialog = false">Cancle</v-btn>
+                            @click="textfieldDialog = false">Cancel</v-btn>
                     </v-col>
                 </v-row>
             </v-card>
@@ -90,6 +132,10 @@ import { defineAsyncComponent, ref } from 'vue';
 const TotalArea = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/TotalArea.vue'));
 const GoogleMapLink = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/GoogleMapLink.vue'));
 const PropertyTitle = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyTitle.vue'));
+const PropertyDescription = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyDescription.vue'));
+const PropertyAddress = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyAddress.vue'));
+const PropertyStatus = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyStatus.vue'));
+const ReadyToMovein = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/ReadyToMovein.vue'));
 
 
 const props = defineProps(['details']);

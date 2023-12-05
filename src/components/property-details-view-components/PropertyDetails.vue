@@ -49,6 +49,13 @@
                 }}
             </span>
         </v-col>
+        <v-col v-if="props.details?.address !== 'unavailable'" class="pdLH" cols="12">Address:
+            <span class="text-body-1 text-grey-darken-1">
+                {{
+                    props?.details?.address
+                }}
+            </span>
+        </v-col>
 
         <!-- <v-col v-if="props.details?.propertyStatus" class="pdLH" cols="12">Property Status:
                         <span class="text-body-1 text-grey-darken-1">

@@ -3,7 +3,7 @@
         <v-card style="position: fixed; top: 56px; left: 0; z-index: 1" v-show="expandFailure" height="60" width="100%"
             class="mx-auto bg-red">
             <div style="height: 100%" class="text-h5 text-center d-flex align-center justify-center">
-                <h5>Deletion Cancled!</h5>
+                <h5>Deletion Canceled!</h5>
             </div>
         </v-card>
     </v-expand-transition>
@@ -56,7 +56,7 @@
                                     <v-btn width="100" color="red-darken-2" variant="flat"
                                         @click="confirmDeletion(property.propertyId)" :loading="loader">Delete</v-btn>
                                     <v-btn width="100" color="green-darken-2" variant="outlined"
-                                        @click="cancleDeletion">Cancle</v-btn>
+                                        @click="cancelDeletion">Cancel</v-btn>
                                 </v-card-actions>
                             </v-card>
                         </v-dialog>
@@ -223,7 +223,7 @@ const computedDate = computed((postedDate) => {
     return `${yyyyddmm[2]}-${months[mm - 1].name}-${yyyyddmm[0]}`;
 });
 
-async function cancleDeletion() {
+async function cancelDeletion() {
     confirmDialog.value = false;
     expandFailure.value = true;
     setTimeout(() => {
@@ -237,7 +237,7 @@ async function confirmDeletion(propertyId: String) {
     expandFailure.value = false;
     const res = await api?.property?.deleteProperty({ params: { propertyId } });
 
-    if (res?.data?.status === 200) {
+    if (res?.status === 200) {
         expandSuccess.value = true;
         confirmDialog.value = false;
         setTimeout(async () => {

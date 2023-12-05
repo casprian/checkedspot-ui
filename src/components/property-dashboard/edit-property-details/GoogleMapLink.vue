@@ -10,7 +10,7 @@
                 <v-col cols="12" class="text-h6 pb-5">
                     Update with Location(Google Map link)
                 </v-col>
-                <v-col cols="12" sm="8">
+                <v-col cols="12">
                     <v-text-field prepend-inner-icon="mdi-link" label="Google Map Link" v-model="googleMapLink.value.value"
                         :error-messages="googleMapLink.errorMessage.value" clearable
                         hint="Enter Google map link of the location" variant="outlined"></v-text-field>
@@ -19,7 +19,7 @@
                     <v-btn variant="elevated" color="primary" width="200" :loading="loader"
                         @click="update">Save</v-btn>
                     <v-btn class="ml-4" width="100" color="green-darken-2" variant="outlined"
-                        @click="dialog = false">Cancle</v-btn>
+                        @click="dialog = false">Cancel</v-btn>
                 </v-col>
             </v-row>
         </v-card>
