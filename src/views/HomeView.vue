@@ -3,8 +3,6 @@
     <header-component/>
     <recent-property :properties="recent20Properties.data"/>
     <Construction/>
-    <all-property-needs/>
-    <!-- <properties-for-everyone/> -->
     <property-services/>
   </div>
 </template>
@@ -18,10 +16,8 @@ import api from '@/data/api/index.js';
 
 const HeaderComponent = defineAsyncComponent(() => import('@/components/home-view-components/HeaderComponent.vue'))
 const RecentProperty = defineAsyncComponent(() => import('@/components/home-view-components/RecentProperty.vue'))
-const AllPropertyNeeds = defineAsyncComponent(() => import('@/components/home-view-components/AllPropertyNeeds.vue'))
-const PropertiesForEveryone = defineAsyncComponent(() => import('@/components/home-view-components/PropertiesForEveryone.vue'))
-const PropertyServices = defineAsyncComponent(() => import('@/components/home-view-components/PropertyServices.vue'))
 const Construction = defineAsyncComponent(() => import('@/components/home-view-components/Construction.vue'))
+const PropertyServices = defineAsyncComponent(() => import('@/components/home-view-components/PropertyServices.vue'))
 
 
 

@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="pa-0">
+  <v-container fluid class="pa-0 mb-6">
     <v-expand-transition>
       <v-card style="position: fixed; top: 56px; z-index: 1" v-show="expandFailure" height="60" width="100%"
         class="mx-auto bg-red">
@@ -60,9 +60,6 @@
         </form>
       </v-col>
     </v-row>
-    <a href="https://checkedspot57.wordpress.com/our-completed-projects/" style="padding:10px; font-size: 30px;color: black !important;">our projects</a>
-    <a href="https://checkedspot57.wordpress.com/under-construction-projects/" style="padding:10px; font-size: 30px;color: black !important;">under construction projects</a>
-
   </v-container>
 </template>
 
