@@ -142,6 +142,16 @@ const uploadVideo = async (params) => {
     }
 }
 
+const updateDetails = async (params) => {
+    try {
+        const baseURL = "/property/details";
+        const response = await call.callWithToken('put', baseURL, params);
+        return { status: 200, data: response }
+    } catch (e) {
+        return { error: true, status: e?.response?.status, message: e?.response?.data?.message }
+    }
+}
+
 const updateImage = async (params) => {
     try {
         const baseURL = "/property/image";
@@ -207,8 +217,9 @@ export default {
     addVideo,
     uploadDocument,
     uploadImage,
-    uploadVideo,
+    updateDetails,
     updateImage,
+    uploadVideo,
     updateVideo,
     deleteProperty,
     deleteImage,

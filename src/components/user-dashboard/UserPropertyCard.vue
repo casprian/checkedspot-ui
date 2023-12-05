@@ -28,12 +28,19 @@
                     {{ property?.title ? property?.title : "Property title - like, Fit for home etc." }}
                 </div>
             </v-toolbar>
-            <v-card-title v-if="property?.isVerifiedByCheckedSpot" title="verified by Checked Spot"
-                class="px-4 py-1 verifiedTag">
-                <v-chip variant="elevated" color="green-darken-2" density="comfortable">
-                    Checked Spot verified <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon>
-                </v-chip>
-            </v-card-title>
+            <div class="verifiedTagContainer">
+                <v-card-title title="verified by Checked Spot" v-if="property?.isVerifiedByCheckedSpot"
+                    class="px-0 py-1">
+                    <v-chip variant="elevated" color="green" density="comfortable">
+                        Checked Spot verified <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon>
+                    </v-chip>
+                </v-card-title>
+                <v-card-title title="Freehold Property" v-if="property?.isFreeHold" class="px-0 py-1 verifiedTag">
+                    <v-chip variant="elevated" color="blue-grey-lighten-5" density="comfortable">
+                        Freehold
+                    </v-chip>
+                </v-card-title>
+            </div>
             <v-row no-gutters>
                 <v-col cols="12" class="d-flex justify-space-between">
                     <v-btn @click="router.push({ path: '/propertydashboard', query: { propertyId: property.propertyId } })"
@@ -257,11 +264,15 @@ a:hover {
     text-decoration: underline !important;
 }
 
-.verifiedTag {
-    height: 42px;
+.verifiedTagContainer {
+    width: 100%;
+    padding: 0 12px;
     position: absolute;
     bottom: 0;
+    display: flex;
+    justify-content: space-between;
 }
+
 
 .cardBottom {
     border-top: solid 1px rgb(217, 216, 216);
@@ -290,7 +301,6 @@ a:hover {
     left: 50%;
     top: 60%;
     transform: translate(-50%, -50%);
-
 }
 
 

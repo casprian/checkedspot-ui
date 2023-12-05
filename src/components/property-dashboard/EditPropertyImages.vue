@@ -12,7 +12,7 @@
             class="mx-auto bg-green">
             <div style="height: 100%" class="text-h5 text-center d-flex align-center justify-center">
                 <h5>
-                    {{ messageType }} is successful!
+                    {{ messageType }} is successful! <span class="text-body-1">Please refresh page if changes are not visible.</span>
                 </h5>
             </div>
         </v-card>
@@ -201,7 +201,7 @@ async function addImage() {
     setTimeout(() => {
         expandSuccess.value = false;
         expandFailure.value = false;
-    }, 2000);
+    }, 3000);
 }
 
 function getImageId(id: any) {
@@ -233,7 +233,7 @@ async function updateImage() {
     setTimeout(() => {
         expandSuccess.value = false;
         expandFailure.value = false;
-    }, 2000);
+    }, 3000);
 }
 
 function confirmDeletion(id: any) {
@@ -263,7 +263,7 @@ async function deleteImage() {
     setTimeout(() => {
         expandSuccess.value = false;
         expandFailure.value = false;
-    }, 2000);
+    }, 3000);
 }
 
 </script>
