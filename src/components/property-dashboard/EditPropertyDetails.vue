@@ -27,56 +27,7 @@
             </v-col>
         </v-row>
         <v-row no-gutters>
-            <v-col cols="12">
-                <total-area
-                    :propertyId="propertyDetails.propertyId" 
-                    :totalArea="propertyDetails.totalArea" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
-                <v-divider></v-divider>
-            </v-col>
-
-            <v-col cols="12">
-                <google-map-link
-                    :propertyId="propertyDetails.propertyId" 
-                    :gMapLink="propertyDetails.googleMapLink" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
-                <v-divider></v-divider>
-            </v-col>
             
-            <v-col cols="12">
-                <property-title
-                    :propertyId="propertyDetails.propertyId" 
-                    :title="propertyDetails.title" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
-                <v-divider></v-divider>
-            </v-col>
-
-            <v-col cols="12">
-                <property-description
-                    :propertyId="propertyDetails.propertyId" 
-                    :description="propertyDetails.description" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
-                <v-divider></v-divider>
-            </v-col>
-
-            <v-col cols="12">
-                <property-address
-                    :propertyId="propertyDetails.propertyId" 
-                    :address="propertyDetails.address" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
-                <v-divider></v-divider>
-            </v-col>
-
             <v-col cols="12">
                 <property-status
                     :propertyId="propertyDetails.propertyId" 
@@ -88,9 +39,9 @@
             </v-col>
 
             <v-col cols="12">
-                <ready-to-movein
+                <total-area
                     :propertyId="propertyDetails.propertyId" 
-                    :readyToMoveIn="propertyDetails.readyToMoveIn" 
+                    :totalArea="propertyDetails.totalArea" 
                     @success="handleUpdateSuccess" 
                     @failure="handleUpdateFailure"
                 />
@@ -98,9 +49,9 @@
             </v-col>
 
             <v-col cols="12">
-                <free-hold
+                <property-cost
                     :propertyId="propertyDetails.propertyId" 
-                    :isFreeHold="propertyDetails.isFreeHold" 
+                    :cost="propertyDetails.cost"
                     @success="handleUpdateSuccess" 
                     @failure="handleUpdateFailure"
                 />
@@ -139,33 +90,76 @@
                 <v-divider></v-divider>
             </v-col>
 
-            <v-col cols="12" v-for="item in updateFields" :key="item">
-                <div class="my-4 d-flex justify-space-between align-center">
-                    <span> {{ item }} : &nbsp; <span class="text-blue-grey-darken-1">{{ propertyDetails[item] }}</span></span>
-                    <span><v-btn variant="text" color="secondary" @click="editTextField(item, propertyDetails[item])"> Edit </v-btn></span>
-                </div>
+            <v-col cols="12">
+                <property-pincode
+                    :propertyId="propertyDetails.propertyId" 
+                    :pincode="propertyDetails.pincode"
+                    @success="handleUpdateSuccess" 
+                    @failure="handleUpdateFailure"
+                />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <google-map-link
+                    :propertyId="propertyDetails.propertyId" 
+                    :gMapLink="propertyDetails.googleMapLink" 
+                    @success="handleUpdateSuccess" 
+                    @failure="handleUpdateFailure"
+                />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <property-address
+                    :propertyId="propertyDetails.propertyId" 
+                    :address="propertyDetails.address" 
+                    @success="handleUpdateSuccess" 
+                    @failure="handleUpdateFailure"
+                />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <property-title
+                    :propertyId="propertyDetails.propertyId" 
+                    :title="propertyDetails.title" 
+                    @success="handleUpdateSuccess" 
+                    @failure="handleUpdateFailure"
+                />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <property-description
+                    :propertyId="propertyDetails.propertyId" 
+                    :description="propertyDetails.description" 
+                    @success="handleUpdateSuccess" 
+                    @failure="handleUpdateFailure"
+                />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <ready-to-movein
+                    :propertyId="propertyDetails.propertyId" 
+                    :readyToMoveIn="propertyDetails.readyToMoveIn" 
+                    @success="handleUpdateSuccess" 
+                    @failure="handleUpdateFailure"
+                />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <free-hold
+                    :propertyId="propertyDetails.propertyId" 
+                    :isFreeHold="propertyDetails.isFreeHold" 
+                    @success="handleUpdateSuccess" 
+                    @failure="handleUpdateFailure"
+                />
                 <v-divider></v-divider>
             </v-col>
         </v-row>
-
-        <v-dialog v-model="textfieldDialog" width="auto">
-            <v-card width="50vw" color="grey-lighten-5">
-                <v-row no-gutters class="pa-10 pt-7">
-                    <v-col cols="12" class="text-h6 pb-5">
-                        Update with new data
-                    </v-col>
-                    <v-col cols="12">
-                        <v-text-field v-model="textfield.value" label="File input" variant="filled"
-                            :name="textfield.key"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" class="pt-5 d-flex justify-center">
-                        <v-btn variant="elevated" color="primary" width="200" @click="updateTextField">Save</v-btn>
-                        <v-btn class="ml-4" width="100" color="green-darken-2" variant="outlined"
-                            @click="textfieldDialog = false">Cancel</v-btn>
-                    </v-col>
-                </v-row>
-            </v-card>
-        </v-dialog>
     </v-container>
 </template>
 
@@ -176,17 +170,19 @@ import { useRouter } from 'vue-router';
 import api from '@/data/api/index.js';
 
 
-const TotalArea = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/TotalArea.vue'));
-const GoogleMapLink = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/GoogleMapLink.vue'));
-const PropertyTitle = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyTitle.vue'));
-const PropertyDescription = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyDescription.vue'));
-const PropertyAddress = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyAddress.vue'));
 const PropertyStatus = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyStatus.vue'));
-const ReadyToMovein = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/ReadyToMovein.vue'));
-const FreeHold = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/FreeHold.vue'));
+const TotalArea = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/TotalArea.vue'));
+const PropertyCost = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyCost.vue'));
 const PropertyCountry = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyCountry.vue'));
 const PropertyState = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyState.vue'));
 const PropertyCity = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyCity.vue'));
+const PropertyPincode = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyPincode.vue'));
+const GoogleMapLink = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/GoogleMapLink.vue'));
+const PropertyAddress = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyAddress.vue'));
+const PropertyTitle = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyTitle.vue'));
+const PropertyDescription = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyDescription.vue'));
+const ReadyToMovein = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/ReadyToMovein.vue'));
+const FreeHold = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/FreeHold.vue'));
 
 
 const router = useRouter();
@@ -233,7 +229,7 @@ async function fetchPropertydetails() {
 async function handleUpdateSuccess() {
     await fetchPropertydetails();
     expandSuccess.value = true;
-    
+
     setTimeout(() => {
         expandSuccess.value = false;
     }, 3000);

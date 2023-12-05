@@ -1,7 +1,7 @@
 <template>
     <div class="my-4 d-flex justify-space-between align-center">
         <span class="wraplink" style="width:85%;">
-            Title : &nbsp; <span class="text-blue-grey-darken-1">{{ props.title }}</span>
+            Cost : &nbsp; <span class="text-blue-grey-darken-1">{{ props.cost }}</span>
         </span>
         <span class="d-flex justify-end" style="width:15%;">
             <v-btn variant="text" color="secondary" @click="dialog = true">
@@ -13,11 +13,12 @@
         <v-card width="50vw" color="grey-lighten-5">
             <v-row no-gutters class="pa-10 pt-7">
                 <v-col cols="12" class="text-h6 pb-5">
-                    Update Property Title
+                    Update Property Cost
                 </v-col>
                 <v-col cols="12">
-                    <v-text-field label="title" v-model="title" clearable hint="Property title - like, Fit for home etc."
-                        variant="outlined"></v-text-field>
+                    <v-text-field label="Property Cost" v-model="cost.value.value"
+                        :error-messages="cost.errorMessage.value" clearable
+                        hint="Enter Property Cost" variant="outlined"></v-text-field>
                 </v-col>
                 <v-col cols="12" class="pt-5 d-flex justify-center">
                     <v-btn variant="elevated" color="primary" width="200" :loading="loader" @click="update">Save</v-btn>
@@ -30,23 +31,40 @@
 </template>
 
 <script lang="ts" setup>
+import { useForm, useField } from 'vee-validate';
 import { ref } from 'vue';
 //@ts-ignore
 import api from '@/data/api/index.js';
 
-const props = defineProps(['propertyId', 'title']);
+const props = defineProps(['propertyId', 'cost']);
 const emit = defineEmits(['success', 'failure']);
 const dialog = ref(false);
 const loader = ref(false);
 
-const title = ref(props.title);
+const propertyCost = ref(props.cost);
 
-async function update() {
+let { meta, values, errors, handleSubmit } = useForm({
+    validationSchema: {
+        cost(value: any) {
+            if (!value) {
+                return "Required.";
+            } else if (value > 0 && /^[0.0-9.0]*$/.test(value)) {
+                return true;
+            }
+            return "cost should be greater than 0.";
+        },
+    },
+});
+
+const cost = useField("cost");
+cost.value.value = propertyCost.value;
+
+async function onSuccess(values: any) {
     loader.value = true;
 
     const res = await api?.property?.updateDetails({
         "propertyId": props.propertyId,
-        "updatingFields": { "title": title.value }
+        "updatingFields": { "cost": values.cost }
     });
 
     if (res.status === 200) {
@@ -57,6 +75,17 @@ async function update() {
     loader.value = false;
     dialog.value = false;
 }
+
+function onInvalidSubmit(invalidData: any) {
+    console.log("meta : ", meta.value)
+    console.log(invalidData?.values); // current form values
+    console.log(invalidData?.errors); // a map of field names and their first error message
+    console.log(invalidData?.results); // a detailed map of field names and their validation results
+}
+
+
+// This handles both valid and invalid submissions
+const update = handleSubmit(onSuccess, onInvalidSubmit);
 </script>
 
 <style scoped>

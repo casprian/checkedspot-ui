@@ -16,8 +16,8 @@
                     Update City
                 </v-col>
                 <v-col cols="12">
-                    <v-select v-model="city" :items="cities" label="state" variant="outlined" clearable
-                        hint="Choose from the States List in India"></v-select>
+                    <v-select v-model="city" :items="cities" label="city" variant="outlined" clearable
+                        hint="Choose from the Cities List"></v-select>
                 </v-col>
                 <v-col cols="12" class="pt-5 d-flex justify-center">
                     <v-btn variant="elevated" color="primary" width="200" :loading="loader" @click="update">Save</v-btn>
