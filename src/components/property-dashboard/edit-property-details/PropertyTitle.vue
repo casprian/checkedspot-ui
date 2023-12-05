@@ -1,6 +1,6 @@
 <template>
     <div class="my-4 d-flex justify-space-between align-center">
-        <span class="wraplink" style="width:85%;"> Title : &nbsp; <span class="text-blue-grey-darken-1">{{ newTitle }}</span></span>
+        <span class="wraplink" style="width:85%;"> Title : &nbsp; <span class="text-blue-grey-darken-1">{{ props.title }}</span></span>
         <span class="d-flex justify-end" style="width:15%;"><v-btn variant="text" color="secondary" @click="dialog = true">
                 Edit
             </v-btn></span>
@@ -36,7 +36,6 @@ const dialog = ref(false);
 const loader = ref(false);
 
 const title = ref(props.title);
-const newTitle = ref(props.title);
 
 async function update() {
     loader.value = true;
@@ -47,7 +46,6 @@ async function update() {
     });
 
     if (res.status === 200) {
-        newTitle.value = title.value;
         emit('success');
     } else {
         emit('failure');

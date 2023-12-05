@@ -29,8 +29,8 @@
         <v-row no-gutters>
             <v-col cols="12">
                 <total-area
-                    :propertyId="props.details.propertyId" 
-                    :totalArea="props.details.totalArea" 
+                    :propertyId="propertyDetails.propertyId" 
+                    :totalArea="propertyDetails.totalArea" 
                     @success="handleUpdateSuccess" 
                     @failure="handleUpdateFailure"
                 />
@@ -39,8 +39,8 @@
 
             <v-col cols="12">
                 <google-map-link
-                    :propertyId="props.details.propertyId" 
-                    :gMapLink="props.details.googleMapLink" 
+                    :propertyId="propertyDetails.propertyId" 
+                    :gMapLink="propertyDetails.googleMapLink" 
                     @success="handleUpdateSuccess" 
                     @failure="handleUpdateFailure"
                 />
@@ -49,8 +49,8 @@
             
             <v-col cols="12">
                 <property-title
-                    :propertyId="props.details.propertyId" 
-                    :title="props.details.title" 
+                    :propertyId="propertyDetails.propertyId" 
+                    :title="propertyDetails.title" 
                     @success="handleUpdateSuccess" 
                     @failure="handleUpdateFailure"
                 />
@@ -59,8 +59,8 @@
 
             <v-col cols="12">
                 <property-description
-                    :propertyId="props.details.propertyId" 
-                    :description="props.details.description" 
+                    :propertyId="propertyDetails.propertyId" 
+                    :description="propertyDetails.description" 
                     @success="handleUpdateSuccess" 
                     @failure="handleUpdateFailure"
                 />
@@ -69,8 +69,8 @@
 
             <v-col cols="12">
                 <property-address
-                    :propertyId="props.details.propertyId" 
-                    :address="props.details.address" 
+                    :propertyId="propertyDetails.propertyId" 
+                    :address="propertyDetails.address" 
                     @success="handleUpdateSuccess" 
                     @failure="handleUpdateFailure"
                 />
@@ -79,8 +79,8 @@
 
             <v-col cols="12">
                 <property-status
-                    :propertyId="props.details.propertyId" 
-                    :propertyStatus="props.details.propertyStatus" 
+                    :propertyId="propertyDetails.propertyId" 
+                    :propertyStatus="propertyDetails.propertyStatus" 
                     @success="handleUpdateSuccess" 
                     @failure="handleUpdateFailure"
                 />
@@ -89,8 +89,50 @@
 
             <v-col cols="12">
                 <ready-to-movein
-                    :propertyId="props.details.propertyId" 
-                    :readyToMoveIn="props.details.readyToMoveIn" 
+                    :propertyId="propertyDetails.propertyId" 
+                    :readyToMoveIn="propertyDetails.readyToMoveIn" 
+                    @success="handleUpdateSuccess" 
+                    @failure="handleUpdateFailure"
+                />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <free-hold
+                    :propertyId="propertyDetails.propertyId" 
+                    :isFreeHold="propertyDetails.isFreeHold" 
+                    @success="handleUpdateSuccess" 
+                    @failure="handleUpdateFailure"
+                />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <property-country
+                    :propertyId="propertyDetails.propertyId" 
+                    :country="propertyDetails.country" 
+                    @success="handleUpdateSuccess" 
+                    @failure="handleUpdateFailure"
+                />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <property-state
+                    :propertyId="propertyDetails.propertyId" 
+                    :state="propertyDetails.state"
+                    :country="propertyDetails.country" 
+                    @success="handleUpdateSuccess" 
+                    @failure="handleUpdateFailure"
+                />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <property-city
+                    :propertyId="propertyDetails.propertyId" 
+                    :city="propertyDetails.city" 
+                    :state="propertyDetails.state"
                     @success="handleUpdateSuccess" 
                     @failure="handleUpdateFailure"
                 />
@@ -99,8 +141,8 @@
 
             <v-col cols="12" v-for="item in updateFields" :key="item">
                 <div class="my-4 d-flex justify-space-between align-center">
-                    <span> {{ item }} : &nbsp; <span class="text-blue-grey-darken-1">{{ props.details[item] }}</span></span>
-                    <span><v-btn variant="text" color="secondary" @click="editTextField(item, props.details[item])"> Edit </v-btn></span>
+                    <span> {{ item }} : &nbsp; <span class="text-blue-grey-darken-1">{{ propertyDetails[item] }}</span></span>
+                    <span><v-btn variant="text" color="secondary" @click="editTextField(item, propertyDetails[item])"> Edit </v-btn></span>
                 </div>
                 <v-divider></v-divider>
             </v-col>
@@ -129,6 +171,11 @@
 
 <script lang="ts" setup>
 import { defineAsyncComponent, ref } from 'vue';
+import { useRouter } from 'vue-router';
+//@ts-ignore
+import api from '@/data/api/index.js';
+
+
 const TotalArea = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/TotalArea.vue'));
 const GoogleMapLink = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/GoogleMapLink.vue'));
 const PropertyTitle = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyTitle.vue'));
@@ -136,9 +183,16 @@ const PropertyDescription = defineAsyncComponent(() => import('@/components/prop
 const PropertyAddress = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyAddress.vue'));
 const PropertyStatus = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyStatus.vue'));
 const ReadyToMovein = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/ReadyToMovein.vue'));
+const FreeHold = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/FreeHold.vue'));
+const PropertyCountry = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyCountry.vue'));
+const PropertyState = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyState.vue'));
+const PropertyCity = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyCity.vue'));
 
+
+const router = useRouter();
 
 const props = defineProps(['details']);
+const propertyDetails = ref(props.details);
 
 const textfieldDialog = ref(false);
 const textfield = ref({
@@ -157,9 +211,9 @@ const propertyType = {
     "flat": ["propertyStatus", "readyToMoveIn", "title", "description", "address", "pincode", "city", "state", "country", "cost", "totalArea", "builtupArea", "carpetArea", "noOfBedroom", "noOfBathroom", "noOfKitchen", "lobby", "balcony", "diningArea", "garden", "parkingLot", "elivator", "furnishedStatus", "airConditioning", "swimmingPool", "laundryRoom", "gym", "wifi", "tvCable", "dishWasher", "refrigerator", "outdoorShower", "isFreeHold", "googleMapLink"]
 }
 //@ts-ignore
-const updateFields = propertyType[props.details.type];
+const updateFields = propertyType[propertyDetails.value.type];
 
-const data = ref(props.details);
+const data = ref(propertyDetails.value);
 
 function editTextField(key: any, value: any) {
     textfield.value.key = key; 
@@ -167,8 +221,19 @@ function editTextField(key: any, value: any) {
     textfieldDialog.value = true;
 }
 
-function handleUpdateSuccess() {
+async function fetchPropertydetails() {
+    const res = await api?.property?.getProperty({ params: { propertyId: propertyDetails.value?.propertyId } })
+    if (res.status === 200) {
+        propertyDetails.value = res.data;
+    } else {
+        router.push({ path: '/error', query: { status: res?.status } })
+    }
+}
+
+async function handleUpdateSuccess() {
+    await fetchPropertydetails();
     expandSuccess.value = true;
+    
     setTimeout(() => {
         expandSuccess.value = false;
     }, 3000);

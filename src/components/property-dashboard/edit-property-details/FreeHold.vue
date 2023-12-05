@@ -1,6 +1,6 @@
 <template>
     <div class="my-4 d-flex justify-space-between align-center">
-        <span class="wraplink" style="width:85%;"> Ready To Move In : &nbsp; <span class="text-blue-grey-darken-1">{{ props.readyToMoveIn === true ? 'Yes' : 'No' }}</span></span>
+        <span class="wraplink" style="width:85%;"> Is Free Hold : &nbsp; <span class="text-blue-grey-darken-1">{{ props.isFreeHold === true ? 'Yes' : 'No' }}</span></span>
         <span class="d-flex justify-end" style="width:15%;">
             <v-btn variant="text" color="secondary" @click="dialog = true"> Edit </v-btn>
         </span>
@@ -9,11 +9,11 @@
         <v-card width="50vw" color="grey-lighten-5">
             <v-row no-gutters class="pa-10 pt-7">
                 <v-col cols="12" class="text-h6 pb-5">
-                    Update MoveIn Status
+                    Update Free Hold Status
                 </v-col>
                 <v-col cols="12">
                     <v-switch 
-                        v-model="readyToMoveIn" 
+                        v-model="isFreeHold" 
                         :true-value="true" 
                         :false-value="false" 
                         label="Is Ready To Move In"
@@ -37,18 +37,18 @@ import { ref } from 'vue';
 //@ts-ignore
 import api from '@/data/api/index.js';
 
-const props = defineProps(['propertyId', 'readyToMoveIn']);
+const props = defineProps(['propertyId', 'isFreeHold']);
 const emit = defineEmits(['success', 'failure']);
 const dialog = ref(false);
 const loader = ref(false);
 
-const readyToMoveIn = ref(props.readyToMoveIn);
+const isFreeHold = ref(props.isFreeHold);
 
 async function update() {
     loader.value = true;
     const res = await api?.property?.updateDetails({
         "propertyId": props.propertyId,
-        "updatingFields": { "readyToMoveIn": readyToMoveIn.value }
+        "updatingFields": { "isFreeHold": isFreeHold.value }
     });
 
     if (res.status === 200) {

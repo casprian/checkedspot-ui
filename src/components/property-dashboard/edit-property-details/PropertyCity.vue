@@ -1,26 +1,23 @@
 <template>
     <div class="my-4 d-flex justify-space-between align-center">
-        <span class="wraplink" style="width:85%;"> Ready To Move In : &nbsp; <span class="text-blue-grey-darken-1">{{ props.readyToMoveIn === true ? 'Yes' : 'No' }}</span></span>
+        <span class="wraplink" style="width:85%;">
+            City : &nbsp; <span class="text-blue-grey-darken-1">{{ props.city }}</span>
+        </span>
         <span class="d-flex justify-end" style="width:15%;">
-            <v-btn variant="text" color="secondary" @click="dialog = true"> Edit </v-btn>
+            <v-btn variant="text" color="secondary" @click="getCities">
+                Edit
+            </v-btn>
         </span>
     </div>
     <v-dialog v-model="dialog" width="auto">
         <v-card width="50vw" color="grey-lighten-5">
             <v-row no-gutters class="pa-10 pt-7">
                 <v-col cols="12" class="text-h6 pb-5">
-                    Update MoveIn Status
+                    Update City
                 </v-col>
                 <v-col cols="12">
-                    <v-switch 
-                        v-model="readyToMoveIn" 
-                        :true-value="true" 
-                        :false-value="false" 
-                        label="Is Ready To Move In"
-                        color="pink-accent-3" 
-                        hide-details
-                    >
-            </v-switch>
+                    <v-select v-model="city" :items="cities" label="state" variant="outlined" clearable
+                        hint="Choose from the States List in India"></v-select>
                 </v-col>
                 <v-col cols="12" class="pt-5 d-flex justify-center">
                     <v-btn variant="elevated" color="primary" width="200" :loading="loader" @click="update">Save</v-btn>
@@ -33,22 +30,24 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 //@ts-ignore
 import api from '@/data/api/index.js';
 
-const props = defineProps(['propertyId', 'readyToMoveIn']);
+const props = defineProps(['propertyId', 'city', 'state']);
 const emit = defineEmits(['success', 'failure']);
 const dialog = ref(false);
 const loader = ref(false);
 
-const readyToMoveIn = ref(props.readyToMoveIn);
+const city = ref(props.city);
+const cities = ref([]);
 
 async function update() {
     loader.value = true;
+
     const res = await api?.property?.updateDetails({
         "propertyId": props.propertyId,
-        "updatingFields": { "readyToMoveIn": readyToMoveIn.value }
+        "updatingFields": { "city": city.value }
     });
 
     if (res.status === 200) {
@@ -59,6 +58,30 @@ async function update() {
     loader.value = false;
     dialog.value = false;
 }
+
+async function getCities() {
+    dialog.value = true;
+    //@ts-ignore
+    const stateList = JSON.parse(localStorage.getItem('location'));
+
+    //@ts-ignore
+    const stateObj = stateList?.states?.find(state => state.name === props.state);
+    cities.value = stateObj?.cities;
+}
+
+onMounted(async () => {
+    const isExist = cities.value.find(city => city === props.city);
+
+    if (props?.city.length > 0 && !isExist) {
+        city.value = '';
+        const res = await api?.property?.updateDetails({
+            "propertyId": props.propertyId,
+            "updatingFields": { "city": city.value }
+        });
+
+    }
+})
+
 </script>
 
 <style scoped>

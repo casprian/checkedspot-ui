@@ -1,8 +1,13 @@
 <template>
     <div class="my-4 d-flex justify-space-between align-center">
-        <span class="wraplink" style="width:85%;"> Google Map link : &nbsp; <span class="text-blue-grey-darken-1">{{ link }}</span></span>
-        <span class="d-flex justify-end" style="width:15%;"><v-btn variant="text" color="secondary" @click="dialog = true"> Edit
-            </v-btn></span>
+        <span class="wraplink" style="width:85%;">
+            Google Map link : &nbsp; <span class="text-blue-grey-darken-1">{{ props.gMapLink }}</span>
+        </span>
+        <span class="d-flex justify-end" style="width:15%;">
+            <v-btn variant="text" color="secondary" @click="dialog = true">
+                Edit
+            </v-btn>
+        </span>
     </div>
     <v-dialog v-model="dialog" width="auto">
         <v-card width="50vw" color="grey-lighten-5">
@@ -16,8 +21,7 @@
                         hint="Enter Google map link of the location" variant="outlined"></v-text-field>
                 </v-col>
                 <v-col cols="12" class="pt-5 d-flex justify-center">
-                    <v-btn variant="elevated" color="primary" width="200" :loading="loader"
-                        @click="update">Save</v-btn>
+                    <v-btn variant="elevated" color="primary" width="200" :loading="loader" @click="update">Save</v-btn>
                     <v-btn class="ml-4" width="100" color="green-darken-2" variant="outlined"
                         @click="dialog = false">Cancel</v-btn>
                 </v-col>
@@ -65,15 +69,14 @@ googleMapLink.value.value = link.value;
 async function onSuccess(values: any) {
     loader.value = true;
 
-    const res = await api?.property?.updateDetails({ 
-        "propertyId": props.propertyId, 
-        "updatingFields": { "googleMapLink": values.googleMapLink } 
+    const res = await api?.property?.updateDetails({
+        "propertyId": props.propertyId,
+        "updatingFields": { "googleMapLink": values.googleMapLink }
     });
 
-    if(res.status === 200) {
-        link.value = values.googleMapLink;
+    if (res.status === 200) {
         emit('success');
-    }else {
+    } else {
         emit('failure');
     }
     loader.value = false;
@@ -90,9 +93,6 @@ function onInvalidSubmit(invalidData: any) {
 
 // This handles both valid and invalid submissions
 const update = handleSubmit(onSuccess, onInvalidSubmit);
-
-
-
 </script>
 
 <style scoped>
@@ -101,6 +101,7 @@ const update = handleSubmit(onSuccess, onInvalidSubmit);
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
 .wraplink:hover {
     white-space: normal;
 }

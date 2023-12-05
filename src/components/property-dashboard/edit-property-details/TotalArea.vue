@@ -1,8 +1,13 @@
 <template>
     <div class="my-4 d-flex justify-space-between align-center">
-        <span class="wraplink" style="width:85%;"> Total Area : &nbsp; <span class="text-blue-grey-darken-1">{{ area }} <i>square feet</i></span></span>
-        <span class="d-flex justify-end" style="width:15%;"><v-btn variant="text" color="secondary" @click="dialog = true"> Edit
-            </v-btn></span>
+        <span class="wraplink" style="width:85%;">
+            Total Area : &nbsp; <span class="text-blue-grey-darken-1">{{ props.totalArea }} <i>square feet</i></span>
+        </span>
+        <span class="d-flex justify-end" style="width:15%;">
+            <v-btn variant="text" color="secondary" @click="dialog = true">
+                Edit
+            </v-btn>
+        </span>
     </div>
     <v-dialog v-model="dialog" width="auto">
         <v-card width="50vw" color="grey-lighten-5">
@@ -65,15 +70,14 @@ async function onSuccess(values: any) {
     loader.value = true;
     const totalarea = convertToSqft(totalAreaUnit.value, values.totalArea);
 
-    const res = await api?.property?.updateDetails({ 
-        "propertyId": props.propertyId, 
-        "updatingFields": { "totalArea": totalarea } 
+    const res = await api?.property?.updateDetails({
+        "propertyId": props.propertyId,
+        "updatingFields": { "totalArea": totalarea }
     });
 
-    if(res.status === 200) {
-        area.value = totalarea;
+    if (res.status === 200) {
         emit('success');
-    }else {
+    } else {
         emit('failure');
     }
     loader.value = false;
@@ -99,6 +103,7 @@ const update = handleSubmit(onSuccess, onInvalidSubmit);
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
 .wraplink:hover {
     white-space: normal;
 }

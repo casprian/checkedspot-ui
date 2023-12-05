@@ -1,6 +1,8 @@
 <template>
     <div class="my-4 d-flex justify-space-between align-center">
-        <span class="wraplink" style="width:85%;"> Property Status : &nbsp; <span class="text-blue-grey-darken-1">{{ newPropertyStatus }}</span></span>
+        <span class="wraplink" style="width:85%;"> 
+            Property Status : &nbsp; <span class="text-blue-grey-darken-1">{{ props.propertyStatus.join(',') }}</span>
+        </span>
         <span class="d-flex justify-end" style="width:15%;">
             <v-btn variant="text" color="secondary" @click="dialog = true"> Edit </v-btn>
         </span>
@@ -44,7 +46,6 @@ const loader = ref(false);
 
 const propertyStatus = ref(props.propertyStatus[0]);
 const status = ref(["sale", "sold", "rent", "rented"]);
-const newPropertyStatus = ref(props.propertyStatus[0]);
 
 async function update() {
     loader.value = true;
@@ -55,7 +56,6 @@ async function update() {
     });
 
     if (res.status === 200) {
-        newPropertyStatus.value = propertyStatus.value;
         emit('success');
     } else {
         emit('failure');

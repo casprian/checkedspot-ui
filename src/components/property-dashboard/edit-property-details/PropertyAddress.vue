@@ -1,7 +1,8 @@
 <template>
     <div class="my-4 d-flex justify-space-between align-center">
-        <span class="wraplink" style="width:85%;"> Address : &nbsp; <span class="text-blue-grey-darken-1">{{ newAddress
-        }}</span></span>
+        <span class="wraplink" style="width:85%;"> 
+            Address : &nbsp; <span class="text-blue-grey-darken-1">{{ props.address }}</span>
+        </span>
         <span class="d-flex justify-end" style="width:15%;"><v-btn variant="text" color="secondary" @click="dialog = true">
                 Edit
             </v-btn></span>
@@ -37,7 +38,6 @@ const dialog = ref(false);
 const loader = ref(false);
 
 const address = ref(props.address);
-const newAddress = ref(props.address);
 
 async function update() {
     loader.value = true;
@@ -48,7 +48,6 @@ async function update() {
     });
 
     if (res.status === 200) {
-        newAddress.value = address.value;
         emit('success');
     } else {
         emit('failure');
