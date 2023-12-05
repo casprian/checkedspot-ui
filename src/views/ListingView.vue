@@ -7,21 +7,27 @@
 
             <!-- Location Filter -->
             <v-col class="py-0 px-2 px-md-4 mb-5 mt-1" cols="12" sm="6" md="3">
-                <v-menu location="bottom" :close-on-content-click="false" transition="slide-x-transition">
+                <v-menu location="bottom" :close-on-content-click="false" transition="slide-x-transition" :max-width="100">
                     <template v-slot:activator="{ props }">
-                        <v-btn block height="57" variant="outlined" class="text-none text-h6 d-flex justify-space-between textColor" dark
-                            v-bind="props">
+                        <v-btn block height="57" variant="outlined"
+                            class="text-none text-h6 d-flex justify-space-between textColor location pr-10" dark v-bind="props">
                             <v-icon class="mr-2" icon="mdi-map-marker" size="20"></v-icon>
-                           Choose location
+                            <span v-if="citySelect.length <= 0" class="text-h6">
+                                Choose location
+                            </span>
+                            <span v-else class="text-body-2 font-weight-medium">
+                                {{ citySelect.join(",") }}
+                            </span>
                         </v-btn>
                     </template>
-
-                    <v-card class="px-3 pt-5 pb-0" color="#c46d9a">
-                        <v-combobox v-model="stateSelect" label="Choose State" :items="states" variant="outlined"
-                            style="color: white;"></v-combobox>
-                        <v-combobox v-model="citySelect" label="Choose City" :items="citiesforFilter" chips
-                            variant="outlined" multiple style="color: white;" closable-chips></v-combobox>
-                    </v-card>
+                    <!-- <v-sheet style=""> -->
+                        <v-card class="px-3 pt-5 pb-0" color="#c46d9a">
+                            <v-combobox v-model="stateSelect" label="Choose State" :items="states" variant="outlined"
+                                style="color: white;"></v-combobox>
+                            <v-combobox v-model="citySelect" label="Choose City" :items="citiesforFilter" chips
+                                variant="outlined" multiple style="color: white;" closable-chips></v-combobox>
+                        </v-card>
+                    <!-- </v-sheet> -->
                 </v-menu>
             </v-col>
 
@@ -66,8 +72,8 @@
             <!-- Advanced Filter -->
             <v-col class="py-0 px-2 my-3 my-sm-0" cols="12" sm="6" md="3" style="position: relative">
                 <v-btn block height="59" variant="elevated" color="pink-darken-2"
-                    class="text-h6 d-flex justify-space-between text-capitalize"
-                    append-icon="mdi-dots-vertical" @click="showAdvancedFilterOverlay = !showAdvancedFilterOverlay">
+                    class="text-h6 d-flex justify-space-between text-capitalize" append-icon="mdi-dots-vertical"
+                    @click="showAdvancedFilterOverlay = !showAdvancedFilterOverlay">
                     Advance Filter
                 </v-btn>
 
@@ -186,8 +192,8 @@
                             </div>
 
                             <div class="py-0 px-2 pt-7 d-flex justify-center">
-                                <v-btn @click="handleSubmit" prepend-icon="mdi-magnify" class="text-white" variant="elevated" color="primary"
-                                    width="100%" height="45">Search</v-btn>
+                                <v-btn @click="handleSubmit" prepend-icon="mdi-magnify" class="text-white"
+                                    variant="elevated" color="primary" width="100%" height="45">Search</v-btn>
                             </div>
                         </v-col>
                     </v-row>
@@ -196,8 +202,8 @@
         </v-row>
         <v-row no-gutters class="px-sm-14 pb-10 d-flex justify-center align-center">
             <v-col cols="12" sm="3" class="pa-0 ma-0">
-                <v-btn @click="handleSubmit" prepend-icon="mdi-magnify" class="text-h6" variant="elevated" color="primary" width="100%"
-                    height="45">Search</v-btn>
+                <v-btn @click="handleSubmit" prepend-icon="mdi-magnify" class="text-h6" variant="elevated" color="primary"
+                    width="100%" height="45">Search</v-btn>
             </v-col>
         </v-row>
 
@@ -241,7 +247,7 @@
 import api from "@/data/api/index.js";
 //@ts-ignore
 import PropertyCard from '@/components/PropertyCard.vue';
-import { computed, watch, onMounted, reactive, ref, onUnmounted } from "vue";
+import { watch, onMounted, reactive, ref, onUnmounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 //@ts-ignore
 import AreaFilter from '@/components/property-filters/AreaFilter.vue';
@@ -284,7 +290,8 @@ const propertyType = ref('all'); // string
 const states = ref([]);
 const stateSelect = ref('Karnataka');
 const citiesforFilter = ref([]);
-const citySelect = ref(null);
+const citySelect = ref([]);
+
 async function getLocationData() {
     //@ts-ignore
     const location = JSON.parse(localStorage.getItem('location'));
@@ -292,6 +299,7 @@ async function getLocationData() {
     states.value = location?.states?.map(item => item.name);
     //@ts-ignore
     const state = location?.states?.find(state => state.name === 'Karnataka');
+
     citiesforFilter.value = state?.cities;
     citySelect.value = cities.value ? cities.value : ['Bengaluru'];
 }
@@ -331,7 +339,6 @@ watch(stateSelect, newStateSelected => {
     //@ts-ignore
     const state = location?.states?.find(state => state.name === newStateSelected);
     citiesforFilter.value = state?.cities;
-    citySelect.value = null;
 })
 
 
@@ -408,6 +415,17 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+
+.location {
+    white-space: wrap;
+    text-overflow: clip;
+    overflow: hidden;
+}
+
+.location:hover {
+    white-space: normal;
+}
+
 .radioGroup {
     display: flex;
     justify-content: space-between;

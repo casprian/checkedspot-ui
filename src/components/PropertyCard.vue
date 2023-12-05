@@ -69,10 +69,10 @@
             </v-toolbar>
 
             <div class="showDetailsBtnContainer">
-                <div class="d-flex">
-                    <v-btn density="default" variant="elevated" class="text-none" color="pink-darken-3"
+                <div class="d-flex flex-column flex-md-row justify-center align-center">
+                    <v-btn density="default" variant="elevated" class="text-none my-1" color="pink-darken-3"
                         append-icon="mdi-cursor-default-click">For details. Click here!</v-btn>
-                    <v-btn class="ml-2" color="primary" @click.prevent.stop="() => { enquiryForm = !enquiryForm }">
+                    <v-btn class="ml-2 my-1" color="primary" @click.prevent.stop="() => { enquiryForm = !enquiryForm }">
                         Send Enquiry
                     </v-btn>
                 </div>
@@ -193,7 +193,8 @@
             </v-col>
         </v-row>
 
-        <v-hover v-slot="{ isHovering, props }">
+
+        <v-hover v-if="!isMobileDevice" v-slot="{ isHovering, props }">
             <v-row no-gutters v-bind="props" class="cardBottom">
                 <v-row v-if="!isHovering" no-gutters class="pa-0 mx-6 my-2 d-flex justify-space-between align-center">
                     <v-col cols="auto" class="px-0 my-1 d-flex justify-center align-center">
@@ -223,6 +224,23 @@
                 </v-expand-transition>
             </v-row>
         </v-hover>
+        <v-row v-else no-gutters v-bind="props" class="cardBottom">
+            <v-row no-gutters class="pa-0 mx-6 my-2 d-flex justify-space-between align-center">
+                <v-col cols="auto" class="px-0 my-1 d-flex justify-center align-center">
+                    <v-avatar class="pa-0 mr-2" :image="property?.agent?.picture" size="45"></v-avatar>
+                    <div class="text-body-2 mt-1 ml-0 text-uppercase text-center text-grey-darken-2">
+                        <p class="text-start pa-0 ma-0">{{ property?.agent?.name }}</p>
+                        <p class="text-start pa-0 ma-0">{{ property?.agent?.mobile }}</p>
+                    </div>
+                </v-col>
+                <v-col v-if="property?.propertyAddedDate" cols="auto" class="px-0">
+                    <div class="mt-1 ml-0 text-uppercase text-center bg-blue-grey-lighten-4 rounded-be-lg rounded-bs-lg">
+                        <p class="text-caption text-center pa-0 px-2 ma-0 bg-blue-grey-lighten-2">Posted on</p>
+                        <p class="text-caption text-center pa-2 pb-1 ma-0 mt-n1">{{ computedDate }}</p>
+                    </div>
+                </v-col>
+            </v-row>
+        </v-row>
 
         <v-dialog v-model="enquiryForm" transition="dialog-bottom-transition" width="auto">
             <v-card>

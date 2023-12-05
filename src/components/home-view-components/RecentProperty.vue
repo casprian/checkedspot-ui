@@ -2,23 +2,29 @@
     <v-container class="ownerPropCont" fluid>
         <v-row no-gutters>
             <v-col cols="12">
-                <h2 class="text-h5 mx-2 mx-xl-2 mb-5">Recently added properties</h2>
+                <h2 class="mx-2 mx-xl-2 mb-5 text-h5 font-weight-medium">Recently added properties</h2>
             </v-col>
             <v-col cols="12" class="mb-10">
                 <v-sheet class="mx-auto" elevation="0">
-                    <v-row v-if="!props.properties" no-gutters class="px-14 my-16 d-flex justify-center">
+                    <v-row v-if="!props.properties.status" no-gutters class="px-14 my-16 d-flex justify-center">
                         <v-col cols="auto" class="loader">
-                            <v-progress-circular :size="70" :width="7" color="pink-accent-3"
-                                indeterminate></v-progress-circular>
+                            <v-progress-circular 
+                                :size="70" 
+                                :width="7" 
+                                color="pink-accent-3"
+                                indeterminate
+                            ></v-progress-circular>
                         </v-col>
                     </v-row>
+
                     <v-row v-else-if="props.properties?.status === 200" no-gutters>
                         <v-col v-if="props.properties?.data?.length > 0" cols="12">
                             <v-slide-group show-arrows>
                                 <v-slide-group-item v-for="(property) in props.properties?.data" :key="property.propertyId">
                                     <v-card class="mx-2 mb-4 elevation-2" style="max-width: 220px;" position="relative">
                                         <v-hover v-slot="{ isHovering, props }">
-                                            <v-img @click="router.push(`/propertydetails/${property?.propertyId}`)" v-bind="props"
+                                            <v-img @click="router.push(`/propertydetails/${property?.propertyId}`)"
+                                                v-bind="props"
                                                 :src="property?.image !== undefined ? property?.image?.fileUrl : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
                                                 height="130px" width="100%" position="relative" cover class="hoverPointer">
                                                 <v-expand-transition>
@@ -44,8 +50,8 @@
                                                 <v-card-title title="verified by Checked Spot"
                                                     v-if="property?.isVerifiedByCheckedSpot" class="px-2 py-1 verifiedTag">
                                                     <v-chip variant="elevated" color="green" density="comfortable">
-                                                        Checked Spot verified <v-icon size="16" class="ml-2" icon="mdi-shield-check"
-                                                            color="white"></v-icon>
+                                                        Checked Spot verified <v-icon size="16" class="ml-2"
+                                                            icon="mdi-shield-check" color="white"></v-icon>
                                                     </v-chip>
                                                 </v-card-title>
                                             </v-img>
@@ -83,15 +89,15 @@
                                                             class="cardBottom pa-0 mx-3 my-0 d-flex flex-row justify-space-between align-center">
                                                             <v-col cols="auto" class="px-0 my-1">
                                                                 <v-avatar class="pa-0 mr-3"
-                                                                    :image="property?.agent?.picture"
-                                                                    size="32"></v-avatar>
+                                                                    :image="property?.agent?.picture" size="32"></v-avatar>
                                                             </v-col>
                                                             <v-col class="px-0">
                                                                 <v-row no-gutters class="d-flex flex-column">
                                                                     <v-col cols="auto pb-0" style="line-height: 16px;">
                                                                         <span
                                                                             class="text-body-2 mt-3 ml-0 mb-0 pb-0 text-uppercase text-center text-grey-darken-2 font-weight-medium">
-                                                                            {{ property?.agent?.name ? property?.agent?.name :
+                                                                            {{ property?.agent?.name ? property?.agent?.name
+                                                                                :
                                                                                 "" }}
                                                                         </span>
                                                                     </v-col>
@@ -99,7 +105,8 @@
                                                                         style="line-height: 14px;">
                                                                         <span
                                                                             class="text-caption text-grey-darken-1 mt-0 pt-0">{{
-                                                                                property?.agent?.mobile ? property?.agent?.mobile :
+                                                                                property?.agent?.mobile ?
+                                                                                property?.agent?.mobile :
                                                                                 "" }}</span>
                                                                     </v-col>
                                                                 </v-row>
@@ -120,7 +127,8 @@
                             <h1 class="text-grey-darken-1">Unexpected Error</h1>
                         </v-col>
                     </v-row>
-                    <v-row v-else>                        
+
+                    <v-row no-gutters v-if="errorOccure">
                         <v-col class="px-2" cols="12">
                             <h1 class="text-grey-darken-1">{{ props.properties?.status }} Error!</h1>
                         </v-col>
@@ -131,14 +139,21 @@
     </v-container>
 </template>
 <script lang="ts" setup>
-import { reactive } from "vue"
+import { reactive, ref } from "vue";
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
-const props = defineProps(['properties'])
+const props = defineProps(['properties']);
 const data = reactive({
     item: null,
-})
+});
+
+const errorOccure = ref(false);
+
+if(props.properties?.status && props.properties?.status !== 200) {
+    errorOccure.value = true;
+}
+
 </script>
 
 <style scoped>

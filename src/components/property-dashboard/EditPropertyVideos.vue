@@ -85,7 +85,7 @@
                                 <v-btn variant="elevated" color="amber" width="200" :loading="loader"
                                     @click="updateVideo">Update</v-btn>
                                 <v-btn class="ml-4" width="100" color="green-darken-2" variant="outlined"
-                                    @click="updateDialog = false">Cancle</v-btn>
+                                    @click="updateDialog = false">Cancel</v-btn>
                             </v-col>
                         </v-row>
                     </v-card>
@@ -102,7 +102,7 @@
                             <v-btn width="100" color="red-darken-2" variant="flat" @click="deleteVideo"
                                 :loading="loader">Delete</v-btn>
                             <v-btn width="100" color="green-darken-2" variant="outlined"
-                                @click="confirmDelete = false">Cancle</v-btn>
+                                @click="confirmDelete = false">Cancel</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-dialog>
@@ -131,7 +131,7 @@
                                 <v-btn variant="elevated" color="primary" width="200" :loading="loader"
                                     @click="addVideo">Add Video</v-btn>
                                 <v-btn class="ml-4" width="100" color="green-darken-2" variant="outlined"
-                                    @click="addVideoDialog = false">Cancle</v-btn>
+                                    @click="addVideoDialog = false">Cancel</v-btn>
                             </v-col>
                         </v-row>
                     </v-card>

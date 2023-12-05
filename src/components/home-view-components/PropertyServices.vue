@@ -65,6 +65,7 @@
 </template>
 
 <script lang="ts" setup>
+//@ts-ignore
 import EnquiryForm from "./EnquiryForm.vue";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
