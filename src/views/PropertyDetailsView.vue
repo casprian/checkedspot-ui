@@ -19,7 +19,7 @@
                                     density="comfortable" class="rounded-pill ml-6">
                                     {{
                                         property?.data?.propertyStatus
-                                        ? `For ${property?.data?.propertyStatus}`
+                                        ? `${property?.data?.propertyStatus}`
                                         : "sale"
                                     }}
                                 </v-btn>

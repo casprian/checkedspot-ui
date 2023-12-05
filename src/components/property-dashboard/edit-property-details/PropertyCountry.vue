@@ -48,7 +48,7 @@ async function update() {
 
     const res = await api?.property?.updateDetails({
         "propertyId": props.propertyId,
-        "updatingFields": { "country": country.value }
+        "updatingFields": country.value === 'India' ? { "country": country.value } : { "country": country.value, "state": '', "city": '' }
     });
 
     if (res.status === 200) {

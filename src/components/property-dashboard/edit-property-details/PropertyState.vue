@@ -68,17 +68,6 @@ async function getStates() {
     //@ts-ignore
     states.value = stateList?.states?.map(item => item.name);
 }
-
-onMounted(async () => {
-    if (props.country.length > 0 && props.country !== 'India') {
-        state.value = '';
-        const res = await api?.property?.updateDetails({
-            "propertyId": props.propertyId,
-            "updatingFields": { "state": state.value }
-        });
-    }
-})
-
 </script>
 
 <style scoped>

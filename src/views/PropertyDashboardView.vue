@@ -39,7 +39,9 @@
                                 <property-preview :property="property" @edit="changeTab" />
                             </v-window-item>
                             <v-window-item value="Details" class="pa-10">
-                                <edit-property-details :details="property.details" />
+                                <edit-plot-details v-if="property.details.type === 'plot'" :details="property.details" />
+                                <edit-farmland-details v-if="property.details.type === 'farmland'" :details="property.details" />
+                                <edit-flat-details v-if="property.details.type === 'flat'" :details="property.details" />
                             </v-window-item>
                             <v-window-item value="Images" class="pa-10">
                                 <edit-property-images :images="property.images" :propertyId="property.propertyId"/>
@@ -73,7 +75,9 @@ import { useRouter, useRoute } from 'vue-router';
 import api from '@/data/api/index.js';
 
 const PropertyPreview = defineAsyncComponent(() => import('@/components/property-dashboard/PropertyPreview.vue'));
-const EditPropertyDetails = defineAsyncComponent(() => import('@/components/property-dashboard/EditPropertyDetails.vue'));
+const EditPlotDetails = defineAsyncComponent(() => import('@/components/property-dashboard/EditPlotDetails.vue'));
+const EditFarmlandDetails = defineAsyncComponent(() => import('@/components/property-dashboard/EditFarmlandDetails.vue'));
+const EditFlatDetails = defineAsyncComponent(() => import('@/components/property-dashboard/EditFlatDetails.vue'));
 const EditPropertyImages = defineAsyncComponent(() => import('@/components/property-dashboard/EditPropertyImages.vue'));
 const EditPropertyVideos = defineAsyncComponent(() => import('@/components/property-dashboard/EditPropertyVideos.vue'));
 const EditPropertyDocuments = defineAsyncComponent(() => import('@/components/property-dashboard/EditPropertyDocuments.vue'));
@@ -84,7 +88,7 @@ const route = useRoute();
 
 const property = ref({
     propertyId: null,
-    details: null,
+    details: { type: ''},
     images: null,
     videos: null,
     documents: null

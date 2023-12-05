@@ -68,20 +68,6 @@ async function getCities() {
     const stateObj = stateList?.states?.find(state => state.name === props.state);
     cities.value = stateObj?.cities;
 }
-
-onMounted(async () => {
-    const isExist = cities.value.find(city => city === props.city);
-
-    if (props?.city.length > 0 && !isExist) {
-        city.value = '';
-        const res = await api?.property?.updateDetails({
-            "propertyId": props.propertyId,
-            "updatingFields": { "city": city.value }
-        });
-
-    }
-})
-
 </script>
 
 <style scoped>
