@@ -1,4 +1,23 @@
 <template>
+    <v-expand-transition>
+        <v-card style="position: fixed; top: 56px; left: 0; z-index: 1" v-show="expandFailure" height="60" width="100%"
+            class="mx-auto bg-red">
+            <div style="height: 100%" class="text-h5 text-center d-flex align-center justify-center">
+                <h5>Enquiry request is Failed!</h5>
+            </div>
+        </v-card>
+    </v-expand-transition>
+    <v-expand-transition>
+        <v-card style="position: fixed; top: 56px; left: 0; z-index: 1" v-show="expandSuccess" height="60" width="100%"
+            class="mx-auto bg-green">
+            <div style="height: 100%" class="text-h5 text-center d-flex align-center justify-center">
+                <h5>
+                    Enquiry request is successful!
+                </h5>
+            </div>
+        </v-card>
+    </v-expand-transition>
+
     <v-container class="ownerPropCont" fluid>
         <v-row no-gutters>
             <v-col cols="12">
@@ -17,7 +36,7 @@
                         <v-col v-if="props.properties?.data?.length > 0" cols="12">
                             <v-slide-group show-arrows>
                                 <v-slide-group-item v-for="(property) in props.properties?.data" :key="property.propertyId">
-                                    <home-property-card :property="property" />
+                                    <home-property-card :property="property" @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
                                 </v-slide-group-item>
                             </v-slide-group>
                         </v-col>
@@ -40,22 +59,33 @@
     </v-container>
 </template>
 <script lang="ts" setup>
-import { defineAsyncComponent, reactive, ref,  } from "vue";
-import { useRouter } from 'vue-router';
+import { defineAsyncComponent, ref, } from "vue";
 const HomePropertyCard = defineAsyncComponent(() => import('@/components/home-view-components/HomePropertyCard.vue'));
 
-const router = useRouter();
 const props = defineProps(['properties']);
-const data = reactive({
-    item: null,
-});
 
 const errorOccure = ref(false);
+const expandFailure = ref(false);
+const expandSuccess = ref(false);
 
 if (props.properties?.status && props.properties?.status !== 200) {
     errorOccure.value = true;
 }
 
+async function handleUpdateSuccess() {
+    expandSuccess.value = true;
+
+    setTimeout(() => {
+        expandSuccess.value = false;
+    }, 3000);
+}
+
+function handleUpdateFailure() {
+    expandFailure.value = true;
+    setTimeout(() => {
+        expandFailure.value = false;
+    }, 3000);
+}
 </script>
 
 <style scoped>
@@ -75,21 +105,5 @@ a:hover {
 
 .ownerPropCont {
     margin-top: 150px;
-}
-
-
-.verifiedTag {
-    height: 42px;
-    position: absolute;
-    bottom: 0;
-}
-
-.hoverPointer:hover {
-    cursor: pointer;
-}
-
-.toolBar {
-    background-color: rgba(0, 0, 0, 0.5);
-    font-size: 11px;
 }
 </style>
