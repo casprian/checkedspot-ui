@@ -97,12 +97,6 @@ a:hover {
     text-decoration: underline !important;
 }
 
-.overlayText {
-    margin: 0;
-    line-height: normal;
-    font-size: 20px;
-}
-
 .ownerPropCont {
     margin-top: 150px;
 }

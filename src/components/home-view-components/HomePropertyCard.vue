@@ -1,12 +1,12 @@
 <template>
     <v-card class="mx-2 mb-4 elevation-2" style="max-width: 220px;" position="relative">
-        <v-hover v-slot="{ isHovering, props }">
-            <v-img @click="router.push(`/propertydetails/${property?.propertyId}`)" v-bind="props"
+        <v-hover v-if="!isMobileDevice" v-slot="{ isHovering, props }">
+            <v-img @click="openPropertyDetail" v-bind="props"
                 :src="property?.image !== undefined ? property?.image?.fileUrl : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
-                height="130px" width="100%" position="relative" cover class="hoverPointer">
+                height="130" width="100%" position="relative" cover class="hoverPointer">
                 <v-expand-transition>
                     <div v-if="isHovering"
-                        class="d-flex flex-column justify-center align-center transition-fast-in-fast-out v-card--reveal text-white"
+                        class="d-flex flex-column justify-center align-center transition-fast-in-fast-out v-card--reveal text-h4 font-weight-regular text-white"
                         style="height: 100%;background-color: #00000091;">
                         <p class="overlayText">Click Here</p>
                         <p class="overlayText">to</p>
@@ -16,21 +16,70 @@
                 <v-toolbar v-if="property?.title && property?.title !== 'unavailable'" class="propertyTitle" theme="dark"
                     height="30" style="background-color: rgba(0, 0, 0, 0.466);">
                     <div class="w-100 text-caption text-center px-1">
-                        {{
-                            property?.title ?
-                            property?.title :
-                            "Property title - like, Fit for home etc."
+                        {{ 
+                            property?.title 
+                            ? property?.title 
+                            : "Property title - like, Fit for home etc." 
                         }}
                     </div>
                 </v-toolbar>
+
+                <div class="verifiedTagContainer">
+                    <v-card-title title="verified by Checked Spot" v-if="property?.isVerifiedByCheckedSpot"
+                        class="px-0 py-1 verifiedTag">
+                        <v-chip variant="elevated" color="green" density="comfortable">
+                            Checked Spot verified <v-icon size="16" class="ml-2" icon="mdi-shield-check"
+                                color="white"></v-icon>
+                        </v-chip>
+                    </v-card-title>
+                    <v-card-title title="Freehold Property" v-if="property?.isFreeHold" class="px-0 py-1 verifiedTag">
+                        <v-chip variant="elevated" color="blue-grey-lighten-5" density="comfortable">
+                            Freehold
+                            <!-- <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon> -->
+                        </v-chip>
+                    </v-card-title>
+                </div>
+            </v-img>
+        </v-hover>
+
+        <v-img v-else @click="openPropertyDetail" v-bind="props"
+            :src="property?.image !== undefined ? property?.image?.fileUrl : 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'"
+            height="150" width="100%" position="relative" cover class="hoverPointer">
+
+            <v-toolbar v-if="property?.title && property?.title !== 'unavailable'" class="propertyTitle" theme="dark"
+                height="30" style="background-color: rgba(0, 0, 0, 0.466);">
+                <div class="w-100 text-caption text-center px-1">
+                    {{ 
+                        property?.title ? 
+                        property?.title : 
+                        "Property title - like, Fit for home etc." 
+                    }}
+                </div>
+            </v-toolbar>
+
+            <div class="showDetailsBtnContainer">
+                <div class="d-flex flex-column flex-md-row justify-center align-center">
+                    <v-btn density="compact" variant="elevated" class="text-none text-caption my-1" color="pink-darken-3"
+                        append-icon="mdi-cursor-default-click">For details. Click here!</v-btn>
+                    <v-btn density="compact" class="text-none text-caption ml-2 my-1" color="primary" @click.prevent.stop="() => { enquiryForm = !enquiryForm }">
+                        Send Enquiry
+                    </v-btn>
+                </div>
+            </div>
+            <div class="verifiedTagContainer">
                 <v-card-title title="verified by Checked Spot" v-if="property?.isVerifiedByCheckedSpot"
-                    class="px-2 py-1 verifiedTag">
+                    class="px-0 py-1 verifiedTag">
                     <v-chip variant="elevated" color="green" density="comfortable">
                         Checked Spot verified <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon>
                     </v-chip>
                 </v-card-title>
-            </v-img>
-        </v-hover>
+                <v-card-title title="Freehold Property" v-if="property?.isFreeHold" class="px-0 py-1 verifiedTag">
+                    <v-chip variant="elevated" color="blue-grey-lighten-5" density="comfortable">
+                        Freehold
+                    </v-chip>
+                </v-card-title>
+            </div>
+        </v-img>
 
         <v-row no-gutters class="mt-1">
             <v-col cols="6" class="pa-0 pl-2 mb-1" style="height: 20px;">
@@ -42,13 +91,13 @@
 
             <v-col cols="12" class="pa-0 px-3">
                 <v-card-text class="pa-0">
-                    Property type: 
-                        <span class="text-pink-accent-3">
-                            {{
-                                property?.type ?
-                                property?.type : 'Not Found' 
-                            }}
-                        </span>
+                    Property type:
+                    <span class="text-pink-accent-3">
+                        {{
+                            property?.type ?
+                            property?.type : 'Not Found'
+                        }}
+                    </span>
                 </v-card-text>
                 <v-card-subtitle v-if="property?.address" class="pa-0 font-weight-regular">
                     {{ property?.address }}
@@ -64,7 +113,8 @@
                         <v-col cols="auto" class="px-0 d-flex justify-center align-center">
                             <v-avatar class="pa-0 mr-2" :image="property?.agent?.picture" size="35"></v-avatar>
                             <div class="text-body-2 text-uppercase text-center text-grey-darken-2">
-                                <p class="text-body-2 text-lefttext-uppercase text-center text-grey-darken-2 font-weight-medium">
+                                <p
+                                    class="text-body-2 text-lefttext-uppercase text-center text-grey-darken-2 font-weight-medium">
                                     {{ property?.agent?.name }}
                                 </p>
                                 <p class="text-caption text-left text-grey-darken-1">
@@ -206,6 +256,11 @@ const name = useField('name');
 const mobile = useField('mobile');
 const message = useField('message');
 
+function openPropertyDetail() {
+    router.push({ path: `/propertydetails/${props?.property?.propertyId}` })
+}
+
+
 async function onSuccess(values: any) {
     enquiryloader.value = true;
     const res = await api?.email?.sendEnquiry({
@@ -241,9 +296,16 @@ const handleEnquiry = handleSubmit(onSuccess, onInvalidSubmit);
 </script>
 
 <style scoped>
+
+.overlayText {
+    margin: 0;
+    line-height: normal;
+    font-size: 20px;
+}
 .cardBottom {
     height: 60px;
 }
+
 .verifiedTag {
     height: 42px;
     position: absolute;
@@ -254,8 +316,31 @@ const handleEnquiry = handleSubmit(onSuccess, onInvalidSubmit);
     cursor: pointer;
 }
 
-.toolBar {
-    background-color: rgba(0, 0, 0, 0.5);
-    font-size: 11px;
+a {
+    text-decoration: none !important;
+}
+
+a:hover {
+    text-decoration: underline !important;
+}
+
+.showDetailsBtnContainer {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.verifiedTagContainer {
+    width: 100%;
+    padding: 0 12px;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.verifiedTag {
+    height: 42px;
 }
 </style>
