@@ -31,7 +31,7 @@
                 No Image has been uploaded for this property.
             </div>
             <v-row no-gutters>
-                <v-col cols="12" v-for="image in props?.images" :key="image.id" class="my-3">
+                <v-col cols="12" v-for="image in images" :key="image.id" class="my-3">
                     <v-row no-gutters>
                         <v-col cols="12" md="6">
                             <v-img :src="image?.fileUrl" cover height="250" class="text-right">
@@ -143,10 +143,12 @@
 import { ref } from "vue";
 //@ts-ignore
 import api from '@/data/api/index.js'
+import { useRouter } from "vue-router";
 
 const props = defineProps(['images', 'propertyId'])
+const router = useRouter();
 
-const images = ref([]);
+const images = ref(props.images);
 const imageId = ref('');
 
 const addImageDialog = ref(false);
@@ -161,6 +163,16 @@ const loader = ref(false);
 const expandSuccess = ref(false);
 const expandFailure = ref(false);
 const messageType = ref('');
+
+
+async function fetchPropertyImages() {
+    const res = await api?.property?.getPropertyImage({ params: { propertyId: props?.propertyId } })
+    if (res.status === 200) {
+        images.value = res.data;
+    } else {
+        router.push({ path: '/error', query: { status: res?.status } })
+    }
+}
 
 function addImageFailure() {
     addImageDialog.value = false;
@@ -186,8 +198,9 @@ async function addImage() {
             })
 
             if (response?.status === 200) {
-                addImageDialog.value = false;
                 loader.value = false;
+                addImageDialog.value = false;
+                await fetchPropertyImages(); 
                 expandSuccess.value = true;
             } else {
                 addImageFailure();
@@ -206,6 +219,10 @@ async function addImage() {
 
 function getImageId(id: any) {
     imageId.value = id;
+    const image = images.value.find((image:any) => image.id === imageId.value);
+    title.value = image?.title;
+    description.value = image?.description;
+
     updateDialog.value = true;
 }
 async function updateImage() {
@@ -224,6 +241,7 @@ async function updateImage() {
     if (res?.status === 200) {
         loader.value = false;
         updateDialog.value = false;
+        await fetchPropertyImages(); 
         expandSuccess.value = true;
     } else {
         loader.value = false;
@@ -254,6 +272,7 @@ async function deleteImage() {
     if (res?.status === 200) {
         loader.value = false;
         confirmDelete.value = false;
+        await fetchPropertyImages(); 
         expandSuccess.value = true;
     } else {
         loader.value = false;

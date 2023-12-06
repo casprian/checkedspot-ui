@@ -49,6 +49,56 @@
             </v-col>
 
             <v-col cols="12">
+                <builtup-area
+                    :propertyId="propertyDetails.propertyId" 
+                    :builtupArea="propertyDetails.builtupArea" 
+                    @success="handleUpdateSuccess" 
+                    @failure="handleUpdateFailure"
+                />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <carpet-area
+                    :propertyId="propertyDetails.propertyId" 
+                    :carpetArea="propertyDetails.carpetArea" 
+                    @success="handleUpdateSuccess" 
+                    @failure="handleUpdateFailure"
+                />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <number-of-bedroom
+                    :propertyId="propertyDetails.propertyId" 
+                    :noOfBedroom="propertyDetails.noOfBedroom" 
+                    @success="handleUpdateSuccess" 
+                    @failure="handleUpdateFailure"
+                />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <number-of-bathroom
+                    :propertyId="propertyDetails.propertyId" 
+                    :noOfBathroom="propertyDetails.noOfBathroom" 
+                    @success="handleUpdateSuccess" 
+                    @failure="handleUpdateFailure"
+                />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <number-of-kitchen
+                    :propertyId="propertyDetails.propertyId" 
+                    :noOfKitchen="propertyDetails.noOfKitchen" 
+                    @success="handleUpdateSuccess" 
+                    @failure="handleUpdateFailure"
+                />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
                 <property-cost
                     :propertyId="propertyDetails.propertyId" 
                     :cost="propertyDetails.cost"
@@ -159,6 +209,25 @@
                 />
                 <v-divider></v-divider>
             </v-col>
+
+            <v-col cols="12">
+                <furnished-status
+                    :propertyId="propertyDetails.propertyId" 
+                    :furnishedStatus="propertyDetails.furnishedStatus" 
+                    @success="handleUpdateSuccess" 
+                    @failure="handleUpdateFailure"
+                />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <flat-aminities
+                    :propertyId="propertyDetails.propertyId"
+                    @success="handleUpdateSuccess" 
+                    @failure="handleUpdateFailure"
+                />
+                <v-divider></v-divider>
+            </v-col>
         </v-row>
     </v-container>
 </template>
@@ -172,6 +241,11 @@ import api from '@/data/api/index.js';
 
 const PropertyStatus = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyStatus.vue'));
 const TotalArea = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/TotalArea.vue'));
+const BuiltupArea = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/BuiltupArea.vue'));
+const CarpetArea = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/CarpetArea.vue'));
+const NumberOfBedroom = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/NumberOfBedroom.vue'));
+const NumberOfBathroom = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/NumberOfBathroom.vue'));
+const NumberOfKitchen = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/NumberOfKitchen.vue'));
 const PropertyCost = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyCost.vue'));
 const PropertyCountry = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyCountry.vue'));
 const PropertyState = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyState.vue'));
@@ -183,6 +257,8 @@ const PropertyTitle = defineAsyncComponent(() => import('@/components/property-d
 const PropertyDescription = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyDescription.vue'));
 const ReadyToMovein = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/ReadyToMovein.vue'));
 const FreeHold = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/FreeHold.vue'));
+const FurnishedStatus = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/FurnishedStatus.vue'));
+const FlatAminities = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/FlatAminities.vue'));
 
 
 const router = useRouter();
@@ -196,20 +272,14 @@ const textfield = ref({
     value: ''
 })
 
-const loader = ref(false);
 const expandSuccess = ref(false);
 const expandFailure = ref(false);
-const messageType = ref('');
 
-const propertyType = {
-    "plot": ["propertyStatus", "readyToMoveIn", "title", "description", "address", "pincode", "city", "state", "country", "cost", "totalArea", "isFreeHold", "googleMapLink"],
-    "farmland": ["propertyStatus", "readyToMoveIn", "title", "description", "address", "pincode", "city", "state", "country", "cost", "totalArea", "isFreeHold", "googleMapLink"],
-    "flat": ["propertyStatus", "readyToMoveIn", "title", "description", "address", "pincode", "city", "state", "country", "cost", "totalArea", "builtupArea", "carpetArea", "noOfBedroom", "noOfBathroom", "noOfKitchen", "lobby", "balcony", "diningArea", "garden", "parkingLot", "elivator", "furnishedStatus", "airConditioning", "swimmingPool", "laundryRoom", "gym", "wifi", "tvCable", "dishWasher", "refrigerator", "outdoorShower", "isFreeHold", "googleMapLink"]
-}
-//@ts-ignore
-const updateFields = propertyType[propertyDetails.value.type];
-
-const data = ref(propertyDetails.value);
+// const propertyType = {
+//     "plot": ["propertyStatus", "readyToMoveIn", "title", "description", "address", "pincode", "city", "state", "country", "cost", "totalArea", "isFreeHold", "googleMapLink"],
+//     "farmland": ["propertyStatus", "readyToMoveIn", "title", "description", "address", "pincode", "city", "state", "country", "cost", "totalArea", "isFreeHold", "googleMapLink"],
+//     "flat": ["propertyStatus", "readyToMoveIn", "title", "description", "address", "pincode", "city", "state", "country", "cost", "totalArea", "builtupArea", "carpetArea", "noOfBedroom", "noOfBathroom", "noOfKitchen", "lobby", "balcony", "diningArea", "garden", "parkingLot", "elivator", "furnishedStatus", "airConditioning", "swimmingPool", "laundryRoom", "gym", "wifi", "tvCable", "dishWasher", "refrigerator", "outdoorShower", "isFreeHold", "googleMapLink"]
+// }
 
 function editTextField(key: any, value: any) {
     textfield.value.key = key; 
@@ -241,12 +311,6 @@ function handleUpdateFailure() {
         expandFailure.value = false;
     }, 3000);
 }
-
-async function updateTextField() {
-    console.log(textfield.value);
-}
-
-
 </script>
 
 <style scoped></style>

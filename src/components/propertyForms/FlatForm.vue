@@ -53,9 +53,9 @@
         <v-col cols="12" sm="6" class="py-1 px-3">
           <v-row no-gutters>
             <v-col cols="8" class="pr-1">
-              <v-text-field label="Builyup Area (required)" v-model="builtupArea.value.value"
+              <v-text-field label="Builtup Area (required)" v-model="builtupArea.value.value"
                 :error-messages="builtupArea.errorMessage.value" clearable
-                hint="Enter Builyup Area of the property in square feet" variant="outlined"></v-text-field>
+                hint="Enter Builtup Area of the property in square feet" variant="outlined"></v-text-field>
             </v-col>
             <v-col cols="4" class="pl-1">
               <v-select v-model="bodyData.builtupAreaUnit" :hint="bodyData?.builtupAreaUnit" persistent-hint

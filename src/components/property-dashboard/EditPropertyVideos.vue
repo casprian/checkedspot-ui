@@ -31,7 +31,7 @@
                 No Video has been uploaded for this property.
             </div>
             <v-row no-gutters>
-                <v-col cols="12" v-for="video in props?.videos" :key="video.id" class="my-3">
+                <v-col cols="12" v-for="video in videos" :key="video.id" class="my-3">
                     <v-row no-gutters>
                         <v-col cols="12" md="6">
                             <video muted controls style="width: 100%; height: 100%; object-fit: cover;">
@@ -58,7 +58,7 @@
 
                             <div class="videoAction d-flex justify-center align-center">
                                 <v-btn class="mx-2" density="comfortable" color="amber"
-                                    @click="() => { getImageId(video.id) }">Edit</v-btn>
+                                    @click="() => { getVideoId(video.id) }">Edit</v-btn>
                                 <v-btn class="mx-2" density="comfortable" color="red-darken-1"
                                     @click="() => { confirmDeletion(video.id) }">Delete</v-btn>
                             </div>
@@ -116,7 +116,7 @@
                 <v-btn variant="elevated" color="primary" width="200" @click="addVideoDialog = !addVideoDialog">Add
                     Video</v-btn>
 
-                <!-- Add New Image Dialog box -->
+                <!-- Add New Video Dialog box -->
                 <v-dialog v-model="addVideoDialog" width="auto">
                     <v-card width="50vw" color="grey-lighten-5">
                         <v-row no-gutters class="pa-10 pt-7">
@@ -145,11 +145,12 @@
 import { ref } from 'vue';
 //@ts-ignore
 import api from '@/data/api/index.js';
+import { useRouter } from "vue-router";
 
 const props = defineProps(['videos', 'propertyId'])
+const router = useRouter();
 
-
-const videos = ref([]);
+const videos = ref(props.videos);
 const videoId = ref('')
 
 const addVideoDialog = ref(false)
@@ -164,6 +165,17 @@ const loader = ref(false);
 const expandSuccess = ref(false);
 const expandFailure = ref(false);
 const messageType = ref('');
+
+
+async function fetchPropertyVideos() {
+    const res = await api?.property?.getPropertyVideo({ params: { propertyId: props?.propertyId } })
+    if (res.status === 200) {
+        videos.value = res.data;
+    } else {
+        router.push({ path: '/error', query: { status: res?.status } })
+    }
+}
+
 
 
 function addVideoFailure() {
@@ -190,11 +202,11 @@ async function addVideo() {
                 "videoObj": res?.data?.videos[0]
             })
 
-            console.log(response)
 
             if (response?.status === 200) {
-                addVideoDialog.value = false;
                 loader.value = false;
+                addVideoDialog.value = false;
+                await fetchPropertyVideos(); 
                 expandSuccess.value = true;
             } else {
                 addVideoFailure();
@@ -211,8 +223,12 @@ async function addVideo() {
     }, 3000);
 }
 
-function getImageId(id: any) {
+function getVideoId(id: any) {
     videoId.value = id;
+    const video = videos.value.find((video:any) => video.id === id);
+    title.value = video?.title;
+    description.value = video?.description;
+    
     updateDialog.value = true;
 }
 async function updateVideo() {
@@ -231,6 +247,7 @@ async function updateVideo() {
     if (res?.status === 200) {
         loader.value = false;
         updateDialog.value = false;
+        await fetchPropertyVideos(); 
         expandSuccess.value = true;
     } else {
         loader.value = false;
@@ -262,6 +279,7 @@ async function deleteVideo() {
     if (res?.status === 200) {
         loader.value = false;
         confirmDelete.value = false;
+        await fetchPropertyVideos(); 
         expandSuccess.value = true;
     } else {
         loader.value = false;
