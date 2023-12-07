@@ -69,7 +69,7 @@
 
                 <!-- update Video Dialog box -->
                 <v-dialog v-model="updateDialog" width="auto">
-                    <v-card width="50vw" color="grey-lighten-5">
+                    <v-card color="grey-lighten-5">
                         <v-row no-gutters class="pa-10 pt-7">
                             <v-col cols="12" class="text-h6 pb-5">
                                 Update video properties
@@ -81,10 +81,10 @@
                                 <v-text-field v-model="description" label="description" variant="filled"
                                     name="description"></v-text-field>
                             </v-col>
-                            <v-col cols="12" class="pt-5 d-flex justify-center">
-                                <v-btn variant="elevated" color="amber" width="200" :loading="loader"
+                            <v-col cols="12" class="pt-5 d-flex flex-column flex-md-row justify-center align-center">
+                                <v-btn class="my-2" variant="elevated" color="amber" width="200" :loading="loader"
                                     @click="updateVideo">Update</v-btn>
-                                <v-btn class="ml-4" width="100" color="green-darken-2" variant="outlined"
+                                <v-btn class="ml-4 my-2" width="100" color="green-darken-2" variant="outlined"
                                     @click="updateDialog = false">Cancel</v-btn>
                             </v-col>
                         </v-row>
@@ -118,13 +118,13 @@
 
                 <!-- Add New Video Dialog box -->
                 <v-dialog v-model="addVideoDialog" width="auto">
-                    <v-card width="50vw" color="grey-lighten-5">
+                    <v-card color="grey-lighten-5">
                         <v-row no-gutters class="pa-10 pt-7">
                             <v-col cols="12" class="text-h6 pb-5">
                                 Add new Video
                             </v-col>
                             <v-col cols="12">
-                                <v-file-input v-model="videos" label="File input" variant="filled" prepend-icon="mdi-video"
+                                <v-file-input v-model="addVideos" label="File input" variant="filled" prepend-icon="mdi-video"
                                     name="videofile" accept="video/*"></v-file-input>
                             </v-col>
                             <v-col cols="12" class="pt-5 d-flex justify-center">
@@ -150,6 +150,7 @@ import { useRouter } from "vue-router";
 const props = defineProps(['videos', 'propertyId'])
 const router = useRouter();
 
+const addVideos = ref([]);
 const videos = ref(props.videos);
 const videoId = ref('')
 
@@ -188,9 +189,9 @@ async function addVideo() {
     loader.value = true;
 
     const formData = new FormData();
-    if (videos.value?.length > 0) {
-        for (let i = 0; i < videos.value.length; i++) {
-            formData.append('video', videos.value[i]);
+    if (addVideos.value?.length > 0) {
+        for (let i = 0; i < addVideos.value.length; i++) {
+            formData.append('video', addVideos.value[i]);
         }
         const res = await api?.property?.uploadVideo(formData);
 

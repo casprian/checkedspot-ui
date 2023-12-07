@@ -6,7 +6,7 @@
         </span>
     </div>
     <v-dialog v-model="dialog" width="auto">
-        <v-card width="50vw" color="grey-lighten-5">
+        <v-card color="grey-lighten-5">
             <v-row no-gutters class="pa-10 pt-7">
                 <v-col cols="12" class="text-h6 pb-5">
                     Update MoveIn Status
@@ -22,9 +22,9 @@
                     >
             </v-switch>
                 </v-col>
-                <v-col cols="12" class="pt-5 d-flex justify-center">
-                    <v-btn variant="elevated" color="primary" width="200" :loading="loader" @click="update">Save</v-btn>
-                    <v-btn class="ml-4" width="100" color="green-darken-2" variant="outlined"
+                <v-col cols="12" class="pt-5 d-flex flex-column flex-md-row justify-center align-center">
+                    <v-btn class="my-2" variant="elevated" color="primary" width="200" :loading="loader" @click="update">Save</v-btn>
+                    <v-btn class="ml-4 my-2" width="100" color="green-darken-2" variant="outlined"
                         @click="dialog = false">Cancel</v-btn>
                 </v-col>
             </v-row>

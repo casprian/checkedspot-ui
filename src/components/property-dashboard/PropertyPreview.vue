@@ -1,11 +1,11 @@
 <template>
     <v-row no-gutters class="pa-5 previewContainer">
         <!-- Header Details section -->
-        <v-col class="pa-2" cols="12">
-            <v-card class="pa-4" color="cyan-accent-2">
+        <v-col class="pa-5" cols="12">
+            <v-card class="pa-4" elevation="8">
                 <property-details :details="props?.property?.details" />
 
-                <v-card-actions class="d-flex justify-end">
+                <v-card-actions class="d-flex justify-center addmoreSection pt-4">
                     <v-btn variant="elevated" color="deep-purple-accent-4" @click="$emit('edit', 'Details')">
                         Add More details
                     </v-btn>
@@ -15,8 +15,8 @@
 
 
         <!-- Property Images -->
-        <v-col class="pa-2" cols="12">
-            <v-card class="pa-4 px-6" color="red-accent-2">
+        <v-col class="pa-5" cols="12">
+            <v-card class="pa-4 px-6" elevation="8">
                 <div class="titleCont pb-2">
                     <v-card-title class="title pl-0">Property Images</v-card-title>
                 </div>
@@ -30,7 +30,7 @@
                         </v-col>
                     </v-row>
                 </v-item-group>
-                <v-card-actions class="d-flex justify-end">
+                <v-card-actions class="d-flex justify-center addmoreSection mt-3 pt-4">
                     <v-btn variant="elevated" color="deep-purple-accent-4" @click="$emit('edit', 'Images')">
                         Add More Images
                     </v-btn>
@@ -40,8 +40,8 @@
 
 
         <!-- Property Videos -->
-        <v-col class="pa-2" cols="12">
-            <v-card class="pa-4 px-6" color="green-accent-2">
+        <v-col class="pa-5" cols="12">
+            <v-card class="pa-4 px-6" elevation="8">
                 <div class="titleCont pb-2">
                     <v-card-title class="title pl-0">Property Videos</v-card-title>
                 </div>
@@ -60,7 +60,7 @@
                         </v-col>
                     </v-row>
                 </v-item-group>
-                <v-card-actions class="d-flex justify-end">
+                <v-card-actions class="d-flex justify-center addmoreSection mt-3 pt-4">
                     <v-btn variant="elevated" color="deep-purple-accent-4" @click="$emit('edit', 'Videos')">
                         Add More Videos
                     </v-btn>
@@ -70,20 +70,20 @@
 
 
         <!-- Property Documents -->
-        <v-col class="pa-2" cols="12">
-            <v-card class="pa-4 px-6" color="yellow-accent-2">
+        <v-col class="pa-5" cols="12">
+            <v-card class="pa-4 px-6" elevation="8">
                 <div class="titleCont pb-2">
                     <v-card-title class="title pl-0">Property Documents</v-card-title>
                 </div>
                 <v-item-group multiple>
                     <v-row class="mt-2">
-                        <div v-if="props?.property?.documents?.length === 0" class="text-h4 text-center pa-8 pt-6">
+                        <div v-if="props?.property?.documents?.length <= 0" class="text-h4 text-center pa-8 pt-6">
                             No Document has been uploaded for this property.
                         </div>
-                        <property-documents v-else :propertyId="props.property?.propertyId" :documentsExist="props?.property?.documents?.length > 0"/>
+                        <property-documents v-else :propertyId="props.property?.propertyId" :documentsExist="props.property?.details?.documentsExist"/>
                     </v-row>
                 </v-item-group>
-                <v-card-actions class="d-flex justify-end">
+                <v-card-actions class="d-flex justify-center addmoreSection mt-3 pt-4">
                     <v-btn variant="elevated" color="deep-purple-accent-4" @click="$emit('edit', 'Documents')">
                         Add More Documents
                     </v-btn>
@@ -103,6 +103,10 @@ const emit = defineEmits(['edit']);
 </script>
 
 <style scoped>
+
+.addmoreSection {
+    border-top: solid 1px rgb(191, 189, 189);
+}
 .previewContainer {
     height: 100vh;
     overflow-y: scroll;

@@ -37,7 +37,7 @@
                             <v-img :src="image?.fileUrl" cover height="250" class="text-right">
                             </v-img>
                         </v-col>
-                        <v-col cols="12" md="6" class="imageDetailsSec">
+                        <v-col cols="12" md="6" class="imageDetailsSec" style="height:250px">
                             <div class="title">
                                 <span class="font-weight-medium">Image Title</span>
                                 <p class="text-body-2">{{ image.title ? image.title : "No title assigned to the image." }}
@@ -67,7 +67,7 @@
 
                 <!-- update Image Dialog box -->
                 <v-dialog v-model="updateDialog" width="auto">
-                    <v-card width="50vw" color="grey-lighten-5">
+                    <v-card color="grey-lighten-5">
                         <v-row no-gutters class="pa-10 pt-7">
                             <v-col cols="12" class="text-h6 pb-5">
                                 Update image properties
@@ -79,10 +79,10 @@
                                 <v-text-field v-model="description" label="description" variant="filled"
                                     name="description"></v-text-field>
                             </v-col>
-                            <v-col cols="12" class="pt-5 d-flex justify-center">
-                                <v-btn variant="elevated" color="amber" width="200" :loading="loader"
+                            <v-col cols="12" class="pt-5 d-flex flex-column flex-md-row justify-center align-center">
+                                <v-btn class="my-2" variant="elevated" color="amber" width="200" :loading="loader"
                                     @click="updateImage">Update</v-btn>
-                                <v-btn class="ml-4" width="100" color="green-darken-2" variant="outlined"
+                                <v-btn class="ml-4 my-2" width="100" color="green-darken-2" variant="outlined"
                                     @click="updateDialog = false">Cancel</v-btn>
                             </v-col>
                         </v-row>
@@ -115,13 +115,13 @@
 
                 <!-- Add New Image Dialog box -->
                 <v-dialog v-model="addImageDialog" width="auto">
-                    <v-card width="50vw" color="grey-lighten-5">
+                    <v-card color="grey-lighten-5">
                         <v-row no-gutters class="pa-10 pt-7">
                             <v-col cols="12" class="text-h6 pb-5">
                                 Add new image
                             </v-col>
                             <v-col cols="12">
-                                <v-file-input v-model="images" label="File input" variant="filled" prepend-icon="mdi-camera"
+                                <v-file-input v-model="addImages" label="File input" variant="filled" prepend-icon="mdi-camera"
                                     name="imgfile"
                                     accept=".jpg, .jpeg, .png, .gif, .webp, .avif, .apng, .svg"></v-file-input>
                             </v-col>
@@ -148,6 +148,7 @@ import { useRouter } from "vue-router";
 const props = defineProps(['images', 'propertyId'])
 const router = useRouter();
 
+const addImages = ref([]);
 const images = ref(props.images);
 const imageId = ref('');
 
@@ -184,9 +185,9 @@ async function addImage() {
     loader.value = true;
 
     const formData = new FormData();
-    if (images.value?.length > 0) {
-        for (let i = 0; i < images.value.length; i++) {
-            formData.append('image', images.value[i]);
+    if (addImages.value?.length > 0) {
+        for (let i = 0; i < addImages.value.length; i++) {
+            formData.append('image', addImages.value[i]);
         }
         const res = await api?.property?.uploadImage(formData);
 

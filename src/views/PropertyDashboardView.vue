@@ -2,13 +2,9 @@
     <div style="height: 100%;">
         <v-container fluid class="pa-0 ma-0" v-if="cookies.get('token')" style="height: 100%;">
             <v-card class="rounded-0 pa-0 ma-0" flat height="100%">
-                <v-toolbar color="pink-darken-3">
+                <v-toolbar>
                     <v-toolbar-title>Edit Property Details</v-toolbar-title>
-                </v-toolbar>
-
-                <v-row no-gutters class="d-flex flex-row" style="height: 100vh;">
-                    <v-col cols="12" sm="4" md="3" class="" style="border-right: solid 1px rgb(197, 195, 195);">
-                        <v-tabs v-model="tab" direction="vertical" color="pink-darken-4">
+                    <v-tabs v-model="tab" direction="horizontal" color="pink-darken-4">
                             <v-tab value="Preview Details">
                                 <v-icon start> mdi-home-group </v-icon>
                                 Preview Details
@@ -30,10 +26,10 @@
                                 Documents
                             </v-tab>
                         </v-tabs>
-                    </v-col>
+                </v-toolbar>
 
-
-                    <v-col cols="12" sm="8" md="9">
+                <v-row no-gutters class="d-flex justify-center" style="height: 100vh;">
+                    <v-col cols="12">
                         <v-window v-model="tab" style="width: 100%; height: 100vh; overflow-y: scroll;">
                             <v-window-item value="Preview Details">
                                 <property-preview :property="property" @edit="changeTab" />

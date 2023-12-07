@@ -158,7 +158,7 @@ async function uploadfile(file: File) {
     formData.append('document', file);
 
     const res = await api?.property?.uploadDocument(formData);
-console.log(res)
+
     if (res?.status === 200) {
         return res?.data?.document;
     }

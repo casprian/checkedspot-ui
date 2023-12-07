@@ -27,6 +27,7 @@ import api from '@/data/api/index.js';
 
 const props = defineProps(['propertyId', 'documentsExist'])
 let documents = ref([{fileUrl: ""}]);
+console.log(props.documentsExist)
 const isDocumentsExist = ref(props.documentsExist);
 
 function handleDownload() {
