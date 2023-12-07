@@ -1,7 +1,7 @@
 <template>
     <div class="my-4 d-flex justify-space-between align-center">
         <span class="wraplink" style="width:85%;">
-            Title : &nbsp; <span class="text-blue-grey-darken-1">{{ props.title }}</span>
+            Description : &nbsp; <span class="text-blue-grey-darken-1">{{ props.description }}</span>
         </span>
         <span class="d-flex justify-end" style="width:15%;">
             <v-btn variant="text" color="secondary" @click="dialog = true">
@@ -13,11 +13,11 @@
         <v-card color="grey-lighten-5">
             <v-row no-gutters class="pa-10 pt-7">
                 <v-col cols="12" class="text-h6 pb-5">
-                    Update Property Title
+                    Update Property Description
                 </v-col>
                 <v-col cols="12">
-                    <v-text-field label="title" v-model="title" clearable hint="Property title - like, Fit for home etc."
-                        variant="outlined"></v-text-field>
+                    <v-textarea label="Plot Description" v-model="description" auto-grow variant="outlined" rows="6"
+                        row-height="25" shaped></v-textarea>
                 </v-col>
                 <v-col cols="12" class="pt-5 d-flex flex-column flex-md-row justify-center align-center">
                     <v-btn class="my-2" variant="elevated" color="primary" width="200" :loading="loader" @click="update">Save</v-btn>
@@ -34,19 +34,19 @@ import { ref } from 'vue';
 //@ts-ignore
 import api from '@/data/api/index.js';
 
-const props = defineProps(['propertyId', 'title']);
+const props = defineProps(['propertyId', 'description']);
 const emit = defineEmits(['success', 'failure']);
 const dialog = ref(false);
 const loader = ref(false);
 
-const title = ref(props.title);
+const description = ref(props.description);
 
 async function update() {
     loader.value = true;
 
     const res = await api?.property?.updateDetails({
         "propertyId": props.propertyId,
-        "updatingFields": { "title": title.value }
+        "updatingFields": { "description": description.value }
     });
 
     if (res.status === 200) {
@@ -57,6 +57,7 @@ async function update() {
     loader.value = false;
     dialog.value = false;
 }
+
 </script>
 
 <style scoped>

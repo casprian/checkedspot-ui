@@ -1,7 +1,7 @@
 <template>
     <div class="my-4 d-flex justify-space-between align-center">
-        <span class="wraplink" style="width:85%;">
-            Title : &nbsp; <span class="text-blue-grey-darken-1">{{ props.title }}</span>
+        <span class="wraplink" style="width:85%;"> 
+            Pincode : &nbsp; <span class="text-blue-grey-darken-1">{{ props.pincode }}</span>
         </span>
         <span class="d-flex justify-end" style="width:15%;">
             <v-btn variant="text" color="secondary" @click="dialog = true">
@@ -13,10 +13,10 @@
         <v-card color="grey-lighten-5">
             <v-row no-gutters class="pa-10 pt-7">
                 <v-col cols="12" class="text-h6 pb-5">
-                    Update Property Title
+                    Update Pincode
                 </v-col>
                 <v-col cols="12">
-                    <v-text-field label="title" v-model="title" clearable hint="Property title - like, Fit for home etc."
+                    <v-text-field label="pincode" v-model="pincode" clearable hint="Enter pincode of the property location."
                         variant="outlined"></v-text-field>
                 </v-col>
                 <v-col cols="12" class="pt-5 d-flex flex-column flex-md-row justify-center align-center">
@@ -34,19 +34,19 @@ import { ref } from 'vue';
 //@ts-ignore
 import api from '@/data/api/index.js';
 
-const props = defineProps(['propertyId', 'title']);
+const props = defineProps(['propertyId', 'pincode']);
 const emit = defineEmits(['success', 'failure']);
 const dialog = ref(false);
 const loader = ref(false);
 
-const title = ref(props.title);
+const pincode = ref(props.pincode);
 
 async function update() {
     loader.value = true;
 
-    const res = await api?.property?.updateDetails({
-        "propertyId": props.propertyId,
-        "updatingFields": { "title": title.value }
+    const res = await api?.property?.updateDetails({ 
+        "propertyId": props.propertyId, 
+        "updatingFields": { "pincode": pincode.value } 
     });
 
     if (res.status === 200) {

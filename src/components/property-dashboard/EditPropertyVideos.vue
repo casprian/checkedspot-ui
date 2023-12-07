@@ -31,7 +31,7 @@
                 No Video has been uploaded for this property.
             </div>
             <v-row no-gutters>
-                <v-col cols="12" v-for="video in props?.videos" :key="video.id" class="my-3">
+                <v-col cols="12" v-for="video in videos" :key="video.id" class="my-3">
                     <v-row no-gutters>
                         <v-col cols="12" md="6">
                             <video muted controls style="width: 100%; height: 100%; object-fit: cover;">
@@ -58,7 +58,7 @@
 
                             <div class="videoAction d-flex justify-center align-center">
                                 <v-btn class="mx-2" density="comfortable" color="amber"
-                                    @click="() => { getImageId(video.id) }">Edit</v-btn>
+                                    @click="() => { getVideoId(video.id) }">Edit</v-btn>
                                 <v-btn class="mx-2" density="comfortable" color="red-darken-1"
                                     @click="() => { confirmDeletion(video.id) }">Delete</v-btn>
                             </div>
@@ -69,7 +69,7 @@
 
                 <!-- update Video Dialog box -->
                 <v-dialog v-model="updateDialog" width="auto">
-                    <v-card width="50vw" color="grey-lighten-5">
+                    <v-card color="grey-lighten-5">
                         <v-row no-gutters class="pa-10 pt-7">
                             <v-col cols="12" class="text-h6 pb-5">
                                 Update video properties
@@ -81,10 +81,10 @@
                                 <v-text-field v-model="description" label="description" variant="filled"
                                     name="description"></v-text-field>
                             </v-col>
-                            <v-col cols="12" class="pt-5 d-flex justify-center">
-                                <v-btn variant="elevated" color="amber" width="200" :loading="loader"
+                            <v-col cols="12" class="pt-5 d-flex flex-column flex-md-row justify-center align-center">
+                                <v-btn class="my-2" variant="elevated" color="amber" width="200" :loading="loader"
                                     @click="updateVideo">Update</v-btn>
-                                <v-btn class="ml-4" width="100" color="green-darken-2" variant="outlined"
+                                <v-btn class="ml-4 my-2" width="100" color="green-darken-2" variant="outlined"
                                     @click="updateDialog = false">Cancel</v-btn>
                             </v-col>
                         </v-row>
@@ -116,15 +116,15 @@
                 <v-btn variant="elevated" color="primary" width="200" @click="addVideoDialog = !addVideoDialog">Add
                     Video</v-btn>
 
-                <!-- Add New Image Dialog box -->
+                <!-- Add New Video Dialog box -->
                 <v-dialog v-model="addVideoDialog" width="auto">
-                    <v-card width="50vw" color="grey-lighten-5">
+                    <v-card color="grey-lighten-5">
                         <v-row no-gutters class="pa-10 pt-7">
                             <v-col cols="12" class="text-h6 pb-5">
                                 Add new Video
                             </v-col>
                             <v-col cols="12">
-                                <v-file-input v-model="videos" label="File input" variant="filled" prepend-icon="mdi-video"
+                                <v-file-input v-model="addVideos" label="File input" variant="filled" prepend-icon="mdi-video"
                                     name="videofile" accept="video/*"></v-file-input>
                             </v-col>
                             <v-col cols="12" class="pt-5 d-flex justify-center">
@@ -145,11 +145,13 @@
 import { ref } from 'vue';
 //@ts-ignore
 import api from '@/data/api/index.js';
+import { useRouter } from "vue-router";
 
 const props = defineProps(['videos', 'propertyId'])
+const router = useRouter();
 
-
-const videos = ref([]);
+const addVideos = ref([]);
+const videos = ref(props.videos);
 const videoId = ref('')
 
 const addVideoDialog = ref(false)
@@ -166,6 +168,17 @@ const expandFailure = ref(false);
 const messageType = ref('');
 
 
+async function fetchPropertyVideos() {
+    const res = await api?.property?.getPropertyVideo({ params: { propertyId: props?.propertyId } })
+    if (res.status === 200) {
+        videos.value = res.data;
+    } else {
+        router.push({ path: '/error', query: { status: res?.status } })
+    }
+}
+
+
+
 function addVideoFailure() {
     addVideoDialog.value = false;
     loader.value = false;
@@ -176,9 +189,9 @@ async function addVideo() {
     loader.value = true;
 
     const formData = new FormData();
-    if (videos.value?.length > 0) {
-        for (let i = 0; i < videos.value.length; i++) {
-            formData.append('video', videos.value[i]);
+    if (addVideos.value?.length > 0) {
+        for (let i = 0; i < addVideos.value.length; i++) {
+            formData.append('video', addVideos.value[i]);
         }
         const res = await api?.property?.uploadVideo(formData);
 
@@ -190,11 +203,11 @@ async function addVideo() {
                 "videoObj": res?.data?.videos[0]
             })
 
-            console.log(response)
 
             if (response?.status === 200) {
-                addVideoDialog.value = false;
                 loader.value = false;
+                addVideoDialog.value = false;
+                await fetchPropertyVideos(); 
                 expandSuccess.value = true;
             } else {
                 addVideoFailure();
@@ -211,8 +224,12 @@ async function addVideo() {
     }, 3000);
 }
 
-function getImageId(id: any) {
+function getVideoId(id: any) {
     videoId.value = id;
+    const video = videos.value.find((video:any) => video.id === id);
+    title.value = video?.title;
+    description.value = video?.description;
+    
     updateDialog.value = true;
 }
 async function updateVideo() {
@@ -231,6 +248,7 @@ async function updateVideo() {
     if (res?.status === 200) {
         loader.value = false;
         updateDialog.value = false;
+        await fetchPropertyVideos(); 
         expandSuccess.value = true;
     } else {
         loader.value = false;
@@ -262,6 +280,7 @@ async function deleteVideo() {
     if (res?.status === 200) {
         loader.value = false;
         confirmDelete.value = false;
+        await fetchPropertyVideos(); 
         expandSuccess.value = true;
     } else {
         loader.value = false;

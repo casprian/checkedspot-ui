@@ -306,6 +306,7 @@ const expandFailure = ref(false);
 const expandSuccess = ref(false);
 
 const props = defineProps(['property', 'listingPath']);
+
 const dialog = ref(false);
 const propertyCost = ref(props?.property?.cost < 10000000 ? `${props?.property?.cost / 100000.0} Lac` : `${props?.property?.cost / 10000000.0} Cr`);
 

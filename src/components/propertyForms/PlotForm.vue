@@ -53,7 +53,7 @@
         </v-col>
         <v-col cols="12" sm="6" class="py-1 px-3" style="position: relative">
           <v-row no-gutters @mouseover="expand = true" @mouseout="expand = false">
-            <v-switch v-model="bodyData.isFreeHold" true-value="true" false-value="false" label="Is Free Hold"
+            <v-switch v-model="bodyData.isFreeHold" :true-value="true" :false-value="false" label="Is Free Hold"
               color="pink-accent-3" hide-details>
             </v-switch>
           </v-row>

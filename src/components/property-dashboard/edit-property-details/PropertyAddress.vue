@@ -1,13 +1,11 @@
 <template>
     <div class="my-4 d-flex justify-space-between align-center">
-        <span class="wraplink" style="width:85%;">
-            Title : &nbsp; <span class="text-blue-grey-darken-1">{{ props.title }}</span>
+        <span class="wraplink" style="width:85%;"> 
+            Address : &nbsp; <span class="text-blue-grey-darken-1">{{ props.address }}</span>
         </span>
-        <span class="d-flex justify-end" style="width:15%;">
-            <v-btn variant="text" color="secondary" @click="dialog = true">
+        <span class="d-flex justify-end" style="width:15%;"><v-btn variant="text" color="secondary" @click="dialog = true">
                 Edit
-            </v-btn>
-        </span>
+            </v-btn></span>
     </div>
     <v-dialog v-model="dialog" width="auto">
         <v-card color="grey-lighten-5">
@@ -16,7 +14,7 @@
                     Update Property Title
                 </v-col>
                 <v-col cols="12">
-                    <v-text-field label="title" v-model="title" clearable hint="Property title - like, Fit for home etc."
+                    <v-text-field label="Property Address" v-model="address" clearable hint="Enter property address"
                         variant="outlined"></v-text-field>
                 </v-col>
                 <v-col cols="12" class="pt-5 d-flex flex-column flex-md-row justify-center align-center">
@@ -34,19 +32,19 @@ import { ref } from 'vue';
 //@ts-ignore
 import api from '@/data/api/index.js';
 
-const props = defineProps(['propertyId', 'title']);
+const props = defineProps(['propertyId', 'address']);
 const emit = defineEmits(['success', 'failure']);
 const dialog = ref(false);
 const loader = ref(false);
 
-const title = ref(props.title);
+const address = ref(props.address);
 
 async function update() {
     loader.value = true;
 
     const res = await api?.property?.updateDetails({
         "propertyId": props.propertyId,
-        "updatingFields": { "title": title.value }
+        "updatingFields": { "address": address.value }
     });
 
     if (res.status === 200) {

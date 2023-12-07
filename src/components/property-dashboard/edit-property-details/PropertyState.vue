@@ -1,10 +1,10 @@
 <template>
     <div class="my-4 d-flex justify-space-between align-center">
         <span class="wraplink" style="width:85%;">
-            Title : &nbsp; <span class="text-blue-grey-darken-1">{{ props.title }}</span>
+            State : &nbsp; <span class="text-blue-grey-darken-1">{{ newState }}</span>
         </span>
         <span class="d-flex justify-end" style="width:15%;">
-            <v-btn variant="text" color="secondary" @click="dialog = true">
+            <v-btn variant="text" color="secondary" @click="getStates">
                 Edit
             </v-btn>
         </span>
@@ -13,11 +13,11 @@
         <v-card color="grey-lighten-5">
             <v-row no-gutters class="pa-10 pt-7">
                 <v-col cols="12" class="text-h6 pb-5">
-                    Update Property Title
+                    Update City
                 </v-col>
                 <v-col cols="12">
-                    <v-text-field label="title" v-model="title" clearable hint="Property title - like, Fit for home etc."
-                        variant="outlined"></v-text-field>
+                    <v-select v-model="state" :items="states" label="state" variant="outlined" clearable
+                        hint="Choose from the States List in India"></v-select>
                 </v-col>
                 <v-col cols="12" class="pt-5 d-flex flex-column flex-md-row justify-center align-center">
                     <v-btn class="my-2" variant="elevated" color="primary" width="200" :loading="loader" @click="update">Save</v-btn>
@@ -30,32 +30,43 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 //@ts-ignore
 import api from '@/data/api/index.js';
 
-const props = defineProps(['propertyId', 'title']);
+const props = defineProps(['propertyId', 'state', 'country']);
 const emit = defineEmits(['success', 'failure']);
 const dialog = ref(false);
 const loader = ref(false);
 
-const title = ref(props.title);
+const state = ref(props.state);
+const states = ref([]);
+const newState = ref(props.state);
 
 async function update() {
     loader.value = true;
 
     const res = await api?.property?.updateDetails({
         "propertyId": props.propertyId,
-        "updatingFields": { "title": title.value }
+        "updatingFields": { "state": state.value, "city": '' }
     });
 
     if (res.status === 200) {
+        newState.value = state.value;
         emit('success');
     } else {
         emit('failure');
     }
     loader.value = false;
     dialog.value = false;
+}
+
+async function getStates() {
+    dialog.value = true;
+    //@ts-ignore
+    const stateList = JSON.parse(localStorage.getItem('location'));
+    //@ts-ignore
+    states.value = stateList?.states?.map(item => item.name);
 }
 </script>
 

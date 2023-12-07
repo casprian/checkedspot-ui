@@ -31,13 +31,13 @@
                 No Image has been uploaded for this property.
             </div>
             <v-row no-gutters>
-                <v-col cols="12" v-for="image in props?.images" :key="image.id" class="my-3">
+                <v-col cols="12" v-for="image in images" :key="image.id" class="my-3">
                     <v-row no-gutters>
                         <v-col cols="12" md="6">
                             <v-img :src="image?.fileUrl" cover height="250" class="text-right">
                             </v-img>
                         </v-col>
-                        <v-col cols="12" md="6" class="imageDetailsSec">
+                        <v-col cols="12" md="6" class="imageDetailsSec" style="height:250px">
                             <div class="title">
                                 <span class="font-weight-medium">Image Title</span>
                                 <p class="text-body-2">{{ image.title ? image.title : "No title assigned to the image." }}
@@ -67,7 +67,7 @@
 
                 <!-- update Image Dialog box -->
                 <v-dialog v-model="updateDialog" width="auto">
-                    <v-card width="50vw" color="grey-lighten-5">
+                    <v-card color="grey-lighten-5">
                         <v-row no-gutters class="pa-10 pt-7">
                             <v-col cols="12" class="text-h6 pb-5">
                                 Update image properties
@@ -79,10 +79,10 @@
                                 <v-text-field v-model="description" label="description" variant="filled"
                                     name="description"></v-text-field>
                             </v-col>
-                            <v-col cols="12" class="pt-5 d-flex justify-center">
-                                <v-btn variant="elevated" color="amber" width="200" :loading="loader"
+                            <v-col cols="12" class="pt-5 d-flex flex-column flex-md-row justify-center align-center">
+                                <v-btn class="my-2" variant="elevated" color="amber" width="200" :loading="loader"
                                     @click="updateImage">Update</v-btn>
-                                <v-btn class="ml-4" width="100" color="green-darken-2" variant="outlined"
+                                <v-btn class="ml-4 my-2" width="100" color="green-darken-2" variant="outlined"
                                     @click="updateDialog = false">Cancel</v-btn>
                             </v-col>
                         </v-row>
@@ -115,13 +115,13 @@
 
                 <!-- Add New Image Dialog box -->
                 <v-dialog v-model="addImageDialog" width="auto">
-                    <v-card width="50vw" color="grey-lighten-5">
+                    <v-card color="grey-lighten-5">
                         <v-row no-gutters class="pa-10 pt-7">
                             <v-col cols="12" class="text-h6 pb-5">
                                 Add new image
                             </v-col>
                             <v-col cols="12">
-                                <v-file-input v-model="images" label="File input" variant="filled" prepend-icon="mdi-camera"
+                                <v-file-input v-model="addImages" label="File input" variant="filled" prepend-icon="mdi-camera"
                                     name="imgfile"
                                     accept=".jpg, .jpeg, .png, .gif, .webp, .avif, .apng, .svg"></v-file-input>
                             </v-col>
@@ -143,10 +143,13 @@
 import { ref } from "vue";
 //@ts-ignore
 import api from '@/data/api/index.js'
+import { useRouter } from "vue-router";
 
 const props = defineProps(['images', 'propertyId'])
+const router = useRouter();
 
-const images = ref([]);
+const addImages = ref([]);
+const images = ref(props.images);
 const imageId = ref('');
 
 const addImageDialog = ref(false);
@@ -162,6 +165,16 @@ const expandSuccess = ref(false);
 const expandFailure = ref(false);
 const messageType = ref('');
 
+
+async function fetchPropertyImages() {
+    const res = await api?.property?.getPropertyImage({ params: { propertyId: props?.propertyId } })
+    if (res.status === 200) {
+        images.value = res.data;
+    } else {
+        router.push({ path: '/error', query: { status: res?.status } })
+    }
+}
+
 function addImageFailure() {
     addImageDialog.value = false;
     loader.value = false;
@@ -172,9 +185,9 @@ async function addImage() {
     loader.value = true;
 
     const formData = new FormData();
-    if (images.value?.length > 0) {
-        for (let i = 0; i < images.value.length; i++) {
-            formData.append('image', images.value[i]);
+    if (addImages.value?.length > 0) {
+        for (let i = 0; i < addImages.value.length; i++) {
+            formData.append('image', addImages.value[i]);
         }
         const res = await api?.property?.uploadImage(formData);
 
@@ -186,8 +199,9 @@ async function addImage() {
             })
 
             if (response?.status === 200) {
-                addImageDialog.value = false;
                 loader.value = false;
+                addImageDialog.value = false;
+                await fetchPropertyImages(); 
                 expandSuccess.value = true;
             } else {
                 addImageFailure();
@@ -206,6 +220,10 @@ async function addImage() {
 
 function getImageId(id: any) {
     imageId.value = id;
+    const image = images.value.find((image:any) => image.id === imageId.value);
+    title.value = image?.title;
+    description.value = image?.description;
+
     updateDialog.value = true;
 }
 async function updateImage() {
@@ -224,6 +242,7 @@ async function updateImage() {
     if (res?.status === 200) {
         loader.value = false;
         updateDialog.value = false;
+        await fetchPropertyImages(); 
         expandSuccess.value = true;
     } else {
         loader.value = false;
@@ -254,6 +273,7 @@ async function deleteImage() {
     if (res?.status === 200) {
         loader.value = false;
         confirmDelete.value = false;
+        await fetchPropertyImages(); 
         expandSuccess.value = true;
     } else {
         loader.value = false;

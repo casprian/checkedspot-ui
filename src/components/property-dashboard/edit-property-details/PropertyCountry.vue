@@ -1,7 +1,7 @@
 <template>
     <div class="my-4 d-flex justify-space-between align-center">
-        <span class="wraplink" style="width:85%;">
-            Title : &nbsp; <span class="text-blue-grey-darken-1">{{ props.title }}</span>
+        <span class="wraplink" style="width:85%;"> 
+            Country : &nbsp; <span class="text-blue-grey-darken-1">{{ newCountry }}</span>
         </span>
         <span class="d-flex justify-end" style="width:15%;">
             <v-btn variant="text" color="secondary" @click="dialog = true">
@@ -13,11 +13,11 @@
         <v-card color="grey-lighten-5">
             <v-row no-gutters class="pa-10 pt-7">
                 <v-col cols="12" class="text-h6 pb-5">
-                    Update Property Title
+                    Update Country
                 </v-col>
                 <v-col cols="12">
-                    <v-text-field label="title" v-model="title" clearable hint="Property title - like, Fit for home etc."
-                        variant="outlined"></v-text-field>
+                    <v-select v-model="country" :items="countries" label="country" variant="outlined" clearable
+                        hint="Choose from the countries list"></v-select>
                 </v-col>
                 <v-col cols="12" class="pt-5 d-flex flex-column flex-md-row justify-center align-center">
                     <v-btn class="my-2" variant="elevated" color="primary" width="200" :loading="loader" @click="update">Save</v-btn>
@@ -34,22 +34,25 @@ import { ref } from 'vue';
 //@ts-ignore
 import api from '@/data/api/index.js';
 
-const props = defineProps(['propertyId', 'title']);
+const props = defineProps(['propertyId', 'country']);
 const emit = defineEmits(['success', 'failure']);
 const dialog = ref(false);
 const loader = ref(false);
 
-const title = ref(props.title);
+const country = ref(props.country);
+const countries = ref(['India']);
+const newCountry = ref(props.country);
 
 async function update() {
     loader.value = true;
 
     const res = await api?.property?.updateDetails({
         "propertyId": props.propertyId,
-        "updatingFields": { "title": title.value }
+        "updatingFields": country.value === 'India' ? { "country": country.value } : { "country": country.value, "state": '', "city": '' }
     });
 
     if (res.status === 200) {
+        newCountry.value = country.value;
         emit('success');
     } else {
         emit('failure');

@@ -25,7 +25,11 @@
             <v-toolbar v-if="property?.title && property?.title !== 'unavailable'" class="propertyTitle" theme="dark"
                 height="35" style="background-color: rgba(0, 0, 0, 0.466);">
                 <div class="w-100 text-body-1 text-center px-3">
-                    {{ property?.title ? property?.title : "Property title - like, Fit for home etc." }}
+                    {{ 
+                        property?.title ? 
+                        property?.title : 
+                        "Property title - like, Fit for home etc." 
+                    }}
                 </div>
             </v-toolbar>
             <div class="verifiedTagContainer">

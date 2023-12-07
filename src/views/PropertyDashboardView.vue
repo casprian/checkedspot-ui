@@ -2,13 +2,9 @@
     <div style="height: 100%;">
         <v-container fluid class="pa-0 ma-0" v-if="cookies.get('token')" style="height: 100%;">
             <v-card class="rounded-0 pa-0 ma-0" flat height="100%">
-                <v-toolbar color="pink-darken-3">
+                <v-toolbar>
                     <v-toolbar-title>Edit Property Details</v-toolbar-title>
-                </v-toolbar>
-
-                <v-row no-gutters class="d-flex flex-row" style="height: 100vh;">
-                    <v-col cols="12" sm="4" md="3" class="" style="border-right: solid 1px rgb(197, 195, 195);">
-                        <v-tabs v-model="tab" direction="vertical" color="pink-darken-4">
+                    <v-tabs v-model="tab" direction="horizontal" color="pink-darken-4">
                             <v-tab value="Preview Details">
                                 <v-icon start> mdi-home-group </v-icon>
                                 Preview Details
@@ -30,16 +26,18 @@
                                 Documents
                             </v-tab>
                         </v-tabs>
-                    </v-col>
+                </v-toolbar>
 
-
-                    <v-col cols="12" sm="8" md="9">
+                <v-row no-gutters class="d-flex justify-center" style="height: 100vh;">
+                    <v-col cols="12">
                         <v-window v-model="tab" style="width: 100%; height: 100vh; overflow-y: scroll;">
                             <v-window-item value="Preview Details">
                                 <property-preview :property="property" @edit="changeTab" />
                             </v-window-item>
                             <v-window-item value="Details" class="pa-10">
-                                <edit-property-details :details="property.details" />
+                                <edit-plot-details v-if="property.details.type === 'plot'" :details="property.details" />
+                                <edit-farmland-details v-if="property.details.type === 'farmland'" :details="property.details" />
+                                <edit-flat-details v-if="property.details.type === 'flat'" :details="property.details" />
                             </v-window-item>
                             <v-window-item value="Images" class="pa-10">
                                 <edit-property-images :images="property.images" :propertyId="property.propertyId"/>
@@ -73,7 +71,9 @@ import { useRouter, useRoute } from 'vue-router';
 import api from '@/data/api/index.js';
 
 const PropertyPreview = defineAsyncComponent(() => import('@/components/property-dashboard/PropertyPreview.vue'));
-const EditPropertyDetails = defineAsyncComponent(() => import('@/components/property-dashboard/EditPropertyDetails.vue'));
+const EditPlotDetails = defineAsyncComponent(() => import('@/components/property-dashboard/EditPlotDetails.vue'));
+const EditFarmlandDetails = defineAsyncComponent(() => import('@/components/property-dashboard/EditFarmlandDetails.vue'));
+const EditFlatDetails = defineAsyncComponent(() => import('@/components/property-dashboard/EditFlatDetails.vue'));
 const EditPropertyImages = defineAsyncComponent(() => import('@/components/property-dashboard/EditPropertyImages.vue'));
 const EditPropertyVideos = defineAsyncComponent(() => import('@/components/property-dashboard/EditPropertyVideos.vue'));
 const EditPropertyDocuments = defineAsyncComponent(() => import('@/components/property-dashboard/EditPropertyDocuments.vue'));
@@ -84,7 +84,7 @@ const route = useRoute();
 
 const property = ref({
     propertyId: null,
-    details: null,
+    details: { type: ''},
     images: null,
     videos: null,
     documents: null
@@ -152,4 +152,5 @@ onMounted(async () => {
 
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

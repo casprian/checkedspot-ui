@@ -112,10 +112,10 @@ const addVideo = async (params) => {
     }
 }
 
-const uploadDocument = async (params) => {
+const addDocument = async (params) => {
     try {
-        const baseURL = "/property/upload/document";
-        const response = await call.callWithTokenForMultiPart('post', baseURL, params);
+        const baseURL = "/property/document";
+        const response = await call.callWithToken('post', baseURL, params);
         return { status: 200, data: response }
     } catch (e) {
         return { error: true, status: e?.response?.status, message: e?.response?.data?.message }
@@ -135,6 +135,16 @@ const uploadImage = async (params) => {
 const uploadVideo = async (params) => {
     try {
         const baseURL = "/property/upload/video";
+        const response = await call.callWithTokenForMultiPart('post', baseURL, params);
+        return { status: 200, data: response }
+    } catch (e) {
+        return { error: true, status: e?.response?.status, message: e?.response?.data?.message }
+    }
+}
+
+const uploadDocument = async (params) => {
+    try {
+        const baseURL = "/property/upload/document";
         const response = await call.callWithTokenForMultiPart('post', baseURL, params);
         return { status: 200, data: response }
     } catch (e) {
@@ -172,6 +182,16 @@ const updateVideo = async (params) => {
     }
 }
 
+const updateDocument = async (params) => {
+    try {
+        const baseURL = "/property/document";
+        const response = await call.callWithToken('put', baseURL, params);
+        return { status: 200, data: response }
+    } catch (e) {
+        return { error: true, status: e?.response?.status, message: e?.response?.data?.message }
+    }
+}
+
 const deleteProperty = async (params) => {
     try {
         const baseURL = "/property";
@@ -202,6 +222,16 @@ const deleteVideo = async (params) => {
     }
 }
 
+const deleteDocument = async (params) => {
+    try {
+        const baseURL = "/property/document";
+        const response = await call.callWithToken('delete', baseURL, params);
+        return { status: 200, data: response }
+    } catch (e) {
+        return { error: true, status: e?.response?.status, message: e?.response?.data?.message }
+    }
+}
+
 
 export default {
     getProperties,
@@ -215,13 +245,16 @@ export default {
     createProperty,
     addImage,
     addVideo,
-    uploadDocument,
+    addDocument,
     uploadImage,
+    uploadVideo,
+    uploadDocument,
     updateDetails,
     updateImage,
-    uploadVideo,
     updateVideo,
+    updateDocument,
     deleteProperty,
     deleteImage,
     deleteVideo,
+    deleteDocument,
 };
