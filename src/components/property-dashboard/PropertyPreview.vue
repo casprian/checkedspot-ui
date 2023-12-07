@@ -53,7 +53,7 @@
                         <v-col v-else class="pa-2 d-flex justify-center" v-for="(item, i) in props?.property?.videos"
                             :key="i" cols="12" md="6">
                             <video id="propVideo" muted controls
-                                style="height: 250px; height:33vh; object-fit: contain;">
+                                style="width: 95%; height:33vh; object-fit: contain;">
                                 <source :src="item?.fileUrl" type="video/mp4" />
                                 Your browser does not support the video tag.
                             </video>
@@ -80,7 +80,9 @@
                         <div v-if="props?.property?.documents?.length <= 0" class="text-h4 text-center pa-8 pt-6">
                             No Document has been uploaded for this property.
                         </div>
-                        <property-documents v-else :propertyId="props.property?.propertyId" :documentsExist="props.property?.details?.documentsExist"/>
+                        <div v-else style="width: 100%;">
+                            <property-documents :propertyId="props.property?.propertyId"/>
+                        </div>
                     </v-row>
                 </v-item-group>
                 <v-card-actions class="d-flex justify-center addmoreSection mt-3 pt-4">
@@ -100,6 +102,7 @@ const PropertyDocuments = defineAsyncComponent(() => import('@/components/proper
 
 const props = defineProps(['property']);
 const emit = defineEmits(['edit']);
+
 </script>
 
 <style scoped>

@@ -56,7 +56,7 @@
 
                 <!-- Document -->
                 <v-row no-gutters class="mb-8" style="width: 100%; height: auto;">
-                    <property-documents :propertyId="property?.data?.propertyId" :documentsExist="property?.data?.documentsExist" />
+                    <property-documents :propertyId="property?.data?.propertyId" />
                 </v-row>
 
                 <!-- Location -->
