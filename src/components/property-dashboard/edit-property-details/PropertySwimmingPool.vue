@@ -1,7 +1,7 @@
 <template>
     <div class="my-4 d-flex justify-space-between align-center">
         <span class="wraplink" style="width:85%;">
-            Swimming Pool : &nbsp; <span class="text-blue-grey-darken-1">{{ props.swimmingPool }}</span>
+            Swimming Pool : &nbsp; <span :class="swimmingPool === 'available'  ? 'text-blue-grey-darken-1' : 'text-red-darken-1'">{{ props.swimmingPool }}</span>
         </span>
         <span class="d-flex justify-end" style="width:15%;">
             <v-btn variant="text" color="secondary" @click="dialog = true">

@@ -1,7 +1,7 @@
 <template>
     <div class="my-4 d-flex justify-space-between align-center">
         <span class="wraplink" style="width:85%;">
-            Outdoor Shower : &nbsp; <span class="text-blue-grey-darken-1">{{ props.outdoorShower }}</span>
+            Outdoor Shower : &nbsp; <span :class="outdoorShower === 'available'  ? 'text-blue-grey-darken-1' : 'text-red-darken-1'">{{ props.outdoorShower }}</span>
         </span>
         <span class="d-flex justify-end" style="width:15%;">
             <v-btn variant="text" color="secondary" @click="dialog = true">

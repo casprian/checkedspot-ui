@@ -1,7 +1,7 @@
 <template>
     <div class="my-4 d-flex justify-space-between align-center">
         <span class="wraplink" style="width:85%;">
-            TV Cable : &nbsp; <span class="text-blue-grey-darken-1">{{ props.tvCable }}</span>
+            TV Cable : &nbsp; <span :class="tvCable === 'available'  ? 'text-blue-grey-darken-1' : 'text-red-darken-1'">{{ props.tvCable }}</span>
         </span>
         <span class="d-flex justify-end" style="width:15%;">
             <v-btn variant="text" color="secondary" @click="dialog = true">

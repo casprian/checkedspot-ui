@@ -1,7 +1,7 @@
 <template>
     <div class="my-4 d-flex justify-space-between align-center">
         <span class="wraplink" style="width:85%;">
-            Elevator : &nbsp; <span class="text-blue-grey-darken-1">{{ props.elevator }}</span>
+            Elevator : &nbsp; <span :class="elevator === 'available'  ? 'text-blue-grey-darken-1' : 'text-red-darken-1'">{{ props.elevator }}</span>
         </span>
         <span class="d-flex justify-end" style="width:15%;">
             <v-btn variant="text" color="secondary" @click="dialog = true">
