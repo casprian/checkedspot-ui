@@ -1,5 +1,5 @@
 <template>
-    <v-row no-gutters class="pa-5 previewContainer">
+    <v-row no-gutters class="pa-5">
         <!-- Header Details section -->
         <v-col class="pa-5" cols="12">
             <v-card class="pa-4" elevation="8">
@@ -109,10 +109,6 @@ const emit = defineEmits(['edit']);
 
 .addmoreSection {
     border-top: solid 1px rgb(191, 189, 189);
-}
-.previewContainer {
-    height: 100vh;
-    overflow-y: scroll;
 }
 
 .titleCont {

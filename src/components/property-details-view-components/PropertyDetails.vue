@@ -203,10 +203,10 @@
                 {{ props.details?.parkingLot }}
             </span>
         </v-col>
-        <v-col v-if="props.details?.elivator !== 'unavailable'" class="pdLH" cols="12">Elivator:
+        <v-col v-if="props.details?.elevator !== 'unavailable'" class="pdLH" cols="12">Elevator:
             <span class="text-body-1 text-grey-darken-1">
                 {{
-                    props.details?.elivator
+                    props.details?.elevator
                 }}
             </span>
         </v-col>

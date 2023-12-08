@@ -27,204 +27,230 @@
             </v-col>
         </v-row>
         <v-row no-gutters>
-            
+
             <v-col cols="12">
-                <property-status
+                <property-status :propertyId="propertyDetails.propertyId" :propertyStatus="propertyDetails.propertyStatus"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <total-area :propertyId="propertyDetails.propertyId" :totalArea="propertyDetails.totalArea"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <builtup-area :propertyId="propertyDetails.propertyId" :builtupArea="propertyDetails.builtupArea"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <carpet-area :propertyId="propertyDetails.propertyId" :carpetArea="propertyDetails.carpetArea"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <number-of-bedroom :propertyId="propertyDetails.propertyId" :noOfBedroom="propertyDetails.noOfBedroom"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <number-of-bathroom :propertyId="propertyDetails.propertyId" :noOfBathroom="propertyDetails.noOfBathroom"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <number-of-kitchen :propertyId="propertyDetails.propertyId" :noOfKitchen="propertyDetails.noOfKitchen"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <property-cost :propertyId="propertyDetails.propertyId" :cost="propertyDetails.cost"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <property-country :propertyId="propertyDetails.propertyId" :country="propertyDetails.country"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <property-state :propertyId="propertyDetails.propertyId" :state="propertyDetails.state"
+                    :country="propertyDetails.country" @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <property-city :propertyId="propertyDetails.propertyId" :city="propertyDetails.city"
+                    :state="propertyDetails.state" @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <property-pincode :propertyId="propertyDetails.propertyId" :pincode="propertyDetails.pincode"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <google-map-link :propertyId="propertyDetails.propertyId" :gMapLink="propertyDetails.googleMapLink"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <property-address :propertyId="propertyDetails.propertyId" :address="propertyDetails.address"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <property-title :propertyId="propertyDetails.propertyId" :title="propertyDetails.title"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <property-description :propertyId="propertyDetails.propertyId" :description="propertyDetails.description"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <ready-to-movein :propertyId="propertyDetails.propertyId" :readyToMoveIn="propertyDetails.readyToMoveIn"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <free-hold :propertyId="propertyDetails.propertyId" :isFreeHold="propertyDetails.isFreeHold"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <furnished-status :propertyId="propertyDetails.propertyId"
+                    :furnishedStatus="propertyDetails.furnishedStatus" @success="handleUpdateSuccess"
+                    @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <property-lobby :propertyId="propertyDetails.propertyId" :lobby="propertyDetails.lobby"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <property-balcony :propertyId="propertyDetails.propertyId" :balcony="propertyDetails.balcony"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <property-dining-area :propertyId="propertyDetails.propertyId" :diningArea="propertyDetails.diningArea"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <property-garden :propertyId="propertyDetails.propertyId" :garden="propertyDetails.garden"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <property-parking-lot :propertyId="propertyDetails.propertyId" :parkingLot="propertyDetails.parkingLot"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <property-elevator :propertyId="propertyDetails.propertyId" :elevator="propertyDetails.elevator"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <property-air-conditioning :propertyId="propertyDetails.propertyId"
+                    :airConditioning="propertyDetails.airConditioning" @success="handleUpdateSuccess"
+                    @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <property-swimming-pool :propertyId="propertyDetails.propertyId"
+                    :swimmingPool="propertyDetails.swimmingPool" @success="handleUpdateSuccess"
+                    @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <property-laundry-room :propertyId="propertyDetails.propertyId" :laundryRoom="propertyDetails.laundryRoom"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <property-gym :propertyId="propertyDetails.propertyId" :gym="propertyDetails.gym"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <property-wifi 
                     :propertyId="propertyDetails.propertyId" 
-                    :propertyStatus="propertyDetails.propertyStatus" 
+                    :wifi="propertyDetails.wifi"
                     @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
+                    @failure="handleUpdateFailure" 
                 />
                 <v-divider></v-divider>
             </v-col>
 
             <v-col cols="12">
-                <total-area
+                <property-tv-cable 
                     :propertyId="propertyDetails.propertyId" 
-                    :totalArea="propertyDetails.totalArea" 
+                    :tvCable="propertyDetails.tvCable"
                     @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
+                    @failure="handleUpdateFailure" 
                 />
                 <v-divider></v-divider>
             </v-col>
 
             <v-col cols="12">
-                <builtup-area
+                <property-dishwasher
                     :propertyId="propertyDetails.propertyId" 
-                    :builtupArea="propertyDetails.builtupArea" 
+                    :dishWasher="propertyDetails.dishWasher"
                     @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
+                    @failure="handleUpdateFailure" 
                 />
                 <v-divider></v-divider>
             </v-col>
 
             <v-col cols="12">
-                <carpet-area
+                <property-refrigerator
                     :propertyId="propertyDetails.propertyId" 
-                    :carpetArea="propertyDetails.carpetArea" 
+                    :refrigerator="propertyDetails.refrigerator"
                     @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
+                    @failure="handleUpdateFailure" 
                 />
                 <v-divider></v-divider>
             </v-col>
 
             <v-col cols="12">
-                <number-of-bedroom
+                <property-outdoor-shower
                     :propertyId="propertyDetails.propertyId" 
-                    :noOfBedroom="propertyDetails.noOfBedroom" 
+                    :outdoorShower="propertyDetails.outdoorShower"
                     @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
-                <v-divider></v-divider>
-            </v-col>
-
-            <v-col cols="12">
-                <number-of-bathroom
-                    :propertyId="propertyDetails.propertyId" 
-                    :noOfBathroom="propertyDetails.noOfBathroom" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
-                <v-divider></v-divider>
-            </v-col>
-
-            <v-col cols="12">
-                <number-of-kitchen
-                    :propertyId="propertyDetails.propertyId" 
-                    :noOfKitchen="propertyDetails.noOfKitchen" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
-                <v-divider></v-divider>
-            </v-col>
-
-            <v-col cols="12">
-                <property-cost
-                    :propertyId="propertyDetails.propertyId" 
-                    :cost="propertyDetails.cost"
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
-                <v-divider></v-divider>
-            </v-col>
-
-            <v-col cols="12">
-                <property-country
-                    :propertyId="propertyDetails.propertyId" 
-                    :country="propertyDetails.country" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
-                <v-divider></v-divider>
-            </v-col>
-
-            <v-col cols="12">
-                <property-state
-                    :propertyId="propertyDetails.propertyId" 
-                    :state="propertyDetails.state"
-                    :country="propertyDetails.country" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
-                <v-divider></v-divider>
-            </v-col>
-
-            <v-col cols="12">
-                <property-city
-                    :propertyId="propertyDetails.propertyId" 
-                    :city="propertyDetails.city" 
-                    :state="propertyDetails.state"
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
-                <v-divider></v-divider>
-            </v-col>
-
-            <v-col cols="12">
-                <property-pincode
-                    :propertyId="propertyDetails.propertyId" 
-                    :pincode="propertyDetails.pincode"
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
-                <v-divider></v-divider>
-            </v-col>
-
-            <v-col cols="12">
-                <google-map-link
-                    :propertyId="propertyDetails.propertyId" 
-                    :gMapLink="propertyDetails.googleMapLink" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
-                <v-divider></v-divider>
-            </v-col>
-
-            <v-col cols="12">
-                <property-address
-                    :propertyId="propertyDetails.propertyId" 
-                    :address="propertyDetails.address" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
-                <v-divider></v-divider>
-            </v-col>
-
-            <v-col cols="12">
-                <property-title
-                    :propertyId="propertyDetails.propertyId" 
-                    :title="propertyDetails.title" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
-                <v-divider></v-divider>
-            </v-col>
-
-            <v-col cols="12">
-                <property-description
-                    :propertyId="propertyDetails.propertyId" 
-                    :description="propertyDetails.description" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
-                <v-divider></v-divider>
-            </v-col>
-
-            <v-col cols="12">
-                <ready-to-movein
-                    :propertyId="propertyDetails.propertyId" 
-                    :readyToMoveIn="propertyDetails.readyToMoveIn" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
-                <v-divider></v-divider>
-            </v-col>
-
-            <v-col cols="12">
-                <free-hold
-                    :propertyId="propertyDetails.propertyId" 
-                    :isFreeHold="propertyDetails.isFreeHold" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
-                <v-divider></v-divider>
-            </v-col>
-
-            <v-col cols="12">
-                <furnished-status
-                    :propertyId="propertyDetails.propertyId" 
-                    :furnishedStatus="propertyDetails.furnishedStatus" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
-                <v-divider></v-divider>
-            </v-col>
-
-            <v-col cols="12">
-                <flat-aminities
-                    :propertyId="propertyDetails.propertyId"
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
+                    @failure="handleUpdateFailure" 
                 />
                 <v-divider></v-divider>
             </v-col>
@@ -258,8 +284,21 @@ const PropertyDescription = defineAsyncComponent(() => import('@/components/prop
 const ReadyToMovein = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/ReadyToMovein.vue'));
 const FreeHold = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/FreeHold.vue'));
 const FurnishedStatus = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/FurnishedStatus.vue'));
-const FlatAminities = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/FlatAminities.vue'));
-
+const PropertyLobby = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyLobby.vue'));
+const PropertyBalcony = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyBalcony.vue'));
+const PropertyDiningArea = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyDiningArea.vue'));
+const PropertyGarden = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyGarden.vue'));
+const PropertyParkingLot = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyParkingLot.vue'));
+const PropertyElevator = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyElevator.vue'));
+const PropertyAirConditioning = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyAirConditioning.vue'));
+const PropertySwimmingPool = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertySwimmingPool.vue'));
+const PropertyLaundryRoom = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyLaundryRoom.vue'));
+const PropertyGym = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyGym.vue'));
+const PropertyWifi = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyWifi.vue'));
+const PropertyTvCable = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyTvCable.vue'));
+const PropertyDishwasher = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyDishwasher.vue'));
+const PropertyRefrigerator = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyRefrigerator.vue'));
+const PropertyOutdoorShower = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyOutdoorShower.vue'));
 
 const router = useRouter();
 
@@ -278,12 +317,12 @@ const expandFailure = ref(false);
 // const propertyType = {
 //     "plot": ["propertyStatus", "readyToMoveIn", "title", "description", "address", "pincode", "city", "state", "country", "cost", "totalArea", "isFreeHold", "googleMapLink"],
 //     "farmland": ["propertyStatus", "readyToMoveIn", "title", "description", "address", "pincode", "city", "state", "country", "cost", "totalArea", "isFreeHold", "googleMapLink"],
-//     "flat": ["propertyStatus", "readyToMoveIn", "title", "description", "address", "pincode", "city", "state", "country", "cost", "totalArea", "builtupArea", "carpetArea", "noOfBedroom", "noOfBathroom", "noOfKitchen", "lobby", "balcony", "diningArea", "garden", "parkingLot", "elivator", "furnishedStatus", "airConditioning", "swimmingPool", "laundryRoom", "gym", "wifi", "tvCable", "dishWasher", "refrigerator", "outdoorShower", "isFreeHold", "googleMapLink"]
+//     "flat": ["propertyStatus", "readyToMoveIn", "title", "description", "address", "pincode", "city", "state", "country", "cost", "totalArea", "builtupArea", "carpetArea", "noOfBedroom", "noOfBathroom", "noOfKitchen", "lobby", "balcony", "diningArea", "garden", "parkingLot", "elevator", "furnishedStatus", "airConditioning", "swimmingPool", "laundryRoom", "gym", "wifi", "tvCable", "dishWasher", "refrigerator", "outdoorShower", "isFreeHold", "googleMapLink"]
 // }
 
 function editTextField(key: any, value: any) {
-    textfield.value.key = key; 
-    textfield.value.value = value === 'unavailable' ? '' : value; 
+    textfield.value.key = key;
+    textfield.value.value = value === 'unavailable' ? '' : value;
     textfieldDialog.value = true;
 }
 
