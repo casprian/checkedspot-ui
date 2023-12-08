@@ -20,7 +20,7 @@
                 Parking Lot : &nbsp; <span :class="bodyData.parkingLot === 'available'  ? 'text-blue-grey-darken-1' : 'text-red-darken-1'">{{ bodyData.parkingLot }}</span>
             </div>    
             <div class="wraplink my-2">
-                Elivator : &nbsp; <span :class="bodyData.elivator === 'available'  ? 'text-blue-grey-darken-1' : 'text-red-darken-1'">{{ bodyData.elivator }}</span>
+                Elevator : &nbsp; <span :class="bodyData.elevator === 'available'  ? 'text-blue-grey-darken-1' : 'text-red-darken-1'">{{ bodyData.elevator }}</span>
             </div>
             <div class="wraplink my-2">
                 Air Conditioning : &nbsp; <span :class="bodyData.airConditioning === 'available'  ? 'text-blue-grey-darken-1' : 'text-red-darken-1'">{{ bodyData.airConditioning }}</span>
@@ -83,7 +83,7 @@
                         true-value="available"></v-checkbox>
                 </v-col>
                 <v-col cols="12" md="4" class="py-1 px-2">
-                    <v-checkbox class="pa-0" label="Elivator" v-model="bodyData.elivator" false-value="unavailable"
+                    <v-checkbox class="pa-0" label="elevator" v-model="bodyData.elevator" false-value="unavailable"
                         true-value="available"></v-checkbox>
                 </v-col>
                 <v-col cols="12" md="4" class="py-1 px-2">
@@ -151,7 +151,7 @@ const bodyData = ref({
     diningArea: null,
     garden: null,
     parkingLot: null,
-    elivator: null,
+    elevator: null,
     airConditioning: null,
     swimmingPool: null,
     laundryRoom: null,

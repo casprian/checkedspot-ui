@@ -134,7 +134,7 @@
               true-value="available"></v-checkbox>
           </v-col>
           <v-col cols="12" sm="3" md="2" class="checkheight py-1 px-2">
-            <v-checkbox class="pa-0" label="Elivator" v-model="bodyData.elivator" false-value="unavailable"
+            <v-checkbox class="pa-0" label="Elevator" v-model="bodyData.elevator" false-value="unavailable"
               true-value="available"></v-checkbox>
           </v-col>
           <v-col cols="12" sm="3" md="2" class="checkheight py-1 px-2">
@@ -301,7 +301,7 @@ const bodyData = reactive({
   diningArea: null,
   garden: null,
   parkingLot: null,
-  elivator: null,
+  elevator: null,
   furnishedStatus: null,
   airConditioning: null,
   swimmingPool: null,

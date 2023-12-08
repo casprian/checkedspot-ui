@@ -132,7 +132,7 @@ const property = reactive({
         'cost': null,
         'noOfBedroom': null,
         'dishWasher': null,
-        'elivator': null,
+        'elevator': null,
         'airConditioning': null,
         'refrigerator': null,
         'yearOfBuilt': null,
