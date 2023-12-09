@@ -79,6 +79,11 @@ const routes = [
         name: 'property_dashboard',
         component: () => import('@/views/PropertyDashboardView.vue'),
       },
+      {
+        path: '/project',
+        name: 'project',
+        component: () => import('@/views/ProjectView.vue'),
+      }
     ],
   },
   {
