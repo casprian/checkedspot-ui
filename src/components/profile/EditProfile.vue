@@ -34,6 +34,17 @@
                             </v-text-field>
                         </v-col>
 
+                        <v-col cols="12" class="py-1">
+                            <div class="text-body-1 font-weight-medium">Registered as</div>
+                            <v-select placeholder="Select" clearable :items="roles" v-model="role"
+                                variant="outlined">
+                                <template v-slot:loader>
+                                    <v-progress-linear v-if="loading" indeterminate color="pink-accent-2">
+                                    </v-progress-linear>
+                                </template>
+                            </v-select>
+                        </v-col>
+
                         <v-col cols="12" class="pt-1">
                             <div class="text-body-1 font-weight-medium">Contact Number</div>
                             <v-text-field placeholder="Enter your Number" clearable v-model="mobile.value.value"
@@ -121,6 +132,7 @@ let userdata = ref({
     email: null,
     address: null,
     city: null,
+    role: '',
     state: null,
     country: null,
 });
@@ -132,6 +144,8 @@ const stateitems = ref([]);
 const selectedState = ref(null);
 const cityitems = ref([]);
 const selectedCity = ref(null);
+const roles = ref(["individual(Buyer/Owner/Tenant)", "agent", "developer/builder"]);
+const role = ref('');
 const count = ref(0);
 
 const countryitems = reactive(["India"]);
@@ -167,7 +181,7 @@ const mobile = useField('mobile');
 
 let user = reactive({
     email: null,
-});
+}); 
 
 watch(selectedState, newStateItem => {
     count.value++;
@@ -189,10 +203,11 @@ async function getUser() {
 
     if (res?.status === 200) {
         userdata.value = res?.data?.data;
-        selectedState.value = res?.data?.data?.state
-        selectedCity.value = res?.data?.data?.city
+        selectedState.value = res?.data?.data?.state;
+        selectedCity.value = res?.data?.data?.city;
         name.value.value = res?.data?.data?.name;
         mobile.value.value = res?.data?.data?.mobile;
+        role.value = res?.data?.data?.roles[0] === "user" ? "individual" : res?.data?.data?.roles[0];
     }
 
     loading.value = false;
@@ -208,6 +223,15 @@ const uploadData = handleSubmit(async (values) => {
     userdata.value.state = selectedState.value;
     userdata.value.city = selectedCity.value;
     loader.value = true;
+
+    if(role.value === "agent") {
+        userdata.value.role = "agent";
+    } else if(role.value === "developer/builder") {
+        userdata.value.role = "developer";
+    } else {
+        userdata.value.role = "user";
+    }
+
     const res = await api?.user?.updateProfile(userdata.value);
     if (res?.data?.status === 200) {
         loader.value = false;
