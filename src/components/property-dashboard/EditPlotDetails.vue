@@ -21,7 +21,7 @@
     <v-container fluid class="pa-0">
         <v-row no-gutters class="mb-3">
             <v-col cols="12" class="pa-0" style="border-bottom: solid 2px grey;">
-                <div class="text-h5 text-grey-darken-3 font-weight-regular">
+                <div class="text-h5 text-grey-darken-2 font-weight-medium">
                     Edit Your {{ (propertyDetails.type).toUpperCase() }} Details
                 </div>
             </v-col>

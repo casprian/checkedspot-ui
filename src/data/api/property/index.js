@@ -122,6 +122,26 @@ const addDocument = async (params) => {
     }
 }
 
+const allocateNewAgent = async (params) => {
+    try {
+        const baseURL = "/property/allocate/agent";
+        const response = await call.callWithToken('post', baseURL, params);
+        return { status: 200, data: response }
+    } catch (e) {
+        return { error: true, status: e?.response?.status, message: e?.response?.data?.message }
+    }
+}
+
+const allocateNewPrimaryAgent = async (params) => {
+    try {
+        const baseURL = "/property/allocate/primary/agent";
+        const response = await call.callWithToken('post', baseURL, params);
+        return { status: 200, data: response }
+    } catch (e) {
+        return { error: true, status: e?.response?.status, message: e?.response?.data?.message }
+    }
+}
+
 const uploadImage = async (params) => {
     try {
         const baseURL = "/property/upload/image";
@@ -246,6 +266,8 @@ export default {
     addImage,
     addVideo,
     addDocument,
+    allocateNewAgent,
+    allocateNewPrimaryAgent,
     uploadImage,
     uploadVideo,
     uploadDocument,
