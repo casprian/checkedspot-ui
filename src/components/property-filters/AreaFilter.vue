@@ -46,8 +46,11 @@ watch(areaUnit, (newAreaUnit, oldAreaUnit) => {
             areaStep.value = 1;
             max.value = 100;
             min.value = 0;
-            areaFrom.value = '0 sqft';
-            areaTo.value = '100 sqft'
+        }else {
+            areaRange.value = [0, 50000]
+            areaStep.value = 200;
+            max.value = 50000;
+            min.value = 0;
         }
         areaFrom.value = `${Number.parseInt(areaFrom.value)} ${newAreaUnit}`;
         areaTo.value = `${Number.parseInt(areaTo.value)} ${newAreaUnit}`;
