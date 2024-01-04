@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid class="pa-0 pt-10 px-4 bg-background" style="height: calc(100% - 54px);">
+    <v-container fluid class="pa-0 pt-10 px-4 bg-background">
         <v-row v-if="count < 1" no-gutters class="d-flex justify-center align-center" style="height: calc(100% - 64px);">
             <v-col cols="4">
                 <v-progress-linear color="pink-accent-3" indeterminate rounded height="10"></v-progress-linear>

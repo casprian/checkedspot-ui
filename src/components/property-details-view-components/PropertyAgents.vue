@@ -17,17 +17,7 @@
                     </v-card-title>
                 </v-sheet>
             </v-card-actions>
-            <v-row no-gutters class="pt-7 px-3 mx-3 pb-2 mb-2">
-                <!-- <v-col cols="12" class="d-flex align-center pb-3">
-                    <v-icon icon="mdi-map-marker" size="19" color="#FF385C"></v-icon>
-                    <div class="text-subtitle-1 px-5 pt-2 text-grey-darken-1">
-                        {{
-                            agent?.address
-                            ? agent?.address
-                            : 'Not Found'
-                        }}
-                    </div>
-                </v-col> -->
+            <v-row no-gutters class="pt-2 px-3 mx-3 pb-2 mb-2">
                 <v-col cols="12" class="d-flex align-center pb-3">
                     <v-icon icon="mdi-phone" size="19" color="#FF385C"></v-icon>
                     <div class="text-subtitle-1 px-5 pt-2 text-grey-darken-1">

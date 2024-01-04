@@ -187,7 +187,7 @@ const loginHandler = handleSubmit(async (values: any) => {
 async function getAuthorizationUrl() {
     loader.value = true;
     const res = await api?.user?.getAuthorizationUrl({ params: {} });
-    console.log(res)
+    
     setTimeout(() => {
         window.open(res?.data?.url, '_self');
     }, 500);

@@ -123,42 +123,8 @@ async function fetchPropertydetails() {
     }
 }
 
-// async function fetchPropertyImages() {
-//     const res = await api?.property?.getPropertyImage({ params: { propertyId: route?.query?.propertyId } })
-//     if (res.status === 200) {
-//         property.value.images = res.data;
-//         window.scrollTo({ top: 0, behavior: 'smooth' });
-//     } else {
-//         router.push({ path: '/error', query: { status: res?.status } })
-//     }
-// }
-
-// async function fetchPropertyVideos() {
-//     const res = await api?.property?.getPropertyVideo({ params: { propertyId: route?.query?.propertyId } })
-//     if (res.status === 200) {
-//         property.value.videos = res.data;
-//         window.scrollTo({ top: 0, behavior: 'smooth' });
-//     } else {
-//         router.push({ path: '/error', query: { status: res?.status } })
-//     }
-// }
-
-// async function fetchPropertyDocuments() {
-//     const res = await api?.property?.getPropertyDocument({ params: { propertyId: route?.query?.propertyId } })
-
-//     if (res.status === 200) {
-//         property.value.documents = res.data;
-//         window.scrollTo({ top: 0, behavior: 'smooth' });
-//     } else {
-//         router.push({ path: '/error', query: { status: res?.status } })
-//     }
-// }
-
 onMounted(async () => {
     await fetchPropertydetails();
-    // await fetchPropertyImages();
-    // await fetchPropertyVideos();
-    // await fetchPropertyDocuments();
 })
 
 </script>

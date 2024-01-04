@@ -142,6 +142,16 @@ const allocateNewPrimaryAgent = async (params) => {
     }
 }
 
+const removeAgent = async (params) => {
+    try {
+        const baseURL = "/property/remove/agent";
+        const response = await call.callWithToken('post', baseURL, params);
+        return { status: 200, data: response }
+    } catch (e) {
+        return { error: true, status: e?.response?.status, message: e?.response?.data?.message }
+    }
+}
+
 const uploadImage = async (params) => {
     try {
         const baseURL = "/property/upload/image";
@@ -268,6 +278,7 @@ export default {
     addDocument,
     allocateNewAgent,
     allocateNewPrimaryAgent,
+    removeAgent,
     uploadImage,
     uploadVideo,
     uploadDocument,
