@@ -27,7 +27,7 @@
             </v-col>
         </v-row>
         <v-row no-gutters>
-            <div v-if="props?.images?.length === 0" class="text-h4 text-center pa-8 pt-6">
+            <div v-if="images?.length === 0" class="text-h4 text-center pa-8 pt-6">
                 No Image has been uploaded for this property.
             </div>
             <v-row no-gutters>
@@ -140,16 +140,23 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 //@ts-ignore
 import api from '@/data/api/index.js'
 import { useRouter } from "vue-router";
 
-const props = defineProps(['images', 'propertyId'])
+const props = defineProps(['propertyId'])
 const router = useRouter();
 
 const addImages = ref([]);
-const images = ref(props.images);
+const images = ref([
+    {
+        id: '',
+        title: '',
+        description: '',
+        fileUrl: ''
+    }
+]);
 const imageId = ref('');
 
 const addImageDialog = ref(false);
@@ -167,6 +174,7 @@ const messageType = ref('');
 
 
 async function fetchPropertyImages() {
+    images.value = [];
     const res = await api?.property?.getPropertyImage({ params: { propertyId: props?.propertyId } })
     if (res.status === 200) {
         images.value = res.data;
@@ -221,7 +229,9 @@ async function addImage() {
 function getImageId(id: any) {
     imageId.value = id;
     const image = images.value.find((image:any) => image.id === imageId.value);
+    //@ts-ignore
     title.value = image?.title;
+    //@ts-ignore
     description.value = image?.description;
 
     updateDialog.value = true;
@@ -286,6 +296,9 @@ async function deleteImage() {
     }, 3000);
 }
 
+onMounted(async () => {
+    await fetchPropertyImages();
+})
 </script>
 
 <style scoped>

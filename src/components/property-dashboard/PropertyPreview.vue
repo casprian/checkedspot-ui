@@ -99,6 +99,7 @@
 import { defineAsyncComponent } from 'vue';
 const PropertyDetails = defineAsyncComponent(() => import('@/components/property-details-view-components/PropertyDetails.vue'))
 const PropertyDocuments = defineAsyncComponent(() => import('@/components/property-details-view-components/PropertyDocuments.vue'))
+const EditPropertyImages = defineAsyncComponent(() => import('@/components/property-dashboard/EditPropertyImages.vue'));
 
 const props = defineProps(['property']);
 const emit = defineEmits(['edit']);

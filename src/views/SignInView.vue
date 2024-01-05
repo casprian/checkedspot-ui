@@ -49,10 +49,13 @@
                                         ></v-text-field>
                                     </v-col>
                                     <v-col cols="12">
-                                        <v-text-field v-model="password.value.value"
+                                        <v-text-field 
+                                            v-model="password.value.value"
                                             :error-messages="password.errorMessage.value"
                                             :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                                            :type="show1 ? 'text' : 'password'" counter persistent-counter
+                                            :type="show1 ? 'text' : 'password'" 
+                                            counter 
+                                            persistent-counter
                                             variant="outlined" label="Password*"
                                             @click:append="show1 = !show1"
                                         ></v-text-field>
@@ -184,7 +187,7 @@ const loginHandler = handleSubmit(async (values: any) => {
 async function getAuthorizationUrl() {
     loader.value = true;
     const res = await api?.user?.getAuthorizationUrl({ params: {} });
-    console.log(res)
+    
     setTimeout(() => {
         window.open(res?.data?.url, '_self');
     }, 500);

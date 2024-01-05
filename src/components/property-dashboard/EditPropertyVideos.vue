@@ -12,7 +12,8 @@
             class="mx-auto bg-green">
             <div style="height: 100%" class="text-h5 text-center d-flex align-center justify-center">
                 <h5>
-                    {{ messageType }} is successful! <span class="text-body-1">Please refresh page if changes are not visible.</span>
+                    {{ messageType }} is successful! <span class="text-body-1">Please refresh page if changes are not
+                        visible.</span>
                 </h5>
             </div>
         </v-card>
@@ -27,7 +28,7 @@
             </v-col>
         </v-row>
         <v-row no-gutters>
-            <div v-if="props?.videos?.length === 0" class="text-h4 text-center pa-8 pt-6">
+            <div v-if="videos?.length === 0" class="text-h4 text-center pa-8 pt-6">
                 No Video has been uploaded for this property.
             </div>
             <v-row no-gutters>
@@ -65,7 +66,7 @@
                         </v-col>
                     </v-row>
                 </v-col>
-                
+
 
                 <!-- update Video Dialog box -->
                 <v-dialog v-model="updateDialog" width="auto">
@@ -91,7 +92,7 @@
                     </v-card>
                 </v-dialog>
 
-                
+
                 <!-- Delete Confirmation dialog -->
                 <v-dialog v-model="confirmDelete" width="auto">
                     <v-card class="pa-5 pt-2">
@@ -124,8 +125,8 @@
                                 Add new Video
                             </v-col>
                             <v-col cols="12">
-                                <v-file-input v-model="addVideos" label="File input" variant="filled" prepend-icon="mdi-video"
-                                    name="videofile" accept="video/*"></v-file-input>
+                                <v-file-input v-model="addVideos" label="File input" variant="filled"
+                                    prepend-icon="mdi-video" name="videofile" accept="video/*"></v-file-input>
                             </v-col>
                             <v-col cols="12" class="pt-5 d-flex justify-center">
                                 <v-btn variant="elevated" color="primary" width="200" :loading="loader"
@@ -142,16 +143,23 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 //@ts-ignore
 import api from '@/data/api/index.js';
 import { useRouter } from "vue-router";
 
-const props = defineProps(['videos', 'propertyId'])
+const props = defineProps(['propertyId'])
 const router = useRouter();
 
 const addVideos = ref([]);
-const videos = ref(props.videos);
+const videos = ref([
+    {
+        id: '',
+        title: '',
+        description: '',
+        fileUrl: ''
+    }
+]);
 const videoId = ref('')
 
 const addVideoDialog = ref(false)
@@ -169,6 +177,7 @@ const messageType = ref('');
 
 
 async function fetchPropertyVideos() {
+    videos.value = [];
     const res = await api?.property?.getPropertyVideo({ params: { propertyId: props?.propertyId } })
     if (res.status === 200) {
         videos.value = res.data;
@@ -207,7 +216,7 @@ async function addVideo() {
             if (response?.status === 200) {
                 loader.value = false;
                 addVideoDialog.value = false;
-                await fetchPropertyVideos(); 
+                await fetchPropertyVideos();
                 expandSuccess.value = true;
             } else {
                 addVideoFailure();
@@ -226,10 +235,12 @@ async function addVideo() {
 
 function getVideoId(id: any) {
     videoId.value = id;
-    const video = videos.value.find((video:any) => video.id === id);
+    const video = videos.value.find((video: any) => video.id === id);
+    //@ts-ignore
     title.value = video?.title;
+    //@ts-ignore
     description.value = video?.description;
-    
+
     updateDialog.value = true;
 }
 async function updateVideo() {
@@ -248,7 +259,7 @@ async function updateVideo() {
     if (res?.status === 200) {
         loader.value = false;
         updateDialog.value = false;
-        await fetchPropertyVideos(); 
+        await fetchPropertyVideos();
         expandSuccess.value = true;
     } else {
         loader.value = false;
@@ -280,7 +291,7 @@ async function deleteVideo() {
     if (res?.status === 200) {
         loader.value = false;
         confirmDelete.value = false;
-        await fetchPropertyVideos(); 
+        await fetchPropertyVideos();
         expandSuccess.value = true;
     } else {
         loader.value = false;
@@ -292,6 +303,10 @@ async function deleteVideo() {
         expandFailure.value = false;
     }, 3000);
 }
+
+onMounted(async () => {
+    await fetchPropertyVideos();
+})
 
 </script>
 

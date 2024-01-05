@@ -20,17 +20,24 @@
     </v-expand-transition>
     <v-row no-gutters class="bgConstruction d-flex justify-space-between py-10 py-md-0">
       <v-col cols="12" md="4" class="px-16 pr-md-0 pl-md-16 my-5 mr-0 d-flex flex-column justify-center">
-        <h2 class="h2 text-white pb-3 text-center text-md-left">Checked Spot Construction Simplified</h2>
-        <p class="text-white text-h6 font-weight-regular text-center text-md-left">Step into the home you've always
-          dreamed of, built to the highest standard of quality.</p>
+        <h2 class="h2 text-white pb-3 text-center text-md-left">
+          Checked Spot Construction Simplified
+        </h2>
+        <p class="text-white text-h6 font-weight-regular text-center text-md-left">
+          Step into the home you've always of, built to the highest standard of quality.
+        </p>
+        <!-- <v-btn class="mt-16" variant="elevated" color="light-blue-darken-1" @click="router.push('/project')">
+          Our Projects
+        </v-btn> -->
       </v-col>
+
       <v-col cols="12" md="2" class="d-flex align-center justify-center py-10 py-md-0">
         <v-btn @click="router.push('/quotation')" variant="elevated" color="deep-orange-darken-1"
           class="text-h6 py-2 elevtion-5" height="120" width="200">GET
           YOUR<br>QUOTATION<br>NOW</v-btn>
-        </v-col>
-      <v-col cols="12" md="5" class="pr-md-16 pl-md-10 py-10 d-flex justify-center justify-md-end">
+      </v-col>
 
+      <v-col cols="12" md="5" class="pr-md-16 pl-md-10 py-10 d-flex justify-center justify-md-end">
         <form class="bg-white px-8 pt-5 pb-8 rounded-lg" style="max-width:350px">
           <div class="pb-3 text-h5 font-weight-bold">Talk to our Expert</div>
           <v-text-field v-model="name.value.value" :error-messages="name.errorMessage.value" density="compact"

@@ -57,7 +57,21 @@
                     </span>
                 </h2>
             </div>
-
+            
+            <div class="myProfileDetails d-flex justify-space-between align-center">
+                <h2 class="py-3" title="user role">
+                    <div>Registered as </div>:&emsp;
+                    <v-progress-linear v-if="loading" indeterminate location="left" color="pink-accent-2">
+                    </v-progress-linear>
+                    <span v-else>
+                        {{
+                            userdata?.roles[0] === "user" ?
+                            "Individual" : userdata?.roles[0]
+                        }}
+                    </span>
+                </h2>
+            </div>
+            
             <div class="myProfileDetails d-flex justify-space-between align-center">
                 <h2 class="py-3" :title="userdata?.email ? userdata?.email : 'unavailable user email'">
                     <div>Email</div>:&emsp;
@@ -77,6 +91,7 @@
                 </h2>
                 <verify-data v-if="userdata.email" name="email" verify="email" :data="userdata?.email" :isverified="userdata.email_verified"/>
             </div>
+
 
             <div class="myProfileDetails d-flex justify-space-between align-center">
                 <h2 class="py-3" :title="userdata?.mobile ? userdata?.mobile : 'unavailable user mobile'">
@@ -184,6 +199,7 @@ window.scrollTo({ top: 0, behavior: 'smooth' });
 let userdata = ref({
     name: null,
     picture: null,
+    roles: [],
     email: null,
     email_verified: null,
     mobile: null,
@@ -259,7 +275,7 @@ onMounted(async () => {
 
 .myProfileDetails>h2>div {
     display: inline-block;
-    width: 100px;
+    width: 150px;
     font-size: 22px;
     font-weight: 400;
 }

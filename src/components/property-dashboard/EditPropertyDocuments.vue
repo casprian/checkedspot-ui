@@ -28,7 +28,7 @@
             </v-col>
         </v-row>
         <v-row no-gutters>
-            <div v-if="props?.documents?.length === 0" class="text-h4 text-center pa-8 pt-6">
+            <div v-if="documents?.length === 0" class="text-h4 text-center pa-8 pt-6">
                 No Document has been uploaded for this property.
             </div>
 
@@ -93,27 +93,14 @@
                                 Update Document properties
                             </v-col>
                             <v-col cols="12">
-                                <v-select 
-                                    v-model="type" 
-                                    :items="types" 
-                                    label="Select Document Type"
-                                ></v-select>
+                                <v-select v-model="type" :items="types" label="Select Document Type"></v-select>
                             </v-col>
                             <v-col cols="12">
-                                <v-text-field 
-                                    v-model="title" 
-                                    label="title" 
-                                    variant="filled" 
-                                    name="title"
-                                ></v-text-field>
+                                <v-text-field v-model="title" label="title" variant="filled" name="title"></v-text-field>
                             </v-col>
                             <v-col cols="12">
-                                <v-text-field 
-                                    v-model="description" 
-                                    label="description" 
-                                    variant="filled"
-                                    name="description"
-                                ></v-text-field>
+                                <v-text-field v-model="description" label="description" variant="filled"
+                                    name="description"></v-text-field>
                             </v-col>
                             <v-col cols="12" class="pt-5 d-flex flex-column flex-md-row justify-center align-center">
                                 <v-btn class="my-2" variant="elevated" color="amber" width="200" :loading="loader"
@@ -158,27 +145,16 @@
                                 Add new Document
                             </v-col>
                             <v-col cols="12" sm="4" class="pa-0 px-2">
-                                <v-select 
-                                    v-model="addType" 
-                                    :items="types" 
-                                    label="Select Document Type"
-                                ></v-select>
+                                <v-select v-model="addType" :items="types" label="Select Document Type"></v-select>
                             </v-col>
                             <v-col cols="12" sm="8" class="pa-0 px-2">
-                                <v-file-input 
-                                    :disabled="!addType"
-                                    accept=".pdf" 
-                                    hint="upload PDF File only"
-                                    persistent-hint
-                                    prepend-inner-icon="mdi-file"
-                                    prepend-icon="" 
-                                    label="upload file"
-                                    v-model="addDocuments"
-                                ></v-file-input>
+                                <v-file-input :disabled="!addType" accept=".pdf" hint="upload PDF File only" persistent-hint
+                                    prepend-inner-icon="mdi-file" prepend-icon="" label="upload file"
+                                    v-model="addDocuments"></v-file-input>
                             </v-col>
                             <v-col cols="12" class="pt-5  d-flex flex-column flex-md-row justify-center align-center">
-                                <v-btn class="my-2" :disabled="addDocuments.length <= 0" variant="elevated" color="primary" width="200" :loading="loader"
-                                    @click="addDocument">Add Document</v-btn>
+                                <v-btn class="my-2" :disabled="addDocuments.length <= 0" variant="elevated" color="primary"
+                                    width="200" :loading="loader" @click="addDocument">Add Document</v-btn>
                                 <v-btn class="ml-4 my-2" width="100" color="green-darken-2" variant="outlined"
                                     @click="addDocumentDialog = false">Cancel</v-btn>
                             </v-col>
@@ -191,17 +167,25 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 //@ts-ignore
 import api from '@/data/api/index.js';
 import { useRouter } from "vue-router";
 import PDFViewer from 'pdf-viewer-vue';
 
-const props = defineProps(['documents', 'propertyId'])
+const props = defineProps(['propertyId'])
 const router = useRouter();
 
 const addDocuments = ref([]);
-const documents = ref(props.documents);
+const documents = ref([
+    {
+        id: '',
+        type: '',
+        title: '',
+        description: '',
+        fileUrl: ''
+    }
+]);
 const documentId = ref('');
 
 const addDocumentDialog = ref(false);
@@ -225,6 +209,7 @@ function handleDownload(document: any) {
 }
 
 async function fetchPropertyDocuments() {
+    documents.value = [];
     const res = await api?.property?.getPropertyDocument({ params: { propertyId: props?.propertyId } })
 
     if (res.status === 200) {
@@ -251,9 +236,9 @@ async function addDocument() {
             formData.append('document', addDocuments.value[i]);
         }
         const res = await api?.property?.uploadDocument(formData);
-        
+
         if (res?.data?.document) {
-            const document = { 
+            const document = {
                 ...res.data.document,
                 type: addType.value
             };
@@ -286,8 +271,11 @@ async function addDocument() {
 function getDocumentId(id: any) {
     documentId.value = id;
     const document = documents.value.find((document: any) => document.id === id);
+    //@ts-ignore
     type.value = document?.type;
+    //@ts-ignore
     title.value = document?.title;
+    //@ts-ignore
     description.value = document?.description;
 
     updateDialog.value = true;
@@ -353,6 +341,10 @@ async function deleteDocument() {
         expandFailure.value = false;
     }, 3000);
 }
+
+onMounted(async() => {
+    await fetchPropertyDocuments();
+})
 
 </script>
 
