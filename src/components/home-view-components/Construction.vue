@@ -26,16 +26,19 @@
         <p class="text-white text-h6 font-weight-regular text-center text-md-left">
           Step into the home you've always of, built to the highest standard of quality.
         </p>
-        <!-- <v-btn class="mt-16" variant="elevated" color="light-blue-darken-1" @click="router.push('/project')">
-          Our Projects
-        </v-btn> -->
+        <router-link to="/project" class="d-flex justify-center" style="text-decoration: none;">          
+          <v-btn class="mt-16 text-h6 w-100" variant="elevated" color="light-blue-darken-1" height="50">
+            Our Projects
+          </v-btn>
+        </router-link>
       </v-col>
 
       <v-col cols="12" md="2" class="d-flex align-center justify-center py-10 py-md-0">
-        <v-btn @click="router.push('/quotation')" variant="elevated" color="deep-orange-darken-1"
-          class="text-h6 py-2 elevtion-5" height="120" width="200">GET
-          YOUR<br>QUOTATION<br>NOW</v-btn>
-                    
+        <router-link to="/quotation">
+          <v-btn variant="elevated" color="deep-orange-darken-1" class="text-h6 py-2 elevtion-5" height="120" width="200">
+            GET YOUR<br>QUOTATION<br>NOW
+          </v-btn>
+        </router-link>
       </v-col>
 
       <v-col cols="12" md="5" class="pr-md-16 pl-md-10 py-10 d-flex justify-center justify-md-end">
