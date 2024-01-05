@@ -35,6 +35,7 @@
         <v-btn @click="router.push('/quotation')" variant="elevated" color="deep-orange-darken-1"
           class="text-h6 py-2 elevtion-5" height="120" width="200">GET
           YOUR<br>QUOTATION<br>NOW</v-btn>
+                    
       </v-col>
 
       <v-col cols="12" md="5" class="pr-md-16 pl-md-10 py-10 d-flex justify-center justify-md-end">
