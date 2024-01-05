@@ -52,7 +52,15 @@
 
         <v-col cols="12" class="mt-16">
             <v-row no-gutters class="mb-4 py-3" style="border-bottom: solid 2px grey;">
-                <div class="text-h5 text-grey-darken-2 font-weight-medium">Property's Primary Agents</div>
+                <div class="text-h5 text-grey-darken-2 font-weight-medium">Property's Primary Agents &nbsp;
+                    <button>
+                        <v-icon icon="mdi-information-outline" size="30">
+                        </v-icon>
+                        <v-tooltip location="top right" origin="bottom right" activator="parent">
+                            Primary agent is the agent which will be available on property cards.
+                        </v-tooltip>
+                    </button>
+                </div>
             </v-row>
             <v-row no-gutters>
 
@@ -318,7 +326,7 @@ async function setNewPropertyPrimaryAgent() {
 
 async function removeUpdate() {
     await getPropertyPrimaryAgent();
-    await getPropertyAgents(); 
+    await getPropertyAgents();
 }
 
 onMounted(async () => {

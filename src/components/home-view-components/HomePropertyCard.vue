@@ -111,7 +111,7 @@
                 <v-row no-gutters v-bind="props" class="cardBottom py-2">
                     <v-row no-gutters v-if="!isHovering" class="px-4">
                         <v-col cols="auto" class="px-0 d-flex justify-center align-center">
-                            <v-avatar class="pa-0 mr-2" :image="property?.agent?.picture" size="35"></v-avatar>
+                            <v-avatar color="pink-darken-2" class="pa-0 mr-2" :image="property?.agent?.picture ? property?.agent?.picture : 'https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light'" size="35"></v-avatar>
                             <div class="text-body-2 text-uppercase text-center text-grey-darken-2">
                                 <p
                                     class="text-body-2 text-lefttext-uppercase text-center text-grey-darken-2 font-weight-medium">
