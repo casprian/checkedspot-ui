@@ -3,7 +3,7 @@
     <template v-slot:prepend>
       <v-app-bar-nav-icon class="smNav" variant="text" @click.stop="drawer = !drawer">
       </v-app-bar-nav-icon>
-      <router-link to="/home">
+      <router-link to="/">
         <v-img class="logo" width="175px" height="70px"
           src="https://checkedspot.blob.core.windows.net/assets/logocheckedspot.png" />
       </router-link>
@@ -11,7 +11,7 @@
 
     <template v-slot:append>
       <div class="lgNav">
-        <router-link to="/home">
+        <router-link to="/">
           <v-btn variant="flat" height="32">
             HOME
           </v-btn>
@@ -57,7 +57,7 @@
   <v-navigation-drawer v-model="drawer" location="left" temporary class="pt-3">
 
     <div class="px-5">
-      <router-link to="/home">
+      <router-link to="/">
         <v-btn width="100%" variant="flat" class="my-2" height="32">
           HOME
         </v-btn>
