@@ -45,11 +45,11 @@
     </v-slide-group>
 
     <v-row  v-else class="py-10 d-flex justify-center align-center bg-grey-lighten-5 rounded-lg">
-        <v-col cols="4" v-if="errorOccured">            
-            <v-progress-linear color="pink-accent-3" indeterminate rounded height="10"></v-progress-linear>
-        </v-col>
-        <v-col  v-else cols="12" class="text-h6 text-sm-h5 text-center font-weight-medium text-grey-darken-1">            
+        <v-col v-if="errorOccured" cols="12" class="text-h6 text-sm-h5 text-center font-weight-medium text-grey-darken-1">            
             ERROR OCCURED
+        </v-col>
+        <v-col v-else cols="4" >            
+            <v-progress-linear color="pink-accent-3" indeterminate rounded height="10"></v-progress-linear>
         </v-col>
     </v-row>
 </template>
