@@ -18,6 +18,7 @@
         </v-card>
     </v-expand-transition>
 
+
     <v-slide-group v-if="isPackagesExist" selected-class="bg-primary" multiple show-arrows>
         <v-slide-group-item v-for="constructionPackage in constructionPackages" :key="constructionPackage?.packageId">
             <div class="border pa-2 mr-5 d-flex flex-column justify-space-between" style="max-width:360px;">
@@ -42,6 +43,15 @@
             </div>
         </v-slide-group-item>
     </v-slide-group>
+
+    <v-row  v-else class="py-10 d-flex justify-center align-center bg-grey-lighten-5 rounded-lg">
+        <v-col cols="4" v-if="errorOccured">            
+            <v-progress-linear color="pink-accent-3" indeterminate rounded height="10"></v-progress-linear>
+        </v-col>
+        <v-col  v-else cols="12" class="text-h6 text-sm-h5 text-center font-weight-medium text-grey-darken-1">            
+            ERROR OCCURED
+        </v-col>
+    </v-row>
 </template>
 
 <script lang="ts" setup>
@@ -52,6 +62,7 @@ import { reactive, ref, defineAsyncComponent, onMounted } from "vue";
 const TalkToExpertDialog = defineAsyncComponent(() => import('@/components/quotation-view-components/slider-range-components/TalkToExpertDialog.vue'));
 
 const isPackagesExist = ref(false);
+const errorOccured = ref(false);
 const constructionPackages = ref([
     {
         packageId: "",
@@ -76,6 +87,9 @@ const expandSuccess = ref(false);
 const expandFailure = ref(false);
 
 async function getPackages() {
+    errorOccured.value = false;
+    isPackagesExist.value = false;
+
     const res = await api?.property?.getConstructionPackages({ params: {} });
 
     if (res?.status === 200) {
@@ -83,6 +97,7 @@ async function getPackages() {
         packageFeatures.value = res?.data[0]?.packageFeatures;
         isPackagesExist.value = true;
     } else {
+        errorOccured.value = true;
         console.log("ERROR: ", res);
     }
 }

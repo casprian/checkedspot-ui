@@ -3,9 +3,9 @@
         <v-row no-gutters>
             <v-col cols="12" class="d-flex flex-column align-center px-0">
                 <h2 class="text-h4 font-weight-medium" style="color:#1f0757">Our Packages.</h2>
-                <p class="py-2 text-body-1 text-indigo-lighten-1">Find the best home construction packages.</p>
+                <p class="py-2 text-body-1 text-indigo-lighten-1 text-center">Find the best home construction packages.</p>
                 <div class="d-flex">
-                    <pre class="py-2 text-body-1 text-indigo-lighten-1">Currently showing for  </pre>
+                    <pre class="py-2 text-body-1 text-indigo-lighten-1 text-center">Currently showing for  </pre>
                     <v-select
                     placeholder="Select"
                     class="customPlaceholder"
