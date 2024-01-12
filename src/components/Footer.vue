@@ -33,8 +33,11 @@
                 </v-col>
                 <v-col cols="12" sm="6" class="d-flex flex-column align-start align-sm-center mt-5 mt-sm-0">
                     <div>
-                        <v-img @click="router.push('/')" class="logo" width="200"
-                            src="https://checkedspot.blob.core.windows.net/assets/logocheckedspot.png" alt="logo"></v-img>
+                        <router-link to="/">
+                            <v-img class="logo" width="200"
+                                src="https://checkedspot.blob.core.windows.net/assets/logocheckedspot.png"
+                                alt="logo"></v-img>
+                        </router-link>
                     </div>
                     <div class="pl-6">
                         <v-btn class="text-none " variant="outlined" color="pink-darken-2"
@@ -98,6 +101,7 @@ function handleSignout() {
 
 </script>
 
-<style scoped>.logo:hover {
+<style scoped>
+.logo:hover {
     cursor: pointer;
 }</style>

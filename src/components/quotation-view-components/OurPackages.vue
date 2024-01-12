@@ -19,7 +19,7 @@
                 </div>
             </v-col>
             <v-col cols="12" class="pa-0">
-                <slider-comp/>
+                <slider-comp />
                 <div class="d-flex justify-end pr-5">
                     <RouterLink to="/termsofservices" class="text-caption text-end pr-md-14 pt-2 text-pink-accent-3">*T&C Apply</RouterLink>
                 </div>

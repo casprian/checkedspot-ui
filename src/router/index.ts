@@ -5,12 +5,12 @@ const routes = [
     path: '/',
     component: () => import('@/layouts/default/Default.vue'),
     children: [
+      // {
+      //   path: '/',
+      //   redirect: '/listing',
+      // },
       {
         path: '/',
-        redirect: '/listing',
-      },
-      {
-        path: '/home',
         name: 'Home',
         component: () => import(/* webpackChunkName: "home" */ '@/views/HomeView.vue'),
       },      
