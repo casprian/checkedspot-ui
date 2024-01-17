@@ -26,11 +26,11 @@
         <p class="text-white text-h6 font-weight-regular text-center text-md-left">
           Step into the home you've always of, built to the highest standard of quality.
         </p>
-        <router-link to="/project" class="d-flex justify-center" style="text-decoration: none;">          
+        <!-- <router-link to="/project" class="d-flex justify-center" style="text-decoration: none;">          
           <v-btn class="mt-16 text-h6 w-100" variant="elevated" color="light-blue-darken-1" height="50">
             Our Projects
           </v-btn>
-        </router-link>
+        </router-link> -->
       </v-col>
 
       <v-col cols="12" md="2" class="d-flex align-center justify-center py-10 py-md-0">

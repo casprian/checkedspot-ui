@@ -6,6 +6,6 @@
 </template>
 
 <script lang="ts" setup>
-  //
+  //@ts-ignore
   import FooterComp from '@/components/Footer.vue';
 </script>

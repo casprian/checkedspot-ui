@@ -101,7 +101,7 @@ const { cookies } = useCookies();
 const router = useRouter();
 
 if (cookies.get('token')) {
-    router.push('/home');
+    router.push('/');
 }
 
 const show1 = ref(false);
