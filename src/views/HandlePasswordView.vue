@@ -1,11 +1,13 @@
 <template>
-    <v-alert v-model="otpDelivered" location="top center" elevation="2" type="success" closable title="OTP Sent" :text="'OTP has been sent to ' + email.value.value"></v-alert>
+    <v-alert v-model="otpDelivered" location="top center" elevation="2" type="success" closable title="OTP Sent"
+        :text="'OTP has been sent to ' + email.value.value"></v-alert>
     <v-container fluid class="pt-16 pb-16 d-flex align-center wallpaper">
         <v-row v-if="!verifiedUser" no-gutters class="d-flex justify-center">
             <v-col cols="12" sm="5">
                 <v-card class="pa-5 pb-sm-10 pt-sm-8 bg-grey-lighten-5 rounded-xl" elevation="8">
                     <div class="mx-md-10 mb-7 text-h5 text-md-h4 text-grey-darken-3">User Verification</div>
-                    <v-text-field class="my-2 mx-md-10" :disabled="!sendBtn ? true : false" v-model="email.value.value" :error-messages="email.errorMessage.value" variant="outlined" label="please enter your login email">
+                    <v-text-field class="my-2 mx-md-10" :disabled="!sendBtn ? true : false" v-model="email.value.value"
+                        :error-messages="email.errorMessage.value" variant="outlined" label="please enter your login email">
                     </v-text-field>
 
                     <v-text-field v-if="!sendBtn" class="mx-md-10" v-model="otp.value.value"
@@ -13,10 +15,22 @@
                     </v-text-field>
 
                     <div class="d-flex flex-column align-center justify-center">
-                        <div v-if="!sendBtn" class="text-caption mb-5 text-center">if not received OTP on click of SEND OTP Button. Click on RESEND OTP Button which will appear after 30 seconds.</div>
+                        <div v-if="!sendBtn" class="text-caption mb-5 text-center">if not received OTP on click of SEND OTP
+                            Button. Click on RESEND OTP Button which will appear after 30 seconds.</div>
                         <div>
-                            <v-btn v-if="sendBtn" :disabled="!validEmail" :loading="loader1" class="mb-5" color="green"
-                                width="300" variant="elevated" @click="sendOTP">Send OTP</v-btn>
+                            <v-btn 
+                                v-if="sendBtn" 
+                                :disabled="!validEmail" 
+                                :loading="loader1" 
+                                class="mb-5" 
+                                color="green"
+                                width="300" 
+                                variant="elevated" 
+                                @click="sendOTP"
+                            >
+                                Send OTP
+                            </v-btn>
+
                             <div v-if="timer > 0 && !sendBtn" class="text-body-1" style="width:300;">Resend OTP in
                                 00:{{ timer < 10 ? `0${timer}` : timer }} sec</div>
                             </div>
@@ -107,7 +121,7 @@ const otp = useField('otp');
 
 
 if (route?.query?.q === 'reset' && !cookies.get('token')) {
-    router.push('/home');
+    router.push('/');
 } else if (route?.query?.q === 'reset' && cookies.get('token')) {
     verifiedUser.value = true;
     //@ts-ignore
@@ -167,5 +181,4 @@ function deleteOTP() {
     height: 100%;
     background-image: url('../assets//img001.jpg');
     background-size: cover;
-}
-</style>
+}</style>

@@ -7,6 +7,8 @@
 </template>
 
 <script lang="ts" setup>
-  import DefaultBar from './AppBar.vue'
-  import DefaultView from './View.vue'
+//@ts-ignore
+import DefaultBar from './AppBar.vue'
+//@ts-ignore
+import DefaultView from './View.vue'
 </script>

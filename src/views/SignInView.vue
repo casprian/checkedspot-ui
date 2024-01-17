@@ -112,7 +112,7 @@ const { cookies } = useCookies();
 const router = useRouter();
 
 if (cookies.get('token')) {
-    router.push('/home');
+    router.push('/');
 }
 
 const route = useRoute();
@@ -166,7 +166,7 @@ const loginHandler = handleSubmit(async (values: any) => {
         email: values.email,
         password: values.password,
     });
-    console.log(res)
+    
 
     if (res?.status === 200) {
         retrySignIn.value = false;
