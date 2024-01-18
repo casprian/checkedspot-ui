@@ -35,6 +35,12 @@
             </v-col>
 
             <v-col cols="12">
+                <property-visibility :propertyId="propertyDetails.propertyId" :visibility="propertyDetails.visibility"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
                 <total-area :propertyId="propertyDetails.propertyId" :totalArea="propertyDetails.totalArea"
                     @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
                 <v-divider></v-divider>
@@ -266,6 +272,7 @@ import api from '@/data/api/index.js';
 
 
 const PropertyStatus = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyStatus.vue'));
+const PropertyVisibility = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyVisibility.vue'));
 const TotalArea = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/TotalArea.vue'));
 const BuiltupArea = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/BuiltupArea.vue'));
 const CarpetArea = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/CarpetArea.vue'));

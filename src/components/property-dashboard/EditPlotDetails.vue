@@ -35,6 +35,12 @@
             </v-col>
 
             <v-col cols="12">
+                <property-visibility :propertyId="propertyDetails.propertyId" :visibility="propertyDetails.visibility"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
                 <total-area :propertyId="propertyDetails.propertyId" :totalArea="propertyDetails.totalArea"
                     @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
                 <v-divider></v-divider>
@@ -117,6 +123,7 @@ import api from '@/data/api/index.js';
 
 
 const PropertyStatus = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyStatus.vue'));
+const PropertyVisibility = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyVisibility.vue'));
 const TotalArea = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/TotalArea.vue'));
 const PropertyCost = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyCost.vue'));
 const PropertyCountry = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyCountry.vue'));
@@ -148,9 +155,9 @@ const expandFailure = ref(false);
 const messageType = ref('');
 
 const propertyType = {
-    "plot": ["propertyStatus", "readyToMoveIn", "title", "description", "address", "pincode", "city", "state", "country", "cost", "totalArea", "isFreeHold", "googleMapLink"],
-    "farmland": ["propertyStatus", "readyToMoveIn", "title", "description", "address", "pincode", "city", "state", "country", "cost", "totalArea", "isFreeHold", "googleMapLink"],
-    "flat": ["propertyStatus", "readyToMoveIn", "title", "description", "address", "pincode", "city", "state", "country", "cost", "totalArea", "builtupArea", "carpetArea", "noOfBedroom", "noOfBathroom", "noOfKitchen", "lobby", "balcony", "diningArea", "garden", "parkingLot", "elevator", "furnishedStatus", "airConditioning", "swimmingPool", "laundryRoom", "gym", "wifi", "tvCable", "dishWasher", "refrigerator", "outdoorShower", "isFreeHold", "googleMapLink"]
+    "plot": ["propertyStatus", "visibility", "readyToMoveIn", "title", "description", "address", "pincode", "city", "state", "country", "cost", "totalArea", "isFreeHold", "googleMapLink"],
+    "farmland": ["propertyStatus", "visibility", "readyToMoveIn", "title", "description", "address", "pincode", "city", "state", "country", "cost", "totalArea", "isFreeHold", "googleMapLink"],
+    "flat": ["propertyStatus", "visibility", "readyToMoveIn", "title", "description", "address", "pincode", "city", "state", "country", "cost", "totalArea", "builtupArea", "carpetArea", "noOfBedroom", "noOfBathroom", "noOfKitchen", "lobby", "balcony", "diningArea", "garden", "parkingLot", "elevator", "furnishedStatus", "airConditioning", "swimmingPool", "laundryRoom", "gym", "wifi", "tvCable", "dishWasher", "refrigerator", "outdoorShower", "isFreeHold", "googleMapLink"]
 }
 //@ts-ignore
 const updateFields = propertyType[propertyDetails.value.type];
