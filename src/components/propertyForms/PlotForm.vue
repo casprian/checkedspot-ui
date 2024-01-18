@@ -7,12 +7,12 @@
       </v-col>
       <v-col cols="12" sm="6" class="py-1 px-3">
         <v-select v-model="state.value.value" :error-messages="state.errorMessage.value" :items="states"
-          label="state (required)" variant="outlined" clearable hint="Choose from the states list"></v-select>
+          label="*state (required)" variant="outlined" clearable hint="Choose from the states list"></v-select>
       </v-col>
       <v-col cols="12" sm="6" class="py-1 px-3">
         <v-select :disabled="disableCities" v-model="city.value.value" :error-messages="city.errorMessage.value"
-          :items="cities" label="city (required)" variant="outlined" clearable
-          hint="Choose from the cities list"></v-select>
+          :items="cities" label="*city (required)" variant="outlined" clearable
+          hint="*Choose from the cities list"></v-select>
       </v-col>
 
       <v-row no-gutters class="py-3 mt-7 type">
@@ -20,6 +20,14 @@
           <div class="text-h5 font-weight-medium text-decoration-underline text-pink-accent-1">
             Plot Details
           </div>
+        </v-col>
+        <v-col cols="12" sm="6" class="py-1 px-3">
+          <v-select v-model="useris.value.value" :error-messages="useris.errorMessage.value" :items="roles"
+            label="*Role (required)" variant="outlined" clearable hint="*Choose from the roles list"></v-select>
+        </v-col>
+        <v-col cols="12" sm="6" class="py-1 px-3">
+          <v-select v-model="bodyData.visibility" :items="propertyVisibilities" label="property visibility"
+            variant="outlined" clearable hint="Choose from the list of options"></v-select>
         </v-col>
         <v-col cols="12" sm="6" class="py-1 px-3">
           <v-text-field prepend-inner-icon="mdi-link" label="Google Map Link" v-model="googleMapLink.value.value"
@@ -58,8 +66,10 @@
             </v-switch>
           </v-row>
           <v-expand-transition style="position: absolute">
-            <v-card v-show="expand" height="auto" width="90%" class="px-2 mx-auto bg-grey-darken-3">
-              <div class="text-body-2 pa-3">FreeHold means</div>
+            <v-card v-show="expand" height="auto" width="90%" class="pa-3 mx-auto bg-grey-darken-3">
+              <div class="text-caption text-center">
+                Freehold property is inheritable and there are no restrictions on the right of the property owner to further transfer the property.In a free hold property, there is no encumbrance to the absolute title of the property. A free hold is not akin to a condominium whereinthe owner of the individual unit pays a maintenance charge. Free hold property can be inherited by a legal guardian. A freehold property can be transferred byregistration of sale deed.
+              </div>
             </v-card>
           </v-expand-transition>
         </v-col>
@@ -92,8 +102,8 @@
           </div>
         </v-col>
         <v-col cols="12" class="py-1 px-3">
-          <v-file-input v-model="videos" label="File input" variant="filled"
-            prepend-icon="mdi-video" multiple name="vidfile" accept="video/*"></v-file-input>
+          <v-file-input v-model="videos" label="File input" variant="filled" prepend-icon="mdi-video" multiple
+            name="vidfile" accept="video/*"></v-file-input>
         </v-col>
 
         <v-col cols="12" class="pt-2 pb-7 px-14">
@@ -163,12 +173,15 @@ const states = ref([]);
 const countries = reactive(["India"]);
 const units = reactive(["guntha", "hectare", "acre", "cent", "square feet", "square meter"]);
 const videos = ref([]);
+const roles = ref(['OWNER', 'AGENT', 'DEVELOPER']);
+const propertyVisibilities = ref(['public', 'private']);
 
 const bodyData = reactive({
   //@ts-ignore
   email: null,
   type: props.type,
   description: null,
+  visibility: 'public',
   title: null,
   address: null,
   pincode: null,
@@ -241,6 +254,13 @@ let { meta, values, errors, handleSubmit, handleReset, defineComponentBinds } = 
       }
       return "total area should be greater than 0.";
     },
+    useris(value: any) {
+      if (!value) {
+        return 'Required!';
+      } else {
+        return true;
+      }
+    },
     imgfile(value: any) {
       if (!value) {
         return "Required! Allowed files: .jpg, .jpeg, .png, .gif, .webp, .avif, .apng, .svg";
@@ -255,7 +275,7 @@ const googleMapLink = useField("googleMapLink");
 const cost = useField("cost");
 const totalArea = useField("totalArea");
 const imgfile = useField<File[] | undefined>("imgfile");
-
+const useris = useField("useris");
 
 function addDocument(documents: Array<Object>) {
   //@ts-ignore

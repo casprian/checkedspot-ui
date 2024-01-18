@@ -22,6 +22,14 @@
                     </div>
                 </v-col>
                 <v-col cols="12" sm="6" class="py-1 px-3">
+                    <v-select v-model="useris.value.value" :error-messages="useris.errorMessage.value" :items="roles"
+                        label="*Role (required)" variant="outlined" clearable hint="*Choose from the roles list"></v-select>
+                </v-col>
+                <v-col cols="12" sm="6" class="py-1 px-3">
+                    <v-select v-model="bodyData.visibility" :items="propertyVisibilities" label="property visibility"
+                        variant="outlined" clearable hint="Choose from the list of options"></v-select>
+                </v-col>
+                <v-col cols="12" sm="6" class="py-1 px-3">
                     <v-text-field prepend-inner-icon="mdi-link" label="Google Map Link" v-model="googleMapLink.value.value"
                         :error-messages="googleMapLink.errorMessage.value" clearable
                         hint="Enter Google map link of the location" variant="outlined"></v-text-field>
@@ -59,8 +67,15 @@
                         </v-switch>
                     </v-row>
                     <v-expand-transition style="position: absolute">
-                        <v-card v-show="expand" height="auto" width="90%" class="px-2 mx-auto bg-grey-darken-3">
-                            <div class="text-body-2 pa-3">Is FreeHolds means</div>
+                        <v-card v-show="expand" height="auto" width="90%" class="pa-3 mx-auto bg-grey-darken-3">
+                            <div class="text-caption text-center">
+                                Freehold property is inheritable and there are no
+                                restrictions on the right of the property owner to further transfer the property.In a free
+                                hold property, there is no encumbrance to the absolute title of the property. A free hold is
+                                not akin to a condominium whereinthe owner of the individual unit pays a maintenance charge.
+                                Free hold property can be inherited by a legal guardian. A freehold property can be
+                                transferred byregistration of sale deed.
+                            </div>
                         </v-card>
                     </v-expand-transition>
                 </v-col>
@@ -83,8 +98,8 @@
                 </v-col>
                 <v-col cols="12" class="py-1 px-3">
                     <v-file-input v-model="imgfile.value.value" :error-messages="imgfile.errorMessage.value"
-                         label="File input (required)" variant="filled" prepend-icon="mdi-camera"
-                        multiple name="imgfile" accept=".jpg, .jpeg, .png, .gif, .webp, .avif, .apng, .svg"></v-file-input>
+                        label="File input (required)" variant="filled" prepend-icon="mdi-camera" multiple name="imgfile"
+                        accept=".jpg, .jpeg, .png, .gif, .webp, .avif, .apng, .svg"></v-file-input>
                 </v-col>
 
                 <v-col cols="12" class="pt-2 pb-7 px-14">
@@ -93,8 +108,8 @@
                     </div>
                 </v-col>
                 <v-col cols="12" class="py-1 px-3">
-                    <v-file-input v-model="videos" label="File input" variant="filled"
-                        prepend-icon="mdi-video" multiple name="vidfile" accept="video/*"></v-file-input>
+                    <v-file-input v-model="videos" label="File input" variant="filled" prepend-icon="mdi-video" multiple
+                        name="vidfile" accept="video/*"></v-file-input>
                 </v-col>
 
                 <v-col cols="12" class="pt-2 pb-7 px-14">
@@ -164,35 +179,38 @@ const states = ref([]);
 const countries = reactive(["India"]);
 const units = reactive(["guntha", "hectare", "acre", "cent", "square feet", "square meter"]);
 const videos = ref([]);
+const roles = ref(['OWNER', 'AGENT', 'DEVELOPER']);
+const propertyVisibilities = ref(['public', 'private']);
 
 const bodyData = reactive({
-  //@ts-ignore
-  email: null,
-  type: props.type,
-  description: null,
-  title: null,
-  address: null,
-  pincode: null,
-  city: null,
-  state: null,
-  country: "India",
-  cost: null,
-  totalArea: null,
-  builyupArea: null,
-  totalAreaUnit: "square feet",
-  isFreeHold: false,
-  isVerifiedByCheckedSpot: false,
-  agentName: null,
-  agentMobile: null,
-  agentEmail: null,
-  agentAddress: null,
-  longitude: null,
-  latitude: null,
-  googleMapLink: null,
-  propertySchedule: null,
-  images: [],
-  videos: [],
-  documents: null,
+    //@ts-ignore
+    email: null,
+    type: props.type,
+    description: null,
+    visibility: 'public',
+    title: null,
+    address: null,
+    pincode: null,
+    city: null,
+    state: null,
+    country: "India",
+    cost: null,
+    totalArea: null,
+    builyupArea: null,
+    totalAreaUnit: "square feet",
+    isFreeHold: false,
+    isVerifiedByCheckedSpot: false,
+    agentName: null,
+    agentMobile: null,
+    agentEmail: null,
+    agentAddress: null,
+    longitude: null,
+    latitude: null,
+    googleMapLink: null,
+    propertySchedule: null,
+    images: [],
+    videos: [],
+    documents: null,
 });
 
 let { meta, values, errors, handleSubmit, handleReset } = useForm({
@@ -242,6 +260,13 @@ let { meta, values, errors, handleSubmit, handleReset } = useForm({
             }
             return "total area should be greater than 0.";
         },
+        useris(value: any) {
+            if (!value) {
+                return 'Required!';
+            } else {
+                return true;
+            }
+        },
         imgfile(value: any) {
             if (!value) {
                 return "Required! Allowed files: .jpg, .jpeg, .png, .gif, .webp, .avif, .apng, .svg";
@@ -256,79 +281,80 @@ const googleMapLink = useField("googleMapLink");
 const cost = useField("cost");
 const totalArea = useField("totalArea");
 const imgfile = useField<File[] | undefined>("imgfile");
+const useris = useField("useris");
 
 
 function addDocument(documents: Array<Object>) {
-  //@ts-ignore
-  const receiveddocuments = toRaw(documents);
-  if (receiveddocuments?.length > 0) {
     //@ts-ignore
-    bodyData.documents = receiveddocuments?.map(document => {
-      //@ts-ignore
-      if (document?.type) {
-        return {
-          //@ts-ignore
-          ...document?.file,
-          //@ts-ignore
-          type: document?.type
-        }
-      }else {
-        return;
-      }
-    })
-  } else {
-    //@ts-ignore
-    bodyData.documents = [];
-  }
+    const receiveddocuments = toRaw(documents);
+    if (receiveddocuments?.length > 0) {
+        //@ts-ignore
+        bodyData.documents = receiveddocuments?.map(document => {
+            //@ts-ignore
+            if (document?.type) {
+                return {
+                    //@ts-ignore
+                    ...document?.file,
+                    //@ts-ignore
+                    type: document?.type
+                }
+            } else {
+                return;
+            }
+        })
+    } else {
+        //@ts-ignore
+        bodyData.documents = [];
+    }
 
-  console.log(bodyData.documents, typeof bodyData.documents, Array.isArray(bodyData.documents))
+    console.log(bodyData.documents, typeof bodyData.documents, Array.isArray(bodyData.documents))
 }
 
 watch(imgfile?.value, async (newimgfile) => {
-  const imagefiles = newimgfile;
-  const formData = new FormData();
-  //@ts-ignore
-  if (imagefiles?.length > 0) {
+    const imagefiles = newimgfile;
+    const formData = new FormData();
     //@ts-ignore
-    for (let i = 0; i < imagefiles.length; i++) {
-      //@ts-ignore
-      formData.append('image', imagefiles[i]);
-    }
-    const res = await api?.property?.uploadImage(formData);
+    if (imagefiles?.length > 0) {
+        //@ts-ignore
+        for (let i = 0; i < imagefiles.length; i++) {
+            //@ts-ignore
+            formData.append('image', imagefiles[i]);
+        }
+        const res = await api?.property?.uploadImage(formData);
 
-    if (res?.data?.images === undefined || res?.data?.images?.length <= 0) {
-      bodyData.images = [];
+        if (res?.data?.images === undefined || res?.data?.images?.length <= 0) {
+            bodyData.images = [];
+        } else {
+            bodyData.images = res?.data?.images;
+        }
     } else {
-      bodyData.images = res?.data?.images;
+        //@ts-ignore
+        imgfile.value.value = null;
+        bodyData.images = [];
     }
-  } else {
-    //@ts-ignore
-    imgfile.value.value = null;
-    bodyData.images = [];
-  }
 })
 
 watch(videos, async (newVideos) => {
-  const videofiles = newVideos;
-  const formData = new FormData();
-  //@ts-ignore
-  if (videofiles?.length > 0) {
+    const videofiles = newVideos;
+    const formData = new FormData();
     //@ts-ignore
-    for (let i = 0; i < videofiles.length; i++) {
-      //@ts-ignore
-      formData.append('video', videofiles[i]);
-    }
+    if (videofiles?.length > 0) {
+        //@ts-ignore
+        for (let i = 0; i < videofiles.length; i++) {
+            //@ts-ignore
+            formData.append('video', videofiles[i]);
+        }
 
-    const res = await api?.property?.uploadVideo(formData);
+        const res = await api?.property?.uploadVideo(formData);
 
-    if (res?.data?.videos === undefined || res?.data?.videos?.length <= 0) {
-      bodyData.videos = [];
+        if (res?.data?.videos === undefined || res?.data?.videos?.length <= 0) {
+            bodyData.videos = [];
+        } else {
+            bodyData.videos = res?.data?.videos;
+        }
     } else {
-      bodyData.videos = res?.data?.videos;
+        bodyData.videos = [];
     }
-  } else {
-    bodyData.videos = [];
-  }
 })
 
 const loading = ref(false);
@@ -449,9 +475,7 @@ onMounted(() => {
 })
 </script>
   
-<style scoped>
-.type {
+<style scoped>.type {
     border: solid 2px grey;
     border-radius: 8px;
-}
-</style>
+}</style>
