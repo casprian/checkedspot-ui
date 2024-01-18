@@ -27,14 +27,10 @@
             </v-col>
         </v-row>
         <v-row no-gutters>
-            
+
             <v-col cols="12">
-                <property-status
-                    :propertyId="propertyDetails.propertyId" 
-                    :propertyStatus="propertyDetails.propertyStatus" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
+                <property-status :propertyId="propertyDetails.propertyId" :propertyStatus="propertyDetails.propertyStatus"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
                 <v-divider></v-divider>
             </v-col>
 
@@ -45,124 +41,74 @@
             </v-col>
 
             <v-col cols="12">
-                <total-area
-                    :propertyId="propertyDetails.propertyId" 
-                    :totalArea="propertyDetails.totalArea" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
+                <total-area :propertyId="propertyDetails.propertyId" :totalArea="propertyDetails.totalArea"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
                 <v-divider></v-divider>
             </v-col>
 
             <v-col cols="12">
-                <property-cost
-                    :propertyId="propertyDetails.propertyId" 
-                    :cost="propertyDetails.cost"
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
+                <property-cost :propertyId="propertyDetails.propertyId" :cost="propertyDetails.cost"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
                 <v-divider></v-divider>
             </v-col>
 
             <v-col cols="12">
-                <property-country
-                    :propertyId="propertyDetails.propertyId" 
-                    :country="propertyDetails.country" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
+                <property-country :propertyId="propertyDetails.propertyId" :country="propertyDetails.country"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
                 <v-divider></v-divider>
             </v-col>
 
             <v-col cols="12">
-                <property-state
-                    :propertyId="propertyDetails.propertyId" 
-                    :state="propertyDetails.state"
-                    :country="propertyDetails.country" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
+                <property-state :propertyId="propertyDetails.propertyId" :state="propertyDetails.state"
+                    :country="propertyDetails.country" @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
                 <v-divider></v-divider>
             </v-col>
 
             <v-col cols="12">
-                <property-city
-                    :propertyId="propertyDetails.propertyId" 
-                    :city="propertyDetails.city" 
-                    :state="propertyDetails.state"
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
+                <property-city :propertyId="propertyDetails.propertyId" :city="propertyDetails.city"
+                    :state="propertyDetails.state" @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
                 <v-divider></v-divider>
             </v-col>
 
             <v-col cols="12">
-                <property-pincode
-                    :propertyId="propertyDetails.propertyId" 
-                    :pincode="propertyDetails.pincode"
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
+                <property-pincode :propertyId="propertyDetails.propertyId" :pincode="propertyDetails.pincode"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
                 <v-divider></v-divider>
             </v-col>
 
             <v-col cols="12">
-                <google-map-link
-                    :propertyId="propertyDetails.propertyId" 
-                    :gMapLink="propertyDetails.googleMapLink" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
+                <google-map-link :propertyId="propertyDetails.propertyId" :gMapLink="propertyDetails.googleMapLink"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
                 <v-divider></v-divider>
             </v-col>
 
             <v-col cols="12">
-                <property-address
-                    :propertyId="propertyDetails.propertyId" 
-                    :address="propertyDetails.address" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
+                <property-address :propertyId="propertyDetails.propertyId" :address="propertyDetails.address"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
                 <v-divider></v-divider>
             </v-col>
 
             <v-col cols="12">
-                <property-title
-                    :propertyId="propertyDetails.propertyId" 
-                    :title="propertyDetails.title" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
+                <property-title :propertyId="propertyDetails.propertyId" :title="propertyDetails.title"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
                 <v-divider></v-divider>
             </v-col>
 
             <v-col cols="12">
-                <property-description
-                    :propertyId="propertyDetails.propertyId" 
-                    :description="propertyDetails.description" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
+                <property-description :propertyId="propertyDetails.propertyId" :description="propertyDetails.description"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
                 <v-divider></v-divider>
             </v-col>
 
             <v-col cols="12">
-                <ready-to-movein
-                    :propertyId="propertyDetails.propertyId" 
-                    :readyToMoveIn="propertyDetails.readyToMoveIn" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
+                <ready-to-movein :propertyId="propertyDetails.propertyId" :readyToMoveIn="propertyDetails.readyToMoveIn"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
                 <v-divider></v-divider>
             </v-col>
 
             <v-col cols="12">
-                <free-hold
-                    :propertyId="propertyDetails.propertyId" 
-                    :isFreeHold="propertyDetails.isFreeHold" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
+                <free-hold :propertyId="propertyDetails.propertyId" :isFreeHold="propertyDetails.isFreeHold"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
                 <v-divider></v-divider>
             </v-col>
         </v-row>
@@ -219,8 +165,8 @@ const updateFields = propertyType[propertyDetails.value.type];
 const data = ref(propertyDetails.value);
 
 function editTextField(key: any, value: any) {
-    textfield.value.key = key; 
-    textfield.value.value = value === 'unavailable' ? '' : value; 
+    textfield.value.key = key;
+    textfield.value.value = value === 'unavailable' ? '' : value;
     textfieldDialog.value = true;
 }
 
