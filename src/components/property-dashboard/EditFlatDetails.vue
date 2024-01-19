@@ -311,30 +311,12 @@ const router = useRouter();
 
 const props = defineProps(['details']);
 const propertyDetails = ref(props.details);
-
-const textfieldDialog = ref(false);
-const textfield = ref({
-    key: '',
-    value: ''
-})
-
 const expandSuccess = ref(false);
 const expandFailure = ref(false);
 
-// const propertyType = {
-//     "plot": ["propertyStatus", "readyToMoveIn", "title", "description", "address", "pincode", "city", "state", "country", "cost", "totalArea", "isFreeHold", "googleMapLink"],
-//     "farmland": ["propertyStatus", "readyToMoveIn", "title", "description", "address", "pincode", "city", "state", "country", "cost", "totalArea", "isFreeHold", "googleMapLink"],
-//     "flat": ["propertyStatus", "readyToMoveIn", "title", "description", "address", "pincode", "city", "state", "country", "cost", "totalArea", "builtupArea", "carpetArea", "noOfBedroom", "noOfBathroom", "noOfKitchen", "lobby", "balcony", "diningArea", "garden", "parkingLot", "elevator", "furnishedStatus", "airConditioning", "swimmingPool", "laundryRoom", "gym", "wifi", "tvCable", "dishWasher", "refrigerator", "outdoorShower", "isFreeHold", "googleMapLink"]
-// }
-
-function editTextField(key: any, value: any) {
-    textfield.value.key = key;
-    textfield.value.value = value === 'unavailable' ? '' : value;
-    textfieldDialog.value = true;
-}
 
 async function fetchPropertydetails() {
-    const res = await api?.property?.getProperty({ params: { propertyId: propertyDetails.value?.propertyId } })
+    const res = await api?.property?.getUserProperty({ params: { propertyId: propertyDetails.value?.propertyId } })
     if (res.status === 200) {
         propertyDetails.value = res.data;
     } else {

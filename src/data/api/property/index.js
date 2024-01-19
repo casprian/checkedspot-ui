@@ -22,6 +22,16 @@ const getProperty = async (params) => {
     }
 };
 
+const getUserProperty = async (params) => {
+    try {
+        const baseURL = "/property/user/property";
+        const response = await call.callWithToken('get', baseURL, params);
+        return { status: 200, data: response?.data };
+    } catch (e) {
+        return { error: true, status: e?.response?.status, message: e?.response?.data?.message };
+    }
+};
+
 const getConstructionPackages = async (params) => {
     try {
         const baseURL= '/property/construction/package';
@@ -43,7 +53,7 @@ const getPropertyAgents = async (params) => {
     }
 };
 
-const getPropertyForUser = async (params) => {
+const getPropertiesForUser = async (params) => {
     try {
         const baseURL = "/property/user/properties";
         const response = await call.callWithToken('get', baseURL, params)
@@ -277,9 +287,10 @@ const deleteDocument = async (params) => {
 export default {
     getProperties,
     getProperty,
+    getUserProperty,
     getConstructionPackages,
     getPropertyAgents,
-    getPropertyForUser,
+    getPropertiesForUser,
     getPropertyImage,
     getPropertyVideo,
     getPropertyDocument,

@@ -43,22 +43,6 @@
                             <v-window-item value="Agent" class="pa-10">
                                 <edit-property-agents :propertyId="property.propertyId" :primaryAgentUserId="property.details.primaryAgent" />
                             </v-window-item>
-
-                            <!-- <v-window-item value="Details" class="pa-10">
-                                <edit-plot-details v-if="property.details.type === 'plot'" :details="property.details" />
-                                <edit-farmland-details v-if="property.details.type === 'farmland'"
-                                    :details="property.details" />
-                                <edit-flat-details v-if="property.details.type === 'flat'" :details="property.details" />
-                            </v-window-item>
-                            <v-window-item value="Images" class="pa-10">
-                                <edit-property-images :images="property.images" :propertyId="property.propertyId" />
-                            </v-window-item>
-                            <v-window-item value="Videos" class="pa-10">
-                                <edit-property-videos :videos="property.videos" :propertyId="property.propertyId" />
-                            </v-window-item>
-                            <v-window-item value="Documents" class="pa-10">
-                                <edit-property-documents :documents="property.documents" :propertyId="property.propertyId" />
-                            </v-window-item> -->
                         </v-window>
                     </v-col>
                 </v-row>
@@ -113,7 +97,9 @@ if (!cookies.get('token')) {
 }
 
 async function fetchPropertydetails() {
-    const res = await api?.property?.getProperty({ params: { propertyId: route?.query?.propertyId } })
+
+    const res = await api?.property?.getUserProperty({ params: { propertyId: route?.query?.propertyId } });
+    
     if (res.status === 200) {
         property.value.details = res?.data;
         property.value.propertyId = res?.data?.propertyId;

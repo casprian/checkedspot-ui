@@ -6,17 +6,34 @@
                     My Properties</h1>
             </v-col>
         </v-row>
-        <v-container v-if="propertyLoaded" class="mb-5" style="height: calc(100% - 102px);">
-            <v-row v-if="properties.length > 0">
-                <v-col cols="12" md="6" lg="4" v-for="property in properties" :key="property.propertyId">
-                    <UserPropertyCard :property="property" :getUsersProperties="getUsersProperties" />
-                </v-col>
-            </v-row>
-            <v-row v-else class="d-flex justify-center align-center" style="width:100%; height: 100%;">
-                <h1 class="pa-7">You haven't posted any properties! 
-                    <RouterLink to="/createproperty">Post property</RouterLink>
-                </h1>
-            </v-row>
+        <v-container v-if="propertyLoaded" style="height: calc(100% - 102px);">
+            <div class="mb-16">
+                <div class="text-h6 mb-5">Private Property</div>
+                <v-row v-if="properties.privateData.length > 0">
+                    <v-col cols="12" md="6" lg="4" v-for="property in properties.privateData" :key="property.propertyId">
+                        <UserPropertyCard :property="property" :getUsersProperties="getUsersProperties" />
+                    </v-col>
+                </v-row>
+                <v-row v-else class="d-flex justify-center align-center" style="width:100%; height: 100%;">
+                    <h1 class="pa-7">You haven't have any property private!
+                        <RouterLink to="/createproperty">Post property</RouterLink>
+                    </h1>
+                </v-row>
+            </div>
+
+            <div class="mb-16">
+                <div class="text-h6 my-5">Public Property</div>
+                <v-row v-if="properties.publicData.length > 0">
+                    <v-col cols="12" md="6" lg="4" v-for="property in properties.publicData" :key="property.propertyId">
+                        <UserPropertyCard :property="property" :getUsersProperties="getUsersProperties" />
+                    </v-col>
+                </v-row>
+                <v-row v-else class="d-flex justify-center align-center" style="width:100%; height: 100%;">
+                    <h1 class="pa-7">You haven't have any property public!
+                        <RouterLink to="/createproperty">Post property</RouterLink>
+                    </h1>
+                </v-row>
+            </div>
         </v-container>
         <v-container v-else class="mb-5" style="height: calc(100% - 102px);">
             <v-row no-gutters class="d-flex justify-center align-center" style="width:100%; height: 100%;">
@@ -47,13 +64,16 @@ if (!cookies.get('token')) {
 }
 
 const propertyLoaded = ref(false);
-const properties = ref([{ propertyId: "" }]);
+const properties = ref({
+    publicData: [{ propertyId: "" }],
+    privateData: [{ propertyId: "" }]
+});
 const pageNum = ref(1);
 const limit = ref(6);
 
 async function getUsersProperties() {
     //@ts-ignore
-    const res = await api?.property?.getPropertyForUser({ params: { email: jwtDecode(jwt)?.userData?.email, pageNumber: pageNum.value, limit: limit.value } })
+    const res = await api?.property?.getPropertiesForUser({ params: { email: jwtDecode(jwt)?.userData?.email, pageNumber: pageNum.value, limit: limit.value } })
     if (res.status === 200) {
         properties.value = res.data;
         propertyLoaded.value = true;
