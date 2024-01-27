@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="p0 m0">
+  <v-container fluid class="pa-0 ma-0">
     <v-row no-gutters>
       <v-col cols="12" class="video-container">
         <video class="backgroundvideo" poster="https://checkedspot.blob.core.windows.net/assets/headerVideoPoster.png" autoplay muted loop>

@@ -21,6 +21,14 @@
           </div>
         </v-col>
         <v-col cols="12" sm="6" class="py-1 px-3">
+          <v-select v-model="useris.value.value" :error-messages="useris.errorMessage.value" :items="roles"
+            label="*Role (required)" variant="outlined" clearable hint="*Choose from the roles list"></v-select>
+        </v-col>
+        <v-col cols="12" sm="6" class="py-1 px-3">
+          <v-select v-model="bodyData.visibility" :items="propertyVisibilities" label="property visibility"
+            variant="outlined" clearable hint="Choose from the list of options"></v-select>
+        </v-col>
+        <v-col cols="12" sm="6" class="py-1 px-3">
           <v-text-field prepend-inner-icon="mdi-link" label="Google Map Link" v-model="googleMapLink.value.value"
             :error-messages="googleMapLink.errorMessage.value" clearable hint="Enter Google map link of the location"
             variant="outlined"></v-text-field>
@@ -102,8 +110,14 @@
             </v-switch>
           </v-row>
           <v-expand-transition style="position: absolute">
-            <v-card v-show="expand" height="auto" width="90%" class="px-2 mx-auto bg-grey-darken-3">
-              <div class="text-body-2 pa-3">Is FreeHolds means</div>
+            <v-card v-show="expand" height="auto" width="90%" class="pa-3 mx-auto bg-grey-darken-3">
+              <div class="text-caption text-center">
+                Freehold property is inheritable and there are no restrictions on the right of the property owner to
+                further transfer the property.In a free hold property, there is no encumbrance to the absolute title of
+                the property. A free hold is not akin to a condominium whereinthe owner of the individual unit pays a
+                maintenance charge. Free hold property can be inherited by a legal guardian. A freehold property can be
+                transferred byregistration of sale deed.
+              </div>
             </v-card>
           </v-expand-transition>
         </v-col>
@@ -274,12 +288,15 @@ const furnishedStatus = reactive([
   "full-furnished",
 ]);
 const videos = ref([]);
+const roles = ref(['OWNER', 'AGENT', 'DEVELOPER']);
+const propertyVisibilities = ref(['public', 'private']);
 
 const bodyData = reactive({
   //@ts-ignore
   email: null,
   type: props.type,
   description: null,
+  visibility: 'public',
   title: null,
   address: null,
   pincode: null,
@@ -417,6 +434,13 @@ let { meta, values, errors, handleSubmit, handleReset } = useForm({
       }
       return "it should contain only numbers";
     },
+    useris(value: any) {
+      if (!value) {
+        return 'Required!';
+      } else {
+        return true;
+      }
+    },
     imgfile(value: any) {
       if (!value) {
         return "Required! Allowed files: .jpg, .jpeg, .png, .gif, .webp, .avif, .apng, .svg";
@@ -437,6 +461,7 @@ const noOfBedroom = useField("noOfBedroom");
 const noOfBathroom = useField("noOfBathroom");
 const noOfKitchen = useField("noOfKitchen");
 const imgfile = useField<File[] | undefined>("imgfile");
+const useris = useField("useris");
 
 const loading = ref(false);
 
@@ -639,5 +664,4 @@ onMounted(() => {
 .type {
   border: solid 2px grey;
   border-radius: 8px;
-}
-</style>
+}</style>

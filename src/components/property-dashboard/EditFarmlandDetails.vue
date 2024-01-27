@@ -27,136 +27,88 @@
             </v-col>
         </v-row>
         <v-row no-gutters>
-            
+
             <v-col cols="12">
-                <property-status
-                    :propertyId="propertyDetails.propertyId" 
-                    :propertyStatus="propertyDetails.propertyStatus" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
+                <property-status :propertyId="propertyDetails.propertyId" :propertyStatus="propertyDetails.propertyStatus"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
                 <v-divider></v-divider>
             </v-col>
 
             <v-col cols="12">
-                <total-area
-                    :propertyId="propertyDetails.propertyId" 
-                    :totalArea="propertyDetails.totalArea" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
+                <property-visibility :propertyId="propertyDetails.propertyId" :visibility="propertyDetails.visibility"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
                 <v-divider></v-divider>
             </v-col>
 
             <v-col cols="12">
-                <property-cost
-                    :propertyId="propertyDetails.propertyId" 
-                    :cost="propertyDetails.cost"
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
+                <total-area :propertyId="propertyDetails.propertyId" :totalArea="propertyDetails.totalArea"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
                 <v-divider></v-divider>
             </v-col>
 
             <v-col cols="12">
-                <property-country
-                    :propertyId="propertyDetails.propertyId" 
-                    :country="propertyDetails.country" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
+                <property-cost :propertyId="propertyDetails.propertyId" :cost="propertyDetails.cost"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
                 <v-divider></v-divider>
             </v-col>
 
             <v-col cols="12">
-                <property-state
-                    :propertyId="propertyDetails.propertyId" 
-                    :state="propertyDetails.state"
-                    :country="propertyDetails.country" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
+                <property-country :propertyId="propertyDetails.propertyId" :country="propertyDetails.country"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
                 <v-divider></v-divider>
             </v-col>
 
             <v-col cols="12">
-                <property-city
-                    :propertyId="propertyDetails.propertyId" 
-                    :city="propertyDetails.city" 
-                    :state="propertyDetails.state"
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
+                <property-state :propertyId="propertyDetails.propertyId" :state="propertyDetails.state"
+                    :country="propertyDetails.country" @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
                 <v-divider></v-divider>
             </v-col>
 
             <v-col cols="12">
-                <property-pincode
-                    :propertyId="propertyDetails.propertyId" 
-                    :pincode="propertyDetails.pincode"
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
+                <property-city :propertyId="propertyDetails.propertyId" :city="propertyDetails.city"
+                    :state="propertyDetails.state" @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
                 <v-divider></v-divider>
             </v-col>
 
             <v-col cols="12">
-                <google-map-link
-                    :propertyId="propertyDetails.propertyId" 
-                    :gMapLink="propertyDetails.googleMapLink" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
+                <property-pincode :propertyId="propertyDetails.propertyId" :pincode="propertyDetails.pincode"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
                 <v-divider></v-divider>
             </v-col>
 
             <v-col cols="12">
-                <property-address
-                    :propertyId="propertyDetails.propertyId" 
-                    :address="propertyDetails.address" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
+                <google-map-link :propertyId="propertyDetails.propertyId" :gMapLink="propertyDetails.googleMapLink"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
                 <v-divider></v-divider>
             </v-col>
 
             <v-col cols="12">
-                <property-title
-                    :propertyId="propertyDetails.propertyId" 
-                    :title="propertyDetails.title" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
+                <property-address :propertyId="propertyDetails.propertyId" :address="propertyDetails.address"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
                 <v-divider></v-divider>
             </v-col>
 
             <v-col cols="12">
-                <property-description
-                    :propertyId="propertyDetails.propertyId" 
-                    :description="propertyDetails.description" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
+                <property-title :propertyId="propertyDetails.propertyId" :title="propertyDetails.title"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
                 <v-divider></v-divider>
             </v-col>
 
             <v-col cols="12">
-                <ready-to-movein
-                    :propertyId="propertyDetails.propertyId" 
-                    :readyToMoveIn="propertyDetails.readyToMoveIn" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
+                <property-description :propertyId="propertyDetails.propertyId" :description="propertyDetails.description"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
                 <v-divider></v-divider>
             </v-col>
 
             <v-col cols="12">
-                <free-hold
-                    :propertyId="propertyDetails.propertyId" 
-                    :isFreeHold="propertyDetails.isFreeHold" 
-                    @success="handleUpdateSuccess" 
-                    @failure="handleUpdateFailure"
-                />
+                <ready-to-movein :propertyId="propertyDetails.propertyId" :readyToMoveIn="propertyDetails.readyToMoveIn"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
+                <v-divider></v-divider>
+            </v-col>
+
+            <v-col cols="12">
+                <free-hold :propertyId="propertyDetails.propertyId" :isFreeHold="propertyDetails.isFreeHold"
+                    @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
                 <v-divider></v-divider>
             </v-col>
         </v-row>
@@ -171,6 +123,7 @@ import api from '@/data/api/index.js';
 
 
 const PropertyStatus = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyStatus.vue'));
+const PropertyVisibility = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyVisibility.vue'));
 const TotalArea = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/TotalArea.vue'));
 const PropertyCost = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyCost.vue'));
 const PropertyCountry = defineAsyncComponent(() => import('@/components/property-dashboard/edit-property-details/PropertyCountry.vue'));
@@ -189,36 +142,11 @@ const router = useRouter();
 
 const props = defineProps(['details']);
 const propertyDetails = ref(props.details);
-
-const textfieldDialog = ref(false);
-const textfield = ref({
-    key: '',
-    value: ''
-})
-
-const loader = ref(false);
 const expandSuccess = ref(false);
 const expandFailure = ref(false);
-const messageType = ref('');
-
-const propertyType = {
-    "plot": ["propertyStatus", "readyToMoveIn", "title", "description", "address", "pincode", "city", "state", "country", "cost", "totalArea", "isFreeHold", "googleMapLink"],
-    "farmland": ["propertyStatus", "readyToMoveIn", "title", "description", "address", "pincode", "city", "state", "country", "cost", "totalArea", "isFreeHold", "googleMapLink"],
-    "flat": ["propertyStatus", "readyToMoveIn", "title", "description", "address", "pincode", "city", "state", "country", "cost", "totalArea", "builtupArea", "carpetArea", "noOfBedroom", "noOfBathroom", "noOfKitchen", "lobby", "balcony", "diningArea", "garden", "parkingLot", "elevator", "furnishedStatus", "airConditioning", "swimmingPool", "laundryRoom", "gym", "wifi", "tvCable", "dishWasher", "refrigerator", "outdoorShower", "isFreeHold", "googleMapLink"]
-}
-//@ts-ignore
-const updateFields = propertyType[propertyDetails.value.type];
-
-const data = ref(propertyDetails.value);
-
-function editTextField(key: any, value: any) {
-    textfield.value.key = key; 
-    textfield.value.value = value === 'unavailable' ? '' : value; 
-    textfieldDialog.value = true;
-}
 
 async function fetchPropertydetails() {
-    const res = await api?.property?.getProperty({ params: { propertyId: propertyDetails.value?.propertyId } })
+    const res = await api?.property?.getUserProperty({ params: { propertyId: propertyDetails.value?.propertyId } })
     if (res.status === 200) {
         propertyDetails.value = res.data;
     } else {
@@ -240,10 +168,6 @@ function handleUpdateFailure() {
     setTimeout(() => {
         expandFailure.value = false;
     }, 3000);
-}
-
-async function updateTextField() {
-    console.log(textfield.value);
 }
 
 

@@ -360,7 +360,6 @@ async function getAllProperty() {
 
     const res = await api.property.getProperties(filterData);
 
-    // console.log(res)
     if (res.status === 200) {
         const data = res?.data;
         //@ts-ignore
