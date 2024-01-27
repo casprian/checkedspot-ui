@@ -78,7 +78,7 @@ import { ref, defineAsyncComponent, onMounted } from "vue";
 const TalkToExpertDialog = defineAsyncComponent(() => import('@/components/quotation-view-components/slider-range-components/TalkToExpertDialog.vue'));
 
 
-const cities = ref(['Bengaluru', 'Mysuru', 'Hassan']);
+const cities = ref(['Bengaluru', 'Hassan']);
 const city = ref('Bengaluru');
 
 const isPackagesExist = ref(false);
