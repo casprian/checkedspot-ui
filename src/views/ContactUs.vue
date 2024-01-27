@@ -27,13 +27,14 @@
       </v-col>
 
       <v-col cols="12" md="7" class="px-4">
-        <v-card v-for="(item, index) in items" :key="index" class="mx-auto rounded-0 mb-10" elevation="0" border
+        <v-card v-for="(item, index) in items" :key="index" class="mx-auto rounded mb-10" elevation="0" border
           max-width="100%">
           <template>
             <v-progress-linear color="deep-purple" height="4" indeterminate></v-progress-linear>
           </template>
 
-          <v-parallax :src="item.parallaxSrc" :alt="item.name" class="parallax">
+          
+          <v-img :src="item.parallaxSrc" :alt="item.name" height="300" width="100%" cover class="parallax">
             <div class="h-75 d-flex flex-column justify-center align-center text-white parallaxMask">
               <p class="text-h4 text-sm-h3 font-weight-regular pt-10 text-center" title="Checked Spot - Bangalore">Checked Spot - {{ item.name }}</p>
             </div>
@@ -53,7 +54,7 @@
                 <v-icon class="sm" color="pink-darken-2" icon="mdi-fire-circle" size="25"></v-icon>
               </div>
             </v-row>
-          </v-parallax>
+          </v-img>
 
           <v-card-text class="px-0 pl-3">
             <h3 class="mt-2 mb-3 pl-3 text-h6 text-sm-h5 font-weight-bold">Reach Us At</h3>
@@ -291,9 +292,11 @@ onUnmounted ( () => {
 </script>
 
 <style scoped>
-.parallax {
+/* .parallax {
   height: 300px;
-}
+  width: 100%;
+  object-fit: cover;
+} */
 
 .parallaxMask {
   background-color: rgba(0, 0, 0, 0.25);

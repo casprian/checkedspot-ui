@@ -127,6 +127,6 @@ const router = createRouter({
     // return desired position
     return { top: 0 , behavior: 'smooth'}
   },
-})
+});
 
 export default router

@@ -32,16 +32,16 @@ const getUserProperty = async (params) => {
     }
 };
 
-const getConstructionPackages = async (params) => {
-    try {
-        const baseURL= '/property/construction/package';
-        const response = await call.callWithoutToken('get', baseURL, params);
+// const getConstructionPackages = async (params) => {
+//     try {
+//         const baseURL= '/property/construction/package';
+//         const response = await call.callWithoutToken('get', baseURL, params);
 
-        return { status: 200, data: response?.data };
-    } catch (e) {
-        return { error: true, status: e?.response?.status, message: e?.response?.data?.message }
-    }
-}
+//         return { status: 200, data: response?.data };
+//     } catch (e) {
+//         return { error: true, status: e?.response?.status, message: e?.response?.data?.message }
+//     }
+// }
 
 const getPropertyAgents = async (params) => {
     try {
@@ -288,7 +288,7 @@ export default {
     getProperties,
     getProperty,
     getUserProperty,
-    getConstructionPackages,
+    // getConstructionPackages,
     getPropertyAgents,
     getPropertiesForUser,
     getPropertyImage,
