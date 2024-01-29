@@ -25,7 +25,7 @@
             <div class="d-flex">
                 <pre class="py-2 text-body-1 text-indigo-lighten-1 text-center">Currently showing for  </pre>
                 <v-select placeholder="Select" class="customPlaceholder" v-model="city" :items="cities"
-                    @update:model-value=callGetPackage bg-color="pink-accent-3" density="compact" style="width:125px;"
+                    @update:model-value=callGetPackage bg-color="pink-accent-3" density="compact" style="width:auto;"
                     variant="solo"></v-select>
             </div>
         </v-col>
@@ -78,7 +78,7 @@ import { ref, defineAsyncComponent, onMounted } from "vue";
 const TalkToExpertDialog = defineAsyncComponent(() => import('@/components/quotation-view-components/slider-range-components/TalkToExpertDialog.vue'));
 
 
-const cities = ref(['Bengaluru', 'Hassan']);
+const cities = ref(['Bengaluru', 'Hassan', 'Mysuru', 'Chikkaballapur', 'Kolar', 'Chintamani']);
 const city = ref('Bengaluru');
 
 const isPackagesExist = ref(false);
