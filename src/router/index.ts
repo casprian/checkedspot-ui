@@ -83,6 +83,16 @@ const routes = [
         path: '/project',
         name: 'project',
         component: () => import('@/views/ProjectView.vue'),
+      },
+      {
+        path: '/capture-lead',
+        name: "capturelead",
+        component: () => import('@/views/CaptureLeadView.vue'),
+      },
+      {
+        path: '/lead-detail',
+        name: "leaddetail",
+        component: () => import('@/views/LeadDetailView.vue'),
       }
     ],
   },
