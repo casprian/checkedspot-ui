@@ -1,7 +1,7 @@
 <template>
     <v-container v-if="isAllowed" class="pa-0">
         <v-row no-gutters class="">
-            <v-col cols="12" sm="6" class="px-4">
+            <v-col cols="12" md="6" class="px-4">
                 <v-row no-gutters>
                     <v-col cols="12" class="py-5 text-h5 font-weight-medium">
                         Capture Lead
@@ -40,8 +40,10 @@
                     </v-col>
                 </v-row>
             </v-col>
+
             <v-divider class="border-opacity-75 d-none d-sm-block" :thickness="1" :vertical="true"></v-divider>
-            <v-col cols="12" sm="6" class="px-4">
+            
+            <v-col cols="12" md="6" class="px-4">
                 <v-row no-gutters>
                     <v-col cols="12" class="py-5 text-h5 font-weight-medium d-flex justify-space-between align-center">
                         <div>Leads</div>
@@ -82,7 +84,7 @@
                             </tbody>
                         </v-table>
 
-                        <div>
+                        <div class="mb-8">
                             <v-pagination :length="totalpage" v-model="pageNumber"></v-pagination>
                         </div>
                     </v-col>
