@@ -1,12 +1,14 @@
 <template>
   <v-app-bar :elevation="2" density="comfortable">
     <template v-slot:prepend>
-      <v-app-bar-nav-icon class="smNav" variant="text" @click.stop="drawer = !drawer">
-      </v-app-bar-nav-icon>
-      <router-link to="/">
-        <v-img class="logo" width="175px" height="70px"
-          src="https://checkedspot.blob.core.windows.net/assets/logocheckedspot.png" />
-      </router-link>
+      <span class="d-flex align-center">
+        <v-app-bar-nav-icon class="smNav" variant="text" @click.stop="drawer = !drawer">
+        </v-app-bar-nav-icon>
+        <router-link to="/">
+          <v-img class="logo" width="175px" height="70px"
+            src="https://checkedspot.blob.core.windows.net/assets/logocheckedspot.png" />
+        </router-link>
+      </span>
     </template>
 
     <template v-slot:append>
@@ -22,8 +24,13 @@
           </v-btn>
         </router-link>
         <router-link to="/contactus">
-          <v-btn variant="flat" class="ml-1" height="32">
+          <v-btn variant="flat" height="32">
             Contact
+          </v-btn>
+        </router-link>
+        <router-link v-if="isMangement" to="/capture-lead">
+          <v-btn variant="flat" class="ml-n2 mr-3" height="32">
+            Lead
           </v-btn>
         </router-link>
         <router-link to="/signin" v-if="!hastoken">
@@ -72,6 +79,12 @@
       <router-link to="/contactus">
         <v-btn width="100%" variant="flat" class="my-2" height="32">
           Contact
+        </v-btn>
+      </router-link>
+
+      <router-link v-if="isMangement" to="/capture-lead">
+        <v-btn width="100%" variant="flat" class="my-2" height="32">
+          Lead
         </v-btn>
       </router-link>
 
@@ -136,6 +149,7 @@
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useCookies } from "vue3-cookies";
+import jwtDecode from 'jwt-decode';
 //@ts-ignore
 import ProfileAvatar from '@/components/ProfileAvatar.vue';
 import axios from 'axios';
@@ -156,7 +170,8 @@ async function getContact() {
 
 const { cookies } = useCookies();
 const router = useRouter();
-const drawer = ref(false)
+const drawer = ref(false);
+const isMangement = ref(false);
 
 const hastoken = ref(false);
 if (cookies.get('token')) {
@@ -172,6 +187,19 @@ let regexp = /android|iphone|kindle|ipad/i;
 let isMobileDevice = ref(regexp.test(details.value));
 
 onMounted(async () => {
+  if (cookies.get('token')) {
+    const jwt = cookies?.get("token")?.split("Bearer ")[1];
+
+    //@ts-ignore
+    if (jwtDecode(jwt)?.userData?.roles?.includes("management")) {
+      isMangement.value = true;
+    } else {
+      isMangement.value = false;
+    }
+  } else {
+    isMangement.value = false;
+  }
+
   await getContact();
 })
 </script>
@@ -222,23 +250,23 @@ onMounted(async () => {
   z-index: 1;
 }
 
-@media only screen and (max-width: 900px) {
-  .lgNav {
-    display: none;
-  }
-
-  .smNav {
-    display: block;
-  }
+.lgNav {
+  display: flex;
+  justify-content: end;
+  align-items: center;
 }
 
-@media only screen and (min-width: 901px) {
+.smNav {
+  display: none;
+}
+
+@media only screen and (max-width: 960px) {
   .lgNav {
-    display: block;
+    display: none;
   }
 
   .smNav {
-    display: none;
+    display: block;
   }
 }
 </style>
