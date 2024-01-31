@@ -139,7 +139,7 @@
 
         <v-divider></v-divider>
 
-        <div class="pa-4 text-end">
+        <div class="pa-4 d-flex justify-end">
           <v-btn class="text-none" color="medium-emphasis" min-width="92" rounded variant="outlined"
             @click="alert = false">
             Close

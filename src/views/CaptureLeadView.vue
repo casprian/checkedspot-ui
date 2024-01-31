@@ -17,7 +17,8 @@
                     </v-col>
 
                     <v-col cols="12">
-                        <v-text-field v-model="email.value.value" :error-messages="email.errorMessage.value" label="Enter lead's email"></v-text-field>
+                        <v-text-field v-model="email.value.value" :error-messages="email.errorMessage.value"
+                            label="Enter lead's email"></v-text-field>
                     </v-col>
 
                     <v-col cols="12">
@@ -42,8 +43,16 @@
             <v-divider class="border-opacity-75 d-none d-sm-block" :thickness="1" :vertical="true"></v-divider>
             <v-col cols="12" sm="6" class="px-4">
                 <v-row no-gutters>
-                    <v-col cols="12" class="py-5 text-h5 font-weight-medium">
-                        Leads
+                    <v-col cols="12" class="py-5 text-h5 font-weight-medium d-flex justify-space-between align-center">
+                        <div>Leads</div>
+                        <div>
+                            <v-select 
+                                variant="underlined"                                
+                                append-inner-icon="mdi-sort"
+                                label="Sort by"
+                                v-model="sort"
+                                :items="sortOptions"></v-select>
+                        </div>
                     </v-col>
                     <v-col v-if="isDataFetched" cols="12">
                         <v-table class="mb-8">
@@ -67,72 +76,81 @@
                                     <td>
                                         <router-link :to="`/lead-detail?leadId=${lead._id}`">
                                             <v-btn density="compact" color="grey" variant="flat">View Details</v-btn>
-                                        </router-link> 
+                                        </router-link>
                                     </td>
                                 </tr>
                             </tbody>
                         </v-table>
+
+                        <div>
+                            <v-pagination :length="totalpage" v-model="pageNumber"></v-pagination>
+                        </div>
                     </v-col>
-                    
-                    <div v-else class="d-flex justify-center align-center" style="width: 100%; height: 200px;">
+
+                    <div v-if="!isDataFetched && !errorOccured" class="d-flex justify-center align-center"
+                        style="width: 100%; height: 200px;">
                         <div style="width: 40%;">
-                            <v-progress-linear color="pink-accent-3" indeterminate rounded height="10" widht="200"></v-progress-linear>
+                            <v-progress-linear color="pink-accent-3" indeterminate rounded height="10"
+                                widht="200"></v-progress-linear>
                         </div>
                     </div>
 
                     <div v-if="errorOccured" class="d-flex justify-center align-center" style="width: 100%; height: 100px;">
                         <div class="text-h5 font-weight-medium text-red-darken-2">Failed to load Data.</div>
                     </div>
-                    
-                    
                 </v-row>
             </v-col>
         </v-row>
     </v-container>
+
     <v-dialog v-model="alert" width="auto">
-      <v-card append-icon="$close" class="mx-auto" elevation="16" max-width="500">
-        <template v-slot:append>
-          <v-btn icon="$close" variant="text" @click="alert = false"></v-btn>
-        </template>
-        <template v-slot:title>
-          <div class="text-h4 font-weight-bold">Warning</div>
-        </template>
+        <v-card append-icon="$close" class="mx-auto" elevation="16" max-width="500">
+            <template v-slot:append>
+                <v-btn icon="$close" variant="text" @click="alert = false"></v-btn>
+            </template>
+            <template v-slot:title>
+                <div class="text-h4 font-weight-bold">Warning</div>
+            </template>
 
-        <v-divider></v-divider>
+            <v-divider></v-divider>
 
-        <div class="pa-10 text-center">
-          <v-icon class="mb-6" color="amber" icon="mdi-alert" size="100"></v-icon>
+            <div class="pa-10 text-center">
+                <v-icon class="mb-6" color="amber" icon="mdi-alert" size="100"></v-icon>
 
-          <div v-if="failedLeadAddition" class="text-h5 text-red">Lead add Failed !!!</div>
-          <div v-else class="text-h5">Please fill all the required Fields inorder to post the property !!!</div>
-        </div>
+                <div v-if="failedLeadAddition" class="text-h5 text-red">Lead add Failed !!!</div>
+                <div v-else class="text-h5">Please fill all the required Fields inorder to post the property !!!</div>
+            </div>
 
-        <v-divider></v-divider>
+            <v-divider></v-divider>
 
-        <div class="pa-4 text-end">
-          <v-btn class="text-none" color="medium-emphasis" min-width="92" rounded variant="outlined"
-            @click="alert = false">
-            Close
-          </v-btn>
-        </div>
-      </v-card>
+            <div class="pa-4 d-flex justify-end">
+                <v-btn class="text-none" color="medium-emphasis" min-width="92" rounded variant="outlined"
+                    @click="alert = false">
+                    Close
+                </v-btn>
+            </div>
+        </v-card>
     </v-dialog>
 </template>
 
 <script lang="ts" setup>
 import { useField, useForm } from "vee-validate";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
+import { useRouter } from "vue-router";
 import { useCookies } from "vue3-cookies";
 import jwtDecode from "jwt-decode";
-import { useRouter } from "vue-router";
 //@ts-ignore
-import api from '@/data/api/index.js'
+import api from '@/data/api/index.js';
 
 
+const sort = ref("date new first");
+const sortOptions = ref(["mobile asc", "mobile desc", "date new first", "date old first"])
 const isDataFetched = ref(false);
 const errorOccured = ref(false);
 const failedLeadAddition = ref(false);
 const isAllowed = ref(false);
+const pageNumber = ref(1);
+const totalpage = ref(0);
 const router = useRouter();
 const { cookies } = useCookies();
 
@@ -145,6 +163,7 @@ const leads = ref([
         mobile: "",
     }
 ])
+
 
 const leadFor = ref('checked spot');
 const items = ref(['checked spot']);
@@ -172,7 +191,7 @@ const { meta, errors, handleSubmit, handleReset } = useForm({
             }
         },
         email(value: any) {
-            if(!value) {
+            if (!value) {
                 return true;
             } else {
                 if (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i.test(value)) return true
@@ -187,16 +206,33 @@ const name = useField('name');
 const mobile = useField('mobile');
 
 
-async function getAllLeads(leadFor: string) {
+watch(pageNumber, async (newValue) => {
+    await getAllLeads('checked spot', newValue)
+})
+
+watch(sort, async (newsort) => {
+    await getAllLeads('checked spot', pageNumber.value)
+})
+
+async function getAllLeads(leadFor: string, pageNumber: number) {
     failedLeadAddition.value = false;
     alert.value = false;
     errorOccured.value = false;
     isDataFetched.value = false;
 
-    const res = await api?.lead?.getLeads({ params: { leadFor: leadFor } });
+    const res = await api?.lead?.getLeads({
+        params: {
+            leadFor: leadFor,
+            pageNumber: pageNumber,
+            limit: 8,
+            sortby: sort.value,
+        }
+    });
 
     if (res?.status === 200) {
-        leads.value = res?.data?.data;
+        leads.value = res?.data?.data?.data;
+        totalpage.value = Math.ceil(res?.data?.data?.totalData / 8);
+
         isDataFetched.value = true;
     } else {
         errorOccured.value = true;
@@ -211,7 +247,7 @@ async function postLead(lead: Object) {
 
     if (res?.status === 200) {
         loader.value = false;
-        await getAllLeads('checked spot');
+        await getAllLeads('checked spot', pageNumber.value);
         handleReset();
     } else {
         alert.value = true;
@@ -259,7 +295,7 @@ onMounted(async () => {
         router.back();
     }
 
-    await getAllLeads("checked spot");
+    await getAllLeads("checked spot", pageNumber.value);
 })
 
 </script>
