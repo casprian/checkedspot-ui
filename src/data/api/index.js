@@ -4,6 +4,7 @@ import constructionPackage from './constructionPackage';
 import user from './user';
 import agent from './agent';
 import email from './email';
+import lead from './lead';
 
 export default { 
     property,
@@ -11,4 +12,5 @@ export default {
     user,
     agent,
     email,
+    lead,
 };
