@@ -20,7 +20,7 @@
         </router-link>
         <router-link to="/aboutus">
           <v-btn variant="flat" height="32">
-            WHO WE ARE
+            ABOUT US
           </v-btn>
         </router-link>
         <router-link to="/contactus">
@@ -72,7 +72,7 @@
 
       <router-link to="/aboutus">
         <v-btn width="100%" variant="flat" class="my-2" height="32">
-          WHO WE ARE
+          ABOUT US
         </v-btn>
       </router-link>
 

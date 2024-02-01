@@ -47,7 +47,7 @@
             </div>
             <v-row no-gutters>
                 <v-col cols="12" class="d-flex justify-space-between">
-                    <v-btn @click="router.push({ path: '/propertydashboard', query: { propertyId: property.propertyId } })"
+                    <v-btn @click="router.push({ path: `/propertydashboard`, query: { propertyId: property.propertyId } })"
                         height="30" class="ma-2" variant="flat" elevation="4" color="green-darken-2">Edit</v-btn>
 
                     <v-btn height="30" class="ma-2" variant="flat" elevation="4" color="pink-darken-3">Delete
@@ -69,7 +69,7 @@
             </v-row>
             <v-row no-gutters>
                 <v-col cols="auto" class="showDetailsBtnContainer">
-                    <v-btn @click="router.push(`/propertydetails/${property?.propertyId}`)" density="default"
+                    <v-btn @click="router.push({path: `/propertydetails/${property?.propertyId}`, query: { isPrivate: props.isprivate  } })" density="default"
                         variant="elevated" class="text-none" color="pink-darken-3"
                         append-icon="mdi-cursor-default-click">Preview Details</v-btn>
                 </v-col>
@@ -198,7 +198,7 @@ import { ref, reactive, computed } from 'vue';
 //@ts-ignore
 import api from '@/data/api/index.js';
 
-const props = defineProps(['property', 'getUsersProperties']);
+const props = defineProps(['property', 'getUsersProperties', 'isprivate']);
 const router = useRouter();
 const loader = ref(false);
 const dialog = ref(false);

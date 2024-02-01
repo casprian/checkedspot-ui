@@ -41,7 +41,8 @@
 
             <v-row class="mx-0 mt-0 px-6 pb-4 d-flex justify-space-between align-end parallaxMask"
               style="height: calc(100% - 75%);">
-              <div class="d-flex justify-start align-center">
+
+              <!-- <div class="d-flex justify-start align-center">
                 <v-rating class="lg" :model-value="item.rating" color="amber" density="compact" half-increments readonly
                   size="large"></v-rating>
                 <v-rating class="sm" :model-value="item.rating" color="amber" density="compact" half-increments readonly
@@ -52,7 +53,8 @@
               <div>
                 <v-icon class="lg" color="pink-darken-2" icon="mdi-fire-circle" size="30"></v-icon>
                 <v-icon class="sm" color="pink-darken-2" icon="mdi-fire-circle" size="25"></v-icon>
-              </div>
+              </div> -->
+              
             </v-row>
           </v-img>
 
