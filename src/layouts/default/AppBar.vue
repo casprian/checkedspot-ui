@@ -1,7 +1,7 @@
 <template>
   <v-app-bar :elevation="2" density="comfortable">
     <template v-slot:prepend>
-      <span class="d-flex align-center">
+      <span class="d-flex align-center"  @click="changeActiveLink">
         <v-app-bar-nav-icon class="smNav" variant="text" @click.stop="drawer = !drawer">
         </v-app-bar-nav-icon>
         <router-link to="/">
@@ -14,42 +14,42 @@
     <template v-slot:append>
       <div class="lgNav">
         <router-link to="/">
-          <v-btn variant="flat" height="32">
+          <v-btn class="" :active="home" @click="() => changeActiveLink('home')" variant="flat" height="32">
             HOME
           </v-btn>
         </router-link>
         <router-link to="/aboutus">
-          <v-btn variant="flat" height="32">
+          <v-btn class="" :active="about" @click="() => changeActiveLink('about')" variant="flat" height="32">
             ABOUT US
           </v-btn>
         </router-link>
         <router-link to="/contactus">
-          <v-btn variant="flat" height="32">
+          <v-btn class="" :active="contact" @click="() => changeActiveLink('contact')" variant="flat" height="32">
             Contact
           </v-btn>
         </router-link>
         <router-link v-if="isMangement" to="/capture-lead">
-          <v-btn variant="flat" class="ml-n2 mr-3" height="32">
+          <v-btn variant="flat" :active="lead" @click="() => changeActiveLink('lead')" class=" ml-n2 mr-3" height="32">
             Lead
           </v-btn>
         </router-link>
         <router-link to="/signin" v-if="!hastoken">
-          <v-btn variant="outlined" class="ml-1" color="pink-darken-2" height="32">
+          <v-btn variant="outlined" @click="changeActiveLink" class="ml-1" color="pink-darken-2" height="32">
             LOGIN
           </v-btn>
         </router-link>
         <router-link to="/signup" v-if="!hastoken">
-          <v-btn variant="flat" class="ml-2 mr-2" height="32" color="pink-darken-2">
+          <v-btn variant="flat" @click="changeActiveLink" class="ml-2 mr-2" height="32" color="pink-darken-2">
             REGISTER
           </v-btn>
         </router-link>
         <router-link to="/createproperty">
-          <v-btn variant="flat" class="mr-2" color="pink-darken-4" height="32">
+          <v-btn variant="flat" @click="changeActiveLink" class="mr-2" color="pink-darken-4" height="32">
             Post Property
           </v-btn>
         </router-link>
         <router-link to="/userdashboard" v-if="hastoken">
-          <v-btn variant="flat" class="mr-4" color="pink-darken-4" height="32">
+          <v-btn variant="flat" @click="changeActiveLink" class="mr-4" color="pink-darken-4" height="32">
             My Dashboard
           </v-btn>
         </router-link>
@@ -65,49 +65,53 @@
 
     <div class="px-5">
       <router-link to="/">
-        <v-btn width="100%" variant="flat" class="my-2" height="32">
+        <v-btn width="100%" :active="home" @click="() => changeActiveLink('home')" variant="flat" class=" my-2"
+          height="32">
           HOME
         </v-btn>
       </router-link>
 
       <router-link to="/aboutus">
-        <v-btn width="100%" variant="flat" class="my-2" height="32">
+        <v-btn width="100%" :active="about" @click="() => changeActiveLink('about')" variant="flat" class=" my-2"
+          height="32">
           ABOUT US
         </v-btn>
       </router-link>
 
       <router-link to="/contactus">
-        <v-btn width="100%" variant="flat" class="my-2" height="32">
+        <v-btn width="100%" :active="contact" @click="() => changeActiveLink('contact')" variant="flat" class=" my-2"
+          height="32">
           Contact
         </v-btn>
       </router-link>
 
       <router-link v-if="isMangement" to="/capture-lead">
-        <v-btn width="100%" variant="flat" class="my-2" height="32">
+        <v-btn width="100%" :active="lead" @click="() => changeActiveLink('lead')" variant="flat" class=" my-2"
+          height="32">
           Lead
         </v-btn>
       </router-link>
 
       <router-link to="/signin" v-if="!hastoken">
-        <v-btn width="100%" variant="outlined" class="my-2" color="pink-darken-2" height="32">
+        <v-btn width="100%" @click="changeActiveLink" variant="outlined" class="my-2" color="pink-darken-2" height="32">
           LOGIN
         </v-btn>
       </router-link>
 
       <router-link to="/signup" v-if="!hastoken">
-        <v-btn width="100%" variant="flat" class="my-3" color="pink-darken-2" height="32">
+        <v-btn width="100%" @click="changeActiveLink" variant="flat" class="my-3" color="pink-darken-2" height="32">
           REGISTER
         </v-btn>
       </router-link>
 
       <router-link to="/createproperty">
-        <v-btn width="100%" variant="flat" class="my-3" color="pink-darken-4" height="32">
+        <v-btn width="100%" @click="changeActiveLink" variant="flat" class="my-3" color="pink-darken-4" height="32">
           Post Property
         </v-btn>
       </router-link>
 
       <router-link to="/userdashboard" v-if="hastoken">
-        <v-btn width="100%" variant="flat" class="my-3" color="pink-darken-4" height="32">
+        <v-btn width="100%" @click="changeActiveLink" variant="flat" class="my-3" color="pink-darken-4" height="32">
           My Dashboard
         </v-btn>
       </router-link>
@@ -159,6 +163,30 @@ import { baseURL } from '@/data/axios/interceptor.js'
 const webWhatsapphref = ref('');
 const mobileContacthref = ref('');
 
+const home = ref(false);
+const about = ref(false);
+const contact = ref(false);
+const lead = ref(false);
+
+
+
+function changeActiveLink(active: any) {
+  home.value = false;
+  about.value = false;
+  contact.value = false;
+  lead.value = false;
+
+  if (active === 'home') {
+    home.value = true;
+  } else if (active === 'about') {
+    about.value = true;
+  } else if (active === 'contact') {
+    contact.value = true;    
+  } else if (active === 'lead') {
+    lead.value = true;
+  }
+}
+
 async function getContact() {
   const response = await axios.get(`${baseURL}/contact`);
 
@@ -206,6 +234,10 @@ onMounted(async () => {
 
 
 <style scoped>
+.active {
+  color: red;
+}
+
 .logo {
   cursor: pointer;
 }

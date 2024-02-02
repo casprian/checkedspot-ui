@@ -56,7 +56,7 @@
                                 :items="sortOptions"></v-select>
                         </div>
                     </v-col>
-                    <v-col v-if="isDataFetched" cols="12">
+                    <v-col v-if="isDataFetched && leads.length > 0" cols="12">
                         <v-table class="mb-8">
                             <thead>
                                 <tr>
@@ -91,6 +91,10 @@
                         <div class="mb-8">
                             <v-pagination :length="totalpage" v-model="pageNumber"></v-pagination>
                         </div>
+                    </v-col>
+
+                    <v-col v-else class="d-flex justify-center align-center" cols="8">
+                        No leads are found.
                     </v-col>
 
                     <div v-if="!isDataFetched && !errorOccured" class="d-flex justify-center align-center"

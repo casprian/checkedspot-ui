@@ -32,21 +32,21 @@ async function showMap() {
 
     const loader = new Loader({
         //@ts-ignore
-        apiKey: "AIzaSyBzpqC5xhWWMXzMtrpK84IiwQoMe93r-m8",
+        apiKey: process.env.API_KEY,
         version: "weekly",
         libraries: ["places"],
         ...additionalOptions,
     });
 
-    // loader?.load()?.then(async (google:any) => {
-    //     const { Map } = await google.maps.importLibrary("maps");
+    loader?.load()?.then(async (google:any) => {
+        const { Map } = await google.maps.importLibrary("maps");
 
-    //     map = new Map(document.getElementById("map"), {
-    //         //@ts-ignore
-    //         center: { lat: parseFloat(props?.latitude), lng: parseFloat(props?.longitude) },
-    //         zoom: 16,
-    //     });
-    // });
+        map = new Map(document.getElementById("map"), {
+            //@ts-ignore
+            center: { lat: parseFloat(props?.latitude), lng: parseFloat(props?.longitude) },
+            zoom: 16,
+        });
+    });
 }
 
 </script>
