@@ -4,13 +4,15 @@
             <v-card-item class="titleCont mb-6 pa-0 pb-4">
                 <v-card-title class="title">Location</v-card-title>
             </v-card-item>
+            {{ props?.latitude }} {{ props?.longitude }}
             <div class="d-flex justify-center">
                 <span>
                     <v-btn width="200" @click="showMap" v-if="!maploaded" prepend-icon="mdi-google-maps"
                         color="deep-purple-lighten-2">Show Map</v-btn>
                 </span>
             </div>
-            <v-row no-gutters v-if="maploaded" id="map" class="px-4 pb-7 text-body-1 font-weight-medium text-grey-darken-2" style="height: 500px;">
+            <v-row no-gutters v-if="maploaded" id="map" class="px-4 pb-7 text-body-1 font-weight-medium text-grey-darken-2"
+                style="height: 500px;">
             </v-row>
         </v-card>
     </v-col>
@@ -20,7 +22,7 @@
 import { Loader } from '@googlemaps/js-api-loader';
 import { ref } from "vue";
 
-const props = defineProps(['latitude', 'longitude']);
+const props = defineProps(['address', 'latitude', 'longitude']);
 
 const maploaded = ref(false);
 
@@ -30,7 +32,7 @@ async function showMap() {
 
     const loader = new Loader({
         //@ts-ignore
-        apiKey: process.env.GOOGLE_API_KEY,
+        apiKey: process.env.API_KEY,
         version: "weekly",
         libraries: ["places"],
         ...additionalOptions,
@@ -45,8 +47,6 @@ async function showMap() {
             zoom: 16,
         });
     });
-
-    maploaded.value = true;
 }
 
 </script>

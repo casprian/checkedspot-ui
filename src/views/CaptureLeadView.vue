@@ -8,17 +8,17 @@
                     </v-col>
                     <v-col cols="12">
                         <v-text-field v-model="name.value.value" :error-messages="name.errorMessage.value"
-                            label="Enter lead's full name"></v-text-field>
+                            label="Lead's full name"></v-text-field>
                     </v-col>
 
                     <v-col cols="12">
                         <v-text-field v-model="mobile.value.value" :error-messages="mobile.errorMessage.value"
-                            label="Enter lead's mobile number"></v-text-field>
+                            label="Lead's mobile number"></v-text-field>
                     </v-col>
 
                     <v-col cols="12">
                         <v-text-field v-model="email.value.value" :error-messages="email.errorMessage.value"
-                            label="Enter lead's email"></v-text-field>
+                            label="Lead's email"></v-text-field>
                     </v-col>
 
                     <v-col cols="12">
@@ -56,7 +56,7 @@
                                 :items="sortOptions"></v-select>
                         </div>
                     </v-col>
-                    <v-col v-if="isDataFetched" cols="12">
+                    <v-col v-if="isDataFetched && leads.length > 0" cols="12">
                         <v-table class="mb-8">
                             <thead>
                                 <tr>
@@ -67,6 +67,9 @@
                                         Mobile
                                     </th>
                                     <th class="text-left">
+                                        Date
+                                    </th>
+                                    <th class="text-left">
                                         View Details
                                     </th>
                                 </tr>
@@ -75,9 +78,10 @@
                                 <tr v-for="lead in leads" :key="lead._id">
                                     <td>{{ lead.name }}</td>
                                     <td>{{ lead.mobile }}</td>
+                                    <td>{{ (new Date(lead.loggedDate)).toLocaleDateString() }}</td>
                                     <td>
                                         <router-link :to="`/lead-detail?leadId=${lead._id}`">
-                                            <v-btn density="compact" color="grey" variant="flat">View Details</v-btn>
+                                            <v-btn density="compact" color="grey" variant="flat">View</v-btn>
                                         </router-link>
                                     </td>
                                 </tr>
@@ -87,6 +91,10 @@
                         <div class="mb-8">
                             <v-pagination :length="totalpage" v-model="pageNumber"></v-pagination>
                         </div>
+                    </v-col>
+
+                    <v-col v-else class="d-flex justify-center align-center" cols="8">
+                        No leads are found.
                     </v-col>
 
                     <div v-if="!isDataFetched && !errorOccured" class="d-flex justify-center align-center"
@@ -163,6 +171,7 @@ const leads = ref([
         _id: '',
         name: "",
         mobile: "",
+        loggedDate: ""
     }
 ])
 

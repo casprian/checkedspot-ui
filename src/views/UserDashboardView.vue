@@ -11,7 +11,7 @@
                 <div class="text-h6 mb-5">Private Property</div>
                 <v-row v-if="properties.privateData.length > 0">
                     <v-col cols="12" md="6" lg="4" v-for="property in properties.privateData" :key="property.propertyId">
-                        <UserPropertyCard :property="property" :getUsersProperties="getUsersProperties" />
+                        <UserPropertyCard :property="property" :getUsersProperties="getUsersProperties" isprivate="y" />
                     </v-col>
                 </v-row>
                 <v-row v-else class="d-flex justify-center align-center" style="width:100%; height: 100%;">
@@ -25,7 +25,7 @@
                 <div class="text-h6 my-5">Public Property</div>
                 <v-row v-if="properties.publicData.length > 0">
                     <v-col cols="12" md="6" lg="4" v-for="property in properties.publicData" :key="property.propertyId">
-                        <UserPropertyCard :property="property" :getUsersProperties="getUsersProperties" />
+                        <UserPropertyCard :property="property" :getUsersProperties="getUsersProperties" isprivate="n" />
                     </v-col>
                 </v-row>
                 <v-row v-else class="d-flex justify-center align-center" style="width:100%; height: 100%;">
