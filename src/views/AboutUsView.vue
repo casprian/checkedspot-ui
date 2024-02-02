@@ -223,6 +223,12 @@ const investors = ref([
         feedback: "Investing with Checked Spot was a game-changer—expert advice, solid returns, and reliable professionalism. Remarkably satisfied!"
     },
     {
+        id: "4",
+        name: "Aleem Shariff",
+        img: "",
+        feedback: "Investing with Checked Spot brings peace of mind—smart decisions, steady growth, and unparalleled professionalism."
+    },
+    {
         id: "2",
         name: "Mohammed Shuhib",
         img: "",
@@ -233,12 +239,6 @@ const investors = ref([
         name: "Siddharth",
         img: "",
         feedback: "Checked Spot's investment wisdom stands out—astute decisions, transparent communication, and a focus on lasting success."
-    },
-    {
-        id: "4",
-        name: "Aleem Shariff",
-        img: "",
-        feedback: "Investing with Checked Spot brings peace of mind—smart decisions, steady growth, and unparalleled professionalism."
     },
 ])
 
