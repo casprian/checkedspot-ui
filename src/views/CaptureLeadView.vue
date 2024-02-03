@@ -8,27 +8,27 @@
                     </v-col>
                     <v-col cols="12">
                         <v-text-field v-model="name.value.value" :error-messages="name.errorMessage.value"
-                            label="Lead's full name"></v-text-field>
+                            label="Full name"></v-text-field>
                     </v-col>
 
                     <v-col cols="12">
                         <v-text-field v-model="mobile.value.value" :error-messages="mobile.errorMessage.value"
-                            label="Lead's mobile number"></v-text-field>
+                            label="Mobile number"></v-text-field>
                     </v-col>
 
                     <v-col cols="12">
                         <v-text-field v-model="email.value.value" :error-messages="email.errorMessage.value"
-                            label="Lead's email"></v-text-field>
+                            label="Email"></v-text-field>
                     </v-col>
 
                     <v-col cols="12">
                         <v-select :items="items" v-model="leadFor"
                             hint="Enter the company name for which you are collecting this lead(Checked Spot)"
-                            label="Lead for" persistent-hint></v-select>
+                            label="For" persistent-hint></v-select>
                     </v-col>
 
                     <v-col cols="12">
-                        <v-text-field v-model="leadSource" label="Lead source"></v-text-field>
+                        <v-text-field v-model="leadSource" label="Source"></v-text-field>
                     </v-col>
 
                     <v-col cols="12">
