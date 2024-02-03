@@ -4,7 +4,7 @@
             <v-col cols="12" md="6" class="px-4">
                 <v-row no-gutters>
                     <v-col cols="12" class="py-5 text-h5 font-weight-medium">
-                        Capture Lead
+                        Person Details
                     </v-col>
                     <v-col cols="12">
                         <v-text-field v-model="name.value.value" :error-messages="name.errorMessage.value"
@@ -46,7 +46,7 @@
             <v-col cols="12" md="6" class="px-4">
                 <v-row no-gutters>
                     <v-col cols="12" class="py-5 text-h5 font-weight-medium d-flex justify-space-between align-center">
-                        <div>Leads</div>
+                        <div>Interested People</div>
                         <div>
                             <v-select 
                                 variant="underlined"                                
