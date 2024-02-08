@@ -50,13 +50,29 @@
                                 v-model="propertyType">
                             <label for="all" title="All">All</label>
 
+                            <input id="farmland" class="typeRadio" type="radio" name="propertytype" value="farmland"
+                                v-model="propertyType">
+                            <label for="farmland" title="Farm Land">Farm Land</label>
+
                             <input id="plot" class="typeRadio" type="radio" name="propertytype" value="plot"
                                 v-model="propertyType">
                             <label for="plot" title="Plot">Plot</label>
 
-                            <input id="farmland" class="typeRadio" type="radio" name="propertytype" value="farmland"
+                            <input id="flat" class="typeRadio" type="radio" name="propertytype" value="flat"
                                 v-model="propertyType">
-                            <label for="farmland" title="Farm Land">Farm Land</label>
+                            <label for="flat" title="Flat">Flat</label>
+
+                            <input id="apartment" class="typeRadio" type="radio" name="propertytype" value="apartment"
+                                v-model="propertyType">
+                            <label for="apartment" title="Apartment">Apartment</label>
+
+                            <input id="independentHouse" class="typeRadio" type="radio" name="propertytype" value="independentHouse"
+                                v-model="propertyType">
+                            <label for="independentHouse" title="Independent House">Independent House</label>
+
+                            <input id="commercialProperty" class="typeRadio" type="radio" name="propertytype" value="commercialProperty"
+                                v-model="propertyType">
+                            <label for="commercialProperty" title="Commercial Property">Commercial Property</label>
                         </v-card>
                     </v-menu>
                 </fieldset>
@@ -256,7 +272,6 @@ import CostFilter from "@/components/property-filters/CostFilter.vue";
 //@ts-ignore
 import DateFilter from "@/components/property-filters/DateFilter.vue";
 
-
 const route = useRoute();
 const router = useRouter();
 const propertiesData = reactive({ data: [] });
@@ -285,7 +300,7 @@ const costRange = ref(null); //{costFrom: '0 Lac', costTo: '5.00 Cr'}
 const selectedDate = ref(null); // {title: 'Today', value: {from: '6-10-2023', to: '6-10-2023'}}
 const sort = ref({ sortBy: 'none', orderBy: 'asc' }) // sorting based on (date, area, cost) and order (asc || desc)
 //Property type filter
-const propertyType = ref('all'); // string
+const propertyType = ref(route?.query?.type || 'all'); // string
 //Location filter
 const states = ref([]);
 const stateSelect = ref('Karnataka');
@@ -398,6 +413,7 @@ window.addEventListener('scroll', scrollCallback);
 
 onMounted(async () => {
     if (pageNumber.value === 1) {
+        console.log(route.query.type)
         await getLocationData();
         await getAllProperty();
     }

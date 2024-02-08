@@ -9,7 +9,7 @@
                             <v-select v-model="set.type" :items="selectOptions" label="Select Document Type"></v-select>
                         </v-col>
                         <v-col cols="12" sm="6" class="pa-0 px-2">
-                            <v-file-input accept=".pdf" hint="upload PDF File only" persistent-hint
+                            <v-file-input accept=".pdf" hint="upload PDF File only" :disabled="set.type ? false : true" persistent-hint
                                 prepend-inner-icon="mdi-file" prepend-icon="" label="upload file"
                                 v-model="set.file"></v-file-input>
                         </v-col>
@@ -48,7 +48,6 @@ const documents = ref([
         file: [],
     },
 ]);
-
 
 // Function to deep copy an array of objects with files
 function deepCopyArrayWithFiles(originalArray: Array<Object>) {

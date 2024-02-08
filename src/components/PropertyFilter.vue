@@ -4,7 +4,7 @@
       <v-col cols="11" sm="8">
         <v-card class="rounded-lg">
           <v-tabs v-model="type" bg-color="white" class="mx-8 mt-4">
-            <v-tab value="">ANY PROPERTY</v-tab>
+            <v-tab value="">ALL</v-tab>
             <v-tab value="farmland">FARMLAND</v-tab>
             <v-tab value="plot">PLOT</v-tab>
             <v-tab value="flat">FLAT</v-tab>

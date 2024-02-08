@@ -8,7 +8,7 @@
             <v-row no-gutters class="px-4 pb-5">
                 <v-cols cols="12" style="height: 500px; width: 100%;">
                     <PDFViewer style="min-width: 300px !important;" :rendering-text="'Loading Plan PDF'"
-                        :source="documents.length > 0 ? documents[0]?.fileUrl : 'https://checkedspot.blob.core.windows.net/assets/defaultdocument.pdf'"
+                        :source="documents[0]?.fileUrl ? documents[0]?.fileUrl : 'https://checkedspot.blob.core.windows.net/assets/defaultdocument.pdf'"
                         @download="handleDownload" :controls="['download', 'print', 'zoom', 'switchPage', 'catalog']" />
                 </v-cols>
             </v-row>

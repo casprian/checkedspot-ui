@@ -68,7 +68,11 @@
           <v-expand-transition style="position: absolute">
             <v-card v-show="expand" height="auto" width="90%" class="pa-3 mx-auto bg-grey-darken-3">
               <div class="text-caption text-center">
-                Freehold property is inheritable and there are no restrictions on the right of the property owner to further transfer the property.In a free hold property, there is no encumbrance to the absolute title of the property. A free hold is not akin to a condominium whereinthe owner of the individual unit pays a maintenance charge. Free hold property can be inherited by a legal guardian. A freehold property can be transferred byregistration of sale deed.
+                Freehold property is inheritable and there are no restrictions on the right of the property owner to
+                further transfer the property.In a free hold property, there is no encumbrance to the absolute title of
+                the property. A free hold is not akin to a condominium whereinthe owner of the individual unit pays a
+                maintenance charge. Free hold property can be inherited by a legal guardian. A freehold property can be
+                transferred byregistration of sale deed.
               </div>
             </v-card>
           </v-expand-transition>
@@ -111,8 +115,40 @@
             Upload Property Documents
           </div>
         </v-col>
-        <property-document-input @addDocument="addDocument" />
+        <!-- <property-document-input @addDocument="addDocument" /> -->
+        <v-row no-gutters class="pl-7 d-flex justify-center align-center">
+          <v-col cols="auto" class="ma-2" v-for="document in documents" :key="document.type">
+            <property-document :fileInputId="`plotform${document.type}`" :docType="document.type"
+              @uploadSuccess="docUploaded" />
+          </v-col>
+
+          <v-col cols="auto" class="ma-2">
+            <v-btn elevation="2" class="text-h5 text-sm-h4" variant="tonal" color="pink-darken-2" prepend-icon="mdi-plus"
+              height="195" width="206" @click="openAddAgentDialog">
+              Other
+            </v-btn>
+
+            <v-dialog v-model="dialog" width="auto">
+              <v-card color="grey-lighten-5">
+                <v-row no-gutters class="pa-10 pt-7">
+                  <v-col cols="12" class="text-h6 pb-5">
+                    Add new Document
+                  </v-col>
+
+                  <v-col cols="12">
+                    <v-text-field v-model="newDocumentType" variant="outlined" label="Document Type/Name"></v-text-field>
+                  </v-col>
+
+                  <v-col cols="12" class="d-flex justify-center">
+                    <v-btn density="comfortable" width="150" color="amber" @click="addNewDocument">Add</v-btn>
+                  </v-col>
+                </v-row>
+              </v-card>
+            </v-dialog>
+          </v-col>
+        </v-row>
       </v-row>
+
     </v-row>
 
     <v-row no-gutters class="ma-6">
@@ -151,7 +187,7 @@
 </template>
 
 <script lang="ts" setup>
-import { watch, toRaw, reactive, ref, onMounted } from "vue";
+import { watch, toRaw, reactive, ref, onMounted, defineAsyncComponent } from "vue";
 import jwtDecode from "jwt-decode";
 import { useRouter } from "vue-router";
 import { useField, useForm } from "vee-validate";
@@ -159,7 +195,69 @@ import { useField, useForm } from "vee-validate";
 import api from "@/data/api/index.js";
 import { useCookies } from "vue3-cookies";
 //@ts-ignore
-import PropertyDocumentInput from "@/components/propertyForms/customInputs/PropertyDocumentInput.vue";
+// import PropertyDocumentInput from "@/components/propertyForms/customInputs/PropertyDocumentInput.vue";
+
+const PropertyDocument = defineAsyncComponent(() => import('@/components/propertyForms/customInputs/PropertyDocument.vue'));
+
+const documents = ref([
+  {
+    type: 'RTC',
+    title: "",
+    description: "",
+    fileUrl: "",
+  },
+  {
+    type: 'Mother Deed',
+    title: "",
+    description: "",
+    fileUrl: "",
+  },
+  {
+    type: 'Sale Deed',
+    title: "",
+    description: "",
+    fileUrl: "",
+  },
+  {
+    type: 'EC',
+    title: "",
+    description: "",
+    fileUrl: "",
+  },
+]);
+
+//uploadSuccess event handler
+function docUploaded(doc: any) {
+  let index = 0;
+  documents.value.forEach((item, i) => {
+    //@ts-ignore
+    if (doc?.type === item?.type) {
+      index = i;
+    }
+  })
+  documents.value.splice(index, 1);
+  documents.value.unshift(doc);
+}
+
+const dialog = ref(false);
+const newDocumentType = ref('')
+function openAddAgentDialog() {
+  dialog.value = true;
+}
+
+function addNewDocument() {
+  if((newDocumentType.value).trim()) {
+    documents.value.push({
+      type: newDocumentType.value,
+      title: "",
+      description: "",
+      fileUrl: "",
+    })
+  }
+
+  dialog.value = false;
+  newDocumentType.value = "";
+}
 
 const { cookies } = useCookies();
 const props = defineProps(["type"]);
@@ -175,6 +273,7 @@ const units = reactive(["guntha", "hectare", "acre", "cent", "square feet", "squ
 const videos = ref([]);
 const roles = ref(['OWNER', 'AGENT', 'DEVELOPER']);
 const propertyVisibilities = ref(['public', 'private']);
+
 
 const bodyData = reactive({
   //@ts-ignore
@@ -204,7 +303,7 @@ const bodyData = reactive({
   propertySchedule: null,
   images: [],
   videos: [],
-  documents: null,
+  documents: documents.value,
 });
 
 let { meta, values, errors, handleSubmit, handleReset, defineComponentBinds } = useForm({
@@ -277,31 +376,31 @@ const totalArea = useField("totalArea");
 const imgfile = useField<File[] | undefined>("imgfile");
 const useris = useField("useris");
 
-function addDocument(documents: Array<Object>) {
-  //@ts-ignore
-  const receiveddocuments = toRaw(documents);
-  if (receiveddocuments?.length > 0) {
-    //@ts-ignore
-    bodyData.documents = receiveddocuments?.map(document => {
-      //@ts-ignore
-      if (document?.type) {
-        return {
-          //@ts-ignore
-          ...document?.file,
-          //@ts-ignore
-          type: document?.type
-        }
-      } else {
-        return;
-      }
-    })
-  } else {
-    //@ts-ignore
-    bodyData.documents = [];
-  }
+// function addDocument(documents: Array<Object>) {
+//   //@ts-ignore
+//   const receiveddocuments = toRaw(documents);
+//   if (receiveddocuments?.length > 0) {
+//     //@ts-ignore
+//     bodyData.documents = receiveddocuments?.map(document => {
+//       //@ts-ignore
+//       if (document?.type) {
+//         return {
+//           //@ts-ignore
+//           ...document?.file,
+//           //@ts-ignore
+//           type: document?.type
+//         }
+//       } else {
+//         return;
+//       }
+//     })
+//   } else {
+//     //@ts-ignore
+//     bodyData.documents = [];
+//   }
 
-  console.log(bodyData.documents, typeof bodyData.documents, Array.isArray(bodyData.documents))
-}
+//   console.log(bodyData.documents, typeof bodyData.documents, Array.isArray(bodyData.documents))
+// }
 
 watch(imgfile?.value, async (newImages) => {
   const imagefiles = newImages;

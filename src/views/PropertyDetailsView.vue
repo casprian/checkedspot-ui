@@ -74,9 +74,23 @@
                 </v-row>
 
                 <!-- Document -->
-                <v-row no-gutters class="mb-8" style="width: 100%; height: auto;">
-                    <property-documents :propertyId="property?.data?.propertyId" />
+                <v-row class="ma-0 mb-8" style="width: 100%; height: auto;">
+                    <v-card class="rounded-0 px-2 pb-4 pt-2" elevation="2">
+                        <v-card-item class="titleCont mb-5">
+                            <v-card-title class="title">Document</v-card-title>
+                        </v-card-item>
+                        <v-row no-gutters class="px-4 pb-5 d-flex justify-space-around align-center">
+                            <v-col cols="auto" class="my-3" v-for="document in documents" :key="document.id">
+                                <property-document :document="document" />
+                            </v-col>
+                        </v-row>
+                    </v-card>
                 </v-row>
+
+                <!-- Documents -->
+                <!-- <v-row no-gutters class="mb-8" style="width: 100%; height: auto;">
+                    <property-documents :propertyId="property?.data?.propertyId" />
+                </v-row> -->
 
                 <!-- Location -->
                 <v-row v-if="property?.data?.longitude && property?.data?.latitude" no-gutters class="mb-8">
@@ -184,6 +198,7 @@ const PropertyDetails = defineAsyncComponent(() => import('@/components/property
 const PropertyVideo = defineAsyncComponent(() => import('@/components/property-details-view-components/PropertyVideo.vue'))
 const PropertyImage = defineAsyncComponent(() => import('@/components/property-details-view-components/PropertyImage.vue'))
 const PropertyDocuments = defineAsyncComponent(() => import('@/components/property-details-view-components/PropertyDocuments.vue'))
+const PropertyDocument = defineAsyncComponent(() => import('@/components/property-details-view-components/PropertyDocument.vue'))
 const PropertyAgents = defineAsyncComponent(() => import('@/components/property-details-view-components/PropertyAgents.vue'))
 const PropertyLocationMap = defineAsyncComponent(() => import('@/components/property-details-view-components/PropertyLocationMap.vue'))
 const PropertyDescription = defineAsyncComponent(() => import('@/components/property-details-view-components/PropertyDescription.vue'))
@@ -331,10 +346,39 @@ function onInvalidSubmit(invalidData: any) {
 // This handles both valid and invalid submissions
 const handleEnquiry = handleSubmit(onSuccess, onInvalidSubmit);
 
+let documents = ref([{ id: "" }]);
+
+async function loadDocuments() {
+    const res = await api?.property?.getPropertyDocument({
+        params: {
+            propertyId: route?.params?.propertyId
+        }
+    });
+
+    if (res?.status === 200) {
+        documents.value = res?.data;
+    } else {
+        documents.value = [];
+    }
+}
 
 onMounted(async () => {
+    await loadDocuments();
     await propertydata();
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.titleCont {
+    position: relative;
+}
+
+.title::before {
+    content: "";
+    width: 50px;
+    height: 3px;
+    background-color: #f50057;
+    position: absolute;
+    top: 43px;
+}
+</style>                                            

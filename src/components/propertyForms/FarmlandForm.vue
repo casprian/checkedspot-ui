@@ -117,7 +117,39 @@
                         Upload Property Documents
                     </div>
                 </v-col>
-                <property-document-input @addDocument="addDocument" />
+                <!-- <property-document-input @addDocument="addDocument" /> -->
+
+                <v-row no-gutters class="pl-7 d-flex justify-center align-center">
+          <v-col cols="auto" class="ma-2" v-for="document in documents" :key="document.type">
+            <property-document :fileInputId="`farmLandform${document.type}`" :docType="document.type"
+              @uploadSuccess="docUploaded" />
+          </v-col>
+
+          <v-col cols="auto" class="ma-2">
+            <v-btn elevation="2" class="text-h5 text-sm-h4" variant="tonal" color="pink-darken-2" prepend-icon="mdi-plus"
+              height="195" width="206" @click="openAddAgentDialog">
+              Other
+            </v-btn>
+
+            <v-dialog v-model="dialog" width="auto">
+              <v-card color="grey-lighten-5">
+                <v-row no-gutters class="pa-10 pt-7">
+                  <v-col cols="12" class="text-h6 pb-5">
+                    Add new Document
+                  </v-col>
+
+                  <v-col cols="12">
+                    <v-text-field v-model="newDocumentType" variant="outlined" label="Document Type/Name"></v-text-field>
+                  </v-col>
+
+                  <v-col cols="12" class="d-flex justify-center">
+                    <v-btn density="comfortable" width="150" color="amber" @click="addNewDocument">Add</v-btn>
+                  </v-col>
+                </v-row>
+              </v-card>
+            </v-dialog>
+          </v-col>
+        </v-row>
             </v-row>
         </v-row>
         <v-row no-gutters class="ma-6">
@@ -157,7 +189,7 @@
 </template>
   
 <script lang="ts" setup>
-import { onMounted, watch, reactive, ref, toRaw } from "vue";
+import { onMounted, watch, reactive, ref, toRaw, defineAsyncComponent } from "vue";
 import jwtDecode from "jwt-decode";
 import { useRouter } from "vue-router";
 import { useField, useForm } from "vee-validate";
@@ -166,6 +198,67 @@ import api from "@/data/api/index.js";
 import { useCookies } from "vue3-cookies";
 //@ts-ignore
 import PropertyDocumentInput from "@/components/propertyForms/customInputs/PropertyDocumentInput.vue";
+const PropertyDocument = defineAsyncComponent(() => import('@/components/propertyForms/customInputs/PropertyDocument.vue'));
+
+const documents = ref([
+  {
+    type: 'RTC',
+    title: "",
+    description: "",
+    fileUrl: "",
+  },
+  {
+    type: 'Mother Deed',
+    title: "",
+    description: "",
+    fileUrl: "",
+  },
+  {
+    type: 'Sale Deed',
+    title: "",
+    description: "",
+    fileUrl: "",
+  },
+  {
+    type: 'EC',
+    title: "",
+    description: "",
+    fileUrl: "",
+  },
+]);
+
+//uploadSuccess event handler
+function docUploaded(doc: any) {
+  let index = 0;
+  documents.value.forEach((item, i) => {
+    //@ts-ignore
+    if (doc?.type === item?.type) {
+      index = i;
+    }
+  })
+  documents.value.splice(index, 1);
+  documents.value.unshift(doc);
+}
+
+const dialog = ref(false);
+const newDocumentType = ref('')
+function openAddAgentDialog() {
+  dialog.value = true;
+}
+
+function addNewDocument() {
+  if((newDocumentType.value).trim()) {
+    documents.value.push({
+      type: newDocumentType.value,
+      title: "",
+      description: "",
+      fileUrl: "",
+    })
+  }
+
+  dialog.value = false;
+  newDocumentType.value = "";
+}
 
 const { cookies } = useCookies();
 const props = defineProps(["type"]);
@@ -210,7 +303,7 @@ const bodyData = reactive({
     propertySchedule: null,
     images: [],
     videos: [],
-    documents: null,
+    documents: documents.value,
 });
 
 let { meta, values, errors, handleSubmit, handleReset } = useForm({

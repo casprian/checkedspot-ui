@@ -10,6 +10,10 @@ const routes = [
       //   redirect: '/listing',
       // },
       {
+        path: '/test',
+        component: ()=> import('@/views/TestView.vue')
+      },
+      {
         path: '/',
         name: 'Home',
         component: () => import(/* webpackChunkName: "home" */ '@/views/HomeView.vue'),
