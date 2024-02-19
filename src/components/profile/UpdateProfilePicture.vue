@@ -54,8 +54,8 @@ let { handleSubmit, handleReset } = useForm({
 })
 const profile = useField('profile');
 
-//@ts-ignore
-function viewimg(event) {    
+
+function viewimg(event:any) {    
     profileimg.value = URL.createObjectURL(event.target.files[0]);
     //@ts-ignore
     formData.append('profile', event.target.files[0])

@@ -18,7 +18,7 @@
         </v-card>
     </v-expand-transition>
     <v-container fluid class="pa-0 pt-10 px-4 bg-background">
-        <v-row v-if="count < 1" no-gutters class="d-flex justify-center align-center" style="height: calc(100% - 64px);">
+        <v-row v-if="count < 1" no-gutters class="d-flex justify-center align-center" style="height: calc(100vh - 64px);">
             <v-col cols="4">
                 <v-progress-linear color="pink-accent-3" indeterminate rounded height="10"></v-progress-linear>
             </v-col>
@@ -75,22 +75,19 @@
 
                 <!-- Document -->
                 <v-row class="ma-0 mb-8" style="width: 100%; height: auto;">
-                    <v-card class="rounded-0 px-2 pb-4 pt-2" elevation="2">
-                        <v-card-item class="titleCont mb-5">
-                            <v-card-title class="title">Document</v-card-title>
-                        </v-card-item>
-                        <v-row no-gutters class="px-4 pb-5 d-flex justify-space-around align-center">
-                            <v-col cols="auto" class="my-3" v-for="document in documents" :key="document.id">
-                                <property-document :document="document" />
-                            </v-col>
-                        </v-row>
-                    </v-card>
+                    <v-col cols="12" class="pa-0">
+                        <v-card width="100%" class="rounded-0 px-2 pb-4 pt-2" elevation="2">
+                            <v-card-item class="titleCont mb-5">
+                                <v-card-title class="title">Document</v-card-title>
+                            </v-card-item>
+                            <v-row no-gutters class="px-4 pb-5 d-flex justify-space-around align-center">
+                                <v-col cols="auto" class="my-3" v-for="document in documents" :key="document.id">
+                                    <property-document :document="document" />
+                                </v-col>
+                            </v-row>
+                        </v-card>
+                    </v-col>
                 </v-row>
-
-                <!-- Documents -->
-                <!-- <v-row no-gutters class="mb-8" style="width: 100%; height: auto;">
-                    <property-documents :propertyId="property?.data?.propertyId" />
-                </v-row> -->
 
                 <!-- Location -->
                 <v-row v-if="property?.data?.longitude && property?.data?.latitude" no-gutters class="mb-8">
@@ -197,7 +194,6 @@ import { defineAsyncComponent } from 'vue';
 const PropertyDetails = defineAsyncComponent(() => import('@/components/property-details-view-components/PropertyDetails.vue'))
 const PropertyVideo = defineAsyncComponent(() => import('@/components/property-details-view-components/PropertyVideo.vue'))
 const PropertyImage = defineAsyncComponent(() => import('@/components/property-details-view-components/PropertyImage.vue'))
-const PropertyDocuments = defineAsyncComponent(() => import('@/components/property-details-view-components/PropertyDocuments.vue'))
 const PropertyDocument = defineAsyncComponent(() => import('@/components/property-details-view-components/PropertyDocument.vue'))
 const PropertyAgents = defineAsyncComponent(() => import('@/components/property-details-view-components/PropertyAgents.vue'))
 const PropertyLocationMap = defineAsyncComponent(() => import('@/components/property-details-view-components/PropertyLocationMap.vue'))

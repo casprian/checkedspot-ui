@@ -19,7 +19,7 @@
         </v-card>
     </v-expand-transition>
 
-    <v-container fluid class="pa-0">
+    <!-- <v-container fluid class="pa-0">
         <v-row no-gutters class="mb-3">
             <v-col cols="12" class="pa-0" style="border-bottom: solid 2px grey;">
                 <div class="text-h5 text-grey-darken-2 font-weight-medium">
@@ -28,26 +28,26 @@
             </v-col>
         </v-row>
         <v-row no-gutters>
-            <div v-if="documents?.length === 0" class="text-h4 text-center pa-8 pt-6">
+            <div v-if="props.documents?.length === 0" class="text-h4 text-center pa-8 pt-6">
                 No Document has been uploaded for this property.
             </div>
-
             <v-row no-gutters>
-                <v-col cols="12" v-for="document in documents" :key="document.id" class="my-3">
+
+                <v-col cols="12" v-for="document in props.documents" :key="document.id" class="my-3"> -->
                     <v-row no-gutters>
-                        <v-cols cols="12" style="height: 400px; width: 100%;">
-                            <PDFViewer style="min-width: 300px !important;" :rendering-text="'Loading Plan PDF'"
-                                :source="document?.fileUrl" @download="() => handleDownload(document)"
-                                :controls="['download', 'print', 'zoom', 'switchPage', 'catalog']" />
-                        </v-cols>
+                        <v-col cols="12" style="height: 400px; width: 100%;">
+                            <iframe style="width: 100%; height: 100%;"
+                                :src="props.document.fileUrl ? props.document.fileUrl : 'https://checkedspot.blob.core.windows.net/assets/defaultdocument.pdf'"
+                                frameborder="0"></iframe>
+                        </v-col>
                         <v-col cols="12" class="documentDetailsSec">
                             <v-row no-gutters class="title">
                                 <v-col cols="4">
                                     <span class="font-weight-medium">Document Type</span>
                                     <p class="text-body-2">
                                         {{
-                                            document.type ?
-                                            document.type :
+                                            props.document.type ?
+                                            props.document.type :
                                             "No type assigned to this Document."
                                         }}
                                     </p>
@@ -56,8 +56,8 @@
                                     <span class="font-weight-medium">Document Title</span>
                                     <p class="text-body-2">
                                         {{
-                                            document.title ?
-                                            document.title :
+                                            props.document.title ?
+                                            props.document.title :
                                             "No title assigned to the Document."
                                         }}
                                     </p>
@@ -67,8 +67,8 @@
                                 <span class="font-weight-medium">Document Description</span>
                                 <p class="text-body-2">
                                     {{
-                                        document.description ?
-                                        document.description :
+                                        props.document.description ?
+                                        props.document.description :
                                         "No title description to the Document."
                                     }}
                                 </p>
@@ -76,13 +76,13 @@
 
                             <div class="documentAction d-flex justify-center align-center">
                                 <v-btn class="mx-2" density="comfortable" color="amber"
-                                    @click="() => { getDocumentId(document.id) }">Edit</v-btn>
+                                    @click="updateDialog=true">Edit</v-btn>
                                 <v-btn class="mx-2" density="comfortable" color="red-darken-1"
-                                    @click="() => { confirmDeletion(document.id) }">Delete</v-btn>
+                                    @click="confirmDeleteDialog=true">Delete</v-btn>
                             </div>
                         </v-col>
                     </v-row>
-                </v-col>
+                <!-- </v-col> -->
 
 
                 <!-- update Document Dialog box -->
@@ -92,8 +92,14 @@
                             <v-col cols="12" class="text-h6 pb-5">
                                 Update Document properties
                             </v-col>
-                            <v-col cols="12">
+
+                            <v-col v-if="!fileUrl" cols="12">
                                 <v-select v-model="type" :items="types" label="Select Document Type"></v-select>
+                            </v-col>
+                            <v-col v-if="!fileUrl" cols="12">
+                                <v-file-input v-model="docfile" accept=".pdf" prepend-icon=""
+                                    prepend-inner-icon="mdi-file-pdf-box" label="Upload Document"
+                                    @change="uploadFile"></v-file-input>
                             </v-col>
                             <v-col cols="12">
                                 <v-text-field v-model="title" label="title" variant="filled" name="title"></v-text-field>
@@ -102,6 +108,7 @@
                                 <v-text-field v-model="description" label="description" variant="filled"
                                     name="description"></v-text-field>
                             </v-col>
+
                             <v-col cols="12" class="pt-5 d-flex flex-column flex-md-row justify-center align-center">
                                 <v-btn class="my-2" variant="elevated" color="amber" width="200" :loading="loader"
                                     @click="updateDocument">Update</v-btn>
@@ -114,7 +121,7 @@
 
 
                 <!-- Delete Confirmation dialog -->
-                <v-dialog v-model="confirmDelete" width="auto">
+                <v-dialog v-model="confirmDeleteDialog" width="auto">
                     <v-card class="pa-5 pt-2">
                         <v-card-text class="text-h6">
                             Confirm deleting the Document!
@@ -123,37 +130,39 @@
                             <v-btn width="100" color="red-darken-2" variant="flat" @click="deleteDocument"
                                 :loading="loader">Delete</v-btn>
                             <v-btn width="100" color="green-darken-2" variant="outlined"
-                                @click="confirmDelete = false">Cancel</v-btn>
+                                @click="confirmDeleteDialog = false">Cancel</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-dialog>
 
-            </v-row>
-        </v-row>
+            <!-- </v-row>
+        </v-row> -->
 
 
-        <v-row no-gutters class="mt-8">
+        <!-- <v-row no-gutters class="mt-8">
             <v-col cols="12" class="d-flex justify-center">
                 <v-btn variant="elevated" color="primary" width="200" @click="addDocumentDialog = !addDocumentDialog">Add
                     Document</v-btn>
 
-                <!-- Add New Document Dialog box -->
+                Add New Document Dialog box
                 <v-dialog v-model="addDocumentDialog" width="auto">
                     <v-card color="grey-lighten-5">
                         <v-row no-gutters class="pa-10 pt-7">
                             <v-col cols="12" class="text-h6 pb-5">
                                 Add new Document
                             </v-col>
+                            
                             <v-col cols="12" sm="4" class="pa-0 px-2">
                                 <v-select v-model="addType" :items="types" label="Select Document Type"></v-select>
                             </v-col>
                             <v-col cols="12" sm="8" class="pa-0 px-2">
                                 <v-file-input :disabled="!addType" accept=".pdf" hint="upload PDF File only" persistent-hint
                                     prepend-inner-icon="mdi-file" prepend-icon="" label="upload file"
-                                    v-model="addDocuments"></v-file-input>
+                                    v-model="addedDocument"></v-file-input>
                             </v-col>
+
                             <v-col cols="12" class="pt-5  d-flex flex-column flex-md-row justify-center align-center">
-                                <v-btn class="my-2" :disabled="addDocuments.length <= 0" variant="elevated" color="primary"
+                                <v-btn class="my-2" :disabled="addedDocument.length !== 1" variant="elevated" color="primary"
                                     width="200" :loading="loader" @click="addDocument">Add Document</v-btn>
                                 <v-btn class="ml-4 my-2" width="100" color="green-darken-2" variant="outlined"
                                     @click="addDocumentDialog = false">Cancel</v-btn>
@@ -162,143 +171,83 @@
                     </v-card>
                 </v-dialog>
             </v-col>
-        </v-row>
-    </v-container>
+        </v-row> -->
+    <!-- </v-container> -->
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 //@ts-ignore
 import api from '@/data/api/index.js';
-import { useRouter } from "vue-router";
-import PDFViewer from 'pdf-viewer-vue';
 
-const props = defineProps(['propertyId'])
-const router = useRouter();
+const props = defineProps(['propertyId', 'document'])
+const emit = defineEmits(['success']);
 
-const addDocuments = ref([]);
-const documents = ref([
-    {
-        id: '',
-        type: '',
-        title: '',
-        description: '',
-        fileUrl: ''
-    }
-]);
-const documentId = ref('');
 
-const addDocumentDialog = ref(false);
+const types = ref(['RTC', 'EC', 'Sale Deed', 'Mother Deed']);
+
+const type = ref(props?.document?.type);
+const title = ref(props?.document?.title);
+const description = ref(props?.document?.description);
+const fileUrl = ref(props?.document?.fileUrl);
 
 const updateDialog = ref(false);
-const title = ref('');
-const description = ref('');
-const addType = ref(null)
-const type = ref(null)
-const types = ref(['RTC', 'EC', 'Sale Deed', 'Mother Deed'])
-
-const confirmDelete = ref(false);
+const confirmDeleteDialog = ref(false);
 
 const loader = ref(false);
 const expandSuccess = ref(false);
 const expandFailure = ref(false);
 const messageType = ref('');
 
-function handleDownload(document: any) {
-    window.location.href = document?.fileUrl;
-}
-
-async function fetchPropertyDocuments() {
-    documents.value = [];
-    const res = await api?.property?.getPropertyDocument({ params: { propertyId: props?.propertyId } })
-
-    if (res.status === 200) {
-        documents.value = res.data;
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-        router.push({ path: '/error', query: { status: res?.status } })
-    }
-}
-
-
-function addDocumentFailure() {
-    addDocumentDialog.value = false;
-    loader.value = false;
-    expandFailure.value = true;
-}
-async function addDocument() {
-    messageType.value = " Document addition ";
-    loader.value = true;
-
+const uploadedFileUrl = ref('');
+const docfile = ref([]);
+async function uploadFile() {
     const formData = new FormData();
-    if (addDocuments.value?.length > 0) {
-        for (let i = 0; i < addDocuments.value.length; i++) {
-            formData.append('document', addDocuments.value[i]);
-        }
-        const res = await api?.property?.uploadDocument(formData);
+    formData.append('document', docfile.value[0]);
 
-        if (res?.data?.document) {
-            const document = {
-                ...res.data.document,
-                type: addType.value
-            };
+    const res = await api?.property?.uploadDocument(formData);
 
-            const response = await api?.property?.addDocument({
-                "propertyId": props.propertyId,
-                "documentObj": document
-            })
-
-            if (response?.status === 200) {
-                loader.value = false;
-                addDocumentDialog.value = false;
-                await fetchPropertyDocuments();
-                expandSuccess.value = true;
-            } else {
-                addDocumentFailure();
-            }
-        } else {
-            addDocumentFailure();
-        }
+    if (res?.status === 200) {
+        uploadedFileUrl.value = res?.data?.document?.fileUrl;
     } else {
-        addDocumentFailure();
+        console.log(res);
     }
-    setTimeout(() => {
-        expandSuccess.value = false;
-        expandFailure.value = false;
-    }, 3000);
 }
 
-function getDocumentId(id: any) {
-    documentId.value = id;
-    const document = documents.value.find((document: any) => document.id === id);
-    //@ts-ignore
-    type.value = document?.type;
-    //@ts-ignore
-    title.value = document?.title;
-    //@ts-ignore
-    description.value = document?.description;
-
-    updateDialog.value = true;
-}
 async function updateDocument() {
     messageType.value = " Document Updation ";
     loader.value = true;
 
-    const res = await api.property.updateDocument({
-        propertyId: props.propertyId,
-        documentId: documentId.value,
-        documentObj: {
-            type: type.value,
-            title: title.value,
-            description: description.value,
-        }
-    })
+    let res;
+    if(!fileUrl.value) {
+        res = await api.property.updateDocument({
+            propertyId: props.propertyId,
+            documentId:  props?.document?.id,
+            documentObj: {
+                type: type.value,
+                title: title.value,
+                description: description.value,
+                fileUrl: uploadedFileUrl.value
+            }
+        })
+    } else {
+        res = await api.property.updateDocument({
+            propertyId: props.propertyId,
+            documentId:  props?.document?.id,
+            documentObj: {
+                title: title.value,
+                description: description.value,
+            }
+        })
+    }
 
     if (res?.status === 200) {
         loader.value = false;
         updateDialog.value = false;
-        await fetchPropertyDocuments();
         expandSuccess.value = true;
+        setTimeout(() => {            
+            emit('success');
+        }, 500);
     } else {
         loader.value = false;
         updateDialog.value = false;
@@ -310,11 +259,6 @@ async function updateDocument() {
     }, 3000);
 }
 
-
-function confirmDeletion(id: any) {
-    documentId.value = id;
-    confirmDelete.value = true;
-}
 async function deleteDocument() {
     messageType.value = " Document deletion ";
     loader.value = true;
@@ -322,18 +266,20 @@ async function deleteDocument() {
     const res = await api?.property?.deleteDocument({
         params: {
             propertyId: props.propertyId,
-            documentId: documentId.value,
+            documentId: props?.document?.id,
         }
     })
 
     if (res?.status === 200) {
         loader.value = false;
-        confirmDelete.value = false;
-        await fetchPropertyDocuments();
+        confirmDeleteDialog.value = false;
         expandSuccess.value = true;
+        setTimeout(() => {            
+            emit('success');
+        }, 500);
     } else {
         loader.value = false;
-        confirmDelete.value = false;
+        confirmDeleteDialog.value = false;
         expandFailure.value = true;
     }
     setTimeout(() => {
@@ -341,11 +287,6 @@ async function deleteDocument() {
         expandFailure.value = false;
     }, 3000);
 }
-
-onMounted(async() => {
-    await fetchPropertyDocuments();
-})
-
 </script>
 
 <style scoped>
