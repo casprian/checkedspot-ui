@@ -1,23 +1,4 @@
 <template>
-    <v-expand-transition>
-        <v-card style="position: absolute; top: 0; left: 0; z-index: 1" v-show="expandFailure" height="60" width="100%"
-            class="mx-auto bg-red">
-            <div style="height: 100%" class="text-h5 text-center d-flex align-center justify-center pa-4">
-                <h5 style="line-height: normal;">Message delivery Failed. Please try again!</h5>
-            </div>
-        </v-card>
-    </v-expand-transition>
-    <v-expand-transition>
-        <v-card style="position: absolute; top: 0; left: 0; z-index: 1" v-show="expandSuccess" height="60" width="100%"
-            class="mx-auto bg-green">
-            <div style="height: 100%" class="text-h6 text-center d-flex align-center justify-center pa-4">
-                <h5 style="line-height: normal;">
-                    Message has been delivered. Checked Spot Team will contact you soon.
-                </h5>
-            </div>
-        </v-card>
-    </v-expand-transition>
-
     <v-dialog v-model="dialog" activator="parent" width="auto">
         <v-card class="px-5 pt-3 pb-10 elevation-7 rounded-0" width="100%">
             <div class="pa-3 text-h5 font-weight-bold">Send enquiry for {{ enquiry }}</div>
@@ -25,11 +6,12 @@
                 <v-text-field v-model="name.value.value" :error-messages="name.errorMessage.value" density="comfortable"
                     class="ma-2" counter="40" label="Name*" variant="outlined"></v-text-field>
 
-                <v-text-field v-model="mobile.value.value" :error-messages="mobile.errorMessage.value" density="comfortable"
-                    class="ma-2" counter="10" label="Whatsapp Number*" variant="outlined"></v-text-field>
+                <v-text-field v-model="mobile.value.value" :error-messages="mobile.errorMessage.value"
+                    density="comfortable" class="ma-2" counter="10" label="Whatsapp Number*"
+                    variant="outlined"></v-text-field>
 
-                <v-text-field v-model="email.value.value" :error-messages="email.errorMessage.value" density="comfortable"
-                    class="ma-2" counter="30" label="Email*" variant="outlined"></v-text-field>
+                <v-text-field v-model="email.value.value" :error-messages="email.errorMessage.value"
+                    density="comfortable" class="ma-2" counter="30" label="Email*" variant="outlined"></v-text-field>
 
                 <small>*indicates required field</small>
 
@@ -38,7 +20,8 @@
                         @click.prevent="callWhatsappCloudApi">
                         Send Enquiry
                     </v-btn>
-                    <v-btn @click.prevent="handleReset" elevation="4" variant="text" color="red" width="300px" class="my-2">
+                    <v-btn @click.prevent="handleReset" elevation="4" variant="text" color="red" width="300px"
+                        class="my-2">
                         Reset Form
                     </v-btn>
                 </v-sheet>
@@ -54,6 +37,7 @@ import { useField, useForm } from "vee-validate";
 import api from "@/data/api/index.js";
 
 const props = defineProps(['enquiryFor', 'dialog'])
+const emit = defineEmits(['success', 'failure']);
 const enquiryMessage = ref('');
 const enquiry = ref('');
 const dialog = ref(false);
@@ -135,22 +119,14 @@ const callWhatsappCloudApi = handleSubmit(async (values) => {
         ?.sendEnquiry({ ...values, enquiryMessage: enquiryMessage.value })
         .then((res: any) => {
             if (res?.data?.status === 200) {
-                expandSuccess.value = true;
+                emit('success');
             } else {
-                expandFailure.value = true;
+                emit('failure')
             }
-            setTimeout(() => {
-                expandSuccess.value = false;
-                expandFailure.value = false;
-            }, 5000);
         })
         .catch((err: Error) => {
             console.log(err);
-            expandFailure.value = true;
-            setTimeout(() => {
-                expandSuccess.value = false;
-                expandFailure.value = false;
-            }, 5000);
+            emit('failure')
         });
 });
 </script>

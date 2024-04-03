@@ -97,6 +97,11 @@ const routes = [
         path: '/lead-detail',
         name: "leaddetail",
         component: () => import('@/views/LeadDetailView.vue'),
+      },
+      {
+        path: '/create-website',
+        name: 'createwebsite',
+        component: () => import('@/views/CreateWebsiteView.vue'),
       }
     ],
   },
