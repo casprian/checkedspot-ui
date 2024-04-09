@@ -1,5 +1,5 @@
 <template>
-  <v-main style="--v-layout-right: 0px; --v-layout-top: 56px; --v-layout-bottom: 0px; --v-layout-left: 0px; background-color: white;">
+  <v-main style="--v-layout-right: 0px; --v-layout-top: 56px; --v-layout-bottom: 0px; --v-layout-left: 0px; background-color: #F9FBFF;">
     <router-view />
   </v-main>
   <footer-comp/>

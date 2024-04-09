@@ -18,45 +18,45 @@
         </v-card>
     </v-expand-transition>
 
-    <v-container class="ownerPropCont" fluid>
-        <v-row no-gutters>
-            <v-col cols="12">
-                <h2 class="mx-2 mx-xl-2 mb-5 text-h5 font-weight-medium">Recently added properties</h2>
-            </v-col>
-            <v-col cols="12" class="mb-10">
-                <v-sheet class="mx-auto" elevation="0">
-                    <v-row v-if="!props.properties.status" no-gutters class="px-14 my-16 d-flex justify-center">
-                        <v-col cols="auto" class="loader">
-                            <v-progress-circular :size="70" :width="7" color="pink-accent-3"
-                                indeterminate></v-progress-circular>
-                        </v-col>
-                    </v-row>
+    <v-row no-gutters class="pa-0 recent20Prop">
+        <v-col cols="12">
+            <h2 class="heading">Recently added properties</h2>
+            <p class="subHeading">Introducing Newly added Property, Your Next Dream Investment Awaits!</p>
+        </v-col>
+        <v-col cols="12" class="">
+            <v-sheet class="mx-auto" elevation="0">
+                <v-row v-if="!props.properties.status" no-gutters class="px-14 my-16 d-flex justify-center">
+                    <v-col cols="auto" class="loader">
+                        <v-progress-circular :size="70" :width="7" color="pink-accent-3"
+                            indeterminate></v-progress-circular>
+                    </v-col>
+                </v-row>
 
-                    <v-row v-else-if="props.properties?.status === 200" no-gutters>
-                        <v-col v-if="props.properties?.data?.length > 0" cols="12">
-                            <v-slide-group show-arrows>
-                                <v-slide-group-item v-for="(property) in props.properties?.data" :key="property.propertyId">
-                                    <home-property-card :property="property" @success="handleUpdateSuccess" @failure="handleUpdateFailure" />
-                                </v-slide-group-item>
-                            </v-slide-group>
-                        </v-col>
-                        <v-col class="px-2" v-else-if="props.properties?.data?.length === 0" cols="12">
-                            <h1 class="text-grey-darken-1">0 Properties found</h1>
-                        </v-col>
-                        <v-col class="px-2" v-else cols="12">
-                            <h1 class="text-grey-darken-1">Unexpected Error</h1>
-                        </v-col>
-                    </v-row>
+                <v-row v-else-if="props.properties?.status === 200" no-gutters>
+                    <v-col v-if="props.properties?.data?.length > 0" cols="12">
+                        <v-slide-group show-arrows>
+                            <v-slide-group-item v-for="(property) in props.properties?.data" :key="property.propertyId">
+                                <home-property-card :property="property" @success="handleUpdateSuccess"
+                                    @failure="handleUpdateFailure" />
+                            </v-slide-group-item>
+                        </v-slide-group>
+                    </v-col>
+                    <v-col class="px-2" v-else-if="props.properties?.data?.length === 0" cols="12">
+                        <h1 class="text-grey-darken-1">0 Properties found</h1>
+                    </v-col>
+                    <v-col class="px-2" v-else cols="12">
+                        <h1 class="text-grey-darken-1">Unexpected Error</h1>
+                    </v-col>
+                </v-row>
 
-                    <v-row no-gutters v-if="errorOccure">
-                        <v-col class="px-2" cols="12">
-                            <h1 class="text-grey-darken-1">{{ props.properties?.status }} Error!</h1>
-                        </v-col>
-                    </v-row>
-                </v-sheet>
-            </v-col>
-        </v-row>
-    </v-container>
+                <v-row no-gutters v-if="errorOccure">
+                    <v-col class="px-2" cols="12">
+                        <h1 class="text-grey-darken-1">{{ props.properties?.status }} Error!</h1>
+                    </v-col>
+                </v-row>
+            </v-sheet>
+        </v-col>
+    </v-row>
 </template>
 <script lang="ts" setup>
 import { defineAsyncComponent, ref, } from "vue";
@@ -89,15 +89,27 @@ function handleUpdateFailure() {
 </script>
 
 <style scoped>
+.recent20Prop {
+    margin-top: 80px;
+}
+
+.heading {
+    line-height: 53px;
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.subHeading {
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
 a {
     text-decoration: none !important;
 }
 
 a:hover {
     text-decoration: underline !important;
-}
-
-.ownerPropCont {
-    margin-top: 150px;
 }
 </style>

@@ -1,49 +1,39 @@
 <template>
-  <v-container fluid class="pa-0 mb-6">
-    <v-expand-transition>
-      <v-card style="position: fixed; top: 56px; z-index: 1" v-show="expandFailure" height="60" width="100%"
-        class="mx-auto bg-red">
-        <div style="height: 100%" class="text-h5 text-center d-flex align-center justify-center">
-          <h5>Message delivery Failed. Please try again!</h5>
-        </div>
-      </v-card>
-    </v-expand-transition>
-    <v-expand-transition>
-      <v-card style="position: fixed; top: 56px; z-index: 1" v-show="expandSuccess" height="60" width="100%"
-        class="mx-auto bg-green">
-        <div style="height: 100%" class="text-h5 text-center d-flex align-center justify-center">
-          <h5>
-            Message has been delivered. Checked Spot Team will contact you soon.
-          </h5>
-        </div>
-      </v-card>
-    </v-expand-transition>
-    <v-row no-gutters class="bgConstruction d-flex justify-space-between py-10 py-md-0">
-      <v-col cols="12" md="4" class="px-16 pr-md-0 pl-md-16 my-5 mr-0 d-flex flex-column justify-center">
-        <h2 class="h2 text-white pb-3 text-center text-md-left">
-          Checked Spot Construction Simplified
-        </h2>
-        <p class="text-white text-h6 font-weight-regular text-center text-md-left">
-          Step into the home you've always of, built to the highest standard of quality.
-        </p>
-        <!-- <router-link to="/project" class="d-flex justify-center" style="text-decoration: none;">          
-          <v-btn class="mt-16 text-h6 w-100" variant="elevated" color="light-blue-darken-1" height="50">
-            Our Projects
-          </v-btn>
-        </router-link> -->
+  <v-expand-transition>
+    <v-card style="position: fixed; top: 56px; z-index: 1" v-show="expandFailure" height="60" width="100%"
+      class="mx-auto bg-red">
+      <div style="height: 100%" class="text-h5 text-center d-flex align-center justify-center">
+        <h5>Message delivery Failed. Please try again!</h5>
+      </div>
+    </v-card>
+  </v-expand-transition>
+  <v-expand-transition>
+    <v-card style="position: fixed; top: 56px; z-index: 1" v-show="expandSuccess" height="60" width="100%"
+      class="mx-auto bg-green">
+      <div style="height: 100%" class="text-h5 text-center d-flex align-center justify-center">
+        <h5>
+          Message has been delivered. Checked Spot Team will contact you soon.
+        </h5>
+      </div>
+    </v-card>
+  </v-expand-transition>
+  <v-row no-gutters class="constructionContainer d-flex justify-space-between">
+    <v-col cols="12">
+      <h2 class="heading">Checked Spot Construction Simplified.</h2>
+      <p class="subheading">Step into the home you've always of, built to the highest standard of quality.</p>
+      <router-link to="/quotation" class="quotationBtn">
+        <v-btn color="#C2185B" class="text-white">Get Your Quotation Now</v-btn>
+      </router-link>
+    </v-col>
+
+    <v-row no-gutters class="pa-0 ma-0 mt-10">
+      <v-col cols="12" sm="6" md="7" class="construction mb-5 mb-md-0">
+        <img src="../../assets/homePageConstruction.jpg" alt="image for construction">
       </v-col>
 
-      <v-col cols="12" md="2" class="d-flex align-center justify-center py-10 py-md-0">
-        <router-link to="/quotation">
-          <v-btn variant="elevated" color="deep-orange-darken-1" class="text-h6 py-2 elevtion-5" height="120" width="200">
-            GET YOUR<br>QUOTATION<br>NOW
-          </v-btn>
-        </router-link>
-      </v-col>
-
-      <v-col cols="12" md="5" class="pr-md-16 pl-md-10 py-10 d-flex justify-center justify-md-end">
-        <form class="bg-white px-8 pt-5 pb-8 rounded-lg" style="max-width:350px">
-          <div class="pb-3 text-h5 font-weight-bold">Talk to our Expert</div>
+      <v-col cols="12" sm="6" md="5" class="d-flex justify-center align-center">
+        <form class="pa-5 bg-white rounded-lg" style="max-width:350px">
+          <div class="pb-3 formHeading text-center font-weight-bold">Talk to our Expert</div>
           <v-text-field v-model="name.value.value" :error-messages="name.errorMessage.value" density="compact"
             counter="40" class="my-2" label="Name*" variant="outlined"></v-text-field>
 
@@ -54,8 +44,8 @@
           <v-text-field v-model="email.value.value" :error-messages="email.errorMessage.value" density="compact"
             counter="30" class="my-2" label="Email*" variant="outlined"></v-text-field>
 
-          <v-text-field v-model="enquiryMessage.value.value" :error-messages="enquiryMessage.errorMessage.value"
-            counter="40" density="compact" label="Enquiry Message" variant="outlined"></v-text-field>
+          <v-textarea v-model="enquiryMessage.value.value" :error-messages="enquiryMessage.errorMessage.value" rows="3"
+            counter="40" density="compact" label="Enquiry Message" variant="outlined"></v-textarea>
 
           <small>*indicates required field</small>
 
@@ -71,7 +61,7 @@
         </form>
       </v-col>
     </v-row>
-  </v-container>
+  </v-row>
 </template>
 
 <script lang="ts" setup>
@@ -79,9 +69,7 @@ import { ref } from "vue";
 import { useField, useForm } from "vee-validate";
 //@ts-ignore
 import api from "@/data/api/index.js";
-import { useRouter } from 'vue-router'
 
-const router = useRouter();
 const dialog = ref(false);
 
 //form validation
@@ -168,16 +156,39 @@ const callWhatsappCloudApi = handleSubmit(async (values) => {
 </script>
 
 <style scoped>
-.bgConstruction {
-  background-image: url("https://images.pexels.com/photos/176342/pexels-photo-176342.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
-  background-position: 0% 70%;
-  background-size: cover;
+.constructionContainer {
+  margin-top: 80px
 }
 
-h2.h2 {
-  font-size: 45px;
-  font-weight: 600;
-  line-height: 55px;
+.heading {
+  line-height: 53px;
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.subHeading {
+  font-size: 18px;
+  margin-bottom: 40px;
+}
+
+.quotationBtn>button {
+  margin-top: 20px;
+}
+
+.construction {
+  height: 543px;
+  overflow: hidden
+}
+
+.construction>img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.formHeading {
+  font-size: 36px;
 }
 
 .caption {
