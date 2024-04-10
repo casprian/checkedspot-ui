@@ -1,11 +1,11 @@
 <template>
     <v-row no-gutters class="statcont pa-0 ma-0 py-8 d-flex justify-center align-center">
         <v-col cols="12" md="4" class="py-8">
-            <div class="stat text-center text-white">100+</div>
-            <div class="detail text-center text-white">Quality Check</div>
+            <div class="stat text-center text-white">500+</div>
+            <div class="detail text-center text-white">Quality Checks</div>
         </v-col>
         <v-col cols="12" md="4" class="py-8">
-            <div class="stat text-center text-white">60+</div>
+            <div class="stat text-center text-white">6</div>
             <div class="detail text-center text-white">Projects Completed</div>
         </v-col>
         <v-col cols="12" md="4" class="py-8">
