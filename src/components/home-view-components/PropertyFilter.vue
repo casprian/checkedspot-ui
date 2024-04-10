@@ -1,5 +1,5 @@
 <template>
-  <v-row no-gutters class="d-flex justify-center align-center">
+  <v-row no-gutters class="">
     <v-col cols="12">
       <v-card class="rounded-lg" elevation="8">
         <v-tabs v-model="type" show-arrows bg-color="white" color="#F8485E" class="mx-8 mt-4" height="auto">

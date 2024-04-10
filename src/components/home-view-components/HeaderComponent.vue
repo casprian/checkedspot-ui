@@ -1,38 +1,110 @@
 <template>
-  <v-row no-gutters class="mt-5 mt-sm-10 mt-md-16 mb-8 d-flex flex-column-reverse flex-md-row">
-    <v-col cols="12" md="6" class="textSection pa-0 pr-md-10 mt-5 mt-md-0">
-      <h1 class="tagline">Plots Perfected, Dreams Constructed</h1>
+  <v-row no-gutters class="headerCont mb-8 d-flex flex-column-reverse flex-md-row">
+    <v-col cols="12" class="imageCont" id="imgCont">
+      <img :src="currentimage.src" :alt="currentimage.alt" id="image">
 
-      <p>We are a profession real estate service and construction company associated with partners in pan India and global spectrum.</p>
-      <p>Specializing in construction of small , medium and big apartments, Plot development, Joint Development,
-        Building mesmerizing cottages and restaurants, Commercial Complexes, Industrial Ware Houses and property sales,
-        we provide tailored services.</p>
-      <p>We are the first choice option when it comes to developing farm lands, farm houses with best customer
-        satisfaction survey.</p>
-      <!-- <p>With us for expert guidance and exclusive opportunities.</p> -->
-      <v-btn @click="router.push({path: '/aboutus'})" color="#C2185B" class="text-white mt-6">Explore Us</v-btn>
+      <!-- <v-carousel hide-delimiters hide-delimiter-background :show-arrows="false" class="" :cycle="true"
+        :interval="3000">
+        <v-carousel-item v-for="(item, i) in items" :key="i" :src="item.src" cover>
+
+        </v-carousel-item>
+      </v-carousel> -->
     </v-col>
-    
-    <v-col cols="12" md="6" class="pa-0 pl-md-10 d-flex justify-center align-center">
-      <img class="headerImage" src="../../assets/bengaluru.jpg">
+
+    <v-col cols="12" class="textSection pa-0">
+      <div class="d-flex flex-column justiy-center align-center">
+        <div class="textcont text-white">
+          <h1 class="tagline text-center">Plots Perfected, Dreams Constructed</h1>
+          <p>We are a profession real estate service and construction company associated with partners in pan India and
+            global spectrum.</p>
+          <p>Specializing in construction of small , medium and big apartments, Plot development, Joint Development,
+            Building mesmerizing cottages and restaurants, Commercial Complexes, Industrial Ware Houses and property
+            sales,
+            we provide tailored services.</p>
+          <p>We are the first choice option when it comes to developing farm lands, farm houses with best customer
+            satisfaction survey.</p>
+        </div>
+      </div>
+
+      <!-- FILTERS -->
+      <div class="filter">
+        <property-filter />
+      </div>
     </v-col>
   </v-row>
-
-  <!-- FILTERS -->
-  <property-filter />
 </template>
 
 <script lang="ts" setup>
-import { defineAsyncComponent } from 'vue';
+import { defineAsyncComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import construction from '@/assets/headerCarousel/construction.jpg';
+import farmlandhouse from '@/assets/headerCarousel/farmlandhouse.jpg';
+import landDevelopment from '@/assets/headerCarousel/landDevelopment.jpg';
+import plot from '@/assets/headerCarousel/plot.jpg';
 
 //@ts-ignore
 const PropertyFilter = defineAsyncComponent(() => import('@/components/home-view-components/PropertyFilter.vue'));
 
 const router = useRouter();
+
+const selectedImage = ref(0)
+
+const items = ref([
+  {
+    src: construction,
+    alt: 'construction'
+  },
+  {
+    src: farmlandhouse,
+    alt: 'farmland'
+  },
+  {
+    src: landDevelopment,
+    alt: 'land development'
+  },
+  {
+    src: plot,
+    alt: 'plot'
+  },
+]);
+
+const currentimage = ref(items.value[0]);
+const counter = ref(0);
+
+
+function startTransition() {
+  const imgContEle = document.getElementById('imgCont');
+  const imageEle = document.getElementById('image');
+
+  setInterval(() => {
+    if (counter.value === 3) {
+      counter.value = -1;
+    }
+    counter.value++;
+    currentimage.value = items.value[counter.value];
+  }, 3000)
+}
+
+startTransition()
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.headerCont {
+  position: relative;
+}
+
+.imageCont {
+  height: calc(100vh - 56px) !important;
+}
+
+.imageCont>img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 1;
+}
+
 .p0 {
   padding: 0px;
 }
@@ -41,32 +113,59 @@ const router = useRouter();
   margin: 0px;
 }
 
+.textSection {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.textcont {
+  margin-bottom: 24px;
+}
+
+.textcont>p {
+  font-size: 16px;
+  line-height: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
 .tagline {
-  line-height: 53px;
-  font-size: 46px;
+  line-height: 50px;
+  font-size: 40px;
   font-weight: 700;
   margin-bottom: 24px;
 }
 
-.textSection > p {
-  font-size: 18px;
-  margin-bottom: 10px;
+.filter {
+  padding: 0 100px;
 }
 
-.headerImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+
+@media screen and (max-width: 600px) {
+  .textcont {
+    width: 90%;
+  }
+
+  .filter {
+    padding: 0 20px;
+  }
 }
 
-.backgroundvideo {
-  margin-top: -7px;
-  width: 100%;
-  height: 55vh;
-  object-fit: cover;
+@media screen and (max-width: 960px) {
+  .textcont {
+    width: 75%;
+  }
+
+  .filter {
+    padding: 0 50px;
+  }
 }
 
-.video-container {
-  position: relative;
+@media screen and (min-width: 961px) {
+  .textcont {
+    width: 55%;
+  }
 }
 </style>

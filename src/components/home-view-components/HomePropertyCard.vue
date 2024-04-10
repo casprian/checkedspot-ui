@@ -57,7 +57,6 @@
                 <div class="d-flex flex-column flex-md-row justify-center align-center">
                     <v-btn density="compact" variant="elevated" class="text-none text-caption my-1"
                         color="pink-darken-3" append-icon="mdi-cursor-default-click">For details. Click here!</v-btn>
-
                 </div>
             </div>
 
@@ -97,8 +96,10 @@
 
                 <!-- Location -->
                 <v-card-text v-if="property?.address" class="address pa-0 font-weight-medium">
-                    Location: <span class="font-weight-regular" :title="property?.address">{{ property?.address
-                        }}</span>
+                    Location:
+                    <span class="font-weight-regular" :title="property?.address">
+                        {{ property?.address }}
+                    </span>
                 </v-card-text>
                 <v-card-text v-else class="unavailable pa-0 text-body-2 text-grey-darken-1">
                     Location: unavailable
@@ -108,9 +109,7 @@
                 <v-card-text v-if="property?.agent?.name" class="name pa-0 font-weight-medium">
                     Name:
                     <span class="font-weight-regular" :title="property?.agent?.name">
-                        {{
-            property?.agent?.name
-        }}
+                        {{ property?.agent?.name }}
                     </span>
                 </v-card-text>
                 <v-card-text v-else class="unavailable pa-0 text-body-2 text-grey-darken-1">
@@ -119,18 +118,18 @@
 
                 <!-- Agent Mobile -->
                 <v-card-text v-if="property?.agent?.mobile" class="mobile pa-0 font-weight-medium">
-                    Mobile: <span class="font-weight-regular" :title="property?.agent?.mobile">{{
-            property?.agent?.mobile
-        }}</span>
+                    Mobile:
+                    <span class="font-weight-regular" :title="property?.agent?.mobile">
+                        {{ property?.agent?.mobile }}</span>
                 </v-card-text>
                 <v-card-text v-else class="unavailable pa-0 text-body-2 text-grey-darken-1">
                     Mobile: unavailable
                 </v-card-text>
 
-                <v-card-action class="sendEnquiry">
+                <v-card-actions class="sendEnquiry">
                     <v-btn block variant="outlined" color="#C2185B"
                         @click.prevent.stop="() => { enquiryForm = !enquiryForm }">Send Enquiry</v-btn>
-                </v-card-action>
+                </v-card-actions>
             </v-col>
         </v-row>
 
@@ -160,7 +159,7 @@
                             </v-col>
                         </v-row>
                     </v-container>
-                    <small>*indicates required field</small>
+                    <div class="text-caption">*indicates required field</div>
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
@@ -286,10 +285,12 @@ const handleEnquiry = handleSubmit(onSuccess, onInvalidSubmit);
     display: flex;
     justify-content: space-between;
 }
+
 .verifiedTag {
     position: absolute;
     right: 10px;
 }
+
 .hoverPointer {
     border-radius: 4px;
 }

@@ -1,63 +1,37 @@
 <template>
-    <footer>
-        <v-container fluid class="pa-0">
-            <v-row no-gutters class="bg-grey-lighten-2 d-flex py-5 px-5 px-sm-10 px-md-14">
-                <!-- <v-col cols="12" sm="4" class="pa-0">
-                    
-                </v-col> -->
-                <v-col cols="12" sm="6" class="">
-                    <div v-for="(link, index) in links" :key="index">
-                        <v-btn @click="router.push(link.routeTo)" color="grey-darken-3" variant="text"
-                            class="text-none mx-2" rounded="xl">
-                            {{ link.name }}
-                        </v-btn>
-                    </div>
-                    <div>
-                        <v-btn v-if="!cookies.get('token')" @click="router.push('/signin')" color="grey-darken-3"
-                            variant="text" class="text-none mx-2" rounded="xl">
-                            Login
-                        </v-btn>
-                    </div>
-                    <div>
-                        <v-btn v-if="!cookies.get('token')" @click="router.push('/signup')" color="grey-darken-3"
-                            variant="text" class="text-none mx-2" rounded="xl">
-                            Register
-                        </v-btn>
-                    </div>
-                    <div>
-                        <v-btn v-if="cookies.get('token')" @click="handleSignout" color="grey-darken-3" variant="text"
-                            class="text-none mx-2" rounded="xl">
-                            Logout
-                        </v-btn>
-                    </div>
+    <footer class="bg-black">
+        <v-container fluid class="footerconst pa-0 d-flex flex-column justify-space-between align-center">
+            <v-row no-gutters class="topSection px-5 px-sm-10">
+                <v-col cols="12" md="4" class="ml-n5 ml-md-0 d-flex justify-start align-center">
+                    <router-link to="/">
+                        <v-img class="logo" width="200"
+                            src="https://checkedspot.blob.core.windows.net/assets/logocheckedspot.png" alt="logo"></v-img>
+                    </router-link>
                 </v-col>
-                <v-col cols="12" sm="6" class="d-flex flex-column align-start align-sm-center mt-5 mt-sm-0">
-                    <div>
-                        <router-link to="/">
-                            <v-img class="logo" width="200"
-                                src="https://checkedspot.blob.core.windows.net/assets/logocheckedspot.png"
-                                alt="logo"></v-img>
-                        </router-link>
-                    </div>
-                    <div class="pl-6">
-                        <v-btn class="text-none " variant="outlined" color="pink-darken-2"
-                            @click="router.push('/contactus')">Contact Us</v-btn>
-                    </div>
-                    <div class="pl-6 pt-5">
-                        <span v-for="(icon, index) in icons" :key="index">
-                            <a :href="icon.redirect" target="_blank"><v-btn :icon="icon.icon" variant="text"
-                                    color="pink-darken-2" size="small"></v-btn></a>
-                        </span>
-                    </div>
+                
+                <!-- Navigation links -->
+                <v-col cols="12" md="4"
+                    class="d-flex flex-column justify-center align-start flex-md-row justify-md-space-around align-md-center">
+                    <router-link to="/" class="py-1 py-md-0">Home</router-link>
+                    <router-link to="/aboutus" class="py-1 py-md-0">About us</router-link>
+                    <router-link to="/contactus" class="py-1 py-md-0">Contact</router-link>
+                </v-col>
+    
+                <!-- Social Media Handles -->
+                <v-col cols="12" md="4" class="mt-2 mt-md-0 ml-n2 ml-md-0 d-flex justify-start align-center justify-md-end">
+                    <span v-for="(icon, index) in icons" :key="index">
+                        <a :href="icon.redirect" target="_blank"><v-btn :icon="icon.icon" variant="text" color="white"
+                                size="small"></v-btn></a>
+                    </span>
                 </v-col>
             </v-row>
-            <v-row no-gutters class="bg-grey-darken-3">
-                <v-col cols="12" sm="6"
-                    class="px-4 pt-2 py-sm-2 text-caption font-weight-light text-grey-lighten-5 text-center">
+    
+            <v-row no-gutters class="bottomSection">
+                <v-col cols="12" sm="6" class="pa-0 px-4 text-caption font-weight-light text-grey-lighten-5 text-center">
                     Copyright © 2023 <strong>Checked Spot</strong> - All Rights Reserved.
                 </v-col>
-                <v-col cols="12" sm="6"
-                    class="px-4 pb-2 py-sm-2 text-caption font-weight-light text-grey-lighten-5 text-center">
+    
+                <v-col cols="12" sm="6" class="pa-0 px-4 text-caption font-weight-light text-grey-lighten-5 text-center">
                     <button @click="router.push('/privacypolicy')">privacy policy</button>
                     <span>&nbsp; | &nbsp;</span>
                     <button @click="router.push('/termsofservices')">terms of services</button>
@@ -102,6 +76,47 @@ function handleSignout() {
 </script>
 
 <style scoped>
+a {
+    text-decoration: none;
+    color: white !important;
+}
+
 .logo:hover {
     cursor: pointer;
-}</style>
+}
+
+footer {
+    height: auto;
+}
+.footerconst {
+    width: 100%;
+    padding: 30px 0;
+}
+
+.topSection {
+    width: 100%;
+    height: 180px;
+}
+
+.bottomSection {
+    border-top: solid 2px #fff;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    width: 90%;
+}
+
+@media screen and (max-width: 960px) {
+
+    .footerconst {
+        height: auto;
+    }
+    .topSection {
+        height: auto;
+        padding: 15px 0;
+    }
+    .bottomSection {
+        width: 90%;
+        height: auto;
+    }
+}
+</style>

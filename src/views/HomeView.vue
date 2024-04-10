@@ -1,10 +1,10 @@
 <template>
+  <header-component/>    
   <v-container class="pa-0 my-0 px-5 px-sm-10 px-md-16" fluid>
-    <header-component/>    
     <recent-property :properties="recent20Properties.data"/>
     <company-stats />
     <Construction/>
-    
+
     <property-services/>
   </v-container>
 </template>

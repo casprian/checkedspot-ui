@@ -18,81 +18,84 @@
     </v-card>
   </v-expand-transition>
 
-  <v-row no-gutters>
+  <v-row no-gutters class="services">
+    <!-- Heading of the Section -->
     <v-col cols="12">
       <div class="heading text-h4 text-center">Empower your dream with our Associated Partners </div>
     </v-col>
+
+    <!-- Cards -->
     <v-col cols="12" class="my-5 mt-2">
-      <v-row no-gutters>
-        <v-col cols="12" sm="6" md="4" class="px-4 px-sm-2 pr-md-4 py-6 py-sm-4 serviceZindex">
-          <v-img cover height="200px" src="https://checkedspot.blob.core.windows.net/gallery/interior.jpg"
-            class="mb-1 d-flex align-end">
-            <div class="d-flex align-end justify-end ma-4">
-              <span>
-                <v-btn height="35" color="pink-darken-4" variant="flat" @click="handleEnquiryForm('decoration')">Know
-                  More</v-btn>
-                <enquiry-form v-if="enquiryFor === 'decoration'" :enquiryFor="enquiryFor" :dialog="dialog"
-                  @success="successHandler" @failure="failureHandler" />
-              </span>
+      <v-row no-gutters class="pa-0">
+        <!-- Interior Decoration Service -->
+        <v-col cols="12" sm="6" md="4" class="pa-0 pa-3">
+          <v-card class="pa-4" elevation="8" height="378" width="100%">
+            <div>
+              <v-img class="rounded" cover height="240"
+                src="https://checkedspot.blob.core.windows.net/gallery/interior.jpg"></v-img>
             </div>
-          </v-img>
-          <p class="servicename font-weight-medium">Interior decoration</p>
+            <v-card-title class="pa-0 mt-5 mb-4 cardTitle">
+              Interior decoration
+            </v-card-title>
+            <v-card-actions class="pa-0">
+              <v-btn height="35" color="pink-darken-4" variant="outlined" @click="handleEnquiryForm('decoration')">Know
+                More</v-btn>
+              <enquiry-form v-if="enquiryFor === 'decoration'" :enquiryFor="enquiryFor" :dialog="dialog"
+                @success="successHandler" @failure="failureHandler" />
+            </v-card-actions>
+          </v-card>
         </v-col>
 
-        <v-col style="z-index: 1;" cols="12" sm="6" md="4" class="px-4 px-sm-2 pr-md-4 py-6 py-sm-4 serviceZindex">
-          <v-img cover height="200px" src="https://checkedspot.blob.core.windows.net/gallery/maintainance.jpg"
-            class="mb-1 d-flex align-end">
-            <div class="d-flex align-end justify-end ma-4">
-              <span>
-                <v-btn height="35" color="pink-darken-4" variant="flat" @click="handleEnquiryForm('maintenance')">Know
-                  More</v-btn>
-                <enquiry-form v-if="enquiryFor === 'maintenance'" :enquiryFor="enquiryFor" :dialog="dialog"
-                  @success="successHandler" @failure="failureHandler" />
-              </span>
+        <!-- Maintenance Service -->
+        <v-col cols="12" sm="6" md="4" class="pa-0 pa-3">
+          <v-card class="pa-4" elevation="8" height="378" width="100%">
+            <div>
+              <v-img class="rounded" cover height="240"
+                src="https://checkedspot.blob.core.windows.net/gallery/maintainance.jpg"></v-img>
             </div>
-          </v-img>
-          <p class="servicename font-weight-medium">Maintenance</p>
+            <v-card-title class="pa-0 mt-5 mb-4 cardTitle">
+              Maintenance
+            </v-card-title>
+
+            <v-card-actions class="pa-0">
+              <v-btn height="35" color="pink-darken-4" variant="outlined" @click="handleEnquiryForm('maintenance')">Know
+                More</v-btn>
+              <enquiry-form v-if="enquiryFor === 'maintenance'" :enquiryFor="enquiryFor" :dialog="dialog"
+                @success="successHandler" @failure="failureHandler" />
+            </v-card-actions>
+          </v-card>
         </v-col>
 
-        <!-- <v-col cols="12" md="6" class="px-4 px-sm-2 pr-md-4 py-6 py-sm-4 serviceZindex">
-            <v-img cover height="250px" src="https://checkedspot.blob.core.windows.net/assets/RentCollectionServices.jpg"
-              class="mb-1 d-flex align-end">
-              <div class="d-flex align-end justify-end ma-4">                    
-                <span>
-                  <v-btn height="43" color="pink-darken-4" variant="flat" @click="handleEnquiryForm('rentCollection')">Know More</v-btn>
-                  <enquiry-form v-if="enquiryFor === 'rentCollection'" :enquiryFor="enquiryFor" :dialog="dialog" />
-                </span>
-              </div>
-            </v-img>
-            <p class="text-h6 font-weight-medium">Rent collection services</p>
-          </v-col> -->
-
-        <v-col cols="12" sm="6" md="4" class="px-4 px-sm-2 pr-md-4 py-6 py-sm-4 serviceZindex">
-          <v-img cover height="200px" src="https://checkedspot.blob.core.windows.net/assets/legalServices.jpg"
-            class="mb-1 d-flex align-end">
-            <div class="d-flex align-end justify-end ma-4">
-              <span>
-                <v-btn height="35" color="pink-darken-4" variant="flat" @click="handleEnquiryForm('legal')">Know
-                  More</v-btn>
-                <enquiry-form v-if="enquiryFor === 'legal'" :enquiryFor="enquiryFor" :dialog="dialog"
-                  @success="successHandler" @failure="failureHandler" />
-              </span>
+        <!-- Legal Service -->
+        <v-col cols="12" sm="6" md="4" class="pa-0 pa-3">
+          <v-card class="pa-4" elevation="8" height="378" width="100%">
+            <div>
+              <v-img class="rounded" cover height="240"
+                src="https://checkedspot.blob.core.windows.net/assets/legalServices.jpg"></v-img>
             </div>
-          </v-img>
-          <p class="servicename font-weight-medium">Legal</p>
+            <v-card-title class="pa-0 mt-5 mb-4 cardTitle">
+              Legal
+            </v-card-title>
+            <v-card-actions class="pa-0">
+              <v-btn height="35" color="pink-darken-4" variant="outlined" @click="handleEnquiryForm('legal')">Know
+                More</v-btn>
+              <enquiry-form v-if="enquiryFor === 'legal'" :enquiryFor="enquiryFor" :dialog="dialog"
+                @success="successHandler" @failure="failureHandler" />
+            </v-card-actions>
+          </v-card>
         </v-col>
-
       </v-row>
+
     </v-col>
   </v-row>
-
 </template>
 
 <script lang="ts" setup>
-//@ts-ignore
-import EnquiryForm from "./EnquiryForm.vue";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+
+//@ts-ignore
+import EnquiryForm from "@/components/home-view-components/EnquiryForm.vue";
 
 const dialog = ref(false)
 const enquiryFor = ref('');
@@ -101,14 +104,13 @@ const expandSuccess = ref(false);
 const expandFailure = ref(false);
 
 function handleEnquiryForm(enq: string) {
+  console.log("Enquiry: ", enq)
   if (enq === 'decoration') {
     enquiryFor.value = 'decoration';
   } else if (enq === 'maintenance') {
     enquiryFor.value = 'maintenance';
   } else if (enq === 'legal') {
     enquiryFor.value = 'legal';
-    // }else if (enq === 'rentCollection') {
-    //   enquiryFor.value = 'rentCollection';
   }
   dialog.value = true;
 }
@@ -131,6 +133,17 @@ function failureHandler() {
 
 </script>
 <style scoped>
+.services {
+  margin: 80px 0;
+}
+
+.heading {
+  line-height: 53px;
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
 .servicename {
   font-size: 18px;
 }
