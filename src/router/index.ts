@@ -141,6 +141,7 @@ const routes = [
     path: '/crm',
     name: "crm",
     component: () => import('@/views/CrmView.vue'),
+    
     children: [
       {
         path: '',
