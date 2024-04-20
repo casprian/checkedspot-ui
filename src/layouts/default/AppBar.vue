@@ -210,9 +210,9 @@ function handleCreateProperty() {
   router.push('/createproperty');
 }
 
-let details = ref(navigator.userAgent);
-let regexp = /android|iphone|kindle|ipad/i;
-let isMobileDevice = ref(regexp.test(details.value));
+const details = ref(navigator.userAgent);
+const regexp = /android|iphone|kindle|ipad/i;
+const isMobileDevice = ref(regexp.test(details.value));
 
 onMounted(async () => {
   if (cookies.get('token')) {

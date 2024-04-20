@@ -175,7 +175,7 @@ const property = ref({
     documents: null
 });
 const tab = ref('Preview Details');
-const addType = ref(null);
+const addType = ref('');
 const loader = ref(false);
 const addedDocument = ref([]);
 const addDocumentDialog = ref(false);
@@ -270,7 +270,7 @@ async function addDocument() {
                 loader.value = false;
                 addDocumentDialog.value = false;
                 await fetchPropertyDocuments();
-                addType.value = null;
+                addType.value = '';
                 addedDocument.value = [];
             } else {
                 loader.value = false;
