@@ -137,43 +137,6 @@ const routes = [
     name: 'Page Not Found',
     component: () => import('@/views/PageNotFoundView.vue')
   },
-  {
-    path: '/crm',
-    name: "crm",
-    component: () => import('@/views/CrmView.vue'),
-    children: [
-      {
-        path: '',
-        name: 'Dashboard',
-        component: () => import('@/components/crm/CrmDashboard.vue')
-      },
-      {
-        path: 'manageleads',
-        name: 'leadmanagement',
-        component: () => import('@/components/crm/LeadManagement.vue')
-      },
-      {
-        path: 'managetasks',
-        name: 'taskmanagement',
-        component: () => import('@/components/crm/TaskManagement.vue')
-      },
-      {
-        path: 'lead',
-        name: 'lead',
-        component: () => import('@/components/crm/lead-management/LeadDetails.vue')
-      },
-      {
-        path: 'lead/emaillog',
-        name: 'leademaillog',
-        component: () => import('@/components/crm/lead-management/LeadEmailLog.vue')
-      },
-      {
-        path: 'lead/calllog',
-        name: 'leadcalllog',
-        component: () => import('@/components/crm/lead-management/LeadCallLog.vue')
-      },      
-    ]
-  },
 ]
 
 const router = createRouter({

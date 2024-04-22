@@ -1,5 +1,5 @@
 <template>
-    <footer class="bg-black">
+    <footer class="bg-grey-darken-3">
         <v-container fluid class="footerconst pa-0 d-flex flex-column justify-space-between align-center">
             <v-row no-gutters class="topSection px-5 px-sm-10">
                 <v-col cols="12" md="4" class="ml-n5 ml-md-0 d-flex justify-start align-center">
@@ -12,9 +12,9 @@
                 <!-- Navigation links -->
                 <v-col cols="12" md="4"
                     class="d-flex flex-column justify-center align-start flex-md-row justify-md-space-around align-md-center">
-                    <router-link to="/" class="py-1 py-md-0">Home</router-link>
-                    <router-link to="/aboutus" class="py-1 py-md-0">About us</router-link>
-                    <router-link to="/contactus" class="py-1 py-md-0">Contact</router-link>
+                    <router-link to="/" class="footerlink py-1 py-md-0">Home</router-link>
+                    <router-link to="/aboutus" class="footerlink py-1 py-md-0">About us</router-link>
+                    <router-link to="/contactus" class="footerlink py-1 py-md-0">Contact</router-link>
                 </v-col>
     
                 <!-- Social Media Handles -->
@@ -32,9 +32,9 @@
                 </v-col>
     
                 <v-col cols="12" sm="6" class="pa-0 px-4 text-caption font-weight-light text-grey-lighten-5 text-center">
-                    <button @click="router.push('/privacypolicy')">privacy policy</button>
+                    <button class="footerlink" @click="router.push('/privacypolicy')">privacy policy</button>
                     <span>&nbsp; | &nbsp;</span>
-                    <button @click="router.push('/termsofservices')">terms of services</button>
+                    <button class="footerlink" @click="router.push('/termsofservices')">terms of services</button>
                 </v-col>
             </v-row>
         </v-container>
@@ -103,6 +103,10 @@ footer {
     padding-top: 15px;
     padding-bottom: 15px;
     width: 90%;
+}
+
+.footerlink:hover {
+    border-bottom: solid 1px #f8485e;
 }
 
 @media screen and (max-width: 960px) {

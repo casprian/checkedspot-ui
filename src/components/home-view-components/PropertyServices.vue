@@ -29,7 +29,7 @@
       <v-row no-gutters class="pa-0">
         <!-- Interior Decoration Service -->
         <v-col cols="12" sm="6" md="4" class="pa-0 pa-3">
-          <v-card class="pa-4" elevation="8" height="378" width="100%">
+          <v-card class="pa-4" elevation="8" height="383" width="100%">
             <div>
               <v-img class="rounded" cover height="240"
                 src="https://checkedspot.blob.core.windows.net/gallery/interior.jpg"></v-img>
@@ -48,7 +48,7 @@
 
         <!-- Maintenance Service -->
         <v-col cols="12" sm="6" md="4" class="pa-0 pa-3">
-          <v-card class="pa-4" elevation="8" height="378" width="100%">
+          <v-card class="pa-4" elevation="8" height="383" width="100%">
             <div>
               <v-img class="rounded" cover height="240"
                 src="https://checkedspot.blob.core.windows.net/gallery/maintainance.jpg"></v-img>
@@ -68,7 +68,7 @@
 
         <!-- Legal Service -->
         <v-col cols="12" sm="6" md="4" class="pa-0 pa-3">
-          <v-card class="pa-4" elevation="8" height="378" width="100%">
+          <v-card class="pa-4" elevation="8" height="383" width="100%">
             <div>
               <v-img class="rounded" cover height="240"
                 src="https://checkedspot.blob.core.windows.net/assets/legalServices.jpg"></v-img>

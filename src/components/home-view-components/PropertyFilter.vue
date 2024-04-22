@@ -5,41 +5,41 @@
         <v-tabs v-model="type" show-arrows bg-color="white" color="#F8485E" class="mx-8 mt-4" height="auto">
 
           <v-tab value="" stacked min-width="100">
-            <img src="../../assets/headerFiltersvg/allProperty.svg" :class="[type === '' ? 'filterIcon' : '']" style="" alt="">
+            <img src="../../assets/headerFiltersvg/allProperty.svg" :class="[type === '' ? 'filterIcon' : '', 'filterImage']" style="" alt="">
             <div class="text-caption pb-3">All Properties</div>
           </v-tab>
 
           <v-tab value="farmland" stacked min-width="100">
-            <img src="../../assets/headerFiltersvg/farmland.svg" :class="[type === 'farmland' ? 'filterIcon' : '']" style=""
+            <img src="../../assets/headerFiltersvg/farmland.svg" :class="[type === 'farmland' ? 'filterIcon' : '', 'filterImage']" style=""
               alt="">
             <div class="text-caption pb-3">Farmland</div>
           </v-tab>
 
           <v-tab value="plot" stacked min-width="100">
-            <img src="../../assets/headerFiltersvg/plot.svg" :class="[type === 'plot' ? 'filterIcon' : '']" style="" alt="">
+            <img src="../../assets/headerFiltersvg/plot.svg" :class="[type === 'plot' ? 'filterIcon' : '', 'filterImage']" style="" alt="">
             <div class="text-caption pb-3">Plot</div>
           </v-tab>
 
           <v-tab value="flat" stacked min-width="100">
-            <img src="../../assets/headerFiltersvg/flat.svg" :class="[type === 'flat' ? 'filterIcon' : '']" style="" alt="">
+            <img src="../../assets/headerFiltersvg/flat.svg" :class="[type === 'flat' ? 'filterIcon' : '', 'filterImage']" style="" alt="">
             <div class="text-caption pb-3">Flat</div>
           </v-tab>
 
           <v-tab value="apartment" stacked min-width="100">
-            <img src="../../assets/headerFiltersvg/apartment.svg" :class="[type === 'apartment' ? 'filterIcon' : '']" style=""
+            <img src="../../assets/headerFiltersvg/apartment.svg" :class="[type === 'apartment' ? 'filterIcon' : '', 'filterImage']" style=""
               alt="">
             <div class="text-caption pb-3">Apartment</div>
           </v-tab>
 
           <v-tab value="independentHouse" stacked min-width="100">
             <img src="../../assets/headerFiltersvg/independentHouse.svg"
-              :class="[type === 'independentHouse' ? 'filterIcon' : '']" style="" alt="">
+              :class="[type === 'independentHouse' ? 'filterIcon' : '', 'filterImage']" style="" alt="">
             <div class="text-caption pb-3">Independent House</div>
           </v-tab>
 
           <v-tab value="commercialProperty" stacked min-width="100">
             <img src="../../assets/headerFiltersvg/commercialProperty.svg"
-              :class="[type === 'commercialProperty' ? 'filterIcon' : '']" style="" alt="">
+              :class="[type === 'commercialProperty' ? 'filterIcon' : '', 'filterImage']" style="" alt="">
             <div class="text-caption pb-3">Commercial Property</div>
           </v-tab>
 
@@ -50,11 +50,10 @@
           <v-icon icon="mdi-map-marker" color="#C2185B" class="mr-2" size="24"></v-icon>
           <v-combobox v-model="select" :items="items" menu-icon="" chips variant="plain" multiple></v-combobox>
           
-          <v-btn class="lgNav" @click="moveToListing" variant="flat" color="pink-darken-2" height="34px"
-            prepend-icon="mdi-magnify" density="default">SEARCH</v-btn>
+          <v-btn class="lgNav" @click="moveToListing" variant="flat" color="pink-darken-2"
+            prepend-icon="mdi-magnify" density="comfortable">SEARCH</v-btn>
 
-          <v-btn class="smNav pa-0" @click="moveToListing" variant="flat" color="pink-darken-2" height="34px"
-            min-width="40" density="default">
+          <v-btn class="smNav pa-0" @click="moveToListing" variant="flat" color="pink-darken-2" density="comfortable">
             <v-icon size="20" icon="mdi-magnify"></v-icon>
           </v-btn>
         </v-card-text>
@@ -102,6 +101,11 @@ export default {
 <style scoped>
 .filterIcon {
   filter: invert(0.5) sepia(1) saturate(5) hue-rotate(308deg);
+}
+
+.filterImage {
+  width: 25px;
+  height: 25px;
 }
 
 @media only screen and (max-width: 600px) {

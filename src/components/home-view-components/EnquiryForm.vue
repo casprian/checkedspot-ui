@@ -1,6 +1,6 @@
 <template>
     <v-dialog v-model="dialog" activator="parent" width="auto">
-        <v-card class="px-5 pt-3 pb-10 elevation-7 rounded-0" width="100%">
+        <v-card class="px-5 pt-3 pb-8 elevation-7 rounded-lg" width="100%">
             <div class="pa-3 text-h5 font-weight-bold">Send enquiry for {{ enquiry }}</div>
             <form>
                 <v-text-field v-model="name.value.value" :error-messages="name.errorMessage.value" density="comfortable"
