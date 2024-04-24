@@ -226,12 +226,12 @@
         <v-row v-if="zeroProperties" no-gutters class="px-sm-14 py-5 d-flex justify-center align-center">
             <v-col cols="5">
                 <div class="text-center text-h3">
-                    No data available for the particular filter. Please Try again!
+                    No data available for the particular filter. Please Try again with different filter options!
                 </div>
             </v-col>
         </v-row>
 
-        <v-row v-else-if="!(propertiesData?.data?.length > 0)" no-gutters class="d-flex justify-center align-center"
+        <v-row v-else-if="!(propertiesData?.data?.length > 0) && !errorOccured" no-gutters class="d-flex justify-center align-center"
             style="height: calc(100% - 287px);">
             <v-col cols="4">
                 <v-progress-linear color="pink-accent-3" indeterminate rounded height="10"></v-progress-linear>
@@ -239,10 +239,17 @@
         </v-row>
 
         <!-- property cards Section  -->
-        <v-row v-else no-gutters class="px-sm-14 d-flex justify-center">
+        <v-row v-else-if="propertiesData?.data?.length > 0" no-gutters class="px-sm-14 d-flex justify-center">
             <v-col class="px-2 my-2 px-md-4 my-md-4" v-for="(data, index) in propertiesData?.data" cols="12" md="6" lg="4"
                 :key="index">
                 <property-card :property="data" />
+            </v-col>
+        </v-row>
+
+        <!-- Error occured Section  -->
+        <v-row v-else no-gutters class="px-sm-14 d-flex justify-center">
+            <v-col class="px-2 my-2 px-md-4 my-md-4">
+                <http-request-error :statusCode="statusCode"/>
             </v-col>
         </v-row>
 
@@ -263,7 +270,7 @@
 import api from "@/data/api/index.js";
 //@ts-ignore
 import PropertyCard from '@/components/PropertyCard.vue';
-import { watch, onMounted, reactive, ref, onUnmounted } from "vue";
+import { watch, onMounted, reactive, ref, onUnmounted, defineAsyncComponent } from "vue";
 import { useRoute, useRouter } from "vue-router";
 //@ts-ignore
 import AreaFilter from '@/components/property-filters/AreaFilter.vue';
@@ -271,6 +278,9 @@ import AreaFilter from '@/components/property-filters/AreaFilter.vue';
 import CostFilter from "@/components/property-filters/CostFilter.vue";
 //@ts-ignore
 import DateFilter from "@/components/property-filters/DateFilter.vue";
+
+const HttpRequestError = defineAsyncComponent(() => import('@/components/errors/HttpRequestError.vue'))
+
 
 const route = useRoute();
 const router = useRouter();
@@ -281,6 +291,8 @@ const noOfPage = ref(0);
 const zeroProperties = ref(false);
 const isFetchingData = ref(false);
 const propertyFilterObj = reactive({ ...route?.query });
+const statusCode = ref(0);
+const errorOccured = ref(false);
 
 //these cities are collected from the qyery parameter of the path routing from home page to listing page.
 let cities: any = ref(null);
@@ -384,7 +396,10 @@ async function getAllProperty() {
             zeroProperties.value = true;
         }
     } else {
-        router.push({ path: '/error', query: { status: res?.status } })
+        console.log(res.status);
+        statusCode.value = res.status;
+        errorOccured.value = true;
+        // router.push({ path: '/error', query: { status: res?.status } })
     }
 }
 
@@ -413,7 +428,6 @@ window.addEventListener('scroll', scrollCallback);
 
 onMounted(async () => {
     if (pageNumber.value === 1) {
-        console.log(route.query.type)
         await getLocationData();
         await getAllProperty();
     }

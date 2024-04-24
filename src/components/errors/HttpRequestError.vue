@@ -1,7 +1,7 @@
 <template>
   <div class="errorCont">
     <!-- Not Found Error -->
-    <div v-if="props.statusCode === 404" class="errorCardCont">
+    <div v-if="props.statusCode == 404" class="errorCardCont">
       <v-expand-x-transition>
         <v-alert
           v-show="expand"
@@ -20,7 +20,7 @@
     </div>
 
     <!-- Parameter Missing Client Error -->
-    <div v-if="props.statusCode === 422" class="errorCardCont">
+    <div v-else-if="props.statusCode == 422" class="errorCardCont">
       <v-expand-x-transition>
         <v-alert
           v-show="expand"
@@ -39,7 +39,7 @@
     </div>
 
     <!-- Unauthorised Error -->
-    <div v-if="props.statusCode === 401" class="errorCardCont">
+    <div v-else-if="props.statusCode == 401" class="errorCardCont">
       <v-expand-x-transition>
         <v-alert
           v-show="expand"
@@ -58,7 +58,7 @@
     </div>
 
     <!-- Internal Server Error -->
-    <div v-if="props.statusCode === 500" class="errorCardCont">
+    <div v-else-if="props.statusCode == 500" class="errorCardCont">
       <v-expand-x-transition>
         <v-alert
           v-show="expand"

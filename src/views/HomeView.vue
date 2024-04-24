@@ -23,7 +23,6 @@ const Construction = defineAsyncComponent(() => import('@/components/home-view-c
 const PropertyServices = defineAsyncComponent(() => import('@/components/home-view-components/PropertyServices.vue'));
 
 
-
 const router = useRouter();
 const recent20Properties = reactive({
   data: {}
