@@ -22,7 +22,7 @@
       <h2 class="heading">Checked Spot Construction Simplified.</h2>
       <p class="subheading">Step into the home you've always of, built to the highest standard of quality.</p>
       <router-link to="/quotation" class="quotationBtn">
-        <v-btn color="#C2185B" class="text-white">Get Your Quotation Now</v-btn>
+        <v-btn color="#C2185B" class="text-white" :loading="gyqnLoader">Get Your Quotation Now</v-btn>
       </router-link>
     </v-col>
 
@@ -51,7 +51,7 @@
 
           <v-sheet class="d-flex flex-column justify-center align-center">
             <v-btn type="submit" variant="flat" color="pink-darken-2" width="300px" class="my-2"
-              @click.prevent="callWhatsappCloudApi">
+              @click.prevent="callWhatsappCloudApi" :loading="byfcLoader">
               book free consultation
             </v-btn>
             <p class="caption"><span class="text-red">* </span>By submitting this form, I confirm that I have read and
@@ -71,7 +71,8 @@ import { useField, useForm } from "vee-validate";
 import api from "@/data/api/index.js";
 
 const dialog = ref(false);
-
+const gyqnLoader = ref(false);
+const byfcLoader = ref(false);
 //form validation
 const { handleSubmit, handleReset } = useForm({
   validationSchema: {
@@ -128,11 +129,13 @@ const mobile = useField("mobile");
 const enquiryMessage = useField("enquiryMessage");
 
 const callWhatsappCloudApi = handleSubmit(async (values) => {
+  byfcLoader.value = true;
   dialog.value = false;
 
   api?.user?.sendEnquiry({ ...values })
     .then((res: any) => {
       if (res?.data?.status === 200) {
+        byfcLoader.value = false;
         expandSuccess.value = true;
       } else {
         expandFailure.value = true;

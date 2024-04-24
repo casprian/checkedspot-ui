@@ -50,10 +50,10 @@
           <v-icon icon="mdi-map-marker" color="#C2185B" class="mr-2" size="24"></v-icon>
           <v-combobox v-model="select" :items="items" menu-icon="" chips variant="plain" multiple></v-combobox>
           
-          <v-btn class="lgNav" @click="moveToListing" variant="flat" color="pink-darken-2"
+          <v-btn :loading="loader" class="lgNav" @click="moveToListing" variant="flat" color="pink-darken-2"
             prepend-icon="mdi-magnify" density="comfortable">SEARCH</v-btn>
 
-          <v-btn class="smNav pa-0" @click="moveToListing" variant="flat" color="pink-darken-2" density="comfortable">
+          <v-btn :loading="loader" class="smNav pa-0" @click="moveToListing" variant="flat" color="pink-darken-2" density="comfortable">
             <v-icon size="20" icon="mdi-magnify"></v-icon>
           </v-btn>
         </v-card-text>
@@ -66,6 +66,7 @@
 <script lang="ts">
 export default {
   data: () => ({
+    loader: false,
     type: null,
     checklists: [
       {
@@ -86,6 +87,7 @@ export default {
   }),
   methods: {
     moveToListing() {
+      this.loader = true;
       this.$router.push({
         path: '/listing', query: {
           type: this.type,
@@ -93,6 +95,7 @@ export default {
         }
       });
     }
+
   }
 };
 

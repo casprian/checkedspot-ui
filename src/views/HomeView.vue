@@ -1,7 +1,7 @@
 <template>
   <header-component/>    
   <v-container class="pa-0 my-0 px-5 px-sm-10 px-md-16" fluid>
-    <recent-property :properties="recent20Properties.data"/>
+    <recent-property :properties="recent20Properties.data" :errorOccured="errorOccured"/>
     <company-stats />
     <Construction/>
 
@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineAsyncComponent, onMounted, reactive } from 'vue';
+import { defineAsyncComponent, onMounted, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 //@ts-ignore
@@ -28,12 +28,14 @@ const router = useRouter();
 const recent20Properties = reactive({
   data: {}
 })
+const errorOccured = ref(false);
 
 async function recentproperties() {
   const res = await api?.property?.getRecentProperties({ params: { limit: 20 } });
   if (res?.status === 200) {
     recent20Properties.data = res;
   } else {
+    errorOccured.value = true;
     recent20Properties.data = res;    
   }
 }

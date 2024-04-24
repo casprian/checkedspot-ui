@@ -11,7 +11,7 @@ const routes = [
       // },
       {
         path: '/test',
-        component: ()=> import('@/views/TestView.vue')
+        component: ()=> import('@/components/forms/flat-or-apartment/FlatOrApartmentForm.vue')
       },
       {
         path: '/',
