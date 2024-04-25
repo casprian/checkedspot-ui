@@ -98,11 +98,11 @@ const routes = [
         name: "leaddetail",
         component: () => import('@/views/LeadDetailView.vue'),
       },
-      {
-        path: '/create-website',
-        name: 'createwebsite',
-        component: () => import('@/views/CreateWebsiteView.vue'),
-      }
+      // {
+      //   path: '/create-website',
+      //   name: 'createwebsite',
+      //   component: () => import('@/views/CreateWebsiteView.vue'),
+      // }
     ],
   },
   {

@@ -6,7 +6,27 @@
                     My Properties</h1>
             </v-col>
         </v-row>
-        <v-container v-if="propertyLoaded" style="height: calc(100% - 102px);">
+        
+        <!-- Loader -->
+        <v-container v-if="!propertyLoaded && !errorOccured" class="mb-5" style="height: calc(100% - 102px);">
+            <v-row no-gutters class="d-flex justify-center align-center" style="width:100%; height: 100%;">
+                <v-col cols="4">
+                    <v-progress-linear color="pink-accent-3" indeterminate rounded height="10"></v-progress-linear>
+                </v-col>
+            </v-row>
+        </v-container>
+
+        <!-- Error Occured -->
+        <v-container v-if="errorOccured" class="mb-5" style="height: calc(100% - 102px);">
+            <v-row no-gutters class="d-flex justify-center align-center" style="width:100%; height: 100%;">
+                <v-col cols="12">
+                    <http-request-error :statusCode="statusCode"/>
+                </v-col>
+            </v-row>
+        </v-container>
+
+        <!-- Property Card display -->
+        <v-container v-else-if="propertyLoaded" style="height: calc(100% - 102px);">
             <div class="mb-16">
                 <div class="text-h6 mb-5">Private Property</div>
                 <v-row v-if="properties.privateData.length > 0">
@@ -35,25 +55,28 @@
                 </v-row>
             </div>
         </v-container>
-        <v-container v-else class="mb-5" style="height: calc(100% - 102px);">
-            <v-row no-gutters class="d-flex justify-center align-center" style="width:100%; height: 100%;">
-                <v-col cols="4">
-                    <v-progress-linear color="pink-accent-3" indeterminate rounded height="10"></v-progress-linear>
-                </v-col>
-            </v-row>
-        </v-container>
     </v-container>
 </template>
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, defineAsyncComponent } from 'vue';
 import { useCookies } from 'vue3-cookies';
 import jwtDecode from 'jwt-decode';
 //@ts-ignore
 import api from '@/data/api/index.js';
-//@ts-ignore
-import UserPropertyCard from '@/components/user-dashboard/UserPropertyCard.vue'
+const UserPropertyCard = defineAsyncComponent(
+  () =>
+    import(
+      "@/components/user-dashboard/UserPropertyCard.vue"
+    )
+);
+const HttpRequestError = defineAsyncComponent(
+  () =>
+    import(
+      "@/components/errors/HttpRequestError.vue"
+    )
+);
 
 const { cookies } = useCookies();
 const router = useRouter();
@@ -71,6 +94,9 @@ const properties = ref({
 const pageNum = ref(1);
 const limit = ref(6);
 
+const statusCode = ref(0);
+const errorOccured = ref(false);
+
 async function getUsersProperties() {
     //@ts-ignore
     const res = await api?.property?.getPropertiesForUser({ params: { email: jwtDecode(jwt)?.userData?.email, pageNumber: pageNum.value, limit: limit.value } })
@@ -79,7 +105,9 @@ async function getUsersProperties() {
         propertyLoaded.value = true;
         window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-        router.push({ path: '/error', query: { status: res?.status } })
+        statusCode.value = res.status;
+        errorOccured.value = true;
+        // router.push({ path: '/error', query: { status: res?.status } })
     }
 }
 

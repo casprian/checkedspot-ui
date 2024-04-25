@@ -1,12 +1,31 @@
 <template>
   <div class="errorCont">
+    <!-- Unauthorised Error -->
+    <div v-if="props.statusCode == 401" class="errorCardCont">
+      <v-expand-x-transition>
+        <v-alert
+          v-show="expand"
+          text="Unauthorized: Please log in to access this page."
+          title="AUTHORIZATION ERROR: 401"
+          type="error"
+          variant="tonal"
+        >
+          <i>
+            <strong
+              ><br>If this error persists, please report this issue to <a href="mailto:info@checkedspot.com">info@checkedspot.com</a>
+            </strong>
+          </i>
+        </v-alert>
+      </v-expand-x-transition>
+    </div>
+
     <!-- Not Found Error -->
-    <div v-if="props.statusCode == 404" class="errorCardCont">
+    <div v-else-if="props.statusCode == 404" class="errorCardCont">
       <v-expand-x-transition>
         <v-alert
           v-show="expand"
           text="Oops! It seems the requested content is unavailable."
-          title="404 Error"
+          title="NOT FOUND ERROR: 404"
           type="error"
           variant="tonal"
         >
@@ -25,26 +44,7 @@
         <v-alert
           v-show="expand"
           text="Oops! It seems there was an issue with your request. Please review your input."
-          title="422 Error"
-          type="error"
-          variant="tonal"
-        >
-          <i>
-            <strong
-              ><br>If this error persists, please report this issue to <a href="mailto:info@checkedspot.com">info@checkedspot.com</a>
-            </strong>
-          </i>
-        </v-alert>
-      </v-expand-x-transition>
-    </div>
-
-    <!-- Unauthorised Error -->
-    <div v-else-if="props.statusCode == 401" class="errorCardCont">
-      <v-expand-x-transition>
-        <v-alert
-          v-show="expand"
-          text="Unauthorized: Please log in to access this page."
-          title="401 Error"
+          title="PARAMETER MISSING ERROR: 422"
           type="error"
           variant="tonal"
         >
@@ -63,6 +63,7 @@
         <v-alert
           v-show="expand"
           text="Internal Server Error: We apologize for the inconvenience. Please try again later."
+          title="INTERNAL SERVE ERROR: 500"
           type="error"
           variant="tonal"
         >

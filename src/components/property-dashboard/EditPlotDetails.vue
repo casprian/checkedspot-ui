@@ -150,6 +150,7 @@ async function fetchPropertydetails() {
     if (res.status === 200) {
         propertyDetails.value = res.data;
     } else {
+        
         router.push({ path: '/error', query: { status: res?.status } })
     }
 }

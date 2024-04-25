@@ -36,12 +36,6 @@
             height="3"></v-progress-linear>
         </v-col>
         <v-col cols="12" class="mt-0 mb-4">
-          <v-btn @click="handleCreateWebsite" block variant="flat" class="text-body-1 d-flex justify-start bg-grey-lighten-4"
-            height="50">
-            <template v-slot:prepend>
-              <v-icon icon="mdi-web" class="ml-10 mr-6" size="20"></v-icon>
-            </template> Create Website
-          </v-btn>
           <v-btn @click="handleSignout" block variant="flat" class="text-body-1 d-flex justify-start bg-grey-lighten-4"
             height="50">
             <template v-slot:prepend>
@@ -93,11 +87,6 @@ function changeDialog() {
   setTimeout(() => {
     loader.value = false;
   }, 1000);
-}
-
-function handleCreateWebsite() {
-  router.push({ path:'/create-website'});
-  dialog.value = false;
 }
 
 function handleSignout() {
