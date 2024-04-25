@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
   <v-container class="pa-0">
     <v-row no-gutters class="pa-0">
       <v-col cols="12">
@@ -120,4 +120,4 @@ const step = ref(1);
 </script>
 
 <style scoped>
-</style> -->
+</style>

@@ -20,10 +20,10 @@
     "pinia": "^2.0.23",
     "roboto-fontface": "*",
     "vee-validate": "^4.9.4",
-    "vue": "^3.2.13",
+    "vue": "^3.4.25",
     "vue-router": "^4.2.2",
     "vue3-cookies": "^1.0.6",
-    "vuetify": "^3.0.0",
+    "vuetify": "^3.5.17",
     "webfontloader": "^1.0.0"
   },
   "devDependencies": {

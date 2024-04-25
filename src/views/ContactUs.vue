@@ -1,6 +1,6 @@
 <template>
   <v-expand-transition>
-    <v-card style="position: fixed; top: 56px; z-index: 1" v-show="expandFailure" height="60" width="100%"
+    <v-card style="position: fixed; top: 56px; left: 0; z-index: 1" v-show="expandFailure" height="60" width="100%"
       class="mx-auto bg-red">
       <div style="height: 100%" class="text-h5 text-center d-flex align-center justify-center">
         <h5>Message delivery Failed. Please try again!</h5>
@@ -8,7 +8,7 @@
     </v-card>
   </v-expand-transition>
   <v-expand-transition>
-    <v-card style="position: fixed; top: 56px; z-index: 1" v-show="expandSuccess" height="60" width="100%"
+    <v-card style="position: fixed; top: 56px; left: 0; z-index: 1" v-show="expandSuccess" height="60" width="100%"
       class="mx-auto bg-green">
       <div style="height: 100%" class="text-h5 text-center d-flex align-center justify-center">
         <h5>
@@ -34,29 +34,15 @@
           </template>
 
           
-          <v-img :src="item.parallaxSrc" :alt="item.name" height="300" width="100%" cover class="parallax">
+          <v-parallax :src="item.parallaxSrc" :alt="item.name" height="300" width="100%" cover class="parallax">
             <div class="h-75 d-flex flex-column justify-center align-center text-white parallaxMask">
               <p class="text-h4 text-sm-h3 font-weight-regular pt-10 text-center" title="Checked Spot - Bangalore">Checked Spot - {{ item.name }}</p>
             </div>
 
             <v-row class="mx-0 mt-0 px-6 pb-4 d-flex justify-space-between align-end parallaxMask"
               style="height: calc(100% - 75%);">
-
-              <!-- <div class="d-flex justify-start align-center">
-                <v-rating class="lg" :model-value="item.rating" color="amber" density="compact" half-increments readonly
-                  size="large"></v-rating>
-                <v-rating class="sm" :model-value="item.rating" color="amber" density="compact" half-increments readonly
-                  size="small"></v-rating>
-                <span class="ml-4 mt-1 text-body-1 text-sm-h6 text-white">{{ item.rating }} ({{ item.noOfRating }})</span>
-              </div>
-
-              <div>
-                <v-icon class="lg" color="pink-darken-2" icon="mdi-fire-circle" size="30"></v-icon>
-                <v-icon class="sm" color="pink-darken-2" icon="mdi-fire-circle" size="25"></v-icon>
-              </div> -->
-              
             </v-row>
-          </v-img>
+          </v-parallax>
 
           <v-card-text class="px-0 pl-3">
             <h3 class="mt-2 mb-3 pl-3 text-h6 text-sm-h5 font-weight-bold">Reach Us At</h3>

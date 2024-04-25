@@ -5,7 +5,7 @@
                 <v-col cols="12" md="4" class="ml-n5 ml-md-0 d-flex justify-start align-center">
                     <router-link to="/">
                         <v-img class="logo" width="200"
-                            src="https://checkedspot.blob.core.windows.net/assets/logocheckedspot.png" alt="logo"></v-img>
+                            src="../assets/footerlogo.svg" alt="logo"></v-img>
                     </router-link>
                 </v-col>
                 
