@@ -1,16 +1,32 @@
 <template>
   <v-expand-transition>
-    <v-card style="position: fixed; top: 56px; left: 0; z-index: 1" v-show="expandFailure" height="60" width="100%"
-      class="mx-auto bg-red">
-      <div style="height: 100%" class="text-h5 text-center d-flex align-center justify-center">
+    <v-card
+      style="position: fixed; top: 56px; left: 0; z-index: 1"
+      v-show="expandFailure"
+      height="60"
+      width="100%"
+      class="mx-auto bg-red"
+    >
+      <div
+        style="height: 100%"
+        class="text-h5 text-center d-flex align-center justify-center"
+      >
         <h5>Message delivery Failed. Please try again!</h5>
       </div>
     </v-card>
   </v-expand-transition>
   <v-expand-transition>
-    <v-card style="position: fixed; top: 56px; left: 0; z-index: 1" v-show="expandSuccess" height="60" width="100%"
-      class="mx-auto bg-green">
-      <div style="height: 100%" class="text-h5 text-center d-flex align-center justify-center">
+    <v-card
+      style="position: fixed; top: 56px; left: 0; z-index: 1"
+      v-show="expandSuccess"
+      height="60"
+      width="100%"
+      class="mx-auto bg-green"
+    >
+      <div
+        style="height: 100%"
+        class="text-h5 text-center d-flex align-center justify-center"
+      >
         <h5>
           Message has been delivered. Checked Spot Team will contact you soon.
         </h5>
@@ -18,90 +34,432 @@
     </v-card>
   </v-expand-transition>
 
-  <v-container class="pa-0" fluid>
+  <v-container class="pa-0 bg-background" fluid>
+    <!-- First/Top Section google map Iframe -->
     <v-row no-gutters>
-      <v-col cols="12" md="7" class="px-4 mb-8 mt-5">
-        <h1 class="text-h3 text-sm-h4 font-weight-bold text-center text-grey-darken-3">
-          Contact Us
-        </h1>
+      <v-col cols="12" style="height: 400px">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62196.23239355108!2d77.54196080038798!3d13.018819600000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae176833e3bcd1%3A0x488afbbb30c99b24!2sChecked%20Spot!5e0!3m2!1sen!2sin!4v1714024279303!5m2!1sen!2sin"
+          width="100%"
+          height="100%"
+          style="border: 0"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
       </v-col>
+    </v-row>
+  </v-container>
 
-      <v-col cols="12" md="7" class="px-4">
-        <v-card v-for="(item, index) in items" :key="index" class="mx-auto rounded mb-10" elevation="0" border
-          max-width="100%">
-          <template>
-            <v-progress-linear color="deep-purple" height="4" indeterminate></v-progress-linear>
-          </template>
+  <!-- Second Section - Get in Touch Form -->
+  <v-container fluid class="px-5 mt-0 px-sm-10">
+    <v-row
+      no-gutters
+      class="pa-0 py-5 d-flex flex-column flex-column-reverse flex-md-row"
+    >
+      <v-col
+        cols="12"
+        md="6"
+        class="pa-10 socialmedia d-flex flex-column justify-center align-center"
+      >
+        <p class="text-h5 text-sm-h2 font-weight-bold text-white socialText">Social</p>
+        <!-- Facebook Card -->
+        <span class="pa-3">
+          <v-card color="" class="pa-5 socialCardCont rounded-lg d-flex flex-column justify-center align-start" width="300" height="200">
+            <img class="socialIcon" src="../assets/contactus/facebooklogo.png" alt="Facebook Logo" style="width:30px;height:30px;" >
 
-          
-          <v-parallax :src="item.parallaxSrc" :alt="item.name" height="300" width="100%" cover class="parallax">
-            <div class="h-75 d-flex flex-column justify-center align-center text-white parallaxMask">
-              <p class="text-h4 text-sm-h3 font-weight-regular pt-10 text-center" title="Checked Spot - Bangalore">Checked Spot - {{ item.name }}</p>
-            </div>
-
-            <v-row class="mx-0 mt-0 px-6 pb-4 d-flex justify-space-between align-end parallaxMask"
-              style="height: calc(100% - 75%);">
-            </v-row>
-          </v-parallax>
-
-          <v-card-text class="px-0 pl-3">
-            <h3 class="mt-2 mb-3 pl-3 text-h6 text-sm-h5 font-weight-bold">Reach Us At</h3>
-            <div class="contact">
-              <v-btn size="large" class="mt-n1" variant="text" icon="mdi-phone" color="pink-darken-2"></v-btn>
-              <p v-for="(number, i) in item.mobiles" :key="i" class="d-inline contactinfo">{{ number }}</p>
-            </div>
-
-            <div class="email pt-2 d-flex align-start">
-              <div>
-                <v-btn size="large" variant="text" icon="mdi-email" color="pink-darken-2"></v-btn>
-              </div>
-              <div>
-                <a v-for="(email, i) in item.email" :key="i" class="contactinfo" :href="`mailto:${email}`">{{ email }}
+            <div class="my-2 d-flex justify-center align-center" style="width: 100%;">
+              <v-sheet width="100" height="100" class="rounded-circle border-lg">
+                <img class="socialmediaprofilepic" src="../assets/socialMediaProfilePic.png" alt="Checked spot facebook handle">
+              </v-sheet>
+              <div class="px-4">
+                <p class="font-weight-medium pb-2">Checked Spot</p>
+                <a href="https://www.facebook.com/profile.php?id=100087798638318" target="_blank">
+                  <v-btn class="rounded-pill" variant="elevated" elevation="8" color="blue-darken-3">Follow</v-btn>
                 </a>
               </div>
             </div>
+          </v-card>
+        </span>
+        
+        <!-- instagram Card -->
+        <span class="pa-3">
+          <v-card color="" class="pa-5 socialCardCont rounded-lg d-flex flex-column justify-center align-start" width="300" height="200">
+            <img class="socialIcon" src="../assets/contactus/instagramlogo.jpg" alt="Instagram Logo" style="width:40px;height:40px;" >
 
-            <div class="contactinfo pt-2 address d-flex align-start">
-              <div>
-                <v-btn size="large" variant="text" icon="mdi-office-building-marker-outline"
-                  color="pink-darken-2"></v-btn>
-              </div>
-              <div>
-                {{ item.address }}
+            <div class="my-2 d-flex justify-center align-center" style="width: 100%;">
+              <v-sheet width="100" height="100" class="rounded-circle border-lg">
+                <img class="socialmediaprofilepic" src="../assets/socialMediaProfilePic.png" alt="Checked spot instagram handle">
+              </v-sheet>
+              <div class="px-4">
+                <p class="font-weight-medium pb-2">checkedspot</p>
+                <a href="https://www.instagram.com/checkedspot" target="_blank">
+                  <v-btn class="rounded-pill" variant="elevated" elevation="8" color="#df1537">Follow</v-btn>
+                </a>
               </div>
             </div>
-          </v-card-text>
+          </v-card>
+        </span>
+
+        <!-- Twitter Card -->
+        <span class="pa-3">
+          <v-card color="" class="pa-5 socialCardCont rounded-lg d-flex flex-column justify-center align-start" width="300" height="200">
+            <img class="socialIcon" src="../assets/contactus/twitterlogo.jpg" alt="Twitter/X Logo" style="width:30px;height:30px;" >
+
+            <div class="my-2 d-flex justify-center align-center" style="width: 100%;">
+              <v-sheet width="100" height="100" class="rounded-circle border-lg">
+                <img class="socialmediaprofilepic" src="../assets/socialMediaProfilePic.png" alt="Checked spot twitter/X handle">
+              </v-sheet>
+              <div class="px-4">
+                <p class="font-weight-medium pb-2">@checked_spot</p>
+                <a href="https://twitter.com/checked_spot" target="_blank">
+                  <v-btn class="rounded-pill" variant="elevated" elevation="8" color="black">Follow</v-btn>
+                </a>
+              </div>
+            </div>
+          </v-card>
+        </span>
+      </v-col>
+      
+      <!-- Contanct us Form -->
+      <v-col
+        cols="12"
+        md="6"
+        class="pa-5 py-0 formCardCont d-flex justify-center align-center"
+      >
+        <div class="ma-2 pa-5 rounded-xl formCard" color="">
+          <p class="pa-3 pb-3 pt-0 text-h5 text-sm-h4 font-weight-medium">
+            Get in touch
+          </p>
+          <p class="pa-3 pt-0 mb-8 text-body-1 font-weight-regular">
+            Send Enquiry to Checked Spot
+          </p>
+          <form>
+            <v-text-field
+              v-model="name.value.value"
+              :error-messages="name.errorMessage.value"
+              density="comfortable"
+              class="ma-2"
+              counter="40"
+              label="Name*"
+              variant="outlined"
+            ></v-text-field>
+
+            <v-text-field
+              v-model="mobile.value.value"
+              :error-messages="mobile.errorMessage.value"
+              density="comfortable"
+              class="ma-2"
+              counter="10"
+              label="Whatsapp Number*"
+              variant="outlined"
+            ></v-text-field>
+
+            <v-text-field
+              v-model="email.value.value"
+              :error-messages="email.errorMessage.value"
+              density="comfortable"
+              class="ma-2"
+              counter="30"
+              label="Email*"
+              variant="outlined"
+            ></v-text-field>
+
+            <v-textarea
+              v-model="enquiryMessage.value.value"
+              :error-messages="enquiryMessage.errorMessage.value"
+              counter="750"
+              density="comfortable"
+              class="mx-2"
+              rows="2"
+              label="Enquiry Message"
+              variant="outlined"
+            ></v-textarea>
+
+            <v-checkbox
+              class="acceptCheckbox mb-4 ml-2"
+              density="comfortable"
+              v-model="acceptpolicy.value.value"
+              :error-messages="acceptpolicy.errorMessage.value"
+              :true-value="true"
+              :false-value="false"
+            >
+              <template v-slot:label>
+                You agree to our friendly&nbsp;
+                <a href="/termsofservices">terms & conditions</a>
+                &nbsp;and&nbsp; <a to="/privacypolicy">privacy policy</a>*
+              </template>
+            </v-checkbox>
+
+            <div
+              class="d-flex flex-column justify-center align-center bg-transparent"
+            >
+              <v-btn
+                type="submit"
+                variant="elevated"
+                density="default"
+                elevation="1"
+                color="#C2185B"
+                width="100%"
+                class="mb-1 text-none text-body-1"
+                @click.prevent="callWhatsappCloudApi"
+              >
+                Send message
+              </v-btn>
+
+              <v-btn
+                @click.prevent="handleReset"
+                density="default"
+                variant="elevated"
+                color="grey-lighten-3"
+                elevation="2"
+                width="100%"
+                class="mb-6 mt-3"
+              >
+                Reset Form
+              </v-btn>
+
+              <div class="d-flex justify-end w-100">
+                <v-btn
+                  type="submit"
+                  variant="elevated"
+                  density="default"
+                  elevation="1"
+                  width="280px"
+                  class="my-1 mb-2 text-none text-body-2 whatsappMsgBtn"
+                  @click.prevent="callWhatsappCloudApi"
+                >
+                  <v-icon class="whatsappIcon" icon="mdi-whatsapp"></v-icon
+                  >&nbsp; Contact us on Whatsapp
+                </v-btn>
+              </div>
+            </div>
+          </form>
+        </div>
+      </v-col>
+    </v-row>
+  </v-container>
+
+  <!-- Office location card -->
+  <v-container fluid class="px-5 px-sm-10">
+    <v-row no-gutters class="pa-0">
+      <v-col cols="12" class="pa-0 pl-5 text-h5 text-sm-h4 font-weight-medium">
+        Visit our offices
+      </v-col>
+      <!-- Bangaluru location-->
+      <v-col cols="12" sm="6" md="4" class="mt-4 pa-5">
+        <v-card
+          class="mb-4 pa-4"
+          elevation="8"
+          width="100%"
+          height="472"
+          position="relative"
+        >
+          <v-parallax
+            :src="bangaloreImage"
+            height="197"
+            width="100%"
+            position="relative"
+            cover
+            class="hoverPointer"
+          >
+          </v-parallax>
+
+          <div
+            class="d-flex flex-column justify-space-between"
+            style="height: calc(100% - 197px)"
+          >
+            <div>
+              <!-- Location name -->
+              <p class="my-3 text-body-1 font-weight-medium">Bengaluru</p>
+
+              <!-- Contact Number -->
+              <div class="d-flex my-2">
+                <v-icon
+                  class="mt-1"
+                  color="pink-darken-2"
+                  size="18"
+                  icon="mdi-phone"
+                ></v-icon>
+                <p class="text-body-1 pl-3">9606937471</p>
+              </div>
+
+              <!-- Email -->
+              <div class="d-flex my-2">
+                <v-icon
+                  class="mt-1"
+                  color="pink-darken-2"
+                  size="18"
+                  icon="mdi-email"
+                ></v-icon>
+                <p class="text-body-1 pl-3">info@checkedspot.com</p>
+              </div>
+
+              <!-- Office Address -->
+              <div class="d-flex my-2">
+                <v-icon
+                  class="mt-1"
+                  color="pink-darken-2"
+                  size="18"
+                  icon="mdi-map-marker"
+                ></v-icon>
+                <p class="text-body-1 pl-3">
+                  299, Main Road, 1st Block, Rahmath Nagar, RT Nagar, Bengaluru,
+                  Karnataka 560032
+                </p>
+              </div>
+            </div>
+            <div>
+              <v-card-actions class="sendEnquiry">
+                <v-btn
+                  block
+                  variant="outlined"
+                  color="#C2185B"
+                  prepend-icon="mdi-navigation-variant"
+                  @click.prevent.stop="
+                    bangaloreLocationDialog = !bangaloreLocationDialog
+                  "
+                  >View Map</v-btn
+                >
+              </v-card-actions>
+            </div>
+          </div>
+          <v-dialog
+            v-model="bangaloreLocationDialog"
+            transition="dialog-bottom-transition"
+            width="70%"
+          >
+            <v-card class="rounded-xl pa-5">
+              <v-card-title class="pt-0"
+                >Checked Spot - Bengaluru location</v-card-title
+              >
+              <v-btn
+                icon="mdi-close"
+                size="small"
+                color="red"
+                @click="bangaloreLocationDialog = false"
+                style="position: absolute; right: 10px; top: 10px"
+              ></v-btn>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62196.23239355108!2d77.54196080038798!3d13.018819600000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae176833e3bcd1%3A0x488afbbb30c99b24!2sChecked%20Spot!5e0!3m2!1sen!2sin!4v1714024279303!5m2!1sen!2sin"
+                width="100%"
+                height="400"
+                style="border: 0"
+                allowfullscreen
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </v-card>
+          </v-dialog>
         </v-card>
       </v-col>
 
-      <v-col cols="12" md="5" class="px-4 pr-6 mb-10 formCont">
-        <v-card class="ma-2 pt-3 pb-6 elevation-0 card" width="100%">
-          <div class="pa-3 text-h6 text-sm-h5 font-weight-medium">Send Enquiry to Checked Spot</div>
-          <form>
-            <v-text-field v-model="name.value.value" :error-messages="name.errorMessage.value" density="compact"
-              class="ma-2" counter="40" label="Name*" variant="outlined"></v-text-field>
+      <!-- Hassan location-->
+      <v-col cols="12" sm="6" md="4" class="mt-4 pa-5">
+        <v-card
+          class="mb-4 pa-4"
+          elevation="8"
+          width="100%"
+          height="472"
+          position="relative"
+        >
+          <v-parallax
+            src="https://checkedspot.blob.core.windows.net/assets/hassan.jpg"
+            height="197"
+            width="100%"
+            position="relative"
+            cover
+            class="hoverPointer"
+          >
+          </v-parallax>
 
-            <v-text-field v-model="mobile.value.value" :error-messages="mobile.errorMessage.value" density="compact"
-              class="ma-2" counter="10" label="Whatsapp Number*" variant="outlined"></v-text-field>
+          <div
+            class="d-flex flex-column justify-space-between"
+            style="height: calc(100% - 197px)"
+          >
+            <div>
+              <!-- Location name -->
+              <p class="my-3 text-body-1 font-weight-medium">Hassan</p>
 
-            <v-text-field v-model="email.value.value" :error-messages="email.errorMessage.value" density="compact"
-              class="ma-2" counter="30" label="Email*" variant="outlined"></v-text-field>
+              <!-- Contact Number -->
+              <div class="d-flex my-2">
+                <v-icon
+                  class="mt-1"
+                  color="pink-darken-2"
+                  size="18"
+                  icon="mdi-phone"
+                ></v-icon>
+                <p class="text-body-1 pl-3">9606937470</p>
+              </div>
 
-            <v-textarea v-model="enquiryMessage.value.value" :error-messages="enquiryMessage.errorMessage.value"
-              counter="750" density="compact" class="mx-2" rows="2" label="Enquiry Message"
-              variant="outlined"></v-textarea>
+              <!-- Email -->
+              <div class="d-flex my-2">
+                <v-icon
+                  class="mt-1"
+                  color="pink-darken-2"
+                  size="18"
+                  icon="mdi-email"
+                ></v-icon>
+                <p class="text-body-1 pl-3">info@checkedspot.com</p>
+              </div>
 
-            <v-sheet class="d-flex flex-column justify-center align-center bg-transparent">
-              <v-btn type="submit" variant="elevated" density="default" elevation="5" width="280px"
-                class="my-1 mb-2 text-green" @click.prevent="callWhatsappCloudApi">
-                <v-icon color="green" icon="mdi-whatsapp"></v-icon>&nbsp; Contact us on Whatsapp
-              </v-btn>
-              <v-btn @click.prevent="handleReset" density="default" variant="elevated" elevation="4" color="pink-darken-2" width="280px"
-                class="my-1">
-                Reset Form
-              </v-btn>
-            </v-sheet>
-          </form>
+              <!-- Office Address -->
+              <div class="d-flex my-2">
+                <v-icon
+                  class="mt-1"
+                  color="pink-darken-2"
+                  size="18"
+                  icon="mdi-map-marker"
+                ></v-icon>
+                <p class="text-body-1 pl-3">
+                  Bangalore - Mangalore Rd, Ammeer Mohalla, Hassan, Karnataka
+                  573201
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <v-card-actions class="sendEnquiry">
+                <v-btn
+                  block
+                  variant="outlined"
+                  color="#C2185B"
+                  prepend-icon="mdi-navigation-variant"
+                  @click.prevent.stop="
+                    hassanLocationDialog = !hassanLocationDialog
+                  "
+                  >View Map</v-btn
+                >
+              </v-card-actions>
+            </div>
+          </div>
+          <v-dialog
+            v-model="hassanLocationDialog"
+            transition="dialog-bottom-transition"
+            width="70%"
+          >
+            <v-card class="rounded-xl pa-5">
+              <v-card-title class="pt-0"
+                >Checked Spot - Hassan location</v-card-title
+              >
+              <v-btn
+                icon="mdi-close"
+                size="small"
+                color="red"
+                @click="hassanLocationDialog = false"
+                style="position: absolute; right: 10px; top: 10px"
+              ></v-btn>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.508034507226!2d76.0964573732809!3d13.003287314186373!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba5494763b45ee3%3A0xba5c2c3355965317!2sChecked%20Spot!5e0!3m2!1sen!2sin!4v1714037530584!5m2!1sen!2sin"
+                width="100%"
+                height="400"
+                style="border: 0"
+                allowfullscreen
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </v-card>
+          </v-dialog>
         </v-card>
       </v-col>
     </v-row>
@@ -109,65 +467,15 @@
 </template>
 
 <script lang="ts" setup>
-import { onUnmounted, reactive, ref } from 'vue';
+import { ref } from "vue";
 import { useField, useForm } from "vee-validate";
 //@ts-ignore
 import api from "@/data/api/index.js";
-import bangaloreImage from '@/assets/bengaluru.jpg';
-import mysoreImage from '@/assets/mysorePalace.jpg';
-import sakleshpurImage from '@/assets/sakleshpur.jpg';
-import tumkurImage from '@/assets/tumkurCentralLibrary.jpg';
-
-const items = reactive([
-  {
-    parallaxSrc: bangaloreImage,
-    name: "Bangalore",
-    rating: 4.9,
-    noOfRating: 413,
-    mobiles: ["9606937470, ", "9606937471"],
-    email: ['info@checkedspot.com'],
-    address: "1st floor - Next To Fame Diagnostics - RK Hegde Nagar, Bangalore - 560077"
-  },
-  {
-    parallaxSrc: "https://checkedspot.blob.core.windows.net/assets/hassan.jpg",
-    name: "Hassan",
-    rating: 4.9,
-    noOfRating: 413,
-    mobiles: ["9606937470"],
-    email: ['info@checkedspot.com'],
-    address: "1st floor - Above Queens Collection, Subhash Square, Hassan - 573201"
-  },
-  {
-    parallaxSrc: mysoreImage,
-    name: "Mysore",
-    rating: 4.9,
-    noOfRating: 413,
-    mobiles: ["9606937470"],
-    email: ['info@checkedspot.com'],
-    address: "Mysore - 570001"
-  },
-  {
-    parallaxSrc: sakleshpurImage,
-    name: "Sakleshpur",
-    rating: 4.9,
-    noOfRating: 413,
-    mobiles: ["9606937470"],
-    email: ['info@checkedspot.com'],
-    address: "Sakleshpur - 573134"
-  },
-  {
-    parallaxSrc: tumkurImage,
-    name: "Tumkur",
-    rating: 4.9,
-    noOfRating: 413,
-    mobiles: ["9606937470"],
-    email: ['info@checkedspot.com'],
-    address: "Tumkur - 572101"
-  }
-])
+import bangaloreImage from "@/assets/bengaluru.jpg";
 
 const dialog = ref(false);
-
+const bangaloreLocationDialog = ref(false);
+const hassanLocationDialog = ref(false);
 //form validation
 const { handleSubmit, handleReset } = useForm({
   validationSchema: {
@@ -212,6 +520,13 @@ const { handleSubmit, handleReset } = useForm({
         return true;
       }
     },
+    acceptpolicy(value: any) {
+      if (value == true) {
+        return true;
+      } else {
+        return "Required! Please accept the terms & conditions and privacy policy";
+      }
+    },
   },
 });
 
@@ -222,6 +537,8 @@ const name = useField("name");
 const email = useField("email");
 const mobile = useField("mobile");
 const enquiryMessage = useField("enquiryMessage");
+const acceptpolicy = useField("acceptpolicy");
+acceptpolicy.value.value = true;
 
 const callWhatsappCloudApi = handleSubmit(async (values) => {
   dialog.value = false;
@@ -248,43 +565,85 @@ const callWhatsappCloudApi = handleSubmit(async (values) => {
       }, 5000);
     });
 });
-
-
-function handleScroll(e:any) {
-  if(window.innerWidth > 959){
-    if (window.scrollY >= (document.body.offsetHeight - 775)) {
-        //@ts-ignore
-        document.querySelector('.formCont').style.position = "absolute";
-        //@ts-ignore
-        document.querySelector('.formCont').style.top = `${document.body.offsetHeight - 775}px`;
-    }else {
-      //@ts-ignore
-        document.querySelector('.formCont').style.position = "fixed";
-        //@ts-ignore
-        document.querySelector('.formCont').style.top = "65px";
-    }
-  }else {
-    //@ts-ignore
-    document.querySelector('.formCont').style.position = "static";
-  }
-  
-}
-
-// onCreated () {
-    window.addEventListener('scroll', handleScroll);
-  // }
-
-onUnmounted ( () => {
-  window.removeEventListener('scroll', handleScroll);
-})
 </script>
 
 <style scoped>
-/* .parallax {
-  height: 300px;
-  width: 100%;
+.acceptCheckbox a {
+  color: #f5005696 !important;
+}
+.acceptCheckbox a:hover {
+  text-decoration: underline;
+}
+
+.acceptCheckboxlabel {
+  height: auto !important;
+}
+
+.socialmedia {
+  position: relative;
+}
+
+.socialCardCont {
+  position: relative;
+}
+
+.socialCardCont .socialIcon  {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.socialmediaprofilepic {
+  width: 95px;
+  height: 90px;
   object-fit: cover;
-} */
+}
+
+.socialText {
+  position: absolute;
+  left: 0;
+  z-index: 1;
+  writing-mode: vertical-lr;
+  text-orientation: upright;
+  height: 100%;
+  width: 65px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.408);
+  text-transform: capitalize;
+}
+
+.formCard {
+  width: 600px;
+}
+
+@media screen and (max-width: 600px) {
+  .formCard {
+    width: 400px;
+  }
+  .socialmedia {
+    padding-bottom: 0 !important;
+  }
+  .socialText {
+    position: relative;
+    writing-mode: lr;
+    height: auto;
+    width: 100%;
+    justify-content: start;
+    margin-bottom: 10px;
+    background-color: white;
+    color: black !important;
+    border-bottom: solid 2px black;
+    text-transform: none;
+  }
+}
+
+.whatsappMsgBtn,
+.whatsappIcon {
+  color: #00ac11;
+}
 
 .parallaxMask {
   background-color: rgba(0, 0, 0, 0.25);
@@ -299,8 +658,8 @@ a {
   font-size: 18px;
 }
 
-.email>div>button,
-.contactinfo>div>button {
+.email > div > button,
+.contactinfo > div > button {
   margin-top: -18px;
 }
 
@@ -309,7 +668,7 @@ a {
   right: 0;
   height: auto;
   overflow-y: scroll;
-  overflow-x: hidden; 
+  overflow-x: hidden;
 
   /* Hide scrollbar for IE, Edge and Firefox */
   -ms-overflow-style: none;
@@ -325,11 +684,10 @@ a {
 
 .formCont > .card {
   border: 1px solid rgb(246, 48, 94, 0.171);
-  background-color: rgba(246, 48, 94, 0.05);  
-  padding-left: 20px; 
+  background-color: rgba(246, 48, 94, 0.05);
+  padding-left: 20px;
   padding-right: 20px;
 }
-
 
 @media only screen and (max-width: 599px) {
   .lg {
@@ -365,5 +723,4 @@ a {
     height: auto;
   }
 }
-
 </style> 
