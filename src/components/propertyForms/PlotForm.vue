@@ -308,14 +308,14 @@ const bodyData = reactive({
 
 let { meta, values, errors, handleSubmit, handleReset, defineComponentBinds } = useForm({
   validationSchema: {
-    city(value: any) {
+    city(value: string) {
       if (!value) {
         return "Required.";
       } else {
         return true;
       }
     },
-    state(value: any) {
+    state(value: string) {
       if (!value) {
         return "Required.";
       } else {
@@ -374,7 +374,7 @@ const googleMapLink = useField("googleMapLink");
 const cost = useField("cost");
 const totalArea = useField("totalArea");
 const imgfile = useField<File[] | undefined>("imgfile");
-const useris = useField("useris");
+const useris = useField<string>("useris");
 
 // function addDocument(documents: Array<Object>) {
 //   //@ts-ignore

@@ -11,7 +11,7 @@ const routes = [
       // },
       {
         path: '/test',
-        component: ()=> import('@/components/forms/flat-or-apartment/FlatOrApartmentForm.vue')
+        component: ()=> import('@/components/forms/flat-or-apartment/FlatOrApartmentDetails.vue')
       },
       {
         path: '/',
@@ -70,9 +70,19 @@ const routes = [
         component: () => import('@/views/PostPropertyView.vue'),
         children: [
           {
-            path: '/',
+            path: '',
             name: 'property-basic-info',
             component: () => import('@/components/forms/BasicPropertyInfo.vue')
+          },
+          {
+            path: 'location',
+            name: 'property-location',
+            component: () => import('@/components/forms/PropertyLocation.vue')
+          },
+          {
+            path: 'details',
+            name: 'property-details',
+            component: () => import('@/components/forms/PropertyDetails.vue')
           }
         ]
       },
