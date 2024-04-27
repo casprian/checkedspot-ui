@@ -63,6 +63,19 @@ const routes = [
         name: 'Create Property',
         component: ()=> import('@/views/CreatePropertyView.vue')
       },
+      // NEW ROUTES FOR POST PROPERTY
+      {
+        path: '/postproperty',
+        name: 'post-property',
+        component: () => import('@/views/PostPropertyView.vue'),
+        children: [
+          {
+            path: '/',
+            name: 'property-basic-info',
+            component: () => import('@/components/forms/BasicPropertyInfo.vue')
+          }
+        ]
+      },
       {
         path: '/privacypolicy', 
         name: 'Privacy Policy',

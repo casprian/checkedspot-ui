@@ -1,23 +1,9 @@
 <template>
-  <v-container class="pa-0"> 
+  <v-container class="pa-0">
     <v-row no-gutters class="pa-0">
-      <v-col cols="12">
-        Flat / Apartment Form
-      </v-col>
+      <v-col cols="12"> Flat / Apartment Form </v-col>
     </v-row>
-    <v-stepper editable :items="['Step 1', 'Step 2', 'Step 3']">
-      <template v-slot:Step 1>
-        <v-card title="Step One" flat>...</v-card>
-      </template>
-
-      <template v-slot:item.2>
-        <v-card title="Step Two" flat>...</v-card>
-      </template>
-
-      <template v-slot:item.3>
-        <v-card title="Step Three" flat>...</v-card>
-      </template>
-    </v-stepper>
+    
   </v-container>
 </template>
 
