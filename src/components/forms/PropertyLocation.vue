@@ -84,8 +84,13 @@
 import { ref, onMounted, watch } from "vue";
 import { useRouter } from "vue-router";
 import { useField, useForm } from "vee-validate";
+// @ts-ignore
+import property from "@/data/api/property";
 
 const router = useRouter();
+
+const activeForm = ref();
+const propertyData = ref();
 
 const country = ref("India");
 const cities = ref([]);
@@ -138,12 +143,24 @@ watch(state.value, (newStateSelected) => {
 });
 
 function onSuccess() {
-    console.log("onSuccess");
-    router.push({path: '/postproperty/details'})
+  propertyData.value.country = country.value;
+  propertyData.value.state = state.value.value;
+  propertyData.value.city = city.value.value;
+  propertyData.value.locality = locality.value.value;
+  propertyData.value.subLocality = subLocality.value;
+  propertyData.value.googleMapLink = googleMapLink.value;
+
+  sessionStorage.setItem(`${activeForm.value}Data`, JSON.stringify(propertyData.value));
+
+  // route to the plot details form
+  router.push({ path: "/postproperty/details" });
 }
 
-function onInvalidSubmit() {
-    console.log("onInvalidSubmit");
+function onInvalidSubmit(invalidData: any) {
+  console.log("meta : ", meta.value)
+  console.log(invalidData?.values); // current form values
+  console.log(invalidData?.errors); // a map of field names and their first error message
+  console.log(invalidData?.results); // a detailed map of field names and their validation results
 }
 
 const handleFormSubmit = handleSubmit(onSuccess, onInvalidSubmit);
@@ -153,6 +170,19 @@ onMounted(() => {
   const stateList = JSON.parse(localStorage.getItem("location"));
   //@ts-ignore
   states.value = stateList?.states?.map((item) => item.name);
+
+  activeForm.value = sessionStorage.getItem("activeForm");
+  // @ts-ignore
+  propertyData.value = JSON.parse(sessionStorage.getItem(activeForm.value + "Data"));
+
+  if (propertyData.value) {
+    country.value = propertyData.value.country;
+    state.value.value = propertyData.value.state;
+    city.value.value = propertyData.value.city;
+    locality.value.value = propertyData.value.locality;
+    subLocality.value = propertyData.value.subLocality;
+    googleMapLink.value = propertyData.value.googleMapLink;
+  }
 });
 </script>
 

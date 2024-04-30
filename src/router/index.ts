@@ -83,6 +83,16 @@ const routes = [
             path: 'details',
             name: 'property-details',
             component: () => import('@/components/forms/PropertyDetails.vue')
+          },
+          {
+            path: 'gallery',
+            name: 'property-gallery',
+            component: () => import('@/components/forms/PropertyGallery.vue')
+          },
+          {
+            path: 'amenities',
+            name: 'property-amenities',
+            component: () => import('@/components/forms/PropertyAminities.vue')
           }
         ]
       },

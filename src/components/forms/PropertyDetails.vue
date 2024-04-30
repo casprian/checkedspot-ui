@@ -49,7 +49,7 @@ onMounted(() => {
 });
 </script>
   
-  <style scoped>
+<style scoped>
 .heading {
   font-size: 26px;
 }

@@ -1,11 +1,483 @@
 <template>
   <div>
+    <!-- Property Total Area (Required)-->
     <div class="mt-8">
-      <p>adsfdsaf</p>
+      <p class="fieldheading">*Add Area Details</p>
+      <v-row no-gutters>
+        <v-col cols="8" class="pa-0 px-1">
+          <v-text-field
+            v-model="totalArea.value.value"
+            :error-messages="totalArea.errorMessage.value"
+            variant="outlined"
+            label="Plot Total Area"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="4" class="pa-0 px-1">
+          <v-select
+            :items="units"
+            v-model="totalAreaUnit"
+            item-title="unit"
+            label="Unit"
+            persistent-hint
+            variant="outlined"
+          ></v-select>
+        </v-col>
+      </v-row>
     </div>
 
+    <!-- Property Dimension (Optional) -->
+    <div class="mt-7">
+      <p class="fieldheading">Property Dimension in feet <i>(Optional)</i></p>
+      <v-text-field
+        v-model="length.value.value"
+        :error-messages="length.errorMessage.value"
+        variant="outlined"
+        label="Length"
+      ></v-text-field>
+      <v-text-field
+        v-model="bredth.value.value"
+        :error-messages="bredth.errorMessage.value"
+        variant="outlined"
+        label="Breadth"
+      ></v-text-field>
+    </div>
+
+    <!-- Floor Allowed for Construction (Optional) -->
+    <div class="mt-7">
+      <p class="fieldheading">Floor Allowed For Construction</p>
+      <v-text-field
+        v-model="floorAllowed.value.value"
+        :error-messages="floorAllowed.errorMessage.value"
+        variant="outlined"
+        label="No. of floors"
+      ></v-text-field>
+    </div>
+
+    <!-- Is there a boundary wall around the property? (Required) -->
+    <div class="mt-8">
+      <p class="fieldheading">*Is there a boundary wall around the property?</p>
+
+      <div class="radioGroup">
+        <input
+          type="radio"
+          id="yesboundary"
+          class="radioInput"
+          name="boundary"
+          :value="true"
+          v-model="isBoundaryWallExist.value.value"
+        />
+        <label class="boundaryLabel" for="yesboundary" title="yesboundary"
+          >yes</label
+        >
+
+        <input
+          type="radio"
+          id="noboundary"
+          class="radioInput"
+          name="boundary"
+          :value="false"
+          v-model="isBoundaryWallExist.value.value"
+        />
+        <label class="boundaryLabel" for="noboundary" title="noboundary"
+          >No</label
+        >
+      </div>
+      <p
+        v-if="isBoundaryWallExist.errorMessage.value"
+        class="pl-2 text-body-2 text-pink-darken-2"
+      >
+        This field is required! Please choose.
+      </p>
+    </div>
+
+    <!-- No. of open side (Required) -->
+    <div class="mt-10">
+      <p class="fieldheading">*No. of open side</p>
+
+      <div class="radioGroup">
+        <input
+          type="radio"
+          id="one"
+          class="radioInput"
+          name="noOfOpenSide"
+          value="1"
+          v-model="noOfOpenSide.value.value"
+        />
+        <label class="noOfOpenSideLabel" for="one" title="one">1</label>
+
+        <input
+          type="radio"
+          id="two"
+          class="radioInput"
+          name="noOfOpenSide"
+          value="2"
+          v-model="noOfOpenSide.value.value"
+        />
+        <label class="noOfOpenSideLabel" for="two" title="Two">2</label>
+
+        <input
+          type="radio"
+          id="three"
+          class="radioInput"
+          name="noOfOpenSide"
+          value="3"
+          v-model="noOfOpenSide.value.value"
+        />
+        <label class="noOfOpenSideLabel" for="three" title="Three">3</label>
+
+        <input
+          type="radio"
+          id="threeplus"
+          class="radioInput"
+          name="noOfOpenSide"
+          value="3+"
+          v-model="noOfOpenSide.value.value"
+        />
+        <label class="noOfOpenSideLabel" for="threeplus" title="3+">3+</label>
+      </div>
+      <p
+        v-if="noOfOpenSide.errorMessage.value"
+        class="pl-2 text-body-2 text-pink-darken-2"
+      >
+        This field is required! Please choose.
+      </p>
+    </div>
+
+    <!-- Any construction done on this property? (Required) -->
+    <div class="mt-10">
+      <p class="fieldheading">*Any construction done on this property?</p>
+
+      <div class="radioGroup">
+        <input
+          type="radio"
+          id="constructionDone"
+          class="radioInput"
+          name="constructionStatus"
+          :value="true"
+          v-model="isConstructionDoneOnProperty.value.value"
+        />
+        <label
+          class="constructionLabel"
+          for="constructionDone"
+          title="Construction done on the property"
+          >yes</label
+        >
+
+        <input
+          type="radio"
+          id="noConstruction"
+          class="radioInput"
+          name="constructionStatus"
+          :value="false"
+          v-model="isConstructionDoneOnProperty.value.value"
+        />
+        <label
+          class="constructionLabel"
+          for="noConstruction"
+          title="No Construction on the property"
+          >No</label
+        >
+      </div>
+      <p
+        v-if="isConstructionDoneOnProperty.errorMessage.value"
+        class="pl-2 text-body-2 text-pink-darken-2"
+      >
+        This field is required! Please choose.
+      </p>
+    </div>
+
+    <!-- What construction has been done on this property -->
+    <div class="mt-7" v-if="isConstructionDoneOnProperty.value.value">
+      <p class="fieldheading">*What type of construction has been done?</p>
+      <div class="checkboxGroup">
+        <input
+          type="checkbox"
+          id="shed"
+          class="checkboxInput"
+          name="constructions"
+          value="shed"
+          @change="handleConstructions"
+        />
+        <label class="constructionLabel" for="shed" title="shed">Shed</label>
+
+        <input
+          type="checkbox"
+          id="rooms"
+          class="checkboxInput"
+          name="constructions"
+          value="rooms"
+          @change="handleConstructions"
+        />
+        <label class="constructionLabel" for="rooms" title="rooms"
+          >Room(s)</label
+        >
+
+        <input
+          type="checkbox"
+          id="washroom"
+          class="checkboxInput"
+          name="constructions"
+          value="washroom"
+          @change="handleConstructions"
+        />
+        <label class="constructionLabel" for="washroom" title="washroom"
+          >Washroom</label
+        >
+
+        <input
+          type="checkbox"
+          id="other"
+          class="checkboxInput"
+          name="constructions"
+          value="other"
+          @change="handleConstructions"
+        />
+        <label class="constructionLabel" for="other" title="other">Other</label>
+      </div>
+      <p
+        v-if="constructions.length <= 0"
+        class="pl-2 text-body-2 text-pink-darken-2"
+      >
+        This field is required! Please choose.
+      </p>
+    </div>
+
+    <!-- Possession By (Required) -->
+    <div class="mt-10">
+      <p class="fieldheading">*Possession By</p>
+      <v-select
+        v-model="possessionBy.value.value"
+        :items="possessions"
+        :error-messages="possessionBy.errorMessage.value"
+        item-title="unit"
+        label="Expected By"
+        persistent-hint
+        variant="outlined"
+      ></v-select>
+    </div>
+
+    <!-- Ownership (Optional) -->
+    <div class="mt-7">
+      <p class="fieldheading">Ownership</p>
+
+      <div class="radioGroup">
+        <input
+          type="radio"
+          id="freehold"
+          class="radioInput"
+          name="ownership"
+          value="freehold"
+          v-model="ownershipType"
+        />
+        <label class="ownershipLabel" for="freehold" title="freehold"
+          >Freehold</label
+        >
+
+        <input
+          type="radio"
+          id="coOperativeSociety"
+          class="radioInput"
+          name="ownership"
+          value="Co-operative Society"
+          v-model="ownershipType"
+        />
+        <label
+          class="ownershipLabel"
+          for="coOperativeSociety"
+          title="Co-operative society"
+          >Co-operative society</label
+        >
+
+        <input
+          type="radio"
+          id="lease"
+          class="radioInput"
+          name="ownership"
+          value="lease"
+          v-model="ownershipType"
+        />
+        <label class="ownershipLabel" for="lease" title="Lease">Lease</label>
+      </div>
+    </div>
+
+    <!-- Which authority the property is approved by? (Optional) -->
+    <div class="mt-10">
+      <p class="fieldheading">Which authority the property is approved by?</p>
+
+      <div class="checkboxGroup">
+        <input
+          type="checkbox"
+          id="dtcp"
+          class="checkboxInput"
+          name="authority"
+          value="dtcp"
+          @change="handleApprovingAuthorities"
+        />
+        <label class="authorityLabel" for="dtcp" title="DTCP">DTCP</label>
+
+        <input
+          type="checkbox"
+          id="bmrda"
+          class="checkboxInput"
+          name="authority"
+          value="bmrda"
+          @change="handleApprovingAuthorities"
+        />
+        <label class="authorityLabel" for="bmrda" title="BMRDA">BMRDA</label>
+
+        <input
+          type="checkbox"
+          id="bbmp"
+          class="checkboxInput"
+          name="authority"
+          value="bbmp"
+          @change="handleApprovingAuthorities"
+        />
+        <label class="authorityLabel" for="bbmp" title="BBMP">BBMP</label>
+
+        <input
+          type="checkbox"
+          id="bmicap"
+          class="checkboxInput"
+          name="authority"
+          value="bmicap"
+          @change="handleApprovingAuthorities"
+        />
+        <label class="authorityLabel" for="bmicap" title="BMICAP">BMICAP</label>
+
+        <input
+          type="checkbox"
+          id="cuda"
+          class="checkboxInput"
+          name="authority"
+          value="cuda"
+          @change="handleApprovingAuthorities"
+        />
+        <label class="authorityLabel" for="cuda" title="CUDA">CUDA</label>
+
+        <input
+          type="checkbox"
+          id="npa"
+          class="checkboxInput"
+          name="authority"
+          value="npa"
+          @change="handleApprovingAuthorities"
+        />
+        <label class="authorityLabel" for="npa" title="NPA">NPA</label>
+
+        <input
+          type="checkbox"
+          id="bda"
+          class="checkboxInput"
+          name="authority"
+          value="bda"
+          @change="handleApprovingAuthorities"
+        />
+        <label class="authorityLabel" for="bda" title="BDA">BDA</label>
+
+        <input
+          type="checkbox"
+          id="dpa"
+          class="checkboxInput"
+          name="authority"
+          value="dpa"
+          @change="handleApprovingAuthorities"
+        />
+        <label class="authorityLabel" for="dpa" title="DPA">DPA</label>
+
+        <input
+          type="checkbox"
+          id="biaapa"
+          class="checkboxInput"
+          name="authority"
+          value="biaapa"
+          @change="handleApprovingAuthorities"
+        />
+        <label class="authorityLabel" for="biaapa" title="BIAAPA">BIAAPA</label>
+      </div>
+    </div>
+
+    <!-- Price Details (Required)-->
+    <div class="mt-10">
+      <p class="fieldheading">*Price Details</p>
+      <v-row no-gutters>
+        <v-col cols="6" class="pa-0 px-1">
+          <v-text-field
+            v-model="cost.value.value"
+            :error-messages="cost.errorMessage.value"
+            variant="outlined"
+            label="₹ Expected Price"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="6" class="pa-0 px-1">
+          <v-text-field
+            v-model="costPerSqFt.value.value"
+            :error-messages="costPerSqFt.errorMessage.value"
+            variant="outlined"
+            label="₹ Price per sq.ft"
+          ></v-text-field>
+        </v-col>
+
+        <v-col cols="12" class="d-flex justify-start align-center">
+          <input
+            class="propcharges"
+            type="radio"
+            name="charges"
+            id="chargesIncluded"
+            value="Charges Included"
+            v-model="otherChargesIncluded"
+          />
+          <label for="chargesIncluded" class="mx-1 mr-6"
+            >All Charges Included</label
+          >
+
+          <input
+            class="propcharges"
+            type="radio"
+            name="charges"
+            id="chargesExcluded"
+            value="Charges Excluded"
+            v-model="otherChargesIncluded"
+          />
+          <label for="chargesExcluded" class="mx-1 mr-6"
+            >Tax and Govt. Charges Excluded</label
+          >
+        </v-col>
+
+        <v-col cols="12" class="pa-0">
+          <v-checkbox
+            v-model="isNegotiable"
+            label="Price Negotiable"
+            color="pink-darken-2"
+            :true-value="true"
+            :false-value="false"
+          ></v-checkbox>
+        </v-col>
+      </v-row>
+    </div>
+
+    <!-- Property Total Area (Optional)-->
+    <div class="mt-7">
+      <p class="fieldheading mb-1">What makes your property unique</p>
+      <p class="text-caption mb-7">
+        Adding description will increase your listing visibility
+      </p>
+
+      <v-textarea
+        v-model="description.value.value"
+        :error-messages="description.errorMessage.value"
+        variant="outlined"
+        rows="5"
+        label="Add some details about your property like metro 500m from property etc."
+        persistent-counter
+        counter="2000"
+      ></v-textarea>
+    </div>
+
+    <!-- Continue button -->
     <div class="mt-10 d-flex justify-center">
       <v-btn
+        @click="handleFormSubmit"
         append-icon="mdi-arrow-right-bold"
         variant="elevated"
         class="px-10 text-none text-body-1 elevation-4"
@@ -18,7 +490,320 @@
 </template>
 
 <script lang="ts" setup>
+import { onBeforeMount, onMounted, ref, watch } from "vue";
+import { useRouter } from "vue-router";
+import { useForm, useField } from "vee-validate";
+
+const router = useRouter();
+
+const propertyData = ref();
+
+const totalAreaUnit = ref("square feet");
+const units = ref([
+  "guntha",
+  "hectare",
+  "acre",
+  "cent",
+  "square feet",
+  "square meter",
+]);
+const possessions = ref([
+  "Immediate",
+  "Within 3 Months",
+  "Within 6 Months",
+  "By 2024",
+  "By 2025",
+  "By 2026",
+  "By 2027",
+  "By 2028",
+  "By 2029",
+  "By 2030",
+  "By 2031",
+  "By 2032",
+  "By 2033",
+  "By 2034",
+]);
+
+const constructions = ref([]);
+const approvedByAuthorities = ref([]);
+const ownershipType = ref("");
+const otherChargesIncluded = ref("");
+const isNegotiable = ref(false);
+
+const { meta, handleSubmit, handleReset } = useForm({
+  validationSchema: {
+    totalArea(value: any) {
+      if (!value) {
+        return "Required.";
+      } else if (value > 0 && /^[0.0-9.0]*$/.test(value)) {
+        return true;
+      }
+      return "total area should be greater than 0.";
+    },
+    length(value: number) {
+      if (!value) {
+        return true;
+      } else if (value > 0 && /^[0.0-9.0]*$/.test(`${value}`)) {
+        return true;
+      } else {
+        return "data must be a number and must be greater than 0";
+      }
+    },
+    bredth(value: number) {
+      if (!value) {
+        return true;
+      } else if (value > 0 && /^[0.0-9.0]*$/.test(`${value}`)) {
+        return true;
+      } else {
+        return "data must be a number and must be greater than 0";
+      }
+    },
+    floorAllowed(value: number) {
+      if (!value) {
+        return true;
+      } else if (value > 0 && /^[0-9]*$/.test(`${value}`)) {
+        return true;
+      } else {
+        return "data must be a number but not a decimal number and must be greater than 0";
+      }
+    },
+    isBoundaryWallExist(value: boolean) {
+      if (value === true || value === false) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    noOfOpenSide(value: any) {
+      if (!value) {
+        return false;
+      } else {
+        return true;
+      }
+    },
+    isConstructionDoneOnProperty(value: any) {
+      if (value === true || value === false) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    possessionBy(value: any) {
+      if (value) {
+        return true;
+      } else {
+        return "This field is required. Please choose possession duration.";
+      }
+    },
+    cost(value: any) {
+      if (!value) {
+        return "Required.";
+      } else if (value > 0 && /^[0.0-9.0]*$/.test(value)) {
+        return true;
+      }
+      return "cost should be greater than 0.";
+    },
+    costPerSqFt(value: any) {
+      if (!value) {
+        return "Required.";
+      } else if (value > 0 && /^[0.0-9.0]*$/.test(value)) {
+        return true;
+      }
+      return "cost per sqft should be greater than 0.";
+    },
+    description(value: string) {
+      if (!value || (value && value.length <= 2000)) {
+        return true;
+      } else {
+        return "Please wrap the property description under 2000 characters/letters.";
+      }
+    },
+  },
+});
+const totalArea = useField("totalArea");
+const length = useField("length");
+const bredth = useField("bredth");
+const floorAllowed = useField("floorAllowed");
+const isBoundaryWallExist = useField("isBoundaryWallExist");
+const noOfOpenSide = useField("noOfOpenSide");
+const isConstructionDoneOnProperty = useField("isConstructionDoneOnProperty");
+const possessionBy = useField("possessionBy");
+const cost = useField("cost");
+const costPerSqFt = useField("costPerSqFt");
+const description = useField("description");
+
+watch(isConstructionDoneOnProperty.value, (newValue) => {
+  if (newValue === false) {
+    constructions.value = [];
+  }
+});
+
+function onSuccess() {
+  propertyData.value.constructions = constructions.value;
+  propertyData.value.approvedByAuthorities = approvedByAuthorities.value;
+  propertyData.value.ownershipType = ownershipType.value;
+  propertyData.value.otherChargesIncluded = otherChargesIncluded.value;
+  propertyData.value.isNegotiable = isNegotiable.value;
+  propertyData.value.totalArea = totalArea.value.value;
+  propertyData.value.length = length.value.value;
+  propertyData.value.bredth = bredth.value.value;
+  propertyData.value.floorAllowed = floorAllowed.value.value;
+  propertyData.value.isBoundaryWallExist = isBoundaryWallExist.value.value;
+  propertyData.value.noOfOpenSide = noOfOpenSide.value.value;
+  propertyData.value.isConstructionDoneOnProperty =
+    isConstructionDoneOnProperty.value.value;
+  propertyData.value.possessionBy = possessionBy.value.value;
+  propertyData.value.cost = cost.value.value;
+  propertyData.value.costPerSqFt = costPerSqFt.value.value;
+  propertyData.value.description = description.value.value;
+
+  sessionStorage.setItem("plotData", JSON.stringify(propertyData.value));
+
+  router.push({ path: "/postproperty/gallery" });
+}
+
+function onInvalidSubmit(invalidData: any) {
+  console.log(invalidData?.values); // current form values
+  console.log(invalidData?.errors); // a map of field names and their first error message
+  console.log(invalidData?.results); // a detailed map of field names and their validation results
+}
+
+const handleFormSubmit = handleSubmit(onSuccess, onInvalidSubmit);
+
+function handleConstructions(event: any) {
+  event.stopPropagation();
+  const value = event.target.value;
+  if (event.target.checked) {
+    // @ts-ignore
+    constructions.value.push(value);
+  } else {
+    const index = constructions.value.findIndex((item) => item === value);
+    constructions.value.splice(index, 1);
+  }
+}
+
+function handleApprovingAuthorities(event: any) {
+  event.stopPropagation();
+  const value = event.target.value;
+  if (event.target.checked) {
+    // @ts-ignore
+    approvedByAuthorities.value.push(value);
+  } else {
+    const index = approvedByAuthorities.value.findIndex(
+      (item) => item === value
+    );
+    approvedByAuthorities.value.splice(index, 1);
+  }
+}
+
+onBeforeMount(() => {
+  // @ts-ignore
+  propertyData.value = JSON.parse(sessionStorage.getItem("plotData"));
+
+  if (propertyData.value) {
+    constructions.value = propertyData.value.constructions;
+    approvedByAuthorities.value = propertyData.value.approvedByAuthorities;
+    ownershipType.value = propertyData.value.ownershipType;
+    otherChargesIncluded.value = propertyData.value.otherChargesIncluded;
+    isNegotiable.value = propertyData.value.isNegotiable;
+    totalArea.value.value = propertyData.value.totalArea;
+    length.value.value = propertyData.value.length;
+    bredth.value.value = propertyData.value.bredth;
+    floorAllowed.value.value = propertyData.value.floorAllowed;
+    isBoundaryWallExist.value.value = propertyData.value.isBoundaryWallExist;
+    noOfOpenSide.value.value = propertyData.value.noOfOpenSide;
+    isConstructionDoneOnProperty.value.value =
+      propertyData.value.isConstructionDoneOnProperty;
+    possessionBy.value.value = propertyData.value.possessionBy;
+    cost.value.value = propertyData.value.cost;
+    costPerSqFt.value.value = propertyData.value.costPerSqFt;
+    description.value.value = propertyData.value.description;
+  }
+  
+});
+
+onMounted(() => {
+  approvedByAuthorities.value.forEach((item) => {
+    const checkbox = document.querySelector(`input[value="${item}"]`);
+    // @ts-ignore
+    checkbox.checked = true;
+  });
+  
+  // @ts-ignore
+  propertyData.value.constructions.forEach((item) => {
+    const checkbox = document.querySelector(`input[value="${item}"]`);
+    // @ts-ignore
+    checkbox.checked = true;
+  });
+});
+
 </script>
 
-<style>
+<style scoped>
+.fieldheading {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.radioGroup,
+.checkboxGroup {
+  display: flex;
+  justify-content: start;
+  flex-wrap: wrap;
+  margin-bottom: 5px;
+}
+.radioInput,
+.checkboxInput {
+  display: none;
+}
+.radioInput + label,
+.checkboxInput + label {
+  font-size: 15px;
+  text-align: center;
+  margin: 5px 15px 5px 0;
+  border: solid 1px #000000;
+  padding: 4px 0;
+  border-radius: 20px;
+}
+.radioInput + label.boundaryLabel {
+  width: 100px;
+}
+.radioInput + label.noOfOpenSideLabel {
+  width: 35px;
+}
+.radioInput + label.constructionLabel {
+  width: 100px;
+}
+.radioInput + label.ownershipLabel {
+  width: auto;
+  padding: 4px 25px;
+}
+.checkboxInput + label.constructionLabel {
+  width: auto;
+  padding: 4px 25px;
+}
+.checkboxInput + label.authorityLabel {
+  width: auto;
+  padding: 4px 25px;
+}
+.radioInput + label:hover,
+.checkboxInput + label:hover {
+  cursor: pointer;
+}
+.radioInput:checked + label,
+.checkboxInput:checked + label {
+  background-color: #c2185b;
+  border-color: #c2185b;
+  color: white;
+}
+
+.propcharges {
+  height: 20px;
+  width: 20px;
+  accent-color: #c2185b;
+  margin-left: 10px;
+}
+.propcharges + label {
+  color: grey;
+}
 </style>
