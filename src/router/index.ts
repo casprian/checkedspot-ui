@@ -92,7 +92,7 @@ const routes = [
           {
             path: 'amenities',
             name: 'property-amenities',
-            component: () => import('@/components/forms/PropertyAminities.vue')
+            component: () => import('@/components/forms/PropertyAmenities.vue')
           }
         ]
       },

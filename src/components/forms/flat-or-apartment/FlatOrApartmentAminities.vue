@@ -1,17 +1,8 @@
 <template>
-  <div class="px-0 px-md-8">
-    <v-btn
-      @click="router.back()"
-      variant="text"
-      prepend-icon="mdi-arrow-left"
-      class="ml-n4 text-none text-body-1"
-      >Back</v-btn
-    >
-    <p class="heading font-weight-medium mt-8">Add amenities/unique features</p>
-
-    <!-- Amenities -->
+  <div>
+    <!-- Other rooms (Optional) -->
     <div class="mt-7">
-      <p class="fieldheading">Amenities</p>
+      <p class="fieldheading">Other rooms (Optional)</p>
 
       <div class="checkboxGroup">
         <input
@@ -485,6 +476,8 @@ const amenities = ref({
   nearMall: false,
   nearHighway: false,
 });
+
+
 </script>
 
 <style scoped>

@@ -10,7 +10,7 @@ export function initializePlotPost() {
         subLocality: "",
         googleMapLink: "",
         totalArea: 0,
-        totalAreaUnit: "",
+        totalAreaUnit: "square feet",
         propertyDimension: {
             length: 0,
             breadth: 0
@@ -59,7 +59,6 @@ export function initializePlotPost() {
     }
 
     return sessionStorage.getItem('plotData') ? JSON.parse(sessionStorage.getItem('plotData')) : plotObj;
-    // sessionStorage.setItem('plotData', JSON.stringify(plotObj));
 }
 
 export function initializeFlatPost() {
@@ -74,28 +73,27 @@ export function initializeFlatPost() {
         subLocality: "",
         googleMapLink: "",
         totalArea: 0,
-        totalAreaUnit: "",
-        propertyDimension: {
-            length: 0,
-            breadth: 0
-        },
-        floorAllowed: 0,
-        isBoundaryWallExist: false,
-        noOfOpenSide: 0,
-        isConstructionDoneOnProperty: false,
-        constructions: [],
-        possessionBy: "",
-        ownershipType: "",
+        builtupArea: 0,
+        carpetArea: 0,
+        totalAreaUnit: "square feet",
+        builtupAreaUnit: "square feet",
+        carpetAreaUnit: "square feet",
+        bedrooms: 0,
+        bathrooms: 0,
+        balconies: 0,
+        ownershipType: 0,
         isFreehold: false,
         isVerified: false,
-        approvedByAuthorities: [],
+        ageOfProperty: 0,
         cost: 0,
+        perSqftCost: 0,
         otherChargesIncluded: false,
         isNegotiable: false,
         description: "",
         images: [],
         videos: [],
         documents: [],
+
         maintenanceStaff: false,
         waterStorage: false,
         rainWaterHarvesting: false,
@@ -121,7 +119,6 @@ export function initializeFlatPost() {
     }
 
     return sessionStorage.getItem('flatData') ? JSON.parse(sessionStorage.getItem('flatData')) : flatObj;
-    // sessionStorage.setItem('flatData', JSON.stringify(flatObj));
 }
 
 export function initializeFarmlandPost() {

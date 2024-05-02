@@ -28,7 +28,7 @@
       ></span>
       <p class="text-body-1 text-center mt-3">
         <span class="font-weight-medium text-pink-darken-2"
-          >Click to upload</span
+          >Click on upload button</span
         >
         or drag and drop
       </p>

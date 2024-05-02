@@ -9,7 +9,7 @@
             v-model="totalArea.value.value"
             :error-messages="totalArea.errorMessage.value"
             variant="outlined"
-            label="Plot Total Area"
+            label="*plot/land Total Area"
           ></v-text-field>
         </v-col>
         <v-col cols="4" class="pa-0 px-1">
@@ -456,7 +456,7 @@
       </v-row>
     </div>
 
-    <!-- Property Total Area (Optional)-->
+    <!-- Property Description (Optional)-->
     <div class="mt-7">
       <p class="fieldheading mb-1">What makes your property unique</p>
       <p class="text-caption mb-7">
@@ -707,6 +707,7 @@ onBeforeMount(() => {
     otherChargesIncluded.value = propertyData.value.otherChargesIncluded;
     isNegotiable.value = propertyData.value.isNegotiable;
     totalArea.value.value = propertyData.value.totalArea;
+    totalAreaUnit.value = propertyData.value.totalAreaUnit;
     length.value.value = propertyData.value.length;
     bredth.value.value = propertyData.value.bredth;
     floorAllowed.value.value = propertyData.value.floorAllowed;
@@ -719,24 +720,26 @@ onBeforeMount(() => {
     costPerSqFt.value.value = propertyData.value.costPerSqFt;
     description.value.value = propertyData.value.description;
   }
-  
 });
 
 onMounted(() => {
-  approvedByAuthorities.value.forEach((item) => {
-    const checkbox = document.querySelector(`input[value="${item}"]`);
-    // @ts-ignore
-    checkbox.checked = true;
-  });
-  
-  // @ts-ignore
-  propertyData.value.constructions.forEach((item) => {
-    const checkbox = document.querySelector(`input[value="${item}"]`);
-    // @ts-ignore
-    checkbox.checked = true;
-  });
-});
+  if (approvedByAuthorities.value) {
+    approvedByAuthorities.value.forEach((item) => {
+      const checkbox = document.querySelector(`input[value="${item}"]`);
+      // @ts-ignore
+      checkbox.checked = true;
+    });
+  }
 
+  if (propertyData.value.constructions) {
+    // @ts-ignore
+    propertyData.value.constructions.forEach((item) => {
+      const checkbox = document.querySelector(`input[value="${item}"]`);
+      // @ts-ignore
+      checkbox.checked = true;
+    });
+  }
+});
 </script>
 
 <style scoped>
@@ -765,23 +768,15 @@ onMounted(() => {
   padding: 4px 0;
   border-radius: 20px;
 }
-.radioInput + label.boundaryLabel {
+.radioInput + label.boundaryLabel,
+.radioInput + label.constructionLabel {
   width: 100px;
 }
 .radioInput + label.noOfOpenSideLabel {
   width: 35px;
 }
-.radioInput + label.constructionLabel {
-  width: 100px;
-}
-.radioInput + label.ownershipLabel {
-  width: auto;
-  padding: 4px 25px;
-}
-.checkboxInput + label.constructionLabel {
-  width: auto;
-  padding: 4px 25px;
-}
+.radioInput + label.ownershipLabel,
+.checkboxInput + label.constructionLabel,
 .checkboxInput + label.authorityLabel {
   width: auto;
   padding: 4px 25px;
@@ -805,5 +800,8 @@ onMounted(() => {
 }
 .propcharges + label {
   color: grey;
+}
+.propcharges:checked + label {
+  color: #c2185b;
 }
 </style>

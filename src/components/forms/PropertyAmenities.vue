@@ -7,14 +7,12 @@
       class="ml-n4 text-none text-body-1"
       >Back</v-btn
     >
-    <p class="heading font-weight-medium mt-8">
-      Tell us more about your property.
-    </p>
+    <p class="heading font-weight-medium mt-8">Add amenities/unique features</p>
     <!-- <p class="mt-2"> An accurate location helps you to connect with right buyer.</p> -->
 
-    <plot-or-land-details v-if="type == 'plot'" />
-    <flat-or-apartment-details v-if="type == 'flat'" />
-    <farmland-or-farmhouse-details v-if="type == 'farmland'" />
+    <plot-or-land-aminities v-if="type == 'plot'" />
+    <flat-or-apartment-aminities v-if="type == 'flat'" />
+    <farmland-or-farmhouse-aminities v-if="type == 'farmland'" />
   </div>
 </template>
   
@@ -22,20 +20,20 @@
 import { ref, defineAsyncComponent, onMounted } from "vue";
 import { useRouter } from "vue-router";
 
-const PlotOrLandDetails = defineAsyncComponent(
+const PlotOrLandAminities = defineAsyncComponent(
   // @ts-ignore
-  () => import("@/components/forms/plot-or-land/PlotOrLandDetails.vue")
+  () => import("@/components/forms/plot-or-land/PlotOrLandAminities.vue")
 );
-const FlatOrApartmentDetails = defineAsyncComponent(
+const FlatOrApartmentAminities = defineAsyncComponent(
   // @ts-ignore
   () =>
-    import("@/components/forms/flat-or-apartment/FlatOrApartmentDetails.vue")
+    import("@/components/forms/flat-or-apartment/FlatOrApartmentAminities.vue")
 );
-const FarmlandOrFarmhouseDetails = defineAsyncComponent(
+const FarmlandOrFarmhouseAminities = defineAsyncComponent(
   () =>
     import(
       // @ts-ignore
-      "@/components/forms/farmland-or-farmhouse/FarmlandOrFarmhouseDetails.vue"
+      "@/components/forms/farmland-or-farmhouse/FarmlandOrFarmhouseAminities.vue"
     )
 );
 

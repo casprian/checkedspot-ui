@@ -5,7 +5,7 @@
   >
     <v-col cols="12" class="imageCont" id="imgCont">
       <div>
-        <v-parallax :src="currentimage.src" :alt="currentimage.alt" id="image" > </v-parallax>
+        <v-parallax :src="currentimage.src" :alt="currentimage.alt" id="image"> </v-parallax>
       </div>
     </v-col>
 
