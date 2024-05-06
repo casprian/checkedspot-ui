@@ -856,7 +856,7 @@ onMounted(() => {
 .checkboxInput + label.constructionLabel,
 .checkboxInput + label.authorityLabel {
   width: auto;
-  padding: 4px 25px;
+  padding: 4px 15px;
 }
 .radioInput + label:hover,
 .checkboxInput + label:hover {

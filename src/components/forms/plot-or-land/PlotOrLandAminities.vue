@@ -476,24 +476,16 @@ const amenities = ref({
   nearHighway: false,
 });
 
-
 function handleSubmit() {
   // Submit data to Backend
-
   // ON SUCCESS -> remove 'activeForm' and 'faltData' from sessionStorage and redirect user to the posted property's Details page.
-
   // ON Failure -> Save Data of flatOrApartmentAmenities in the 'flatData' and keep control on this page
   // and show errors according to the status code or accordingly.
-   
 }
 
-onBeforeMount(() => {
+onBeforeMount(() => {});
 
-})
-
-onMounted(() => [
-  
-])
+onMounted(() => []);
 </script>
 
 <style scoped>
@@ -528,21 +520,12 @@ onMounted(() => [
 .radioInput + label.propertyFacingLabel {
   width: 100px;
 }
-.checkboxInput + label.amenitiesLabel {
-  width: auto;
-  padding: 4px 25px;
-}
-.checkboxInput + label.overlookingLabel {
-  width: auto;
-  padding: 4px 25px;
-}
-.checkboxInput + label.otherFeaturesLabel {
-  width: auto;
-  padding: 4px 25px;
-}
+.checkboxInput + label.amenitiesLabel,
+.checkboxInput + label.overlookingLabel,
+.checkboxInput + label.otherFeaturesLabel,
 .checkboxInput + label.locationAdvantageLabel {
   width: auto;
-  padding: 4px 25px;
+  padding: 4px 15px;
 }
 .radioInput + label:hover,
 .checkboxInput + label:hover {

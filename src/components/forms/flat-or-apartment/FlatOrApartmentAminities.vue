@@ -852,12 +852,13 @@
       <p class="fieldheading mb-4">Width of facing road</p>
       <v-row no-gutters class="">
         <v-col cols="12" class="pa-0 px-1">
-          <v-select
+          <v-combobox
             variant="outlined"
-            label="Choose Flooring Type"
-            :items="flooringTypes"
             v-model="flooringType"
-          ></v-select>
+            :items="flooringTypes"
+            label="Choose Flooring Types used."
+            multiple
+          ></v-combobox>
         </v-col>
       </v-row>
     </div>
@@ -1029,8 +1030,22 @@ const parking = ref(false);
 const powerBackup = ref("");
 const propertyFacing = ref("");
 const facingRoadWidth = ref(0);
-const flooringTypes = ref(["marble"]);
-const flooringType = ref("");
+const flooringTypes = ref([
+  "Cement or lime concrete",
+  "Bricks",
+  "Flagstones",
+  "marble",
+  "Glass",
+  "Ceramic",
+  "Plastic",
+  "Mud and murram",
+  "Wood",
+  "Cork",
+  "Linoleum",
+  "Asphalt",
+  "Rubber",
+]);
+const flooringType = ref([]);
 const units = ref(["feet", "meter", "yard"]);
 
 const amenities = ref({
@@ -1137,21 +1152,14 @@ function addRoomHandler() {
 
 function handleSubmit() {
   // Submit data to Backend
-
   // ON SUCCESS -> remove 'activeForm' and 'faltData' from sessionStorage and redirect user to the posted property's Details page.
-
   // ON Failure -> Save Data of flatOrApartmentAmenities in the 'flatData' and keep control on this page
   // and show errors according to the status code or accordingly.
-   
 }
 
-onBeforeMount(() => {
+onBeforeMount(() => {});
 
-})
-
-onMounted(() => [
-  
-])
+onMounted(() => []);
 </script>
 
 <style scoped>
@@ -1188,7 +1196,7 @@ onMounted(() => [
 .radioInput + label.propertyFacingLabel,
 .radioInput + label.powerBackupLabel {
   width: auto;
-  padding: 4px 25px;
+  padding: 4px 15px;
 }
 .checkboxInput + label.otherRoomLabel,
 .checkboxInput + label.amenitiesLabel,
@@ -1198,7 +1206,7 @@ onMounted(() => [
 .checkboxInput + label.otherFeaturesLabel,
 .checkboxInput + label.locationAdvantageLabel {
   width: auto;
-  padding: 4px 25px;
+  padding: 4px 15px;
 }
 
 .radioInput + label:hover,

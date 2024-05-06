@@ -1037,7 +1037,7 @@ onMounted(() => {
 }
 .radioInput + label.ownershipLabel {
   width: auto;
-  padding: 4px 25px;
+  padding: 4px 15px;
 }
 .radioInput + label:hover,
 .checkboxInput + label:hover {
@@ -1051,7 +1051,7 @@ onMounted(() => {
 }
 .checkboxInput + label.authorityLabel {
   width: auto;
-  padding: 4px 25px;
+  padding: 4px 15px;
 }
 .disabled-mask {
   position: relative;
