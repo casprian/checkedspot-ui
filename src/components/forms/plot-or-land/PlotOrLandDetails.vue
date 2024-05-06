@@ -297,6 +297,36 @@
           v-model="ownershipType"
         />
         <label class="ownershipLabel" for="lease" title="Lease">Lease</label>
+
+        <input
+          type="radio"
+          id="onRegisteredAgreement"
+          class="radioInput"
+          name="ownership"
+          value="On Registered Agreement"
+          v-model="ownershipType"
+        />
+        <label
+          class="ownershipLabel"
+          for="onRegisteredAgreement"
+          title="On Registered Agreement"
+          >On Registered Agreement</label
+        >
+
+        <input
+          type="radio"
+          id="onNormalAgreement"
+          class="radioInput"
+          name="ownership"
+          value="On Normal Agreement"
+          v-model="ownershipType"
+        />
+        <label
+          class="ownershipLabel"
+          for="onNormalAgreement"
+          title="On Normal Agreement"
+          >On Normal Agreement</label
+        >
       </div>
     </div>
 
@@ -305,95 +335,67 @@
       <p class="fieldheading">Which authority the property is approved by?</p>
 
       <div class="checkboxGroup">
-        <input
-          type="checkbox"
-          id="dtcp"
-          class="checkboxInput"
-          name="authority"
-          value="dtcp"
-          @change="handleApprovingAuthorities"
-        />
-        <label class="authorityLabel" for="dtcp" title="DTCP">DTCP</label>
+        <span
+          v-for="authority in authorities"
+          :key="authority.name"
+          class="mb-3"
+        >
+          <input
+            type="checkbox"
+            :id="authority.inputId"
+            class="checkboxInput"
+            name="authority"
+            :value="authority.name"
+            @change="handleApprovingAuthorities"
+          />
+          <label
+            class="authorityLabel"
+            :for="authority.inputId"
+            :title="authority.labelTitle"
+            >{{ authority.labelTitle }}</label
+          >
+        </span>
+      </div>
+      <!-- Add More Authorities -->
+      <div>
+        <button
+          class="mt-2 text-pink-darken-2"
+          @click="addMoreAuthorities = !addMoreAuthorities"
+        >
+          <v-icon
+            class="mt-n1"
+            icon="mdi-plus-circle-outline"
+            size="18"
+          ></v-icon>
+          Add other
+        </button>
 
-        <input
-          type="checkbox"
-          id="bmrda"
-          class="checkboxInput"
-          name="authority"
-          value="bmrda"
-          @change="handleApprovingAuthorities"
-        />
-        <label class="authorityLabel" for="bmrda" title="BMRDA">BMRDA</label>
-
-        <input
-          type="checkbox"
-          id="bbmp"
-          class="checkboxInput"
-          name="authority"
-          value="bbmp"
-          @change="handleApprovingAuthorities"
-        />
-        <label class="authorityLabel" for="bbmp" title="BBMP">BBMP</label>
-
-        <input
-          type="checkbox"
-          id="bmicap"
-          class="checkboxInput"
-          name="authority"
-          value="bmicap"
-          @change="handleApprovingAuthorities"
-        />
-        <label class="authorityLabel" for="bmicap" title="BMICAP">BMICAP</label>
-
-        <input
-          type="checkbox"
-          id="cuda"
-          class="checkboxInput"
-          name="authority"
-          value="cuda"
-          @change="handleApprovingAuthorities"
-        />
-        <label class="authorityLabel" for="cuda" title="CUDA">CUDA</label>
-
-        <input
-          type="checkbox"
-          id="npa"
-          class="checkboxInput"
-          name="authority"
-          value="npa"
-          @change="handleApprovingAuthorities"
-        />
-        <label class="authorityLabel" for="npa" title="NPA">NPA</label>
-
-        <input
-          type="checkbox"
-          id="bda"
-          class="checkboxInput"
-          name="authority"
-          value="bda"
-          @change="handleApprovingAuthorities"
-        />
-        <label class="authorityLabel" for="bda" title="BDA">BDA</label>
-
-        <input
-          type="checkbox"
-          id="dpa"
-          class="checkboxInput"
-          name="authority"
-          value="dpa"
-          @change="handleApprovingAuthorities"
-        />
-        <label class="authorityLabel" for="dpa" title="DPA">DPA</label>
-
-        <input
-          type="checkbox"
-          id="biaapa"
-          class="checkboxInput"
-          name="authority"
-          value="biaapa"
-          @change="handleApprovingAuthorities"
-        />
-        <label class="authorityLabel" for="biaapa" title="BIAAPA">BIAAPA</label>
+        <v-row
+          no-gutters
+          class="pa-0 d-flex align-center"
+          v-if="addMoreAuthorities"
+        >
+          <v-col cols="8" class="pa-0 px-1">
+            <v-text-field
+              class="mt-4"
+              label="Enter Name of Authority"
+              variant="outlined"
+              v-model="newAuthority"
+            >
+            </v-text-field>
+          </v-col>
+          <v-col cols="4" class="pa-0 px-1 mt-n2">
+            <v-btn
+              @click="addAuthorityHandler"
+              :disabled="!newAuthority"
+              color="pink-darken-2"
+              height="55"
+              width="100%"
+              class="text-none text-body-1"
+              >Add Authority</v-btn
+            >
+          </v-col>
+        </v-row>
       </div>
     </div>
 
@@ -524,8 +526,58 @@ const possessions = ref([
   "By 2034",
 ]);
 
-const constructions = ref([]);
+const addMoreAuthorities = ref(false);
+const newAuthority = ref("");
+const authorities = ref([
+  {
+    inputId: "dtcp",
+    name: "dtcp",
+    labelTitle: "DTCP",
+  },
+  {
+    inputId: "bmrda",
+    name: "bmrda",
+    labelTitle: "BMRDA",
+  },
+  {
+    inputId: "bbmp",
+    name: "bbmp",
+    labelTitle: "BBMP",
+  },
+  {
+    inputId: "bmicap",
+    name: "bmicap",
+    labelTitle: "BMICAP",
+  },
+  {
+    inputId: "cuda",
+    name: "cuda",
+    labelTitle: "CUDA",
+  },
+  {
+    inputId: "npa",
+    name: "npa",
+    labelTitle: "NPA",
+  },
+  {
+    inputId: "bda",
+    name: "bda",
+    labelTitle: "BDA",
+  },
+  {
+    inputId: "dpa",
+    name: "dpa",
+    labelTitle: "DPA",
+  },
+  {
+    inputId: "biaapa",
+    name: "biaapa",
+    labelTitle: "BIAAPA",
+  },
+]);
 const approvedByAuthorities = ref([]);
+
+const constructions = ref([]);
 const ownershipType = ref("");
 const otherChargesIncluded = ref("");
 const isNegotiable = ref(false);
@@ -683,17 +735,29 @@ function handleConstructions(event: any) {
 }
 
 function handleApprovingAuthorities(event: any) {
+  console.log(event.target);
   event.stopPropagation();
   const value = event.target.value;
   if (event.target.checked) {
+    const index = authorities.value.findIndex((item) => item.name === value);
     // @ts-ignore
-    approvedByAuthorities.value.push(value);
+    approvedByAuthorities.value.push(authorities.value[index]);
   } else {
     const index = approvedByAuthorities.value.findIndex(
-      (item) => item === value
+      // @ts-ignore
+      (item) => item.name === value
     );
     approvedByAuthorities.value.splice(index, 1);
   }
+}
+function addAuthorityHandler() {
+  authorities.value.push({
+    inputId: newAuthority.value.toLocaleLowerCase(),
+    name: newAuthority.value.toLocaleLowerCase(),
+    labelTitle: newAuthority.value.toLocaleLowerCase(),
+  });
+  addMoreAuthorities.value = false;
+  newAuthority.value = "";
 }
 
 onBeforeMount(() => {
@@ -720,12 +784,25 @@ onBeforeMount(() => {
     costPerSqFt.value.value = propertyData.value.costPerSqFt;
     description.value.value = propertyData.value.description;
   }
+
+  // Adding the extra added autorities bu user in the form
+  approvedByAuthorities.value.forEach((item) => {
+    const isValueExist = authorities.value.find(
+      // @ts-ignore
+      (authority) => authority.name === item.name
+    );
+
+    if (!isValueExist) {
+      authorities.value.push(item);
+    }
+  });
 });
 
 onMounted(() => {
   if (approvedByAuthorities.value) {
     approvedByAuthorities.value.forEach((item) => {
-      const checkbox = document.querySelector(`input[value="${item}"]`);
+      // @ts-ignore
+      const checkbox = document.querySelector(`input[value="${item.name}"]`);
       // @ts-ignore
       checkbox.checked = true;
     });

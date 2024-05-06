@@ -36,7 +36,7 @@
                 </v-row>
                 <v-row v-else class="d-flex justify-center align-center" style="width:100%; height: 100%;">
                     <h1 class="pa-7">You haven't have any property private!
-                        <RouterLink to="/createproperty">Post property</RouterLink>
+                        <RouterLink to="/postproperty">Post property</RouterLink>
                     </h1>
                 </v-row>
             </div>
@@ -50,7 +50,7 @@
                 </v-row>
                 <v-row v-else class="d-flex justify-center align-center" style="width:100%; height: 100%;">
                     <h1 class="pa-7">You haven't have any property public!
-                        <RouterLink to="/createproperty">Post property</RouterLink>
+                        <RouterLink to="/postproperty">Post property</RouterLink>
                     </h1>
                 </v-row>
             </div>

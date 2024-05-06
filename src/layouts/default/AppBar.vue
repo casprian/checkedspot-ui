@@ -43,7 +43,7 @@
             REGISTER
           </v-btn>
         </router-link>
-        <router-link to="/createproperty">
+        <router-link to="/postproperty">
           <v-btn variant="flat" @click="changeActiveLink" class="mr-2" color="pink-darken-4" height="32">
             Post Property
           </v-btn>
@@ -104,7 +104,7 @@
         </v-btn>
       </router-link>
 
-      <router-link to="/createproperty">
+      <router-link to="/postproperty">
         <v-btn width="100%" @click="changeActiveLink" variant="flat" class="my-3" color="pink-darken-4" height="32">
           Post Property
         </v-btn>
@@ -207,7 +207,7 @@ if (cookies.get('token')) {
 }
 
 function handleCreateProperty() {
-  router.push('/createproperty');
+  router.push('/postproperty');
 }
 
 const details = ref(navigator.userAgent);

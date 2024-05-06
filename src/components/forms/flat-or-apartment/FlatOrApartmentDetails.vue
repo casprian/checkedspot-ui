@@ -84,13 +84,15 @@
           class="radioInput"
           name="bedrooms"
           value="1"
-          :disabled="bedroomsMoreThanFour"
+          :disabled="bedroomsMoreThanFour || propertyData.bedrooms > 4"
           v-model="bedrooms.value.value"
         />
         <label
           :class="[
             'bedroomsLabel',
-            bedroomsMoreThanFour ? 'disabled-mask' : '',
+            bedroomsMoreThanFour || propertyData.bedrooms > 4
+              ? 'disabled-mask'
+              : '',
           ]"
           for="one"
           title="one"
@@ -103,13 +105,15 @@
           class="radioInput"
           name="bedrooms"
           value="2"
-          :disabled="bedroomsMoreThanFour"
+          :disabled="bedroomsMoreThanFour || propertyData.bedrooms > 4"
           v-model="bedrooms.value.value"
         />
         <label
           :class="[
             'bedroomsLabel',
-            bedroomsMoreThanFour ? 'disabled-mask' : '',
+            bedroomsMoreThanFour || propertyData.bedrooms > 4
+              ? 'disabled-mask'
+              : '',
           ]"
           for="two"
           title="Two"
@@ -122,13 +126,15 @@
           class="radioInput"
           name="bedrooms"
           value="3"
-          :disabled="bedroomsMoreThanFour"
+          :disabled="bedroomsMoreThanFour || propertyData.bedrooms > 4"
           v-model="bedrooms.value.value"
         />
         <label
           :class="[
             'bedroomsLabel',
-            bedroomsMoreThanFour ? 'disabled-mask' : '',
+            bedroomsMoreThanFour || propertyData.bedrooms > 4
+              ? 'disabled-mask'
+              : '',
           ]"
           for="three"
           title="Three"
@@ -141,13 +147,15 @@
           class="radioInput"
           name="bedrooms"
           value="4"
-          :disabled="bedroomsMoreThanFour"
+          :disabled="bedroomsMoreThanFour || propertyData.bedrooms > 4"
           v-model="bedrooms.value.value"
         />
         <label
           :class="[
             'bedroomsLabel',
-            bedroomsMoreThanFour ? 'disabled-mask' : '',
+            bedroomsMoreThanFour || propertyData.bedrooms > 4
+              ? 'disabled-mask'
+              : '',
           ]"
           for="four"
           title="4"
@@ -159,7 +167,12 @@
       <div>
         <button
           class="mt-2 text-pink-darken-2"
-          @click="bedroomsMoreThanFour = !bedroomsMoreThanFour"
+          @click="
+            () => {
+              bedroomsMoreThanFour = !bedroomsMoreThanFour;
+              propertyData.bedrooms = null;
+            }
+          "
         >
           <v-icon
             class="mt-n1"
@@ -174,7 +187,7 @@
           type="number"
           variant="outlined"
           v-model="bedrooms.value.value"
-          v-if="bedroomsMoreThanFour"
+          v-if="bedroomsMoreThanFour || propertyData.bedrooms > 4"
         >
         </v-text-field>
       </div>
@@ -197,13 +210,15 @@
           class="radioInput"
           name="bathrooms"
           value="1"
-          :disabled="bathroomsMoreThanFour"
+          :disabled="bathroomsMoreThanFour || propertyData.bathrooms > 4"
           v-model="bathrooms.value.value"
         />
         <label
           :class="[
             'bathroomsLabel',
-            bathroomsMoreThanFour ? 'disabled-mask' : '',
+            bathroomsMoreThanFour || propertyData.bathrooms > 4
+              ? 'disabled-mask'
+              : '',
           ]"
           for="bathroomone"
           title="one"
@@ -216,13 +231,15 @@
           class="radioInput"
           name="bathrooms"
           value="2"
-          :disabled="bathroomsMoreThanFour"
+          :disabled="bathroomsMoreThanFour || propertyData.bathrooms > 4"
           v-model="bathrooms.value.value"
         />
         <label
           :class="[
             'bathroomsLabel',
-            bathroomsMoreThanFour ? 'disabled-mask' : '',
+            bathroomsMoreThanFour || propertyData.bathrooms > 4
+              ? 'disabled-mask'
+              : '',
           ]"
           for="bathroomtwo"
           title="Two"
@@ -235,13 +252,15 @@
           class="radioInput"
           name="bathrooms"
           value="3"
-          :disabled="bathroomsMoreThanFour"
+          :disabled="bathroomsMoreThanFour || propertyData.bathrooms > 4"
           v-model="bathrooms.value.value"
         />
         <label
           :class="[
             'bathroomsLabel',
-            bathroomsMoreThanFour ? 'disabled-mask' : '',
+            bathroomsMoreThanFour || propertyData.bathrooms > 4
+              ? 'disabled-mask'
+              : '',
           ]"
           for="bathroomthree"
           title="Three"
@@ -254,13 +273,15 @@
           class="radioInput"
           name="bathrooms"
           value="4"
-          :disabled="bathroomsMoreThanFour"
+          :disabled="bathroomsMoreThanFour || propertyData.bathrooms > 4"
           v-model="bathrooms.value.value"
         />
         <label
           :class="[
             'bathroomsLabel',
-            bathroomsMoreThanFour ? 'disabled-mask' : '',
+            bathroomsMoreThanFour || propertyData.bathrooms > 4
+              ? 'disabled-mask'
+              : '',
           ]"
           for="bathroomfour"
           title="4"
@@ -272,7 +293,12 @@
       <div>
         <button
           class="mt-2 text-pink-darken-2"
-          @click="bathroomsMoreThanFour = !bathroomsMoreThanFour"
+          @click="
+            () => {
+              bathroomsMoreThanFour = !bathroomsMoreThanFour;
+              propertyData.bathrooms = null;
+            }
+          "
         >
           <v-icon
             class="mt-n1"
@@ -365,6 +391,126 @@
       </p>
     </div>
 
+    <!-- Age Of Property (Optional) -->
+    <div class="mt-7">
+      <p class="fieldheading">Age Of Property</p>
+
+      <div class="radioGroup">
+        <input
+          type="radio"
+          id="propertyAgeone"
+          class="radioInput"
+          name="propertyAge"
+          value="1"
+          :disabled="propertyAgeMoreThanFour || propertyData.propertyAge > 4"
+          v-model="propertyAge"
+        />
+        <label
+          :class="[
+            'propertyAgeLabel',
+            propertyAgeMoreThanFour || propertyData.propertyAge > 4
+              ? 'disabled-mask'
+              : '',
+          ]"
+          for="propertyAgeone"
+          title="one"
+          >1</label
+        >
+
+        <input
+          type="radio"
+          id="propertyAgeTwo"
+          class="radioInput"
+          name="propertyAge"
+          value="2"
+          :disabled="propertyAgeMoreThanFour || propertyData.propertyAge > 4"
+          v-model="propertyAge"
+        />
+        <label
+          :class="[
+            'propertyAgeLabel',
+            propertyAgeMoreThanFour || propertyData.propertyAge > 4
+              ? 'disabled-mask'
+              : '',
+          ]"
+          for="propertyAgeTwo"
+          title="Two"
+          >2</label
+        >
+
+        <input
+          type="radio"
+          id="propertyAgeThree"
+          class="radioInput"
+          name="propertyAge"
+          value="3"
+          :disabled="propertyAgeMoreThanFour || propertyData.propertyAge > 4"
+          v-model="propertyAge"
+        />
+        <label
+          :class="[
+            'propertyAgeLabel',
+            propertyAgeMoreThanFour || propertyData.propertyAge > 4
+              ? 'disabled-mask'
+              : '',
+          ]"
+          for="propertyAgeThree"
+          title="Three"
+          >3</label
+        >
+
+        <input
+          type="radio"
+          id="propertyAgeFour"
+          class="radioInput"
+          name="propertyAge"
+          value="4"
+          :disabled="propertyAgeMoreThanFour || propertyData.propertyAge > 4"
+          v-model="propertyAge"
+        />
+        <label
+          :class="[
+            'propertyAgeLabel',
+            propertyAgeMoreThanFour || propertyData.propertyAge > 4
+              ? 'disabled-mask'
+              : '',
+          ]"
+          for="propertyAgeFour"
+          title="4"
+          >4</label
+        >
+      </div>
+
+      <!-- Add Other Property Age -->
+      <div>
+        <button
+          class="mt-2 text-pink-darken-2"
+          @click="
+            () => {
+              propertyAgeMoreThanFour = !propertyAgeMoreThanFour;
+              propertyData.propertyAge = null;
+            }
+          "
+        >
+          <v-icon
+            class="mt-n1"
+            icon="mdi-plus-circle-outline"
+            size="18"
+          ></v-icon>
+          Add other
+        </button>
+        <v-text-field
+          class="mt-4"
+          label="Enter number of bathrooms"
+          type="number"
+          variant="outlined"
+          v-model="propertyAge"
+          v-if="propertyAgeMoreThanFour || propertyData.propertyAge > 4"
+        >
+        </v-text-field>
+      </div>
+    </div>
+
     <!-- Ownership (Optional) -->
     <div class="mt-7">
       <p class="fieldheading">Ownership</p>
@@ -406,96 +552,69 @@
           v-model="ownershipType"
         />
         <label class="ownershipLabel" for="lease" title="Lease">Lease</label>
+        <input
+          type="radio"
+          id="onRegisteredAgreement"
+          class="radioInput"
+          name="ownership"
+          value="On Registered Agreement"
+          v-model="ownershipType"
+        />
+        <label
+          class="ownershipLabel"
+          for="onRegisteredAgreement"
+          title="On Registered Agreement"
+          >On Registered Agreement</label
+        >
+
+        <input
+          type="radio"
+          id="onNormalAgreement"
+          class="radioInput"
+          name="ownership"
+          value="On Normal Agreement"
+          v-model="ownershipType"
+        />
+        <label
+          class="ownershipLabel"
+          for="onNormalAgreement"
+          title="On Normal Agreement"
+          >On Normal Agreement</label
+        >
       </div>
     </div>
 
-    <!-- Age Of Property (Optional) -->
-    <div class="mt-7">
-      <p class="fieldheading">Age Of Property</p>
+    <!-- Which authority the property is approved by? (Optional) -->
+    <div class="mt-10">
+      <p class="fieldheading">Which authority the property is approved by?</p>
 
-      <div class="radioGroup">
-        <input
-          type="radio"
-          id="propertyAgeone"
-          class="radioInput"
-          name="propertyAge"
-          value="1"
-          :disabled="propertyAgeMoreThanFour"
-          v-model="propertyAge"
-        />
-        <label
-          :class="[
-            'propertyAgeLabel',
-            propertyAgeMoreThanFour ? 'disabled-mask' : '',
-          ]"
-          for="propertyAgeone"
-          title="one"
-          >1</label
+      <div class="checkboxGroup">
+        <span
+          v-for="authority in authorities"
+          :key="authority.name"
+          class="mb-3"
         >
-
-        <input
-          type="radio"
-          id="propertyAgeTwo"
-          class="radioInput"
-          name="propertyAge"
-          value="2"
-          :disabled="propertyAgeMoreThanFour"
-          v-model="propertyAge"
-        />
-        <label
-          :class="[
-            'propertyAgeLabel',
-            propertyAgeMoreThanFour ? 'disabled-mask' : '',
-          ]"
-          for="propertyAgeTwo"
-          title="Two"
-          >2</label
-        >
-
-        <input
-          type="radio"
-          id="propertyAgeThree"
-          class="radioInput"
-          name="propertyAge"
-          value="3"
-          :disabled="propertyAgeMoreThanFour"
-          v-model="propertyAge"
-        />
-        <label
-          :class="[
-            'propertyAgeLabel',
-            propertyAgeMoreThanFour ? 'disabled-mask' : '',
-          ]"
-          for="propertyAgeThree"
-          title="Three"
-          >3</label
-        >
-
-        <input
-          type="radio"
-          id="propertyAgeFour"
-          class="radioInput"
-          name="propertyAge"
-          value="4"
-          :disabled="propertyAgeMoreThanFour"
-          v-model="propertyAge"
-        />
-        <label
-          :class="[
-            'propertyAgeLabel',
-            propertyAgeMoreThanFour ? 'disabled-mask' : '',
-          ]"
-          for="propertyAgeFour"
-          title="4"
-          >4</label
-        >
+          <input
+            type="checkbox"
+            :id="authority.inputId"
+            class="checkboxInput"
+            name="authority"
+            :value="authority.name"
+            @change="handleApprovingAuthorities"
+          />
+          <label
+            class="authorityLabel"
+            :for="authority.inputId"
+            :title="authority.labelTitle"
+            >{{ authority.labelTitle }}</label
+          >
+        </span>
       </div>
-
-      <!-- Add Other Property Age -->
+      <!-- Add More Authorities -->
       <div>
         <button
           class="mt-2 text-pink-darken-2"
-          @click="propertyAgeMoreThanFour = !propertyAgeMoreThanFour"
+          @click="() => (addMoreAuthorities = !addMoreAuthorities)"
         >
           <v-icon
             class="mt-n1"
@@ -504,15 +623,33 @@
           ></v-icon>
           Add other
         </button>
-        <v-text-field
-          class="mt-4"
-          label="Enter number of bathrooms"
-          type="number"
-          variant="outlined"
-          v-model="propertyAge"
-          v-if="propertyAgeMoreThanFour"
+
+        <v-row
+          no-gutters
+          class="pa-0 d-flex align-center"
+          v-if="addMoreAuthorities"
         >
-        </v-text-field>
+          <v-col cols="8" class="pa-0 px-1">
+            <v-text-field
+              class="mt-4"
+              label="Enter Name of Authority"
+              variant="outlined"
+              v-model="newAuthority"
+            >
+            </v-text-field>
+          </v-col>
+          <v-col cols="4" class="pa-0 px-1 mt-n2">
+            <v-btn
+              @click="addAuthorityHandler"
+              :disabled="!newAuthority"
+              color="pink-darken-2"
+              height="55"
+              width="100%"
+              class="text-none text-body-1"
+              >Add Authority</v-btn
+            >
+          </v-col>
+        </v-row>
       </div>
     </div>
 
@@ -609,7 +746,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onBeforeMount, onMounted, ref, watch } from "vue";
+import { onBeforeMount, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useForm, useField } from "vee-validate";
 
@@ -632,10 +769,62 @@ const units = ref([
 ]);
 const ownershipType = ref("");
 const propertyAge = ref("");
-const propertyAgeMoreThanFour = ref("");
+const propertyAgeMoreThanFour = ref(false);
 const bedroomsMoreThanFour = ref(false);
 const bathroomsMoreThanFour = ref(false);
+const otherChargesIncluded = ref(false);
 const isNegotiable = ref(false);
+
+const addMoreAuthorities = ref(false);
+const newAuthority = ref("");
+const authorities = ref([
+  {
+    inputId: "dtcp",
+    name: "dtcp",
+    labelTitle: "DTCP",
+  },
+  {
+    inputId: "bmrda",
+    name: "bmrda",
+    labelTitle: "BMRDA",
+  },
+  {
+    inputId: "bbmp",
+    name: "bbmp",
+    labelTitle: "BBMP",
+  },
+  {
+    inputId: "bmicap",
+    name: "bmicap",
+    labelTitle: "BMICAP",
+  },
+  {
+    inputId: "cuda",
+    name: "cuda",
+    labelTitle: "CUDA",
+  },
+  {
+    inputId: "npa",
+    name: "npa",
+    labelTitle: "NPA",
+  },
+  {
+    inputId: "bda",
+    name: "bda",
+    labelTitle: "BDA",
+  },
+  {
+    inputId: "dpa",
+    name: "dpa",
+    labelTitle: "DPA",
+  },
+  {
+    inputId: "biaapa",
+    name: "biaapa",
+    labelTitle: "BIAAPA",
+  },
+]);
+const approvedByAuthorities = ref([]);
 
 const { meta, handleSubmit, handleReset } = useForm({
   validationSchema: {
@@ -702,7 +891,27 @@ const costPerSqFt = useField("costPerSqFt");
 const description = useField("description");
 
 const onSuccess = () => {
-  router.push("/postproperty/gallery");
+  propertyData.value.totalArea = totalArea.value.value;
+  propertyData.value.builtupArea = builtupArea.value;
+  propertyData.value.carpetArea = carpetArea.value;
+  propertyData.value.totalAreaUnit = totalAreaUnit.value;
+  propertyData.value.builtupAreaUnit = builtupAreaUnit.value;
+  propertyData.value.carpetAreaUnit = carpetAreaUnit.value;
+  propertyData.value.bedrooms = bedrooms.value.value;
+  propertyData.value.bathrooms = bathrooms.value.value;
+  propertyData.value.balconies = balconies.value.value;
+  propertyData.value.ownershipType = ownershipType.value;
+  propertyData.value.approvedByAuthorities = approvedByAuthorities.value;
+  propertyData.value.propertyAge = propertyAge.value;
+  propertyData.value.cost = cost.value.value;
+  propertyData.value.costPerSqFt = costPerSqFt.value.value;
+  propertyData.value.otherChargesIncluded = otherChargesIncluded.value;
+  propertyData.value.isNegotiable = isNegotiable.value;
+  propertyData.value.description = description.value.value;
+
+  sessionStorage.setItem("flatData", JSON.stringify(propertyData.value));
+
+  router.push({ path: "/postproperty/gallery" });
 };
 
 function onInvalidSubmit(invalidData: any) {
@@ -713,7 +922,83 @@ function onInvalidSubmit(invalidData: any) {
 
 const handleFormSubmit = handleSubmit(onSuccess, onInvalidSubmit);
 
-onMounted(() => {});
+function handleApprovingAuthorities(event: any) {
+  event.stopPropagation();
+  const value = event.target.value;
+  if (event.target.checked) {
+    const index = authorities.value.findIndex((item) => item.name === value);
+    // @ts-ignore
+    approvedByAuthorities.value.push(authorities.value[index]);
+  } else {
+    const index = approvedByAuthorities.value.findIndex(
+      // @ts-ignore
+      (item) => item.name === value
+    );
+    approvedByAuthorities.value.splice(index, 1);
+  }
+}
+function addAuthorityHandler() {
+  authorities.value.push({
+    inputId: newAuthority.value.toLocaleLowerCase(),
+    name: newAuthority.value.toLocaleLowerCase(),
+    labelTitle: newAuthority.value.toLocaleLowerCase(),
+  });
+  addMoreAuthorities.value = false;
+  newAuthority.value = "";
+}
+
+onBeforeMount(() => {
+  // @ts-ignore
+  propertyData.value = JSON.parse(sessionStorage.getItem("flatData"));
+
+  if (propertyData.value) {
+    totalArea.value.value = propertyData.value.totalArea;
+    builtupArea.value = propertyData.value.builtupArea;
+    carpetArea.value = propertyData.value.carpetArea;
+    totalAreaUnit.value = propertyData.value.totalAreaUnit;
+    builtupAreaUnit.value = propertyData.value.builtupAreaUnit;
+    carpetAreaUnit.value = propertyData.value.carpetAreaUnit;
+    bedrooms.value.value = propertyData.value.bedrooms;
+    bathrooms.value.value = propertyData.value.bathrooms;
+    bedroomsMoreThanFour.value = propertyData.value.bedrooms > 4 ? true : false;
+    bathroomsMoreThanFour.value =
+      propertyData.value.bathrooms > 4 ? true : false;
+    balconies.value.value = propertyData.value.balconies;
+    ownershipType.value = propertyData.value.ownershipType;
+    approvedByAuthorities.value = propertyData.value.approvedByAuthorities;
+    propertyAge.value = propertyData.value.propertyAge;
+    propertyAgeMoreThanFour.value =
+      propertyData.value.propertyAge > 4 ? true : false;
+    cost.value.value = propertyData.value.cost;
+    costPerSqFt.value.value = propertyData.value.costPerSqFt;
+    otherChargesIncluded.value = propertyData.value.otherChargesIncluded;
+    isNegotiable.value = propertyData.value.isNegotiable;
+    description.value.value = propertyData.value.description;
+  }
+
+  // Adding the extra added autorities bu user in the form
+  approvedByAuthorities.value.forEach((item) => {
+    const isValueExist = authorities.value.find(
+      // @ts-ignore
+      (authority) => authority.name === item.name
+    );
+
+    if (!isValueExist) {
+      authorities.value.push(item);
+    }
+  });
+});
+
+onMounted(() => {
+  if (approvedByAuthorities.value) {
+    approvedByAuthorities.value.forEach((item) => {
+      // @ts-ignore
+      const checkbox = document.querySelector(`input[value="${item.name}"]`);
+      // @ts-ignore
+      checkbox.checked = true;
+    });
+  }
+});
 </script>
 
 <style scoped>
@@ -764,7 +1049,10 @@ onMounted(() => {});
   border-color: #c2185b;
   color: white;
 }
-
+.checkboxInput + label.authorityLabel {
+  width: auto;
+  padding: 4px 25px;
+}
 .disabled-mask {
   position: relative;
 }

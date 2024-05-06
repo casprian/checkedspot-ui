@@ -154,7 +154,7 @@
           class="checkboxInput"
           name="cornerProperty"
           value="Corner Property"
-          v-model="amenities.cornerProperty"
+          v-model="amenities.isCornerProperty"
         />
         <label
           class="otherFeaturesLabel"

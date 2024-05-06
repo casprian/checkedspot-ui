@@ -83,14 +83,14 @@
 
         <input
           type="checkbox"
-          id="park_garden"
+          id="garden"
           class="checkboxInput"
-          name="park_garden"
-          value="Park/Garden"
-          v-model="amenities.park"
+          name="garden"
+          value="Garden"
+          v-model="amenities.garden"
         />
-        <label class="overlookingLabel" for="park_garden" title="Park/Garden"
-          >Park/Garden</label
+        <label class="overlookingLabel" for="garden" title="Garden"
+          >Garden</label
         >
 
         <input
@@ -154,7 +154,7 @@
           class="checkboxInput"
           name="cornerProperty"
           value="Corner Property"
-          v-model="amenities.cornerProperty"
+          v-model="amenities.isCornerProperty"
         />
         <label
           class="otherFeaturesLabel"
@@ -176,7 +176,7 @@
           class="radioInput"
           name="propertyFacing"
           value="North"
-          v-model="amenities.propertyFacing"
+          v-model="propertyFacing"
         />
         <label class="propertyFacingLabel" for="north" title="north"
           >North</label
@@ -188,7 +188,7 @@
           class="radioInput"
           name="propertyFacing"
           value="South"
-          v-model="amenities.propertyFacing"
+          v-model="propertyFacing"
         />
         <label class="propertyFacingLabel" for="south" title="South"
           >South</label
@@ -200,7 +200,7 @@
           class="radioInput"
           name="propertyFacing"
           value="East"
-          v-model="amenities.propertyFacing"
+          v-model="propertyFacing"
         />
         <label class="propertyFacingLabel" for="east" title="East">East</label>
 
@@ -210,7 +210,7 @@
           class="radioInput"
           name="propertyFacing"
           value="West"
-          v-model="amenities.propertyFacing"
+          v-model="propertyFacing"
         />
         <label class="propertyFacingLabel" for="west" title="West">West</label>
 
@@ -220,7 +220,7 @@
           class="radioInput"
           name="propertyFacing"
           value="North East"
-          v-model="amenities.propertyFacing"
+          v-model="propertyFacing"
         />
         <label class="propertyFacingLabel" for="northEast" title="North East"
           >North East</label
@@ -232,7 +232,7 @@
           class="radioInput"
           name="propertyFacing"
           value="North West"
-          v-model="amenities.propertyFacing"
+          v-model="propertyFacing"
         />
         <label class="propertyFacingLabel" for="northWest" title="North West"
           >North West</label
@@ -244,7 +244,7 @@
           class="radioInput"
           name="propertyFacing"
           value="South East"
-          v-model="amenities.propertyFacing"
+          v-model="propertyFacing"
         />
         <label class="propertyFacingLabel" for="southEast" title="South East"
           >South East</label
@@ -256,7 +256,7 @@
           class="radioInput"
           name="propertyFacing"
           value="South West"
-          v-model="amenities.propertyFacing"
+          v-model="propertyFacing"
         />
         <label class="propertyFacingLabel" for="southWest" title="South West"
           >South West</label
@@ -272,7 +272,7 @@
           <v-text-field
             variant="outlined"
             label="Enter the width"
-            v-model="amenities.facingRoadWidth"
+            v-model="facingRoadWidth"
           ></v-text-field>
         </v-col>
         <v-col cols="4" class="pa-0 px-1">
@@ -442,12 +442,14 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onBeforeMount, onMounted, watch } from "vue";
+import { ref, onBeforeMount, onMounted } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
 
 const propertyData = ref();
+const propertyFacing = ref("");
+const facingRoadWidth = ref(0);
 
 const units = ref(["feet", "meter", "yard"]);
 
@@ -457,14 +459,11 @@ const amenities = ref({
   rainWaterHarvesting: false,
   vaastuComplaint: false,
   pool: false,
-  park: false,
+  garden: false,
   club: false,
   mainRoad: false,
-  // other: ?
   isInGatedSociety: false,
   isCornerProperty: false, // what is corner property
-  propertyFacing: "",
-  facingRoadWidth: 0,
   nearMetroStation: false,
   nearSchool: false,
   nearHospital: false,
@@ -478,6 +477,23 @@ const amenities = ref({
 });
 
 
+function handleSubmit() {
+  // Submit data to Backend
+
+  // ON SUCCESS -> remove 'activeForm' and 'faltData' from sessionStorage and redirect user to the posted property's Details page.
+
+  // ON Failure -> Save Data of flatOrApartmentAmenities in the 'flatData' and keep control on this page
+  // and show errors according to the status code or accordingly.
+   
+}
+
+onBeforeMount(() => {
+
+})
+
+onMounted(() => [
+  
+])
 </script>
 
 <style scoped>

@@ -56,6 +56,7 @@
         <label for="plot/land" title="plot/land">Plot / Land</label>
 
         <input
+          v-if="category === 'residential'"
           id="flat/apartment"
           class="radioInput"
           type="radio"
@@ -63,11 +64,15 @@
           value="flat/apartment"
           v-model="type"
         />
-        <label for="flat/apartment" title="flat/apartment"
+        <label
+          v-if="category === 'residential'"
+          for="flat/apartment"
+          title="flat/apartment"
           >Flat / Apartment</label
         >
 
         <input
+          v-if="category === 'residential'"
           id="farmland/farmhouse"
           class="radioInput"
           type="radio"
@@ -75,7 +80,10 @@
           value="farmland/farmhouse"
           v-model="type"
         />
-        <label for="farmland/farmhouse" title="farmland/farmhouse"
+        <label
+          v-if="category === 'residential'"
+          for="farmland/farmhouse"
+          title="farmland/farmhouse"
           >Farmland / Farmhouse</label
         >
       </div>
