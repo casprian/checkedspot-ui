@@ -6,6 +6,7 @@
       <v-row no-gutters>
         <v-col cols="8" class="pa-0 px-1">
           <v-text-field
+            type="number"
             v-model="totalArea.value.value"
             :error-messages="totalArea.errorMessage.value"
             variant="outlined"
@@ -31,6 +32,7 @@
       <v-row no-gutters>
         <v-col cols="8" class="pa-0 px-1">
           <v-text-field
+            type="number"
             v-model="builtupArea"
             variant="outlined"
             label="flat/apartment builtup area"
@@ -55,6 +57,7 @@
       <v-row no-gutters>
         <v-col cols="8" class="pa-0 px-1">
           <v-text-field
+            type="number"
             v-model="carpetArea"
             variant="outlined"
             label="flat/apartment carpet area"
@@ -428,7 +431,7 @@
 
     <!-- Other rooms (Optional) -->
     <div class="mt-10">
-      <p class="fieldheading">Other rooms <i>(Optional)</i></p>
+      <p class="fieldheading">Other rooms</p>
 
       <div class="checkboxGroup">
         <span v-for="room in rooms" :key="room.inputId" class="mb-3">
@@ -490,7 +493,7 @@
 
     <!-- Furnishing (optional) -->
     <div class="mt-10">
-      <p class="fieldheading">Furnishing <i>(optional)</i></p>
+      <p class="fieldheading">Furnishing</p>
 
       <div class="radioGroup">
         <input
@@ -535,6 +538,159 @@
           >Un-Furnished</label
         >
       </div>
+
+      <!-- Show if furnished status is full or semi furnushed  -->
+      <v-expand-transition>
+        <v-card
+          v-show="expand"
+          class="mx-auto pa-7"
+          elevation="4"
+          height="auto"
+          width="100%"
+        >
+          <p class="text-body-1 mb-5">
+            Choose Furnishings available in the property.
+          </p>
+
+          <v-row no-gutters>
+            <v-col cols="12" sm="6" md="4" class="checkheight pa-0">
+              <v-checkbox
+                class="pa-0"
+                label="Lights"
+                v-model="furnishings.light"
+                :false-value="false"
+                :true-value="true"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" class="checkheight pa-0">
+              <v-checkbox
+                class="pa-0"
+                label="Fans"
+                v-model="furnishings.fan"
+                :false-value="false"
+                :true-value="true"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" class="checkheight pa-0">
+              <v-checkbox
+                class="pa-0"
+                label="AC"
+                v-model="furnishings.ac"
+                :false-value="false"
+                :true-value="true"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" class="checkheight pa-0">
+              <v-checkbox
+                class="pa-0"
+                label="TV"
+                v-model="furnishings.tv"
+                :false-value="false"
+                :true-value="true"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" class="checkheight pa-0">
+              <v-checkbox
+                class="pa-0"
+                label="Beds"
+                v-model="furnishings.bed"
+                :false-value="false"
+                :true-value="true"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" class="checkheight pa-0">
+              <v-checkbox
+                class="pa-0"
+                label="Wardrobe"
+                v-model="furnishings.wardrobe"
+                :false-value="false"
+                :true-value="true"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" class="checkheight pa-0">
+              <v-checkbox
+                class="pa-0"
+                label="Geyser"
+                v-model="furnishings.geyser"
+                :false-value="false"
+                :true-value="true"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" class="checkheight pa-0">
+              <v-checkbox
+                class="pa-0"
+                label="Sofa"
+                v-model="furnishings.sofa"
+                :false-value="false"
+                :true-value="true"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" class="checkheight pa-0">
+              <v-checkbox
+                class="pa-0"
+                label="Washing Machine"
+                v-model="furnishings.washingMachine"
+                :false-value="false"
+                :true-value="true"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" class="checkheight pa-0">
+              <v-checkbox
+                class="pa-0"
+                label="Stove"
+                v-model="furnishings.stove"
+                :false-value="false"
+                :true-value="true"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" class="checkheight pa-0">
+              <v-checkbox
+                class="pa-0"
+                label="Microwave"
+                v-model="furnishings.microwave"
+                :false-value="false"
+                :true-value="true"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" class="checkheight pa-0">
+              <v-checkbox
+                class="pa-0"
+                label="Modular Kitchen"
+                v-model="furnishings.modularKitchen"
+                :false-value="false"
+                :true-value="true"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" class="checkheight pa-0">
+              <v-checkbox
+                class="pa-0"
+                label="Chimney"
+                v-model="furnishings.chimney"
+                :false-value="false"
+                :true-value="true"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" class="checkheight pa-0">
+              <v-checkbox
+                class="pa-0"
+                label="Curtains"
+                v-model="furnishings.curtain"
+                :false-value="false"
+                :true-value="true"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" class="checkheight pa-0">
+              <v-checkbox
+                class="pa-0"
+                label="Exhaust Fan"
+                v-model="furnishings.exhaustFan"
+                :false-value="false"
+                :true-value="true"
+              ></v-checkbox>
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-expand-transition>
     </div>
 
     <!-- Parking Available -->
@@ -572,9 +728,9 @@
     <div class="mt-10">
       <p class="fieldheading">Add Floor Details</p>
       <v-text-field
+        type="number"
         class="mt-4"
         label="Enter number of Floors"
-        type="number"
         variant="outlined"
         v-model="floors"
       >
@@ -765,6 +921,7 @@
       <v-row no-gutters>
         <v-col cols="6" class="pa-0 px-1">
           <v-text-field
+            type="number"
             v-model="cost.value.value"
             :error-messages="cost.errorMessage.value"
             variant="outlined"
@@ -773,6 +930,7 @@
         </v-col>
         <v-col cols="6" class="pa-0 px-1">
           <v-text-field
+            type="number"
             v-model="costPerSqFt.value.value"
             :error-messages="costPerSqFt.errorMessage.value"
             variant="outlined"
@@ -852,7 +1010,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onBeforeMount, onMounted, ref } from "vue";
+import { Ref, onBeforeMount, onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { useForm, useField } from "vee-validate";
 
@@ -861,6 +1019,32 @@ const router = useRouter();
 const propertyData = ref();
 
 const furnishedStatus = ref("");
+const expand = ref(false);
+watch(furnishedStatus, (status) => {
+  if (status !== "unFurnished") {
+    expand.value = true;
+  } else {
+    expand.value = false;
+  }
+});
+const furnishings = ref({
+  light: false,
+  fan: false,
+  ac: false,
+  tv: false,
+  bed: false,
+  wardrobe: false,
+  geyser: false,
+  refrigerator: false,
+  sofa: false,
+  washingMachine: false,
+  stove: false,
+  microwave: false,
+  modularKitchen: false,
+  chimney: false,
+  curtain: false,
+  exhaustFan: false,
+});
 const parking = ref(false);
 const floors = ref(0);
 const availabilityStatus = ref("");
@@ -884,76 +1068,50 @@ const possessions = ref([
 
 const addBuiltupArea = ref(false);
 const addCarpetArea = ref(false);
-const builtupArea = ref();
-const carpetArea = ref();
+const builtupArea = ref(null);
+const carpetArea = ref(null);
 const totalAreaUnit = ref("square feet");
 const builtupAreaUnit = ref("square feet");
 const carpetAreaUnit = ref("square feet");
 const units = ref([
-  "guntha",
-  "hectare",
+  "square feet",
   "acre",
   "cent",
-  "square feet",
+  "guntha",
   "square meter",
+  "hectare",
 ]);
 const ownershipType = ref("");
-const propertyAgeMoreThanFour = ref(false);
 const bedroomsMoreThanFour = ref(false);
 const bathroomsMoreThanFour = ref(false);
 const otherChargesIncluded = ref(false);
 const isNegotiable = ref(false);
-
-const addMoreAuthorities = ref(false);
-const newAuthority = ref("");
-const authorities = ref([
+// Other Rooms
+const addMoreRooms = ref(false);
+const newRoom = ref("");
+const rooms = ref([
   {
-    inputId: "dtcp",
-    name: "dtcp",
-    labelTitle: "DTCP",
+    inputId: "poojaRoom",
+    value: true,
+    labelTitle: "Pooja Room",
   },
   {
-    inputId: "bmrda",
-    name: "bmrda",
-    labelTitle: "BMRDA",
+    inputId: "studyRoom",
+    value: true,
+    labelTitle: "Study Room",
   },
   {
-    inputId: "bbmp",
-    name: "bbmp",
-    labelTitle: "BBMP",
+    inputId: "servantRoom",
+    value: true,
+    labelTitle: "Servant Room",
   },
   {
-    inputId: "bmicap",
-    name: "bmicap",
-    labelTitle: "BMICAP",
-  },
-  {
-    inputId: "cuda",
-    name: "cuda",
-    labelTitle: "CUDA",
-  },
-  {
-    inputId: "npa",
-    name: "npa",
-    labelTitle: "NPA",
-  },
-  {
-    inputId: "bda",
-    name: "bda",
-    labelTitle: "BDA",
-  },
-  {
-    inputId: "dpa",
-    name: "dpa",
-    labelTitle: "DPA",
-  },
-  {
-    inputId: "biaapa",
-    name: "biaapa",
-    labelTitle: "BIAAPA",
+    inputId: "stoorRoom",
+    value: true,
+    labelTitle: "Stoor Room",
   },
 ]);
-const approvedByAuthorities = ref([]);
+const otherRooms = ref([]);
 
 const { meta, handleSubmit, handleReset } = useForm({
   validationSchema: {
@@ -1029,16 +1187,46 @@ const onSuccess = () => {
   propertyData.value.bedrooms = bedrooms.value.value;
   propertyData.value.bathrooms = bathrooms.value.value;
   propertyData.value.balconies = balconies.value.value;
+  propertyData.value.otherRooms = otherRooms.value;
+  propertyData.value.furnishedStatus = furnishedStatus.value;
+  propertyData.value.parking = parking.value;
+  propertyData.value.floors = floors.value;
+  propertyData.value.isReadyToMoveIn =
+    availabilityStatus.value === "Ready to move in" ? true : false;
+  propertyData.value.underConstruction =
+    availabilityStatus.value === "Under construction" ? true : false;
+  propertyData.value.propertyAge = propertyData.value.isReadyToMoveIn
+    ? propertyAge.value
+    : "";
+  propertyData.value.possessionBy = propertyData.value.underConstruction
+    ? possessionBy.value
+    : "";
   propertyData.value.ownershipType = ownershipType.value;
-  propertyData.value.approvedByAuthorities = approvedByAuthorities.value;
-  propertyData.value.propertyAge = propertyAge.value;
+  propertyData.value.isFreehold =
+    ownershipType.value === "freehold" ? true : false;
   propertyData.value.cost = cost.value.value;
   propertyData.value.costPerSqFt = costPerSqFt.value.value;
   propertyData.value.otherChargesIncluded = otherChargesIncluded.value;
   propertyData.value.isNegotiable = isNegotiable.value;
   propertyData.value.description = description.value.value;
+  propertyData.value.light = furnishings.value.light;
+  propertyData.value.fan = furnishings.value.fan;
+  propertyData.value.ac = furnishings.value.ac;
+  propertyData.value.tv = furnishings.value.tv;
+  propertyData.value.bed = furnishings.value.bed;
+  propertyData.value.wardrobe = furnishings.value.wardrobe;
+  propertyData.value.geyser = furnishings.value.geyser;
+  propertyData.value.refrigerator = furnishings.value.refrigerator;
+  propertyData.value.sofa = furnishings.value.sofa;
+  propertyData.value.washingMachine = furnishings.value.washingMachine;
+  propertyData.value.stove = furnishings.value.stove;
+  propertyData.value.microwave = furnishings.value.microwave;
+  propertyData.value.modularKitchen = furnishings.value.modularKitchen;
+  propertyData.value.chimney = furnishings.value.chimney;
+  propertyData.value.curtain = furnishings.value.curtain;
+  propertyData.value.exhaustFan = furnishings.value.exhaustFan;
 
-  sessionStorage.setItem("farmlandData", JSON.stringify(propertyData.value));
+  localStorage.setItem("farmlandData", JSON.stringify(propertyData.value));
 
   router.push({ path: "/postproperty/gallery" });
 };
@@ -1051,32 +1239,6 @@ function onInvalidSubmit(invalidData: any) {
 
 const handleFormSubmit = handleSubmit(onSuccess, onInvalidSubmit);
 
-// Other Rooms
-const rooms = ref([
-  {
-    inputId: "poojaRoom",
-    value: true,
-    labelTitle: "Pooja Room",
-  },
-  {
-    inputId: "studyRoom",
-    value: true,
-    labelTitle: "Study Room",
-  },
-  {
-    inputId: "servantRoom",
-    value: true,
-    labelTitle: "Servant Room",
-  },
-  {
-    inputId: "stoorRoom",
-    value: true,
-    labelTitle: "Stoor Room",
-  },
-]);
-const otherRooms = ref([]);
-const addMoreRooms = ref(false);
-const newRoom = ref("");
 function handleOtherRooms(event: any) {
   event.stopPropagation();
   if (event.target.checked) {
@@ -1106,7 +1268,7 @@ function addRoomHandler() {
 
 onBeforeMount(() => {
   // @ts-ignore
-  propertyData.value = JSON.parse(sessionStorage.getItem("farmlandData"));
+  propertyData.value = JSON.parse(localStorage.getItem("farmlandData"));
 
   if (propertyData.value) {
     totalArea.value.value = propertyData.value.totalArea;
@@ -1115,42 +1277,69 @@ onBeforeMount(() => {
     totalAreaUnit.value = propertyData.value.totalAreaUnit;
     builtupAreaUnit.value = propertyData.value.builtupAreaUnit;
     carpetAreaUnit.value = propertyData.value.carpetAreaUnit;
+    addBuiltupArea.value = propertyData.value.builtupArea ? true : false;
+    addCarpetArea.value = propertyData.value.carpetArea ? true : false;
     bedrooms.value.value = propertyData.value.bedrooms;
     bathrooms.value.value = propertyData.value.bathrooms;
     bedroomsMoreThanFour.value = propertyData.value.bedrooms > 4 ? true : false;
     bathroomsMoreThanFour.value =
       propertyData.value.bathrooms > 4 ? true : false;
     balconies.value.value = propertyData.value.balconies;
-    ownershipType.value = propertyData.value.ownershipType;
-    approvedByAuthorities.value = propertyData.value.approvedByAuthorities;
+    otherRooms.value = propertyData.value.otherRooms;
+    furnishedStatus.value = propertyData.value.furnishedStatus;
+    parking.value = propertyData.value.parking;
+    floors.value = propertyData.value.floors;
+    availabilityStatus.value =
+      propertyData.value.isReadyToMoveIn === true
+        ? "Ready to move in"
+        : propertyData.value.underConstruction === true
+        ? "Under construction"
+        : "";
     propertyAge.value = propertyData.value.propertyAge;
-    propertyAgeMoreThanFour.value =
-      propertyData.value.propertyAge > 4 ? true : false;
+    possessionBy.value = propertyData.value.possessionBy;
+    ownershipType.value = propertyData.value.ownershipType;
     cost.value.value = propertyData.value.cost;
     costPerSqFt.value.value = propertyData.value.costPerSqFt;
     otherChargesIncluded.value = propertyData.value.otherChargesIncluded;
     isNegotiable.value = propertyData.value.isNegotiable;
     description.value.value = propertyData.value.description;
+    furnishings.value.light = propertyData.value.light;
+    furnishings.value.fan = propertyData.value.fan;
+    furnishings.value.ac = propertyData.value.ac;
+    furnishings.value.tv = propertyData.value.tv;
+    furnishings.value.bed = propertyData.value.bed;
+    furnishings.value.wardrobe = propertyData.value.wardrobe;
+    furnishings.value.geyser = propertyData.value.geyser;
+    furnishings.value.refrigerator = propertyData.value.refrigerator;
+    furnishings.value.sofa = propertyData.value.sofa;
+    furnishings.value.washingMachine = propertyData.value.washingMachine;
+    furnishings.value.stove = propertyData.value.stove;
+    furnishings.value.microwave = propertyData.value.microwave;
+    furnishings.value.modularKitchen = propertyData.value.modularKitchen;
+    furnishings.value.chimney = propertyData.value.chimney;
+    furnishings.value.curtain = propertyData.value.curtain;
+    furnishings.value.exhaustFan = propertyData.value.exhaustFan;
   }
 
-  // Adding the extra added autorities bu user in the form
-  approvedByAuthorities.value.forEach((item) => {
-    const isValueExist = authorities.value.find(
+  // Adding the extra added rooms by user in the form
+  otherRooms.value.forEach((item) => {
+    const isValueExist = rooms.value.find(
       // @ts-ignore
-      (authority) => authority.name === item.name
+      (room) => room.inputId === item.inputId
     );
 
     if (!isValueExist) {
-      authorities.value.push(item);
+      rooms.value.push(item);
     }
   });
 });
 
 onMounted(() => {
-  if (approvedByAuthorities.value) {
-    approvedByAuthorities.value.forEach((item) => {
+  if (otherRooms.value.length > 0) {
+    otherRooms.value.forEach((item) => {
       // @ts-ignore
-      const checkbox = document.querySelector(`input[value="${item.name}"]`);
+      const checkbox = document.querySelector(`input[id="${item.inputId}"]`);
+      console.log(checkbox);
       // @ts-ignore
       checkbox.checked = true;
     });
@@ -1179,7 +1368,8 @@ onMounted(() => {
   font-size: 15px;
   text-align: center;
   margin: 5px 15px 5px 0;
-  border: solid 1px #000000;
+  border: solid 1px rgb(100, 100, 100);
+  color: rgb(100, 100, 100);
   padding: 4px 0;
   border-radius: 20px;
 }

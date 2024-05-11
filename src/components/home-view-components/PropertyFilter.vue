@@ -5,41 +5,41 @@
         <v-tabs v-model="type" show-arrows bg-color="white" color="#F8485E" class="mx-8 mt-4" height="auto">
 
           <v-tab value="" stacked min-width="100">
-            <img src="../../assets/headerFiltersvg/allProperty.svg" :class="[type === '' ? 'filterIcon' : '', 'filterImage']" style="" alt="">
+            <img src="../../assets/headerFiltersvg/allProperty.svg" :class="[type === '' ? 'putfilteronimage' : '', 'filterImage']" style="" alt="">
             <div class="text-caption pb-3">All Properties</div>
           </v-tab>
 
-          <v-tab value="farmland" stacked min-width="100">
-            <img src="../../assets/headerFiltersvg/farmland.svg" :class="[type === 'farmland' ? 'filterIcon' : '', 'filterImage']" style=""
+          <v-tab value="farmhouse or farmland" stacked min-width="100">
+            <img src="../../assets/headerFiltersvg/farmland.svg" :class="[type === 'farmhouse or farmland' ? 'putfilteronimage' : '', 'filterImage']" style=""
               alt="">
-            <div class="text-caption pb-3">Farmland</div>
+            <div class="text-caption pb-3">Farmhouse/Farmland</div>
           </v-tab>
 
-          <v-tab value="plot" stacked min-width="100">
-            <img src="../../assets/headerFiltersvg/plot.svg" :class="[type === 'plot' ? 'filterIcon' : '', 'filterImage']" style="" alt="">
-            <div class="text-caption pb-3">Plot</div>
+          <v-tab value="plot or land" stacked min-width="100">
+            <img src="../../assets/headerFiltersvg/plot.svg" :class="[type === 'plot or land' ? 'putfilteronimage' : '', 'filterImage']" style="" alt="">
+            <div class="text-caption pb-3">Plot/Land</div>
           </v-tab>
 
-          <v-tab value="flat" stacked min-width="100">
-            <img src="../../assets/headerFiltersvg/flat.svg" :class="[type === 'flat' ? 'filterIcon' : '', 'filterImage']" style="" alt="">
-            <div class="text-caption pb-3">Flat</div>
+          <v-tab value="flat or apartment" stacked min-width="100">
+            <img src="../../assets/headerFiltersvg/flat.svg" :class="[type === 'flat or apartment' ? 'putfilteronimage' : '', 'filterImage']" style="" alt="">
+            <div class="text-caption pb-3">Flat/Apartment</div>
           </v-tab>
 
-          <v-tab value="apartment" stacked min-width="100">
-            <img src="../../assets/headerFiltersvg/apartment.svg" :class="[type === 'apartment' ? 'filterIcon' : '', 'filterImage']" style=""
+          <!-- <v-tab value="apartment" stacked min-width="100">
+            <img src="../../assets/headerFiltersvg/apartment.svg" :class="[type === 'apartment' ? 'putfilteronimage' : '', 'filterImage']" style=""
               alt="">
             <div class="text-caption pb-3">Apartment</div>
-          </v-tab>
+          </v-tab> -->
 
           <v-tab value="independentHouse" stacked min-width="100">
             <img src="../../assets/headerFiltersvg/independentHouse.svg"
-              :class="[type === 'independentHouse' ? 'filterIcon' : '', 'filterImage']" style="" alt="">
+              :class="[type === 'independentHouse' ? 'putfilteronimage' : '', 'filterImage']" style="" alt="">
             <div class="text-caption pb-3">Independent House</div>
           </v-tab>
 
           <v-tab value="commercialProperty" stacked min-width="100">
             <img src="../../assets/headerFiltersvg/commercialProperty.svg"
-              :class="[type === 'commercialProperty' ? 'filterIcon' : '', 'filterImage']" style="" alt="">
+              :class="[type === 'commercialProperty' ? 'putfilteronimage' : '', 'filterImage']" style="" alt="">
             <div class="text-caption pb-3">Commercial Property</div>
           </v-tab>
 
@@ -102,7 +102,7 @@ export default {
 </script>
 
 <style scoped>
-.filterIcon {
+.putfilteronimage {
   filter: invert(0.5) sepia(1) saturate(5) hue-rotate(308deg);
 }
 

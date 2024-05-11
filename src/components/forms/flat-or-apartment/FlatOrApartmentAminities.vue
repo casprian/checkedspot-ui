@@ -109,6 +109,159 @@
           >Un-Furnished</label
         >
       </div>
+
+      <!-- Show if furnished status is full or semi furnushed  -->
+      <v-expand-transition>
+        <v-card
+          v-show="expand"
+          class="mx-auto pa-7"
+          elevation="4"
+          height="auto"
+          width="100%"
+        >
+          <p class="text-body-1 mb-5">
+            Choose Furnishings available in the property.
+          </p>
+
+          <v-row no-gutters>
+            <v-col cols="12" sm="6" md="4" class="checkheight pa-0">
+              <v-checkbox
+                class="pa-0"
+                label="Lights"
+                v-model="amenities.light"
+                :false-value="false"
+                :true-value="true"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" class="checkheight pa-0">
+              <v-checkbox
+                class="pa-0"
+                label="Fans"
+                v-model="amenities.fan"
+                :false-value="false"
+                :true-value="true"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" class="checkheight pa-0">
+              <v-checkbox
+                class="pa-0"
+                label="AC"
+                v-model="amenities.ac"
+                :false-value="false"
+                :true-value="true"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" class="checkheight pa-0">
+              <v-checkbox
+                class="pa-0"
+                label="TV"
+                v-model="amenities.tv"
+                :false-value="false"
+                :true-value="true"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" class="checkheight pa-0">
+              <v-checkbox
+                class="pa-0"
+                label="Beds"
+                v-model="amenities.bed"
+                :false-value="false"
+                :true-value="true"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" class="checkheight pa-0">
+              <v-checkbox
+                class="pa-0"
+                label="Wardrobe"
+                v-model="amenities.wardrobe"
+                :false-value="false"
+                :true-value="true"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" class="checkheight pa-0">
+              <v-checkbox
+                class="pa-0"
+                label="Geyser"
+                v-model="amenities.geyser"
+                :false-value="false"
+                :true-value="true"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" class="checkheight pa-0">
+              <v-checkbox
+                class="pa-0"
+                label="Sofa"
+                v-model="amenities.sofa"
+                :false-value="false"
+                :true-value="true"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" class="checkheight pa-0">
+              <v-checkbox
+                class="pa-0"
+                label="Washing Machine"
+                v-model="amenities.washingMachine"
+                :false-value="false"
+                :true-value="true"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" class="checkheight pa-0">
+              <v-checkbox
+                class="pa-0"
+                label="Stove"
+                v-model="amenities.stove"
+                :false-value="false"
+                :true-value="true"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" class="checkheight pa-0">
+              <v-checkbox
+                class="pa-0"
+                label="Microwave"
+                v-model="amenities.microwave"
+                :false-value="false"
+                :true-value="true"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" class="checkheight pa-0">
+              <v-checkbox
+                class="pa-0"
+                label="Modular Kitchen"
+                v-model="amenities.modularKitchen"
+                :false-value="false"
+                :true-value="true"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" class="checkheight pa-0">
+              <v-checkbox
+                class="pa-0"
+                label="Chimney"
+                v-model="amenities.chimney"
+                :false-value="false"
+                :true-value="true"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" class="checkheight pa-0">
+              <v-checkbox
+                class="pa-0"
+                label="Curtains"
+                v-model="amenities.curtain"
+                :false-value="false"
+                :true-value="true"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" class="checkheight pa-0">
+              <v-checkbox
+                class="pa-0"
+                label="Exhaust Fan"
+                v-model="amenities.exhaustFan"
+                :false-value="false"
+                :true-value="true"
+              ></v-checkbox>
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-expand-transition>
     </div>
 
     <!-- Parking Available -->
@@ -210,7 +363,7 @@
           class="checkboxInput"
           name="vaastuCompliant"
           value="Vaastu Compliant"
-          v-model="amenities.vaastuComplaint"
+          v-model="amenities.vaastuCompliant"
         />
         <label
           class="amenitiesLabel"
@@ -487,7 +640,7 @@
           class="checkboxInput"
           name="bankAttachedProperty"
           value="Bank Attached Property"
-          v-model="amenities.vaastuComplaint"
+          v-model="amenities.bankAttachedProperty"
         />
         <label
           class="additionalFeaturesLabel"
@@ -587,7 +740,7 @@
           value="Garden"
           v-model="amenities.garden"
         />
-        <label class="overlookingLabel" for="park_garden" title="Garden"
+        <label class="overlookingLabel" for="garden" title="Garden"
           >Garden</label
         >
 
@@ -830,6 +983,7 @@
       <v-row no-gutters class="">
         <v-col cols="8" class="pa-0 px-1">
           <v-text-field
+            type="number"
             variant="outlined"
             label="Enter the width"
             v-model="facingRoadWidth"
@@ -838,6 +992,7 @@
         <v-col cols="4" class="pa-0 px-1">
           <v-select
             :items="units"
+            v-model="facingRoadWidthUnit"
             item-title="unit"
             label="Unit"
             persistent-hint
@@ -1005,7 +1160,7 @@
     <!-- Continue button -->
     <div class="mt-10 d-flex justify-center">
       <v-btn
-        @click="router.push({ path: '/postproperty/amenities' })"
+        @click="handleSubmit"
         append-icon="mdi-arrow-right-bold"
         variant="elevated"
         class="px-10 text-none text-body-1 elevation-4"
@@ -1018,24 +1173,41 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, onBeforeMount, ref } from "vue";
+import { onMounted, onBeforeMount, ref, watch } from "vue";
 import { useRouter } from "vue-router";
+import axios from "axios";
+// @ts-ignore
+import { convertToSqft, convertTofeet } from "@/composables/area";
 
 const router = useRouter();
 
 const propertyData = ref();
 
 const furnishedStatus = ref("");
+const expand = ref(false);
+watch(furnishedStatus, (status) => {
+  if (status !== "unFurnished") {
+    expand.value = true;
+  } else {
+    expand.value = false;
+  }
+});
 const parking = ref(false);
 const powerBackup = ref("");
 const propertyFacing = ref("");
 const facingRoadWidth = ref(0);
+const units = ref(["feet", "meter", "yard"]);
+const facingRoadWidthUnit = ref("feet");
 const flooringTypes = ref([
   "Cement or lime concrete",
+  "Polished concrete",
   "Bricks",
-  "Flagstones",
+  "Granite",
+  "stone",
   "marble",
   "Glass",
+  "Mosaic",
+  "Vinyl",
   "Ceramic",
   "Plastic",
   "Mud and murram",
@@ -1044,9 +1216,11 @@ const flooringTypes = ref([
   "Linoleum",
   "Asphalt",
   "Rubber",
+  "IPSFinish",
+  "Vitrified",
+  "Spartex",
 ]);
 const flooringType = ref([]);
-const units = ref(["feet", "meter", "yard"]);
 
 const amenities = ref({
   parking: false,
@@ -1054,7 +1228,7 @@ const amenities = ref({
   waterStorage: false,
   securityOrFireAlarm: false,
   visitorParking: false,
-  vaastuComplaint: false,
+  vaastuCompliant: false,
   park: false,
   garden: false,
   intercomFacility: false,
@@ -1083,7 +1257,7 @@ const amenities = ref({
   club: false,
   mainRoad: false,
   isInGatedSociety: false,
-  isCornerProperty: false, // what is corner property
+  isCornerProperty: false,
   isPetFriendly: false,
   isWheelchairFriendly: false,
   nearMetroStation: false,
@@ -1092,9 +1266,26 @@ const amenities = ref({
   nearMarket: false,
   nearRailwayStation: false,
   nearAirport: false,
-  nearButStand: false,
+  nearBusStand: false,
   nearMall: false,
   nearHighway: false,
+  // Furnished addons
+  light: false,
+  fan: false,
+  ac: false,
+  tv: false,
+  bed: false,
+  wardrobe: false,
+  geyser: false,
+  refrigerator: false,
+  sofa: false,
+  washingMachine: false,
+  stove: false,
+  microwave: false,
+  modularKitchen: false,
+  chimney: false,
+  curtain: false,
+  exhaustFan: false,
 });
 
 // Other Rooms
@@ -1150,16 +1341,246 @@ function addRoomHandler() {
   newRoom.value = "";
 }
 
-function handleSubmit() {
-  // Submit data to Backend
-  // ON SUCCESS -> remove 'activeForm' and 'faltData' from sessionStorage and redirect user to the posted property's Details page.
-  // ON Failure -> Save Data of flatOrApartmentAmenities in the 'flatData' and keep control on this page
-  // and show errors according to the status code or accordingly.
+function saveDataTolocalStorage() {
+  propertyData.value.maintenanceStaff = amenities.value.maintenanceStaff;
+  propertyData.value.waterStorage = amenities.value.waterStorage;
+  propertyData.value.securityOrFireAlarm = amenities.value.securityOrFireAlarm;
+  propertyData.value.visitorParking = amenities.value.visitorParking;
+  propertyData.value.vaastuCompliant = amenities.value.vaastuCompliant;
+  propertyData.value.park = amenities.value.park;
+  propertyData.value.garden = amenities.value.garden;
+  propertyData.value.intercomFacility = amenities.value.intercomFacility;
+  propertyData.value.elevator = amenities.value.elevator;
+  propertyData.value.highCeilingHeight = amenities.value.highCeilingHeight;
+  propertyData.value.falseCeilingLighting =
+    amenities.value.falseCeilingLighting;
+  propertyData.value.gasPipeline = amenities.value.gasPipeline;
+  propertyData.value.wifi = amenities.value.wifi;
+  propertyData.value.centralizedAirConditioning =
+    amenities.value.centralizedAirConditioning;
+  propertyData.value.waterPurifier = amenities.value.waterPurifier;
+  propertyData.value.recentlyRenovated = amenities.value.recentlyRenovated;
+  propertyData.value.privateGarden = amenities.value.privateGarden;
+  propertyData.value.naturalLight = amenities.value.naturalLight;
+  propertyData.value.airyRooms = amenities.value.airyRooms;
+  propertyData.value.spaciousInterior = amenities.value.spaciousInterior;
+  propertyData.value.seperateServentRoomEntry =
+    amenities.value.seperateServentRoomEntry;
+  propertyData.value.wasteDisposal = amenities.value.wasteDisposal;
+  propertyData.value.openDrainageAround = amenities.value.openDrainageAround;
+  propertyData.value.rainWaterHarvesting = amenities.value.rainWaterHarvesting;
+  propertyData.value.bankAttachedProperty =
+    amenities.value.bankAttachedProperty;
+  propertyData.value.lowDenseSociety = amenities.value.lowDenseSociety;
+  propertyData.value.municipalCorporationWaterSupply =
+    amenities.value.municipalCorporationWaterSupply;
+  propertyData.value.borewell = amenities.value.borewell;
+  propertyData.value.twentyFourBySevenWater =
+    amenities.value.twentyFourBySevenWater;
+  propertyData.value.twentyFourBySevenWater =
+    amenities.value.twentyFourBySevenWater;
+  propertyData.value.pool = amenities.value.pool;
+  propertyData.value.club = amenities.value.club;
+  propertyData.value.mainRoad = amenities.value.mainRoad;
+  propertyData.value.isInGatedSociety = amenities.value.isInGatedSociety;
+  propertyData.value.isCornerProperty = amenities.value.isCornerProperty;
+  propertyData.value.isPetFriendly = amenities.value.isPetFriendly;
+  propertyData.value.isWheelchairFriendly =
+    amenities.value.isWheelchairFriendly;
+  propertyData.value.furnishedStatus = furnishedStatus.value;
+  propertyData.value.parking = parking.value;
+  propertyData.value.powerBackup = powerBackup.value;
+  propertyData.value.propertyFacing = propertyFacing.value;
+  propertyData.value.facingRoadWidth = facingRoadWidth.value;
+  propertyData.value.facingRoadWidthUnit = facingRoadWidthUnit.value;
+  propertyData.value.flooringType = flooringType.value;
+  propertyData.value.otherRooms = otherRooms.value;
+  propertyData.value.nearMetroStation = amenities.value.nearMetroStation;
+  propertyData.value.nearSchool = amenities.value.nearSchool;
+  propertyData.value.nearHospital = amenities.value.nearHospital;
+  propertyData.value.nearMarket = amenities.value.nearMarket;
+  propertyData.value.nearBusStand = amenities.value.nearBusStand;
+  propertyData.value.nearRailwayStation = amenities.value.nearRailwayStation;
+  propertyData.value.nearAirport = amenities.value.nearAirport;
+  propertyData.value.nearMall = amenities.value.nearMall;
+  propertyData.value.nearHighway = amenities.value.nearHighway;
+  propertyData.value.light = amenities.value.light;
+  propertyData.value.fan = amenities.value.fan;
+  propertyData.value.ac = amenities.value.ac;
+  propertyData.value.tv = amenities.value.tv;
+  propertyData.value.bed = amenities.value.bed;
+  propertyData.value.wardrobe = amenities.value.wardrobe;
+  propertyData.value.geyser = amenities.value.geyser;
+  propertyData.value.refrigerator = amenities.value.refrigerator;
+  propertyData.value.sofa = amenities.value.sofa;
+  propertyData.value.washingMachine = amenities.value.washingMachine;
+  propertyData.value.stove = amenities.value.stove;
+  propertyData.value.microwave = amenities.value.microwave;
+  propertyData.value.modularKitchen = amenities.value.modularKitchen;
+  propertyData.value.chimney = amenities.value.chimney;
+  propertyData.value.curtain = amenities.value.curtain;
+  propertyData.value.exhaustFan = amenities.value.exhaustFan;
+
+  localStorage.setItem("flatData", JSON.stringify(propertyData.value));
+
+  propertyData.value.totalArea = convertToSqft(
+    propertyData.value.totalAreaUnit,
+    propertyData.value.totalArea
+  );
+  propertyData.value.builtupArea = convertToSqft(
+    propertyData.value.builtupAreaUnit,
+    propertyData.value.builtupArea
+  );
+  propertyData.value.carpetArea = convertToSqft(
+    propertyData.value.carpetAreaUnit,
+    propertyData.value.carpetArea
+  );
+  propertyData.value.facingRoadWidth = convertTofeet(
+    facingRoadWidthUnit.value,
+    facingRoadWidth.value
+  );
+  return propertyData.value;
 }
 
-onBeforeMount(() => {});
+async function handleSubmit() {
+  const postPropertyData = saveDataTolocalStorage();
 
-onMounted(() => []);
+  // deleting unit before sending data to backend because unit will be either sqft. for areas, and feet for length
+  delete postPropertyData.totalAreaUnit;
+  delete postPropertyData.carpetAreaUnit;
+  delete postPropertyData.builtupAreaUnit;
+  delete postPropertyData.facingRoadWidthUnit;
+
+  // Submit data to Backend
+  const res = await axios.post(
+    "http://localhost:8080/property/post",
+    propertyData,
+    {
+      withCredentials: true,
+    }
+  );
+  if (res.status === 200) {
+    localStorage.removeItem("activeForm");
+    localStorage.removeItem("flatData");
+
+    //  Redirect user to the posted property's Details page.
+    router.push(`/propertydetails/${res.data.propertyId}`);
+  } else {
+    alert("Property Posting Failed!");
+  }
+}
+
+onBeforeMount(() => {
+  // @ts-ignore
+  propertyData.value = JSON.parse(localStorage.getItem("flatData"));
+
+  if (propertyData.value) {
+    amenities.value.maintenanceStaff = propertyData.value.maintenanceStaff;
+    amenities.value.waterStorage = propertyData.value.waterStorage;
+    amenities.value.securityOrFireAlarm =
+      propertyData.value.securityOrFireAlarm;
+    amenities.value.visitorParking = propertyData.value.visitorParking;
+    amenities.value.vaastuCompliant = propertyData.value.vaastuCompliant;
+    amenities.value.park = propertyData.value.park;
+    amenities.value.garden = propertyData.value.garden;
+    amenities.value.intercomFacility = propertyData.value.intercomFacility;
+    amenities.value.elevator = propertyData.value.elevator;
+    amenities.value.highCeilingHeight = propertyData.value.highCeilingHeight;
+    amenities.value.falseCeilingLighting =
+      propertyData.value.falseCeilingLighting;
+    amenities.value.gasPipeline = propertyData.value.gasPipeline;
+    amenities.value.wifi = propertyData.value.wifi;
+    amenities.value.centralizedAirConditioning =
+      propertyData.value.centralizedAirConditioning;
+    amenities.value.waterPurifier = propertyData.value.waterPurifier;
+    amenities.value.recentlyRenovated = propertyData.value.recentlyRenovated;
+    amenities.value.privateGarden = propertyData.value.privateGarden;
+    amenities.value.naturalLight = propertyData.value.naturalLight;
+    amenities.value.airyRooms = propertyData.value.airyRooms;
+    amenities.value.spaciousInterior = propertyData.value.spaciousInterior;
+    amenities.value.seperateServentRoomEntry =
+      propertyData.value.seperateServentRoomEntry;
+    amenities.value.wasteDisposal = propertyData.value.wasteDisposal;
+    amenities.value.openDrainageAround = propertyData.value.openDrainageAround;
+    amenities.value.rainWaterHarvesting =
+      propertyData.value.rainWaterHarvesting;
+    amenities.value.bankAttachedProperty =
+      propertyData.value.bankAttachedProperty;
+    amenities.value.lowDenseSociety = propertyData.value.lowDenseSociety;
+    amenities.value.municipalCorporationWaterSupply =
+      propertyData.value.municipalCorporationWaterSupply;
+    amenities.value.borewell = propertyData.value.borewell;
+    amenities.value.twentyFourBySevenWater =
+      propertyData.value.twentyFourBySevenWater;
+    amenities.value.twentyFourBySevenWater =
+      propertyData.value.twentyFourBySevenWater;
+    amenities.value.pool = propertyData.value.pool;
+    amenities.value.club = propertyData.value.club;
+    amenities.value.mainRoad = propertyData.value.mainRoad;
+    amenities.value.isInGatedSociety = propertyData.value.isInGatedSociety;
+    amenities.value.isCornerProperty = propertyData.value.isCornerProperty;
+    amenities.value.isPetFriendly = propertyData.value.isPetFriendly;
+    amenities.value.isWheelchairFriendly =
+      propertyData.value.isWheelchairFriendly;
+    furnishedStatus.value = propertyData.value.furnishedStatus;
+    parking.value = propertyData.value.parking;
+    powerBackup.value = propertyData.value.powerBackup;
+    propertyFacing.value = propertyData.value.propertyFacing;
+    facingRoadWidth.value = propertyData.value.facingRoadWidth;
+    facingRoadWidthUnit.value = propertyData.value.facingRoadWidthUnit;
+    flooringType.value = propertyData.value.flooringType;
+    otherRooms.value = propertyData.value.otherRooms;
+    amenities.value.nearMetroStation = propertyData.value.nearMetroStation;
+    amenities.value.nearSchool = propertyData.value.nearSchool;
+    amenities.value.nearHospital = propertyData.value.nearHospital;
+    amenities.value.nearMarket = propertyData.value.nearMarket;
+    amenities.value.nearBusStand = propertyData.value.nearBusStand;
+    amenities.value.nearRailwayStation = propertyData.value.nearRailwayStation;
+    amenities.value.nearAirport = propertyData.value.nearAirport;
+    amenities.value.nearMall = propertyData.value.nearMall;
+    amenities.value.nearHighway = propertyData.value.nearHighway;
+    amenities.value.light = propertyData.value.light;
+    amenities.value.fan = propertyData.value.fan;
+    amenities.value.ac = propertyData.value.ac;
+    amenities.value.tv = propertyData.value.tv;
+    amenities.value.bed = propertyData.value.bed;
+    amenities.value.wardrobe = propertyData.value.wardrobe;
+    amenities.value.geyser = propertyData.value.geyser;
+    amenities.value.refrigerator = propertyData.value.refrigerator;
+    amenities.value.sofa = propertyData.value.sofa;
+    amenities.value.washingMachine = propertyData.value.washingMachine;
+    amenities.value.stove = propertyData.value.stove;
+    amenities.value.microwave = propertyData.value.microwave;
+    amenities.value.modularKitchen = propertyData.value.modularKitchen;
+    amenities.value.chimney = propertyData.value.chimney;
+    amenities.value.curtain = propertyData.value.curtain;
+    amenities.value.exhaustFan = propertyData.value.exhaustFan;
+  }
+
+  // Adding the extra added rooms by user in the form
+  otherRooms.value.forEach((item) => {
+    const isValueExist = rooms.value.find(
+      // @ts-ignore
+      (room) => room.inputId === item.inputId
+    );
+
+    if (!isValueExist) {
+      rooms.value.push(item);
+    }
+  });
+});
+
+onMounted(() => {
+  if (otherRooms.value.length > 0) {
+    otherRooms.value.forEach((item) => {
+      // @ts-ignore
+      const checkbox = document.querySelector(`input[id="${item.inputId}"]`);
+      console.log(checkbox);
+      // @ts-ignore
+      checkbox.checked = true;
+    });
+  }
+});
 </script>
 
 <style scoped>
@@ -1187,7 +1608,8 @@ onMounted(() => []);
   font-size: 15px;
   text-align: center;
   margin: 5px 15px 5px 0;
-  border: solid 1px #000000;
+  border: solid 1px rgb(100, 100, 100);
+  color: rgb(100, 100, 100);
   padding: 4px 0;
   border-radius: 20px;
 }

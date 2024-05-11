@@ -113,7 +113,7 @@ async function onChange(event) {
 
       propertyData.value.images = res?.data?.images;
 
-      sessionStorage.setItem(
+      localStorage.setItem(
         `${activeForm.value}Data`,
         JSON.stringify(propertyData.value)
       );
@@ -163,7 +163,7 @@ async function drop(event) {
 
       propertyData.value.images = res?.data?.images;
 
-      sessionStorage.setItem(
+      localStorage.setItem(
         `${activeForm.value}Data`,
         JSON.stringify(propertyData.value)
       );
@@ -186,10 +186,10 @@ function handleContinue() {
 }
 
 onBeforeMount(() => {
-  activeForm.value = sessionStorage.getItem("activeForm");
+  activeForm.value = localStorage.getItem("activeForm");
   propertyData.value = JSON.parse(
     // @ts-ignore
-    sessionStorage.getItem(activeForm.value + "Data")
+    localStorage.getItem(activeForm.value + "Data")
   );
 
   if (propertyData.value) {

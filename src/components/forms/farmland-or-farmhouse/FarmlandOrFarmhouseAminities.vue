@@ -68,7 +68,7 @@
           class="checkboxInput"
           name="vaastuCompliant"
           value="Vaastu Compliant"
-          v-model="amenities.vaastuComplaint"
+          v-model="amenities.vaastuCompliant"
         />
         <label
           class="amenitiesLabel"
@@ -90,18 +90,6 @@
           for="intercomFacility"
           title="Intercom Facility"
           >Intercom Facility</label
-        >
-
-        <input
-          type="checkbox"
-          id="elevator"
-          class="checkboxInput"
-          name="elevator"
-          value="elevator"
-          v-model="amenities.elevator"
-        />
-        <label class="amenitiesLabel" for="elevator" title="Elevator/Lift"
-          >Elevator/Lift</label
         >
 
         <input
@@ -187,7 +175,7 @@
           class="checkboxInput"
           name="bankAttachedProperty"
           value="Bank Attached Property"
-          v-model="amenities.vaastuComplaint"
+          v-model="amenities.bankAttachedProperty"
         />
         <label
           class="additionalFeaturesLabel"
@@ -214,10 +202,10 @@
     </div>
 
     <!-- Society/ Building feature -->
-    <div class="mt-8">
+    <!-- <div class="mt-8">
       <p class="fieldheading">Society/ Building feature</p>
       <div></div>
-    </div>
+    </div> -->
 
     <!-- Water Source -->
     <div class="mt-8">
@@ -710,6 +698,7 @@
       <v-row no-gutters class="">
         <v-col cols="8" class="pa-0 px-1">
           <v-text-field
+            type="number"
             variant="outlined"
             label="Enter the width"
             v-model="facingRoadWidth"
@@ -718,6 +707,7 @@
         <v-col cols="4" class="pa-0 px-1">
           <v-select
             :items="units"
+            v-model="facingRoadWidthUnit"
             item-title="unit"
             label="Unit"
             persistent-hint
@@ -869,7 +859,7 @@
     <!-- Continue button -->
     <div class="mt-10 d-flex justify-center">
       <v-btn
-        @click="router.push({ path: '/postproperty/amenities' })"
+        @click="handleSubmit"
         append-icon="mdi-arrow-right-bold"
         variant="elevated"
         class="px-10 text-none text-body-1 elevation-4"
@@ -884,6 +874,9 @@
 <script lang="ts" setup>
 import { onMounted, onBeforeMount, ref } from "vue";
 import { useRouter } from "vue-router";
+import axios from "axios";
+// @ts-ignore
+import { convertToSqft, convertTofeet } from "@/composables/area";
 
 const router = useRouter();
 
@@ -895,10 +888,14 @@ const facingRoadWidth = ref(0);
 const flooringType = ref([]);
 const flooringTypes = ref([
   "Cement or lime concrete",
+  "Polished concrete",
   "Bricks",
-  "Flagstones",
+  "Granite",
+  "stone",
   "marble",
   "Glass",
+  "Mosaic",
+  "Vinyl",
   "Ceramic",
   "Plastic",
   "Mud and murram",
@@ -907,16 +904,20 @@ const flooringTypes = ref([
   "Linoleum",
   "Asphalt",
   "Rubber",
+  "IPSFinish",
+  "Vitrified",
+  "Spartex",
 ]);
 const units = ref(["feet", "meter", "yard"]);
-
+const facingRoadWidthUnit = ref("feet");
 const amenities = ref({
   maintenanceStaff: false,
   waterStorage: false,
   securityOrFireAlarm: false,
   visitorParking: false,
-  vaastuComplaint: false,
+  vaastuCompliant: false,
   park: false,
+  garden: false,
   intercomFacility: false,
   securityGuard: false,
   seperateServentRoomEntry: false,
@@ -925,12 +926,10 @@ const amenities = ref({
   rainWaterHarvesting: false,
   bankAttachedProperty: false,
   lowDenseSociety: false,
-  gym: false,
   municipalCorporationWaterSupply: false,
   borewell: false,
   twentyFourBySevenWater: false,
   pool: false,
-  garden: false,
   club: false,
   mainRoad: false,
   isInGatedSociety: false,
@@ -954,21 +953,193 @@ const amenities = ref({
   nearMarket: false,
   nearRailwayStation: false,
   nearAirport: false,
-  nearButStand: false,
+  nearBusStand: false,
   nearMall: false,
   nearHighway: false,
 });
 
-function handleSubmit() {
-  // Submit data to Backend
-  // ON SUCCESS -> remove 'activeForm' and 'faltData' from sessionStorage and redirect user to the posted property's Details page.
-  // ON Failure -> Save Data of flatOrApartmentAmenities in the 'flatData' and keep control on this page
-  // and show errors according to the status code or accordingly.
+function saveDataTolocalStorage() {
+  propertyData.value.maintenanceStaff = amenities.value.maintenanceStaff;
+  propertyData.value.waterStorage = amenities.value.waterStorage;
+  propertyData.value.securityOrFireAlarm = amenities.value.securityOrFireAlarm;
+  propertyData.value.visitorParking = amenities.value.visitorParking;
+  propertyData.value.vaastuCompliant = amenities.value.vaastuCompliant;
+  propertyData.value.park = amenities.value.park;
+  propertyData.value.garden = amenities.value.garden;
+  propertyData.value.intercomFacility = amenities.value.intercomFacility;
+  propertyData.value.highCeilingHeight = amenities.value.highCeilingHeight;
+  propertyData.value.falseCeilingLighting =
+    amenities.value.falseCeilingLighting;
+  propertyData.value.gasPipeline = amenities.value.gasPipeline;
+  propertyData.value.wifi = amenities.value.wifi;
+  propertyData.value.centralizedAirConditioning =
+    amenities.value.centralizedAirConditioning;
+  propertyData.value.waterPurifier = amenities.value.waterPurifier;
+  propertyData.value.recentlyRenovated = amenities.value.recentlyRenovated;
+  propertyData.value.privateGarden = amenities.value.privateGarden;
+  propertyData.value.naturalLight = amenities.value.naturalLight;
+  propertyData.value.airyRooms = amenities.value.airyRooms;
+  propertyData.value.spaciousInterior = amenities.value.spaciousInterior;
+  propertyData.value.seperateServentRoomEntry =
+    amenities.value.seperateServentRoomEntry;
+  propertyData.value.wasteDisposal = amenities.value.wasteDisposal;
+  propertyData.value.openDrainageAround = amenities.value.openDrainageAround;
+  propertyData.value.rainWaterHarvesting = amenities.value.rainWaterHarvesting;
+  propertyData.value.bankAttachedProperty =
+    amenities.value.bankAttachedProperty;
+  propertyData.value.lowDenseSociety = amenities.value.lowDenseSociety;
+  propertyData.value.municipalCorporationWaterSupply =
+    amenities.value.municipalCorporationWaterSupply;
+  propertyData.value.borewell = amenities.value.borewell;
+  propertyData.value.twentyFourBySevenWater =
+    amenities.value.twentyFourBySevenWater;
+  propertyData.value.twentyFourBySevenWater =
+    amenities.value.twentyFourBySevenWater;
+  propertyData.value.pool = amenities.value.pool;
+  propertyData.value.club = amenities.value.club;
+  propertyData.value.mainRoad = amenities.value.mainRoad;
+  propertyData.value.isInGatedSociety = amenities.value.isInGatedSociety;
+  propertyData.value.isCornerProperty = amenities.value.isCornerProperty;
+  propertyData.value.isPetFriendly = amenities.value.isPetFriendly;
+  propertyData.value.isWheelchairFriendly =
+    amenities.value.isWheelchairFriendly;
+  propertyData.value.powerBackup = powerBackup.value;
+  propertyData.value.propertyFacing = propertyFacing.value;
+  propertyData.value.facingRoadWidth = facingRoadWidth.value;
+  propertyData.value.facingRoadWidthUnit = facingRoadWidthUnit.value;
+  propertyData.value.flooringType = flooringType.value;
+  propertyData.value.nearMetroStation = amenities.value.nearMetroStation;
+  propertyData.value.nearSchool = amenities.value.nearSchool;
+  propertyData.value.nearHospital = amenities.value.nearHospital;
+  propertyData.value.nearMarket = amenities.value.nearMarket;
+  propertyData.value.nearBusStand = amenities.value.nearBusStand;
+  propertyData.value.nearRailwayStation = amenities.value.nearRailwayStation;
+  propertyData.value.nearAirport = amenities.value.nearAirport;
+  propertyData.value.nearMall = amenities.value.nearMall;
+  propertyData.value.nearHighway = amenities.value.nearHighway;
+
+  console.log("SAFASDF SAF : ", propertyData.value);
+
+  localStorage.setItem("farmlandData", JSON.stringify(propertyData.value));
+
+  propertyData.value.totalArea = convertToSqft(
+    propertyData.value.totalAreaUnit,
+    propertyData.value.totalArea
+  );
+  propertyData.value.builtupArea = convertToSqft(
+    propertyData.value.builtupAreaUnit,
+    propertyData.value.builtupArea
+  );
+  propertyData.value.carpetArea = convertToSqft(
+    propertyData.value.carpetAreaUnit,
+    propertyData.value.carpetArea
+  );
+  propertyData.value.facingRoadWidth = convertTofeet(
+    facingRoadWidthUnit.value,
+    facingRoadWidth.value
+  );
+  return propertyData.value;
 }
 
-onBeforeMount(() => {});
+async function handleSubmit() {
+  const postPropertyData = saveDataTolocalStorage();
 
-onMounted(() => []);
+  // deleting unit before sending data to backend because unit will be either sqft. for areas, and feet for length
+  delete postPropertyData.totalAreaUnit;
+  delete postPropertyData.carpetAreaUnit;
+  delete postPropertyData.builtupAreaUnit;
+  delete postPropertyData.facingRoadWidthUnit;
+  delete postPropertyData.addBuiltupArea;
+  delete postPropertyData.addCarpetArea;
+
+  // Submit data to Backend
+  const res = await axios.post(
+    "http://localhost:8080/property/post",
+    propertyData,
+    {
+      withCredentials: true,
+    }
+  );
+  if (res.status === 200) {
+    localStorage.removeItem('activeForm');
+    localStorage.removeItem('farmlandData');
+
+    //  Redirect user to the posted property's Details page.
+    router.push(`/propertydetails/${res.data.propertyId}`)
+  } else {
+    alert("Property Posting Failed!");
+  }
+}
+
+onBeforeMount(() => {
+  // @ts-ignore
+  propertyData.value = JSON.parse(localStorage.getItem("farmlandData"));
+
+  if (propertyData.value) {
+    amenities.value.maintenanceStaff = propertyData.value.maintenanceStaff;
+    amenities.value.waterStorage = propertyData.value.waterStorage;
+    amenities.value.securityOrFireAlarm =
+      propertyData.value.securityOrFireAlarm;
+    amenities.value.visitorParking = propertyData.value.visitorParking;
+    amenities.value.vaastuCompliant = propertyData.value.vaastuCompliant;
+    amenities.value.park = propertyData.value.park;
+    amenities.value.garden = propertyData.value.garden;
+    amenities.value.intercomFacility = propertyData.value.intercomFacility;
+    amenities.value.highCeilingHeight = propertyData.value.highCeilingHeight;
+    amenities.value.falseCeilingLighting =
+      propertyData.value.falseCeilingLighting;
+    amenities.value.gasPipeline = propertyData.value.gasPipeline;
+    amenities.value.wifi = propertyData.value.wifi;
+    amenities.value.centralizedAirConditioning =
+      propertyData.value.centralizedAirConditioning;
+    amenities.value.waterPurifier = propertyData.value.waterPurifier;
+    amenities.value.recentlyRenovated = propertyData.value.recentlyRenovated;
+    amenities.value.privateGarden = propertyData.value.privateGarden;
+    amenities.value.naturalLight = propertyData.value.naturalLight;
+    amenities.value.airyRooms = propertyData.value.airyRooms;
+    amenities.value.spaciousInterior = propertyData.value.spaciousInterior;
+    amenities.value.seperateServentRoomEntry =
+      propertyData.value.seperateServentRoomEntry;
+    amenities.value.wasteDisposal = propertyData.value.wasteDisposal;
+    amenities.value.openDrainageAround = propertyData.value.openDrainageAround;
+    amenities.value.rainWaterHarvesting =
+      propertyData.value.rainWaterHarvesting;
+    amenities.value.bankAttachedProperty =
+      propertyData.value.bankAttachedProperty;
+    amenities.value.lowDenseSociety = propertyData.value.lowDenseSociety;
+    amenities.value.municipalCorporationWaterSupply =
+      propertyData.value.municipalCorporationWaterSupply;
+    amenities.value.borewell = propertyData.value.borewell;
+    amenities.value.twentyFourBySevenWater =
+      propertyData.value.twentyFourBySevenWater;
+    amenities.value.twentyFourBySevenWater =
+      propertyData.value.twentyFourBySevenWater;
+    amenities.value.pool = propertyData.value.pool;
+    amenities.value.club = propertyData.value.club;
+    amenities.value.mainRoad = propertyData.value.mainRoad;
+    amenities.value.isInGatedSociety = propertyData.value.isInGatedSociety;
+    amenities.value.isCornerProperty = propertyData.value.isCornerProperty;
+    amenities.value.isPetFriendly = propertyData.value.isPetFriendly;
+    amenities.value.isWheelchairFriendly =
+      propertyData.value.isWheelchairFriendly;
+    powerBackup.value = propertyData.value.powerBackup;
+    propertyFacing.value = propertyData.value.propertyFacing;
+    facingRoadWidth.value = propertyData.value.facingRoadWidth;
+    facingRoadWidthUnit.value = propertyData.value.facingRoadWidthUnit;
+    flooringType.value = propertyData.value.flooringType;
+    amenities.value.nearMetroStation = propertyData.value.nearMetroStation;
+    amenities.value.nearSchool = propertyData.value.nearSchool;
+    amenities.value.nearHospital = propertyData.value.nearHospital;
+    amenities.value.nearMarket = propertyData.value.nearMarket;
+    amenities.value.nearBusStand = propertyData.value.nearBusStand;
+    amenities.value.nearRailwayStation = propertyData.value.nearRailwayStation;
+    amenities.value.nearAirport = propertyData.value.nearAirport;
+    amenities.value.nearMall = propertyData.value.nearMall;
+    amenities.value.nearHighway = propertyData.value.nearHighway;
+  }
+});
+
+onMounted(() => {});
 </script>
 
 <style scoped>
@@ -996,7 +1167,8 @@ onMounted(() => []);
   font-size: 15px;
   text-align: center;
   margin: 5px 15px 5px 0;
-  border: solid 1px #000000;
+  border: solid 1px rgb(100, 100, 100);
+  color: rgb(100, 100, 100);
   padding: 4px 0;
   border-radius: 20px;
 }

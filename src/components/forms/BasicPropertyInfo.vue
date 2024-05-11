@@ -2,6 +2,7 @@
   <div class="px-0 px-md-8">
     <p class="heading font-weight-medium text-center">Property Basic Details</p>
 
+    <!-- Property owner name -->
     <div class="mt-8">
       <p class="propertyTypeLabel">Property owner name</p>
 
@@ -10,7 +11,48 @@
       </div>
     </div>
 
-    <div class="mt-6">
+    <!-- Do you want to sale/rent/lease your property? -->
+    <div class="mt-8">
+      <p class="propertyTypeLabel">
+        *Do you want to sale/rent/lease your property?
+      </p>
+
+      <div class="radioGroup">
+        <input
+          id="sale"
+          checked
+          class="radioInput"
+          type="radio"
+          name="status"
+          value="sale"
+          v-model="status"
+        />
+        <label for="sale" title="sale">Sale</label>
+
+        <input
+          id="rent"
+          class="radioInput"
+          type="radio"
+          name="status"
+          value="rent"
+          v-model="status"
+        />
+        <label for="rent" title="rent">Rent</label>
+
+        <input
+          id="lease"
+          class="radioInput"
+          type="radio"
+          name="status"
+          value="lease"
+          v-model="status"
+        />
+        <label for="lease" title="lease">Lease</label>
+      </div>
+    </div>
+
+    <!-- What kind of property do you have? -->
+    <div class="mt-10">
       <p class="propertyTypeLabel">*What kind of property do you have?</p>
 
       <div class="radioGroup">
@@ -41,19 +83,36 @@
       </div>
     </div>
 
-    <div class="mt-8">
-      <p class="propertyTypeLabel">*Property type</p>
+    <!-- *Property type -->
+    <div class="mt-10">
+      <p class="propertyTypeLabel">
+        *Choose the type of
+        <span class="text-h6 font-weight-regular">{{ category }}</span>
+        property.
+      </p>
 
       <div class="radioGroup">
         <input
+          v-if="
+            status === 'sale' ||
+            ((status === 'rent' || 'lease') && category === 'commercial')
+          "
           id="plot/land"
           class="radioInput"
           type="radio"
           name="type"
-          value="plot/land"
+          value="plot or land"
           v-model="type"
         />
-        <label for="plot/land" title="plot/land">Plot / Land</label>
+        <label
+          v-if="
+            ((status === 'rent' || 'lease') && category === 'commercial') ||
+            status === 'sale'
+          "
+          for="plot/land"
+          title="plot/land"
+          >Plot / Land</label
+        >
 
         <input
           v-if="category === 'residential'"
@@ -61,7 +120,7 @@
           class="radioInput"
           type="radio"
           name="type"
-          value="flat/apartment"
+          value="flat or apartment"
           v-model="type"
         />
         <label
@@ -77,7 +136,7 @@
           class="radioInput"
           type="radio"
           name="type"
-          value="farmland/farmhouse"
+          value="farmland or farmhouse"
           v-model="type"
         />
         <label
@@ -119,42 +178,43 @@ import { initializeFarmlandPost } from "@/composables/postProperty";
 const router = useRouter();
 
 const ownerName = ref("");
+const status = ref('sale');
 const category = ref("residential");
 const type = ref("");
 const errorOccured = ref(false);
 
-function clearSessionStoragePropertyData() {
-  sessionStorage.removeItem("plotData");
-  sessionStorage.removeItem("flatData");
-  sessionStorage.removeItem("farmlandData");
+function clearlocalStoragePropertyData() {
+  localStorage.removeItem("plotData");
+  localStorage.removeItem("flatData");
+  localStorage.removeItem("farmlandData");
 }
 
 const handleContinue = () => {
   if (type.value) {
-    if (type.value === "plot/land") {
+    if (type.value === "plot or land") {
       const plotData = initializePlotPost();
-      clearSessionStoragePropertyData();
+      clearlocalStoragePropertyData();
       plotData.ownerName = ownerName.value;
       plotData.type = type.value;
       plotData.category = category.value;
-      sessionStorage.setItem("plotData", JSON.stringify(plotData));
-      sessionStorage.setItem("activeForm", "plot");
-    } else if (type.value === "flat/apartment") {
+      localStorage.setItem("plotData", JSON.stringify(plotData));
+      localStorage.setItem("activeForm", "plot");
+    } else if (type.value === "flat or apartment") {
       const flatData = initializeFlatPost();
-      clearSessionStoragePropertyData();
+      clearlocalStoragePropertyData();
       flatData.ownerName = ownerName.value;
       flatData.type = type.value;
       flatData.category = category.value;
-      sessionStorage.setItem("flatData", JSON.stringify(flatData));
-      sessionStorage.setItem("activeForm", "flat");
-    } else if (type.value === "farmland/farmhouse") {
+      localStorage.setItem("flatData", JSON.stringify(flatData));
+      localStorage.setItem("activeForm", "flat");
+    } else if (type.value === "farmland or farmhouse") {
       const farmlandData = initializeFarmlandPost();
-      clearSessionStoragePropertyData();
+      clearlocalStoragePropertyData();
       farmlandData.ownerName = ownerName.value;
       farmlandData.type = type.value;
       farmlandData.category = category.value;
-      sessionStorage.setItem("farmlandData", JSON.stringify(farmlandData));
-      sessionStorage.setItem("activeForm", "farmland");
+      localStorage.setItem("farmlandData", JSON.stringify(farmlandData));
+      localStorage.setItem("activeForm", "farmland");
     }
     router.push("/postproperty/location");
   } else {
@@ -163,9 +223,9 @@ const handleContinue = () => {
 };
 
 onMounted(() => {
-  const activeForm = sessionStorage.getItem("activeForm");
+  const activeForm = localStorage.getItem("activeForm");
   // @ts-ignore
-  const propertyData = JSON.parse(sessionStorage.getItem(activeForm + "Data"));
+  const propertyData = JSON.parse(localStorage.getItem(activeForm + "Data"));
 
   if (propertyData) {
     type.value = propertyData.type;
@@ -195,11 +255,9 @@ onMounted(() => {
 }
 .radioInput + label {
   margin: 5px 15px 5px 0;
-  border: solid 2px #000000;
+  border: solid 1px #000000;
   padding: 8px 25px;
   border-radius: 8px;
-  /* border-top-left-radius: 15px;
-    border-bottom-right-radius: 15px; */
 }
 .radioInput + label:hover {
   cursor: pointer;

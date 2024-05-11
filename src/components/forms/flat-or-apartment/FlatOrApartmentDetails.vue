@@ -6,6 +6,7 @@
       <v-row no-gutters>
         <v-col cols="8" class="pa-0 px-1">
           <v-text-field
+            type="number"
             v-model="totalArea.value.value"
             :error-messages="totalArea.errorMessage.value"
             variant="outlined"
@@ -31,6 +32,7 @@
       <v-row no-gutters>
         <v-col cols="8" class="pa-0 px-1">
           <v-text-field
+            type="number"
             v-model="builtupArea"
             variant="outlined"
             label="flat/apartment builtup area"
@@ -55,6 +57,7 @@
       <v-row no-gutters>
         <v-col cols="8" class="pa-0 px-1">
           <v-text-field
+            type="number"
             v-model="carpetArea"
             variant="outlined"
             label="flat/apartment carpet area"
@@ -391,124 +394,109 @@
       </p>
     </div>
 
-    <!-- Age Of Property (Optional) -->
-    <div class="mt-7">
-      <p class="fieldheading">Age Of Property</p>
+    <!-- Availability Status -->
+    <div class="mt-8">
+      <p class="fieldheading">Availability Status</p>
 
       <div class="radioGroup">
         <input
           type="radio"
-          id="propertyAgeone"
+          id="readyToMoveIn"
           class="radioInput"
-          name="propertyAge"
-          value="1"
-          :disabled="propertyAgeMoreThanFour || propertyData.propertyAge > 4"
-          v-model="propertyAge"
+          name="availabilityStatus"
+          value="Ready to move in"
+          v-model="availabilityStatus"
         />
         <label
-          :class="[
-            'propertyAgeLabel',
-            propertyAgeMoreThanFour || propertyData.propertyAge > 4
-              ? 'disabled-mask'
-              : '',
-          ]"
-          for="propertyAgeone"
-          title="one"
-          >1</label
+          class="availabilityStatusLabel"
+          for="readyToMoveIn"
+          title="Ready to move in"
+          >Ready to move in</label
         >
 
         <input
           type="radio"
-          id="propertyAgeTwo"
+          id="underConstruction"
           class="radioInput"
-          name="propertyAge"
-          value="2"
-          :disabled="propertyAgeMoreThanFour || propertyData.propertyAge > 4"
-          v-model="propertyAge"
+          name="availabilityStatus"
+          value="Under construction"
+          v-model="availabilityStatus"
         />
         <label
-          :class="[
-            'propertyAgeLabel',
-            propertyAgeMoreThanFour || propertyData.propertyAge > 4
-              ? 'disabled-mask'
-              : '',
-          ]"
-          for="propertyAgeTwo"
-          title="Two"
-          >2</label
-        >
-
-        <input
-          type="radio"
-          id="propertyAgeThree"
-          class="radioInput"
-          name="propertyAge"
-          value="3"
-          :disabled="propertyAgeMoreThanFour || propertyData.propertyAge > 4"
-          v-model="propertyAge"
-        />
-        <label
-          :class="[
-            'propertyAgeLabel',
-            propertyAgeMoreThanFour || propertyData.propertyAge > 4
-              ? 'disabled-mask'
-              : '',
-          ]"
-          for="propertyAgeThree"
-          title="Three"
-          >3</label
-        >
-
-        <input
-          type="radio"
-          id="propertyAgeFour"
-          class="radioInput"
-          name="propertyAge"
-          value="4"
-          :disabled="propertyAgeMoreThanFour || propertyData.propertyAge > 4"
-          v-model="propertyAge"
-        />
-        <label
-          :class="[
-            'propertyAgeLabel',
-            propertyAgeMoreThanFour || propertyData.propertyAge > 4
-              ? 'disabled-mask'
-              : '',
-          ]"
-          for="propertyAgeFour"
-          title="4"
-          >4</label
+          class="availabilityStatusLabel"
+          for="underConstruction"
+          title="Under construction"
+          >Under construction</label
         >
       </div>
+    </div>
 
-      <!-- Add Other Property Age -->
-      <div>
-        <button
-          class="mt-2 text-pink-darken-2"
-          @click="
-            () => {
-              propertyAgeMoreThanFour = !propertyAgeMoreThanFour;
-              propertyData.propertyAge = null;
-            }
-          "
-        >
-          <v-icon
-            class="mt-n1"
-            icon="mdi-plus-circle-outline"
-            size="18"
-          ></v-icon>
-          Add other
-        </button>
-        <v-text-field
-          class="mt-4"
-          label="Enter number of bathrooms"
-          type="number"
-          variant="outlined"
+    <!-- Property Age -->
+    <div class="mt-10" v-if="availabilityStatus === 'Ready to move in'">
+      <p class="fieldheading">Property Age</p>
+
+      <div class="radioGroup">
+        <input
+          type="radio"
+          id="uptoOneYear"
+          class="radioInput"
+          name="propertyAge"
+          value="0-1 years"
           v-model="propertyAge"
-          v-if="propertyAgeMoreThanFour || propertyData.propertyAge > 4"
+        />
+        <label class="propertyAgeLabel" for="uptoOneYear" title="0-1 years"
+          >0-1 years</label
         >
-        </v-text-field>
+
+        <input
+          type="radio"
+          id="uptoFiveYear"
+          class="radioInput"
+          name="propertyAge"
+          value="1-5 years"
+          v-model="propertyAge"
+        />
+        <label class="propertyAgeLabel" for="uptoFiveYear" title="1-5 years"
+          >1-5 years</label
+        >
+
+        <input
+          type="radio"
+          id="uptoTenYear"
+          class="radioInput"
+          name="propertyAge"
+          value="5-10 years"
+          v-model="propertyAge"
+        />
+        <label class="propertyAgeLabel" for="uptoTenYear" title="5-10 years"
+          >5-10 years</label
+        >
+
+        <input
+          type="radio"
+          id="tenPlusYear"
+          class="radioInput"
+          name="propertyAge"
+          value="10+ years"
+          v-model="propertyAge"
+        />
+        <label class="propertyAgeLabel" for="tenPlusYear" title="10+ years"
+          >10+ years</label
+        >
       </div>
+    </div>
+
+    <!-- Expected time to complete -->
+    <div class="mt-10" v-if="availabilityStatus === 'Under construction'">
+      <p class="fieldheading">Expected Time to Complete</p>
+      <v-select
+        v-model="possessionBy"
+        :items="possessions"
+        item-title="unit"
+        label="Expected By"
+        persistent-hint
+        variant="outlined"
+      ></v-select>
     </div>
 
     <!-- Ownership (Optional) -->
@@ -582,6 +570,32 @@
           >On Normal Agreement</label
         >
       </div>
+    </div>
+
+    <!-- Add Floor Details -->
+    <div class="mt-10">
+      <p class="fieldheading">Add Floor Details</p>
+      <v-row no-gutters class="pa-0">
+        <v-col cols="6" class="pa-0 pr-3">
+          <v-text-field
+            type="number"
+            class=""
+            label="Enter number of Floors in flat/apartment"
+            variant="outlined"
+            v-model="floors"
+          >
+          </v-text-field>
+        </v-col>
+        <v-col cols="6" class="pa-0">
+          <v-select
+            :items="floorOptions"
+            v-model="floorNumber"
+            item-title="Floor Number of the flat/apartment"
+            label="Floor Number of the flat/apartment"
+            variant="outlined"
+          ></v-select>
+        </v-col>
+      </v-row>
     </div>
 
     <!-- Which authority the property is approved by? (Optional) -->
@@ -659,6 +673,7 @@
       <v-row no-gutters>
         <v-col cols="6" class="pa-0 px-1">
           <v-text-field
+            type="number"
             v-model="cost.value.value"
             :error-messages="cost.errorMessage.value"
             variant="outlined"
@@ -667,6 +682,7 @@
         </v-col>
         <v-col cols="6" class="pa-0 px-1">
           <v-text-field
+            type="number"
             v-model="costPerSqFt.value.value"
             :error-messages="costPerSqFt.errorMessage.value"
             variant="outlined"
@@ -746,7 +762,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onBeforeMount, onMounted, ref } from "vue";
+import { Ref, watch, onBeforeMount, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useForm, useField } from "vee-validate";
 
@@ -760,21 +776,56 @@ const totalAreaUnit = ref("square feet");
 const builtupAreaUnit = ref("square feet");
 const carpetAreaUnit = ref("square feet");
 const units = ref([
-  "guntha",
-  "hectare",
+  "square feet",
   "acre",
   "cent",
-  "square feet",
+  "guntha",
   "square meter",
+  "hectare",
+]);
+const floors = ref(0);
+const floorOptions: Ref<Array<string | number>> = ref([
+  "ground floor",
+  1,
+  2,
+  3,
+  4,
+]);
+const floorNumber = ref();
+watch(floors, (newFloors) => {
+  const floor: any = [];
+  if (typeof newFloors !== "undefined") {
+    for (let i = 1; i <= newFloors; i++) {
+      floor.push(i);
+    }
+    floorOptions.value = ["ground floor", ...floor];
+  } else {
+    floorOptions.value = ["ground floor", 1, 2, 3, 4];
+  }
+});
+const availabilityStatus = ref("");
+const propertyAge = ref("");
+const possessionBy = ref();
+const possessions = ref([
+  "Within 3 Months",
+  "Within 6 Months",
+  "By 2024",
+  "By 2025",
+  "By 2026",
+  "By 2027",
+  "By 2028",
+  "By 2029",
+  "By 2030",
+  "By 2031",
+  "By 2032",
+  "By 2033",
+  "By 2034",
 ]);
 const ownershipType = ref("");
-const propertyAge = ref("");
-const propertyAgeMoreThanFour = ref(false);
 const bedroomsMoreThanFour = ref(false);
 const bathroomsMoreThanFour = ref(false);
 const otherChargesIncluded = ref(false);
 const isNegotiable = ref(false);
-
 const addMoreAuthorities = ref(false);
 const newAuthority = ref("");
 const authorities = ref([
@@ -900,16 +951,27 @@ const onSuccess = () => {
   propertyData.value.bedrooms = bedrooms.value.value;
   propertyData.value.bathrooms = bathrooms.value.value;
   propertyData.value.balconies = balconies.value.value;
+  propertyData.value.floors = floors.value;
+  propertyData.value.floorNumber = floorNumber.value;
+  propertyData.value.isReadyToMoveIn =
+    availabilityStatus.value === "Ready to move in" ? true : false;
+  propertyData.value.underConstruction =
+    availabilityStatus.value === "Under construction" ? true : false;
+  propertyData.value.propertyAge = propertyData.value.isReadyToMoveIn
+    ? propertyAge.value
+    : "";
+  propertyData.value.possessionBy = propertyData.value.underConstruction
+    ? possessionBy.value
+    : "";
   propertyData.value.ownershipType = ownershipType.value;
   propertyData.value.approvedByAuthorities = approvedByAuthorities.value;
-  propertyData.value.propertyAge = propertyAge.value;
   propertyData.value.cost = cost.value.value;
   propertyData.value.costPerSqFt = costPerSqFt.value.value;
   propertyData.value.otherChargesIncluded = otherChargesIncluded.value;
   propertyData.value.isNegotiable = isNegotiable.value;
   propertyData.value.description = description.value.value;
 
-  sessionStorage.setItem("flatData", JSON.stringify(propertyData.value));
+  localStorage.setItem("flatData", JSON.stringify(propertyData.value));
 
   router.push({ path: "/postproperty/gallery" });
 };
@@ -949,7 +1011,7 @@ function addAuthorityHandler() {
 
 onBeforeMount(() => {
   // @ts-ignore
-  propertyData.value = JSON.parse(sessionStorage.getItem("flatData"));
+  propertyData.value = JSON.parse(localStorage.getItem("flatData"));
 
   if (propertyData.value) {
     totalArea.value.value = propertyData.value.totalArea;
@@ -964,11 +1026,18 @@ onBeforeMount(() => {
     bathroomsMoreThanFour.value =
       propertyData.value.bathrooms > 4 ? true : false;
     balconies.value.value = propertyData.value.balconies;
+    floors.value = propertyData.value.floors;
+    floorNumber.value = propertyData.value.floorNumber;
+    availabilityStatus.value =
+      propertyData.value.isReadyToMoveIn === true
+        ? "Ready to move in"
+        : propertyData.value.underConstruction === true
+        ? "Under construction"
+        : "";
+    propertyAge.value = propertyData.value.propertyAge;
+    possessionBy.value = propertyData.value.possessionBy;
     ownershipType.value = propertyData.value.ownershipType;
     approvedByAuthorities.value = propertyData.value.approvedByAuthorities;
-    propertyAge.value = propertyData.value.propertyAge;
-    propertyAgeMoreThanFour.value =
-      propertyData.value.propertyAge > 4 ? true : false;
     cost.value.value = propertyData.value.cost;
     costPerSqFt.value.value = propertyData.value.costPerSqFt;
     otherChargesIncluded.value = propertyData.value.otherChargesIncluded;
@@ -976,7 +1045,7 @@ onBeforeMount(() => {
     description.value.value = propertyData.value.description;
   }
 
-  // Adding the extra added autorities bu user in the form
+  // Adding the extra added autorities by user in the form
   approvedByAuthorities.value.forEach((item) => {
     const isValueExist = authorities.value.find(
       // @ts-ignore
@@ -990,7 +1059,7 @@ onBeforeMount(() => {
 });
 
 onMounted(() => {
-  if (approvedByAuthorities.value) {
+  if (approvedByAuthorities.value.length > 0) {
     approvedByAuthorities.value.forEach((item) => {
       // @ts-ignore
       const checkbox = document.querySelector(`input[value="${item.name}"]`);
@@ -1022,7 +1091,8 @@ onMounted(() => {
   font-size: 15px;
   text-align: center;
   margin: 5px 15px 5px 0;
-  border: solid 1px #000000;
+  border: solid 1px rgb(100, 100, 100);
+  color: rgb(100, 100, 100);
   padding: 4px 0;
   border-radius: 20px;
 }
@@ -1035,7 +1105,9 @@ onMounted(() => {
   width: auto;
   padding: 4px 11px;
 }
-.radioInput + label.ownershipLabel {
+.radioInput + label.ownershipLabel,
+.radioInput + label.availabilityStatusLabel,
+.radioInput + label.propertyAgeLabel {
   width: auto;
   padding: 4px 15px;
 }

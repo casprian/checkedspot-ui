@@ -53,7 +53,7 @@
           class="checkboxInput"
           name="vaastuCompliant"
           value="Vaastu Compliant"
-          v-model="amenities.vaastuComplaint"
+          v-model="amenities.vaastuCompliant"
         />
         <label
           class="amenitiesLabel"
@@ -270,6 +270,7 @@
       <v-row no-gutters class="">
         <v-col cols="8" class="pa-0 px-1">
           <v-text-field
+            type="number"
             variant="outlined"
             label="Enter the width"
             v-model="facingRoadWidth"
@@ -278,6 +279,7 @@
         <v-col cols="4" class="pa-0 px-1">
           <v-select
             :items="units"
+            v-model="facingRoadWidthUnit"
             item-title="unit"
             label="Unit"
             persistent-hint
@@ -429,7 +431,7 @@
     <!-- Continue button -->
     <div class="mt-10 d-flex justify-center">
       <v-btn
-        @click="router.push({ path: '/postproperty/amenities' })"
+        @click="handleSubmit"
         append-icon="mdi-arrow-right-bold"
         variant="elevated"
         class="px-10 text-none text-body-1 elevation-4"
@@ -442,22 +444,25 @@
 </template>
 
 <script lang="ts" setup>
+import axios from "axios";
 import { ref, onBeforeMount, onMounted } from "vue";
 import { useRouter } from "vue-router";
+//@ts-ignore
+import { convertToSqft, convertTofeet } from "@/composables/area";
 
 const router = useRouter();
 
 const propertyData = ref();
 const propertyFacing = ref("");
 const facingRoadWidth = ref(0);
-
 const units = ref(["feet", "meter", "yard"]);
+const facingRoadWidthUnit = ref("feet");
 
 const amenities = ref({
   maintenanceStaff: false,
   waterStorage: false,
   rainWaterHarvesting: false,
-  vaastuComplaint: false,
+  vaastuCompliant: false,
   pool: false,
   garden: false,
   club: false,
@@ -476,16 +481,101 @@ const amenities = ref({
   nearHighway: false,
 });
 
-function handleSubmit() {
-  // Submit data to Backend
-  // ON SUCCESS -> remove 'activeForm' and 'faltData' from sessionStorage and redirect user to the posted property's Details page.
-  // ON Failure -> Save Data of flatOrApartmentAmenities in the 'flatData' and keep control on this page
-  // and show errors according to the status code or accordingly.
+function saveDataTolocalStorage() {
+  propertyData.value.maintenanceStaff = amenities.value.maintenanceStaff;
+  propertyData.value.waterStorage = amenities.value.waterStorage;
+  propertyData.value.rainWaterHarvesting = amenities.value.rainWaterHarvesting;
+  propertyData.value.vaastuCompliant = amenities.value.vaastuCompliant;
+  propertyData.value.pool = amenities.value.pool;
+  propertyData.value.garden = amenities.value.garden;
+  propertyData.value.club = amenities.value.club;
+  propertyData.value.mainRoad = amenities.value.mainRoad;
+  propertyData.value.isInGatedSociety = amenities.value.isInGatedSociety;
+  propertyData.value.isCornerProperty = amenities.value.isCornerProperty;
+  propertyData.value.propertyFacing = propertyFacing.value;
+  propertyData.value.facingRoadWidth = facingRoadWidth.value;
+  propertyData.value.facingRoadWidthUnit = facingRoadWidthUnit.value;
+  propertyData.value.nearMetroStation = amenities.value.nearMetroStation;
+  propertyData.value.nearSchool = amenities.value.nearSchool;
+  propertyData.value.nearHospital = amenities.value.nearHospital;
+  propertyData.value.nearMarket = amenities.value.nearMarket;
+  propertyData.value.nearBusStand = amenities.value.nearBusStand;
+  propertyData.value.nearRailwayStation = amenities.value.nearRailwayStation;
+  propertyData.value.nearAirport = amenities.value.nearAirport;
+  propertyData.value.nearMall = amenities.value.nearMall;
+  propertyData.value.nearHighway = amenities.value.nearHighway;
+
+  localStorage.setItem("plotData", JSON.stringify(propertyData.value));
+
+  propertyData.value.totalArea = convertToSqft(
+    propertyData.value.totalAreaUnit,
+    propertyData.value.totalArea
+  );
+  propertyData.value.facingRoadWidth = convertTofeet(
+    facingRoadWidthUnit.value,
+    facingRoadWidth.value
+  );
+  return propertyData.value;
 }
 
-onBeforeMount(() => {});
+async function handleSubmit() {
+  const postPropertyData = saveDataTolocalStorage();
 
-onMounted(() => []);
+  // deleting unit before sending data to backend because unit will be either sqft. for areas, and feet for length
+  delete postPropertyData.totalAreaUnit;
+  delete postPropertyData.facingRoadWidthUnit;
+
+  // Submit data to Backend
+  const res = await axios.post(
+    "http://localhost:8080/property/post",
+    propertyData,
+    {
+      withCredentials: true,
+    }
+  );
+  if (res.status === 200) {
+    localStorage.removeItem("activeForm");
+    localStorage.removeItem("plotData");
+
+    //  Redirect user to the posted property's Details page.
+    router.push(`/propertydetails/${res.data.propertyId}`);
+  } else {
+    alert("Property Posting Failed!");
+  }
+}
+
+onBeforeMount(() => {
+  // @ts-ignore
+  propertyData.value = JSON.parse(localStorage.getItem("plotData"));
+
+  if (propertyData.value) {
+    amenities.value.maintenanceStaff = propertyData.value.maintenanceStaff;
+    amenities.value.waterStorage = propertyData.value.waterStorage;
+    amenities.value.rainWaterHarvesting =
+      propertyData.value.rainWaterHarvesting;
+    amenities.value.vaastuCompliant = propertyData.value.vaastuCompliant;
+    amenities.value.pool = propertyData.value.pool;
+    amenities.value.garden = propertyData.value.garden;
+    amenities.value.club = propertyData.value.club;
+    amenities.value.mainRoad = propertyData.value.mainRoad;
+    amenities.value.isInGatedSociety = propertyData.value.isInGatedSociety;
+    amenities.value.isCornerProperty = propertyData.value.isCornerProperty;
+    propertyFacing.value = propertyData.value.propertyFacing;
+    facingRoadWidth.value = propertyData.value.facingRoadWidth;
+    facingRoadWidthUnit.value = propertyData.value.facingRoadWidthUnit;
+    amenities.value.nearMetroStation = propertyData.value.nearMetroStation;
+    amenities.value.nearSchool = propertyData.value.nearSchool;
+    amenities.value.nearHospital = propertyData.value.nearHospital;
+    amenities.value.nearMarket = propertyData.value.nearMarket;
+    amenities.value.nearBusStand = propertyData.value.nearBusStand;
+    amenities.value.nearRailwayStation = propertyData.value.nearRailwayStation;
+    amenities.value.nearAirport = propertyData.value.nearAirport;
+    amenities.value.nearMall = propertyData.value.nearMall;
+    amenities.value.nearHighway = propertyData.value.nearHighway;
+  }
+});
+
+onMounted(() => {});
 </script>
 
 <style scoped>
@@ -513,7 +603,8 @@ onMounted(() => []);
   font-size: 15px;
   text-align: center;
   margin: 5px 15px 5px 0;
-  border: solid 1px #000000;
+  border: solid 1px rgb(100, 100, 100);
+  color: rgb(100, 100, 100);
   padding: 4px 0;
   border-radius: 20px;
 }

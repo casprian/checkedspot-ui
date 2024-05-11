@@ -52,12 +52,14 @@
         :error-messages="locality.errorMessage.value"
         label="*Locality"
       ></v-text-field>
+
       <v-text-field
         class="mb-2"
         variant="outlined"
         v-model="subLocality"
         label="Sub locality (Optional)"
       ></v-text-field>
+
       <v-text-field
         variant="outlined"
         v-model="googleMapLink"
@@ -84,8 +86,6 @@
 import { ref, onMounted, watch } from "vue";
 import { useRouter } from "vue-router";
 import { useField, useForm } from "vee-validate";
-// @ts-ignore
-import property from "@/data/api/property";
 
 const router = useRouter();
 
@@ -150,7 +150,7 @@ function onSuccess() {
   propertyData.value.subLocality = subLocality.value;
   propertyData.value.googleMapLink = googleMapLink.value;
 
-  sessionStorage.setItem(`${activeForm.value}Data`, JSON.stringify(propertyData.value));
+  localStorage.setItem(`${activeForm.value}Data`, JSON.stringify(propertyData.value));
 
   // route to the plot details form
   router.push({ path: "/postproperty/details" });
@@ -171,9 +171,9 @@ onMounted(() => {
   //@ts-ignore
   states.value = stateList?.states?.map((item) => item.name);
 
-  activeForm.value = sessionStorage.getItem("activeForm");
+  activeForm.value = localStorage.getItem("activeForm");
   // @ts-ignore
-  propertyData.value = JSON.parse(sessionStorage.getItem(activeForm.value + "Data"));
+  propertyData.value = JSON.parse(localStorage.getItem(activeForm.value + "Data"));
 
   if (propertyData.value) {
     country.value = propertyData.value.country;

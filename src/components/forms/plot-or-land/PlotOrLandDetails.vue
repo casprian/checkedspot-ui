@@ -6,6 +6,7 @@
       <v-row no-gutters>
         <v-col cols="8" class="pa-0 px-1">
           <v-text-field
+            type="number"
             v-model="totalArea.value.value"
             :error-messages="totalArea.errorMessage.value"
             variant="outlined"
@@ -29,12 +30,14 @@
     <div class="mt-7">
       <p class="fieldheading">Property Dimension in feet <i>(Optional)</i></p>
       <v-text-field
+        type="number"
         v-model="length.value.value"
         :error-messages="length.errorMessage.value"
         variant="outlined"
         label="Length"
       ></v-text-field>
       <v-text-field
+        type="number"
         v-model="bredth.value.value"
         :error-messages="bredth.errorMessage.value"
         variant="outlined"
@@ -46,6 +49,7 @@
     <div class="mt-7">
       <p class="fieldheading">Floor Allowed For Construction</p>
       <v-text-field
+        type="number"
         v-model="floorAllowed.value.value"
         :error-messages="floorAllowed.errorMessage.value"
         variant="outlined"
@@ -405,6 +409,7 @@
       <v-row no-gutters>
         <v-col cols="6" class="pa-0 px-1">
           <v-text-field
+            type="number"
             v-model="cost.value.value"
             :error-messages="cost.errorMessage.value"
             variant="outlined"
@@ -413,6 +418,7 @@
         </v-col>
         <v-col cols="6" class="pa-0 px-1">
           <v-text-field
+            type="number"
             v-model="costPerSqFt.value.value"
             :error-messages="costPerSqFt.errorMessage.value"
             variant="outlined"
@@ -502,12 +508,12 @@ const propertyData = ref();
 
 const totalAreaUnit = ref("square feet");
 const units = ref([
-  "guntha",
-  "hectare",
+  "square feet",
   "acre",
   "cent",
-  "square feet",
+  "guntha",
   "square meter",
+  "hectare",
 ]);
 const possessions = ref([
   "Immediate",
@@ -640,7 +646,7 @@ const { meta, handleSubmit, handleReset } = useForm({
         return false;
       }
     },
-    possessionBy(value: any) {
+    possessionBy(value: string) {
       if (value) {
         return true;
       } else {
@@ -679,7 +685,7 @@ const floorAllowed = useField("floorAllowed");
 const isBoundaryWallExist = useField("isBoundaryWallExist");
 const noOfOpenSide = useField("noOfOpenSide");
 const isConstructionDoneOnProperty = useField("isConstructionDoneOnProperty");
-const possessionBy = useField("possessionBy");
+const possessionBy = useField<string>("possessionBy");
 const cost = useField("cost");
 const costPerSqFt = useField("costPerSqFt");
 const description = useField("description");
@@ -697,6 +703,7 @@ function onSuccess() {
   propertyData.value.otherChargesIncluded = otherChargesIncluded.value;
   propertyData.value.isNegotiable = isNegotiable.value;
   propertyData.value.totalArea = totalArea.value.value;
+  propertyData.value.totalAreaUnit = totalAreaUnit.value;
   propertyData.value.length = length.value.value;
   propertyData.value.bredth = bredth.value.value;
   propertyData.value.floorAllowed = floorAllowed.value.value;
@@ -709,7 +716,7 @@ function onSuccess() {
   propertyData.value.costPerSqFt = costPerSqFt.value.value;
   propertyData.value.description = description.value.value;
 
-  sessionStorage.setItem("plotData", JSON.stringify(propertyData.value));
+  localStorage.setItem("plotData", JSON.stringify(propertyData.value));
 
   router.push({ path: "/postproperty/gallery" });
 }
@@ -762,7 +769,7 @@ function addAuthorityHandler() {
 
 onBeforeMount(() => {
   // @ts-ignore
-  propertyData.value = JSON.parse(sessionStorage.getItem("plotData"));
+  propertyData.value = JSON.parse(localStorage.getItem("plotData"));
 
   if (propertyData.value) {
     constructions.value = propertyData.value.constructions;
@@ -841,7 +848,8 @@ onMounted(() => {
   font-size: 15px;
   text-align: center;
   margin: 5px 15px 5px 0;
-  border: solid 1px #000000;
+  border: solid 1px rgb(100, 100, 100);
+  color: rgb(100, 100, 100);
   padding: 4px 0;
   border-radius: 20px;
 }

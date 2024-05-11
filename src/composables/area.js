@@ -13,3 +13,13 @@ export function convertToSqft(unit, value) {
         return 1.000000 * value;
     }
 }
+
+export function convertTofeet(unit, value) {
+    if (unit === "feet") {
+        return value;
+    } else if (unit === "meter") {
+        return 3.28084 * value;
+    } else if (unit === "yard") {
+        return 3 * value;
+    }
+}

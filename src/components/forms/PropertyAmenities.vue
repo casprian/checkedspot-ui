@@ -43,7 +43,7 @@ const type = ref("");
 
 onMounted(() => {
   // @ts-ignore
-  type.value = sessionStorage.getItem("activeForm");
+  type.value = localStorage.getItem("activeForm");
 });
 </script>
   
