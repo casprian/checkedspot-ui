@@ -102,6 +102,8 @@ export function initializeFlatPost() {
         otherRooms: [],
         furnishedStatus: "",
         parking: false,
+        floors: null,
+        floorNumber: null,
         maintenanceStaff: false,
         waterStorage: false,
         securityOrFireAlarm: false,
