@@ -878,6 +878,7 @@ import axios from "axios";
 // @ts-ignore
 import { convertToSqft, convertTofeet } from "@/composables/area";
 
+const emits = defineEmits(['onContinue'])
 const router = useRouter();
 
 const propertyData = ref();
@@ -1051,6 +1052,7 @@ async function handleSubmit() {
   delete postPropertyData.facingRoadWidthUnit;
   delete postPropertyData.addBuiltupArea;
   delete postPropertyData.addCarpetArea;
+  emits('onContinue');
 
   // Submit data to Backend
   const res = await axios.post(

@@ -1,7 +1,7 @@
 <template>
-  <div class="px-0 px-md-8">
+  <div class="px-0">
     <v-btn
-      @click="router.back()"
+      @click="handleBack"
       variant="text"
       prepend-icon="mdi-arrow-left"
       class="ml-n4 text-none text-body-1"
@@ -10,15 +10,18 @@
     <p class="heading font-weight-medium mt-8">Add amenities/unique features</p>
     <!-- <p class="mt-2"> An accurate location helps you to connect with right buyer.</p> -->
 
-    <plot-or-land-aminities v-if="type == 'plot'" />
-    <flat-or-apartment-aminities v-if="type == 'flat'" />
-    <farmland-or-farmhouse-aminities v-if="type == 'farmland'" />
+    <plot-or-land-aminities v-if="type == 'plot'" @onContinue="handleAmenitiesContinueBtnClick" />
+    <flat-or-apartment-aminities v-if="type == 'flat'" @onContinue="handleAmenitiesContinueBtnClick" />
+    <farmland-or-farmhouse-aminities v-if="type == 'farmland'" @onContinue="handleAmenitiesContinueBtnClick" />
   </div>
 </template>
   
 <script lang="ts" setup>
 import { ref, defineAsyncComponent, onMounted } from "vue";
 import { useRouter } from "vue-router";
+// @ts-ignore
+import { usePostPropertyStore } from "@/store/postProperty";
+
 
 const PlotOrLandAminities = defineAsyncComponent(
   // @ts-ignore
@@ -38,12 +41,22 @@ const FarmlandOrFarmhouseAminities = defineAsyncComponent(
 );
 
 const router = useRouter();
+const postProperty = usePostPropertyStore();
 
 const type = ref("");
 
+function handleBack() {
+  postProperty.removeFromFilledForms("gallery");
+  postProperty.updateActiveForm("gallery");
+}
+
+function handleAmenitiesContinueBtnClick() {
+  postProperty.addToFilledForms("amenities");
+}
+
 onMounted(() => {
   // @ts-ignore
-  type.value = localStorage.getItem("activeForm");
+  type.value = localStorage.getItem("activePropertyType");
 });
 </script>
   

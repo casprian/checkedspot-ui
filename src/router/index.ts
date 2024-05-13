@@ -11,32 +11,32 @@ const routes = [
       // },
       {
         path: '/test',
-        component: ()=> import('@/components/forms/flat-or-apartment/FlatOrApartmentDetails.vue')
+        component: () => import('@/components/forms/flat-or-apartment/FlatOrApartmentDetails.vue')
       },
       {
         path: '/',
         name: 'Home',
         component: () => import(/* webpackChunkName: "home" */ '@/views/HomeView.vue'),
-      },      
+      },
       {
         path: '/aboutus',
         name: 'About US',
-        component: ()=> import('@/views/AboutUsView.vue')
+        component: () => import('@/views/AboutUsView.vue')
       },
       {
         path: '/contactus',
         name: 'Contact Us',
-        component: ()=> import('@/views/ContactUs.vue')
+        component: () => import('@/views/ContactUs.vue')
       },
       {
         path: '/signin',
         name: 'Sign In',
-        component: ()=> import('@/views/SignInView.vue')
+        component: () => import('@/views/SignInView.vue')
       },
       {
         path: '/signup',
         name: 'Sign Up',
-        component: ()=> import('@/views/SignUpView.vue')
+        component: () => import('@/views/SignUpView.vue')
       },
       {
         path: '/password',
@@ -51,53 +51,20 @@ const routes = [
       {
         path: '/propertydetails/:propertyId',
         name: 'Property Details',
-        component: ()=> import('@/views/PropertyDetailsView.vue')
+        component: () => import('@/views/PropertyDetailsView.vue')
       },
       {
         path: '/quotation',
         name: 'Quotation Details',
-        component: ()=> import('@/views/QuotationView.vue')
+        component: () => import('@/views/QuotationView.vue')
       },
       {
         path: '/createproperty',
         name: 'Create Property',
-        component: ()=> import('@/views/CreatePropertyView.vue')
-      },
-      // NEW ROUTES FOR POST PROPERTY
-      {
-        path: '/postproperty',
-        name: 'post-property',
-        component: () => import('@/views/PostPropertyView.vue'),
-        children: [
-          {
-            path: '',
-            name: 'property-basic-info',
-            component: () => import('@/components/forms/BasicPropertyInfo.vue')
-          },
-          {
-            path: 'location',
-            name: 'property-location',
-            component: () => import('@/components/forms/PropertyLocation.vue')
-          },
-          {
-            path: 'details',
-            name: 'property-details',
-            component: () => import('@/components/forms/PropertyDetails.vue')
-          },
-          {
-            path: 'gallery',
-            name: 'property-gallery',
-            component: () => import('@/components/forms/PropertyGallery.vue')
-          },
-          {
-            path: 'amenities',
-            name: 'property-amenities',
-            component: () => import('@/components/forms/PropertyAmenities.vue')
-          }
-        ]
+        component: () => import('@/views/CreatePropertyView.vue')
       },
       {
-        path: '/privacypolicy', 
+        path: '/privacypolicy',
         name: 'Privacy Policy',
         component: () => import('@/views/PrivacyPolicyView.vue')
       },
@@ -138,6 +105,40 @@ const routes = [
       // }
     ],
   },
+
+  // NEW ROUTES FOR POST PROPERTY
+  {
+    path: '/postproperty',
+    name: 'post-property',
+    component: () => import('@/views/PostPropertyView.vue'),
+    children: [
+      {
+        path: '',
+        name: 'property-basic-info',
+        component: () => import('@/components/forms/BasicPropertyInfo.vue')
+      },
+      {
+        path: 'location',
+        name: 'property-location',
+        component: () => import('@/components/forms/PropertyLocation.vue')
+      },
+      {
+        path: 'details',
+        name: 'property-details',
+        component: () => import('@/components/forms/PropertyDetails.vue')
+      },
+      {
+        path: 'gallery',
+        name: 'property-gallery',
+        component: () => import('@/components/forms/PropertyGallery.vue')
+      },
+      {
+        path: 'amenities',
+        name: 'property-amenities',
+        component: () => import('@/components/forms/PropertyAmenities.vue')
+      }
+    ]
+  },
   {
     path: '/profile',
     name: 'Profile',
@@ -177,7 +178,7 @@ const router = createRouter({
   routes,
   scrollBehavior() {
     // return desired position
-    return { top: 0 , behavior: 'smooth'}
+    return { top: 0, behavior: 'smooth' }
   },
 });
 

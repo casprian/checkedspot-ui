@@ -1,7 +1,7 @@
 <template>
-  <div class="px-0 px-md-8">
+  <div class="px-0">
     <v-btn
-      @click="router.back()"
+      @click="handleBack"
       variant="text"
       prepend-icon="mdi-arrow-left"
       class="ml-n4 text-none text-body-1"
@@ -86,11 +86,19 @@ import { onBeforeMount, ref } from "vue";
 import { useRouter } from "vue-router";
 //@ts-ignore
 import api from "@/data/api/index";
+// @ts-ignore
+import { usePostPropertyStore } from "@/store/postProperty";
 
 const router = useRouter();
+const postProperty = usePostPropertyStore();
 
-const activeForm = ref();
+const activePropertyType = ref();
 const propertyData = ref();
+
+function handleBack() {
+  postProperty.removeFromFilledForms("details");
+  postProperty.updateActiveForm("details");
+}
 
 // @ts-ignore
 const FileList = ref();
@@ -114,7 +122,7 @@ async function onChange(event) {
       propertyData.value.images = res?.data?.images;
 
       localStorage.setItem(
-        `${activeForm.value}Data`,
+        `${activePropertyType.value}Data`,
         JSON.stringify(propertyData.value)
       );
     } else {
@@ -164,7 +172,7 @@ async function drop(event) {
       propertyData.value.images = res?.data?.images;
 
       localStorage.setItem(
-        `${activeForm.value}Data`,
+        `${activePropertyType.value}Data`,
         JSON.stringify(propertyData.value)
       );
       
@@ -182,14 +190,15 @@ async function drop(event) {
 }
 
 function handleContinue() {
-  router.push("/postproperty/amenities");
+  postProperty.addToFilledForms('gallery');
+  postProperty.updateActiveForm('amenities');
 }
 
 onBeforeMount(() => {
-  activeForm.value = localStorage.getItem("activeForm");
+  activePropertyType.value = localStorage.getItem("activePropertyType");
   propertyData.value = JSON.parse(
     // @ts-ignore
-    localStorage.getItem(activeForm.value + "Data")
+    localStorage.getItem(activePropertyType.value + "Data")
   );
 
   if (propertyData.value) {

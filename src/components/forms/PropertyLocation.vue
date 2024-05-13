@@ -1,7 +1,7 @@
 <template>
-  <div class="px-0 px-md-8">
+  <div class="px-0">
     <v-btn
-      @click="router.back()"
+      @click="handleBack"
       variant="text"
       prepend-icon="mdi-arrow-left"
       class="ml-n4 text-none text-body-1"
@@ -83,13 +83,16 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch, onBeforeMount } from "vue";
 import { useRouter } from "vue-router";
 import { useField, useForm } from "vee-validate";
+// @ts-ignore
+import { usePostPropertyStore } from "@/store/postProperty";
 
 const router = useRouter();
+const postProperty = usePostPropertyStore();
 
-const activeForm = ref();
+const activePropertyType = ref();
 const propertyData = ref();
 
 const country = ref("India");
@@ -142,6 +145,12 @@ watch(state.value, (newStateSelected) => {
   city.value.value = null;
 });
 
+
+function handleBack() {
+  postProperty.removeFromFilledForms("basic");
+  postProperty.updateActiveForm("basic");
+}
+
 function onSuccess() {
   propertyData.value.country = country.value;
   propertyData.value.state = state.value.value;
@@ -150,14 +159,17 @@ function onSuccess() {
   propertyData.value.subLocality = subLocality.value;
   propertyData.value.googleMapLink = googleMapLink.value;
 
-  localStorage.setItem(`${activeForm.value}Data`, JSON.stringify(propertyData.value));
+  localStorage.setItem(
+    `${activePropertyType.value}Data`,
+    JSON.stringify(propertyData.value)
+  );
 
-  // route to the plot details form
-  router.push({ path: "/postproperty/details" });
+  postProperty.addToFilledForms("location");
+  postProperty.updateActiveForm("details");
 }
 
 function onInvalidSubmit(invalidData: any) {
-  console.log("meta : ", meta.value)
+  console.log("meta : ", meta.value);
   console.log(invalidData?.values); // current form values
   console.log(invalidData?.errors); // a map of field names and their first error message
   console.log(invalidData?.results); // a detailed map of field names and their validation results
@@ -165,15 +177,20 @@ function onInvalidSubmit(invalidData: any) {
 
 const handleFormSubmit = handleSubmit(onSuccess, onInvalidSubmit);
 
-onMounted(() => {
+onBeforeMount(() => {
   //@ts-ignore
   const stateList = JSON.parse(localStorage.getItem("location"));
   //@ts-ignore
   states.value = stateList?.states?.map((item) => item.name);
 
-  activeForm.value = localStorage.getItem("activeForm");
-  // @ts-ignore
-  propertyData.value = JSON.parse(localStorage.getItem(activeForm.value + "Data"));
+  activePropertyType.value = localStorage.getItem("activePropertyType");
+  
+  console.log("LOCATION activePropertyType.value : ", activePropertyType.value);
+
+  propertyData.value = JSON.parse(
+    // @ts-ignore
+    localStorage.getItem(activePropertyType.value + "Data")
+  );
 
   if (propertyData.value) {
     country.value = propertyData.value.country;
