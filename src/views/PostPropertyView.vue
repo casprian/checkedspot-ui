@@ -78,6 +78,7 @@
                   <p class="text-caption">{{ postProperty.activePropertyType }}</p>
                 </span>
               </v-stepper-item>
+              
               <v-divider :thickness="3"></v-divider>
               <v-stepper-item
                 value="amenities"
