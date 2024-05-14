@@ -146,7 +146,7 @@
           >Farmland / Farmhouse</label
         >
       </div>
-      <p class="text-body-2 text-red-darken-2" v-if="invalidFormSubmittion">
+      <p class="text-body-2 text-red-darken-2" v-if="errorOccured">
         * marked fields are required! Please choose appropriate option.
       </p>
     </div>
@@ -166,7 +166,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Ref, onBeforeMount, onMounted, ref, watch } from "vue";
+import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 // @ts-ignore
 import { initializePlotPost } from "@/composables/postProperty";
@@ -174,21 +174,16 @@ import { initializePlotPost } from "@/composables/postProperty";
 import { initializeFlatPost } from "@/composables/postProperty";
 // @ts-ignore
 import { initializeFarmlandPost } from "@/composables/postProperty";
-// @ts-ignore
 import { usePostPropertyStore } from "@/store/postProperty";
 
-const router = useRouter();
 const postProperty = usePostPropertyStore();
+const router = useRouter();
 
 const ownerName = ref("");
-const status: Ref<string> = ref("sale");
-const category: Ref<string> = ref("residential");
-const type: Ref<string> = ref("");
-const invalidFormSubmittion = ref(false);
-
-watch(status, (newStatus) => {
-  type.value = "";
-});
+const status = ref("sale");
+const category = ref("residential");
+const type = ref("");
+const errorOccured = ref(false);
 
 function clearlocalStoragePropertyData() {
   localStorage.removeItem("plotData");
@@ -197,70 +192,53 @@ function clearlocalStoragePropertyData() {
 }
 
 const handleContinue = () => {
-  const activeStatus = localStorage.getItem("activePropertyStatus");
-  const activeCategory = localStorage.getItem("activePropertyCategory");
-  const activePropertyType = localStorage.getItem("activePropertyType");
-
-  !(activeStatus && activeStatus === status.value)
-    ? localStorage.setItem("activePropertyStatus", status.value)
-    : "";
-  !(activeCategory && activeCategory === category.value)
-    ? localStorage.setItem("activePropertyCategory", category.value)
-    : "";
+  const activeForm = localStorage.getItem("activeForm");
 
   if (type.value) {
-    if (type.value === "plot or land" && activePropertyType !== "plot") {
-      clearlocalStoragePropertyData();
+    if (type.value === "plot or land" && activeForm != "plot") {
       const plotData = initializePlotPost();
+      clearlocalStoragePropertyData();
       plotData.ownerName = ownerName.value;
       plotData.type = type.value;
       plotData.category = category.value;
       localStorage.setItem("plotData", JSON.stringify(plotData));
-      localStorage.setItem("activePropertyType", "plot");
-    } else if (
-      type.value === "flat or apartment" &&
-      activePropertyType !== "flat"
-    ) {
-      clearlocalStoragePropertyData();
+      localStorage.setItem("activeForm", "plot");
+    } else if (type.value === "flat or apartment" && activeForm != "flat") {
       const flatData = initializeFlatPost();
+      clearlocalStoragePropertyData();
       flatData.ownerName = ownerName.value;
       flatData.type = type.value;
       flatData.category = category.value;
       localStorage.setItem("flatData", JSON.stringify(flatData));
-      localStorage.setItem("activePropertyType", "flat");
+      localStorage.setItem("activeForm", "flat");
     } else if (
       type.value === "farmland or farmhouse" &&
-      activePropertyType !== "farmland"
+      activeForm != "farmland"
     ) {
-      clearlocalStoragePropertyData();
       const farmlandData = initializeFarmlandPost();
+      clearlocalStoragePropertyData();
       farmlandData.ownerName = ownerName.value;
       farmlandData.type = type.value;
       farmlandData.category = category.value;
       localStorage.setItem("farmlandData", JSON.stringify(farmlandData));
-      localStorage.setItem("activePropertyType", "farmland");
+      localStorage.setItem("activeForm", "farmland");
     }
-
-    postProperty.checkActiveForm();
-    postProperty.addToFilledForms("basic");
-    postProperty.updateActiveForm("location");
+    postProperty.addFilledFormPath('/postproperty');
+    postProperty.handleFormRouting('location');
   } else {
-    invalidFormSubmittion.value = true;
+    errorOccured.value = true;
   }
 };
 
-onBeforeMount(() => {
-  const activePropertyType = localStorage.getItem("activePropertyType");
-  const propertyData = JSON.parse(
-    // @ts-ignore
-    localStorage.getItem(activePropertyType + "Data")
-  );
+onMounted(() => {
+  const activeForm = localStorage.getItem("activeForm");
+  // @ts-ignore
+  const propertyData = JSON.parse(localStorage.getItem(activeForm + "Data"));
 
   if (propertyData) {
-    ownerName.value = propertyData.ownerName;
-    status.value = propertyData.status;
-    category.value = propertyData.category;
     type.value = propertyData.type;
+    category.value = propertyData.category;
+    ownerName.value = propertyData.ownerName;
   }
 });
 </script>

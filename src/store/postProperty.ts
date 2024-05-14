@@ -1,81 +1,89 @@
 import { defineStore } from "pinia";
 import { ref, computed, watch, Ref } from "vue";
+import { useRouter } from "vue-router";
+
 
 export const usePostPropertyStore = defineStore('property', () => {
-    const activeForm: Ref<string> = ref('basic');
-    const filledForms: Ref<Array<string | null>> = ref([]);
+    const router = useRouter();
 
-    // sale/rent/lease
-    const activePropetyStatus: Ref<string | null> = ref(null);
-    // residential/commnercial
-    const activePropetyCategory: Ref<string | null> = ref(null);
-    // plot/flat/farmhouse/etc.
-    const activePropertyType: Ref<string | null> = ref(null);
-
-    watch(activeForm, newActiveForm => {
-        updateActiveForm(newActiveForm);
-    })
+    const formSeriesPathList = ref(['/postproperty', '/postproperty/location', '/postproperty/details', '/postproperty/gallery', '/postproperty/amenities']);
+    // @ts-ignore
+    const filledFormPathList = ref(JSON.parse(localStorage.getItem('filledForm')) || []);
+    const basicActive = ref(false);
+    const locationActive = ref(false);
+    const detailsActive = ref(false);
+    const galleryActive = ref(false);
+    const amenitiesActive = ref(false);
 
 
-    function checkActiveForm() {
-        activePropetyStatus.value = localStorage.getItem("activePropertyStatus");
-        activePropetyCategory.value = localStorage.getItem("activePropertyCategory");
-
-        const type = localStorage.getItem("activePropertyType");
-        if (type === "plot") {
-            activePropertyType.value = "Plot/Land";
-        } else if (type === "flat") {
-            activePropertyType.value = "Flat/Apartment";
-        } else if (type === "farmland") {
-            activePropertyType.value = "FarmLand/Farmhouse";
+    function handleFormActiveRouting(currentFormPath: string) {
+        if (currentFormPath === "/postproperty") {
+            basicActive.value = true;
+        } else if (currentFormPath === "/postproperty/location") {
+            locationActive.value = true;
+        } else if (currentFormPath === "/postproperty/details") {
+            detailsActive.value = true;
+        } else if (currentFormPath === "/postproperty/gallery") {
+            galleryActive.value = true;
+        } else if (currentFormPath === "/postproperty/amenities") {
+            amenitiesActive.value = true;
         }
     }
 
-    function updateActiveForm(formName: string) {
-        activeForm.value = formName;
-        return;
+    function handleFormRouting(formName:string) {
+        basicActive.value = false;
+        locationActive.value = false;
+        detailsActive.value = false;
+        galleryActive.value = false;
+        amenitiesActive.value = false;
+
+        if (formName === "basic") {
+            router.push("/postproperty");
+        } else if (formName === "location") {
+            router.push("/postproperty/location");
+        } else if (formName === "details") {
+            router.push("/postproperty/details");
+        } else if (formName === "gallery") {
+            router.push("/postproperty/gallery");
+        } else if (formName === "amenities") {
+            router.push("/postproperty/amenities");
+        }
     }
 
-    function initializeFilledForms(formNames: Array<string>) {
-        filledForms.value = formNames;
+    function addFilledFormPath(formPath: any) {
+        // @ts-ignore
+        if (!filledFormPathList.value.includes(formPath)) {
+            // @ts-ignore
+            filledFormPathList.value.push(formPath);
+            // @ts-ignore
+            localStorage.setItem("filledForm", JSON.stringify(filledFormPathList.value));
+        }
     }
 
-    function addToFilledForms(formName: string) {
+    function isFormFilled(formPath: any) {
         // @ts-ignore
-        const localStorageFilledForms = JSON.parse(localStorage.getItem('filledForms'));
-        localStorageFilledForms.push(formName);
-        const uniqueforms = Array.from(new Set(localStorageFilledForms));
-        localStorage.setItem('filledForms', JSON.stringify(uniqueforms));
-
-        // @ts-ignore
-        filledForms.value = uniqueforms;
-
-        return;
+        const isFilled = filledFormPathList.value.includes(formPath);
+        return isFilled;
     }
 
-    function removeFromFilledForms(formName: string) {
-        // @ts-ignore
-        const localStorageFilledForms = JSON.parse(localStorage.getItem('filledForms'));
-        const index = localStorageFilledForms.findIndex((item: string) => item === formName);
-        localStorageFilledForms.splice(index, 1);
-        localStorage.setItem('filledForms', JSON.stringify(localStorageFilledForms));
-
-        filledForms.value = localStorageFilledForms;
-
-        return;
+    function getPreviousPath(currentPath: string) {
+        const currentPathIndex = formSeriesPathList.value.findIndex(path => path === currentPath);
+        return formSeriesPathList.value[currentPathIndex - 1];
     }
 
 
     return {
-        activePropetyStatus,
-        activePropetyCategory,
-        activePropertyType,
-        activeForm,
-        filledForms,
-        checkActiveForm,
-        initializeFilledForms,
-        updateActiveForm,
-        addToFilledForms,
-        removeFromFilledForms
+        basicActive,
+        locationActive,
+        detailsActive,
+        galleryActive,
+        amenitiesActive,
+        formSeriesPathList,
+        filledFormPathList,
+        handleFormActiveRouting,
+        handleFormRouting,
+        addFilledFormPath,
+        isFormFilled,
+        getPreviousPath
     }
 })

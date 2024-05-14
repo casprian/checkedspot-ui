@@ -450,7 +450,7 @@ import { useRouter } from "vue-router";
 //@ts-ignore
 import { convertToSqft, convertTofeet } from "@/composables/area";
 
-const emits = defineEmits(['onContinue'])
+const emits = defineEmits(['onContinue']);
 const router = useRouter();
 
 const propertyData = ref();
@@ -525,7 +525,6 @@ async function handleSubmit() {
   // deleting unit before sending data to backend because unit will be either sqft. for areas, and feet for length
   delete postPropertyData.totalAreaUnit;
   delete postPropertyData.facingRoadWidthUnit;
-  emits('onContinue');
 
   // Submit data to Backend
   const res = await axios.post(

@@ -1,7 +1,7 @@
 <template>
   <div class="px-0">
     <v-btn
-      @click="handleBack"
+      @click="handleback"
       variant="text"
       prepend-icon="mdi-arrow-left"
       class="ml-n4 text-none text-body-1"
@@ -86,19 +86,24 @@ import { onBeforeMount, ref } from "vue";
 import { useRouter } from "vue-router";
 //@ts-ignore
 import api from "@/data/api/index";
-// @ts-ignore
+import { useCookies } from "vue3-cookies";
 import { usePostPropertyStore } from "@/store/postProperty";
 
-const router = useRouter();
 const postProperty = usePostPropertyStore();
+const router = useRouter();
 
-const activePropertyType = ref();
+const { cookies } = useCookies();
+if (!cookies.get("token")) {
+  router.push({ path: "/signin", query: { message: "createProperty" } });
+}
+const activeForm = ref();
 const propertyData = ref();
 
-function handleBack() {
-  postProperty.removeFromFilledForms("details");
-  postProperty.updateActiveForm("details");
+function handleback() {
+  router.back();
+  postProperty.handleFormRouting('details');
 }
+
 
 // @ts-ignore
 const FileList = ref();
@@ -117,12 +122,13 @@ async function onChange(event) {
   try {
     const res = await api?.property?.uploadImage(formData);
     if (res?.status == 200) {
+      
       FileList.value = res?.data?.images;
 
       propertyData.value.images = res?.data?.images;
 
       localStorage.setItem(
-        `${activePropertyType.value}Data`,
+        `${activeForm.value}Data`,
         JSON.stringify(propertyData.value)
       );
     } else {
@@ -172,7 +178,7 @@ async function drop(event) {
       propertyData.value.images = res?.data?.images;
 
       localStorage.setItem(
-        `${activePropertyType.value}Data`,
+        `${activeForm.value}Data`,
         JSON.stringify(propertyData.value)
       );
       
@@ -190,15 +196,15 @@ async function drop(event) {
 }
 
 function handleContinue() {
-  postProperty.addToFilledForms('gallery');
-  postProperty.updateActiveForm('amenities');
+  postProperty.addFilledFormPath('/postproperty/gallery');
+  postProperty.handleFormRouting("amenities");
 }
 
 onBeforeMount(() => {
-  activePropertyType.value = localStorage.getItem("activePropertyType");
+  activeForm.value = localStorage.getItem("activeForm");
   propertyData.value = JSON.parse(
     // @ts-ignore
-    localStorage.getItem(activePropertyType.value + "Data")
+    localStorage.getItem(activeForm.value + "Data")
   );
 
   if (propertyData.value) {

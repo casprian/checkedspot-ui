@@ -766,7 +766,7 @@ import { Ref, watch, onBeforeMount, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useForm, useField } from "vee-validate";
 
-const emits = defineEmits(["onContinue"]);
+const emits = defineEmits(['onContinue']);
 const router = useRouter();
 
 const propertyData = ref();
@@ -974,8 +974,8 @@ const onSuccess = () => {
 
   localStorage.setItem("flatData", JSON.stringify(propertyData.value));
 
-  // router.push({ path: "/postproperty/gallery" });
   emits('onContinue');
+  router.push({ path: "/postproperty/gallery" });
 };
 
 function onInvalidSubmit(invalidData: any) {

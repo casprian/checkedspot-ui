@@ -1,7 +1,7 @@
 <template>
   <div class="px-0">
     <v-btn
-      @click="handleBack"
+      @click="handleback"
       variant="text"
       prepend-icon="mdi-arrow-left"
       class="ml-n4 text-none text-body-1"
@@ -83,16 +83,22 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, watch, onBeforeMount } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { useRouter } from "vue-router";
 import { useField, useForm } from "vee-validate";
-// @ts-ignore
+import { useCookies } from "vue3-cookies";
 import { usePostPropertyStore } from "@/store/postProperty";
 
-const router = useRouter();
 const postProperty = usePostPropertyStore();
 
-const activePropertyType = ref();
+const router = useRouter();
+
+const { cookies } = useCookies();
+if (!cookies.get("token")) {
+  router.push({ path: "/signin", query: { message: "createProperty" } });
+}
+
+const activeForm = ref();
 const propertyData = ref();
 
 const country = ref("India");
@@ -131,6 +137,11 @@ const city = useField<any>("city");
 const state = useField<any>("state");
 const locality = useField<string>("locality");
 
+function handleback() {
+  router.back();
+  postProperty.handleFormRouting('location');
+}
+
 //@ts-ignore
 watch(state.value, (newStateSelected) => {
   disableCities.value = false;
@@ -145,12 +156,6 @@ watch(state.value, (newStateSelected) => {
   city.value.value = null;
 });
 
-
-function handleBack() {
-  postProperty.removeFromFilledForms("basic");
-  postProperty.updateActiveForm("basic");
-}
-
 function onSuccess() {
   propertyData.value.country = country.value;
   propertyData.value.state = state.value.value;
@@ -160,12 +165,12 @@ function onSuccess() {
   propertyData.value.googleMapLink = googleMapLink.value;
 
   localStorage.setItem(
-    `${activePropertyType.value}Data`,
+    `${activeForm.value}Data`,
     JSON.stringify(propertyData.value)
   );
 
-  postProperty.addToFilledForms("location");
-  postProperty.updateActiveForm("details");
+  postProperty.addFilledFormPath("/postproperty/location");
+  postProperty.handleFormRouting("details");
 }
 
 function onInvalidSubmit(invalidData: any) {
@@ -177,19 +182,16 @@ function onInvalidSubmit(invalidData: any) {
 
 const handleFormSubmit = handleSubmit(onSuccess, onInvalidSubmit);
 
-onBeforeMount(() => {
+onMounted(() => {
   //@ts-ignore
   const stateList = JSON.parse(localStorage.getItem("location"));
   //@ts-ignore
   states.value = stateList?.states?.map((item) => item.name);
 
-  activePropertyType.value = localStorage.getItem("activePropertyType");
-  
-  console.log("LOCATION activePropertyType.value : ", activePropertyType.value);
-
+  activeForm.value = localStorage.getItem("activeForm");
   propertyData.value = JSON.parse(
     // @ts-ignore
-    localStorage.getItem(activePropertyType.value + "Data")
+    localStorage.getItem(activeForm.value + "Data")
   );
 
   if (propertyData.value) {

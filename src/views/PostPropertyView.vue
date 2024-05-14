@@ -3,237 +3,128 @@
     <navigation-bar />
 
     <v-container fluid class="pa-0 postContainer">
-      <v-stepper
-        non-linear
-        v-model:model-value="postProperty.activeForm"
-        class="elevation-0"
-      >
-        <v-row no-gutters class="pa-0">
-          <v-col cols="12" class="pa-0">
-            <v-stepper-header class="pa-5 elevation-0 stepperHeader">
-              <v-stepper-item
-                value="basic"
-                :color="
-                  isFormFilled('basic') ? 'pink-darken-2' : 'grey-darken-4'
-                  "
-                complete-icon="mdi-check"
-                edit-icon="mdi-pencil"
-                :complete="postProperty.activeForm == 'basic' ? true : false"
-                :editable="postProperty.activeForm != 'basic' ? true : false"
-                
-              >
-                <span class="d-flex flex-column justify-start align-start">
-                  Basic Details
-                  <p class="text-caption">{{ postProperty.activePropertyType }}</p>
-                </span>
-              </v-stepper-item>
-              <v-divider :thickness="3"></v-divider>
-              <v-stepper-item
-                value="location"
-                :color="
-                  isFormFilled('location') ? 'pink-darken-2' : 'grey-darken-4'
-                  "
-                complete-icon="mdi-check"
-                edit-icon="mdi-pencil"
-                :complete="postProperty.activeForm == 'location' ? true : false"
-                :editable="postProperty.activeForm != 'location' ? true : false"
-                
-              >
-                <span class="d-flex flex-column justify-start align-start">
-                  Location
-                  <p class="text-caption">{{ postProperty.activePropertyType }}</p>
-                </span>
-              </v-stepper-item>
-              <v-divider :thickness="3"></v-divider>
-              <v-stepper-item
-                value="details"
-                :color="
-                  isFormFilled('details') ? 'pink-darken-2' : 'grey-darken-4'
-                  "
-                complete-icon="mdi-check"
-                edit-icon="mdi-pencil"
-                :complete="postProperty.activeForm == 'details' ? true : false"
-                :editable="postProperty.activeForm != 'details' ? true : false"
-                
-              >
-                <span class="d-flex flex-column justify-start align-start">
-                  Details
-                  <p class="text-caption">{{ postProperty.activePropertyType }}</p>
-                </span>
-              </v-stepper-item>
-              <v-divider :thickness="3"></v-divider>
-              <v-stepper-item
-                value="gallery"
-                :color="
-                  isFormFilled('gallery') ? 'pink-darken-2' : 'grey-darken-4'
-                  "
-                complete-icon="mdi-check"
-                edit-icon="mdi-pencil"
-                :complete="postProperty.activeForm == 'gallery' ? true : false"
-                :editable="postProperty.activeForm != 'gallery' ? true : false"
-                
-              >
-                <span class="d-flex flex-column justify-start align-start">
-                  Gallery
-                  <p class="text-caption">{{ postProperty.activePropertyType }}</p>
-                </span>
-              </v-stepper-item>
-              <v-divider :thickness="3"></v-divider>
-              <v-stepper-item
-                value="amenities"
-                :color="
-                  isFormFilled('amenities') ? 'pink-darken-2' : 'grey-darken-4'
-                  "
-                complete-icon="mdi-check"
-                edit-icon="mdi-pencil"
-                :complete="postProperty.activeForm == 'amenities' ? true : false"
-                :editable="postProperty.activeForm != 'amenities' ? true : false"
-                
-              >
-                <span class="d-flex flex-column justify-start align-start">
-                  Amenities
-                  <p class="text-caption">{{ postProperty.activePropertyType }}</p>
-                </span>
-              </v-stepper-item>
-            </v-stepper-header>
-          </v-col>
-          <v-col
-          cols="6"
-          class="pa-16 pt-7 pr-10 d-none d-md-block imageContainer"
-          >
-          {{ postProperty.activeForm }}
-            <div>
-              <!-- Backaground Image has been used on this element -->
-            </div>
-          </v-col>
+      <v-row no-gutters class="pa-0">
+        <v-col cols="12" class="pa-5 pa-md-10 text-h6 d-flex justify-space-between">
+          <span>
+            <v-btn
+            variant="text"
+              :color="postProperty.basicActive ? 'green' : 'red'"
+              :prepend-icon="postProperty.basicActive ? 'mdi-check-circle-outline' : 'mdi-home-edit'"
+              @click="postProperty.handleFormRouting('basic')"
+              >Basic</v-btn
+            >
+          </span>
+          <v-divider class="mt-4" thickness="4"></v-divider>
+          <span>
+            <v-btn
+            variant="text"
+              :color="postProperty.locationActive ? 'green' : 'red'"
+              :prepend-icon="postProperty.locationActive ? 'mdi-check-circle-outline' : 'mdi-home-edit'"
+              @click="postProperty.handleFormRouting('location')"
+              >location</v-btn
+            >
+          </span>          
+          <v-divider class="mt-4" thickness="4"></v-divider>
+          <span>
+            <v-btn
+            variant="text"
+              :color="postProperty.detailsActive ? 'green' : 'red'"
+              :prepend-icon="postProperty.detailsActive ? 'mdi-check-circle-outline' : 'mdi-home-edit'"
+              @click="postProperty.handleFormRouting('details')"
+              >details</v-btn
+            >
+          </span>
+          <v-divider class="mt-4" thickness="4"></v-divider>
+          <span>
+            <v-btn
+            variant="text"
+              :color="postProperty.galleryActive ? 'green' : 'red'"
+              :prepend-icon="postProperty.galleryActive ? 'mdi-check-circle-outline' : 'mdi-home-edit'"
+              @click="postProperty.handleFormRouting('gallery')"
+              >gallery</v-btn
+            >
+          </span>
+          <v-divider class="mt-4" thickness="4"></v-divider>
+          <span>
+            <v-btn
+            variant="text"
+              :color="postProperty.amenitiesActive ? 'green' : 'red'"
+              :prepend-icon="postProperty.amenitiesActive ? 'mdi-check-circle-outline' : 'mdi-home-edit'"
+              @click="postProperty.handleFormRouting('amenities')"
+              >amenities</v-btn
+            >
+          </span>
+        </v-col>
 
-          <!-- WINDOWS -->
-          <v-col cols="6" class="pa-0 formView">
-            <v-stepper-window>
-              <v-stepper-window-item value="basic">
-                <basic-property-info />
-              </v-stepper-window-item>
-              <v-stepper-window-item value="location">
-                <property-location />
-              </v-stepper-window-item>
-              <v-stepper-window-item value="details">
-                <property-details />
-              </v-stepper-window-item>
-              <v-stepper-window-item value="gallery">
-                <property-gallery />
-              </v-stepper-window-item>
-              <v-stepper-window-item value="amenities">
-                <property-amenities />
-              </v-stepper-window-item>
-            </v-stepper-window>
-          </v-col>
-        </v-row>
-      </v-stepper>
+        <v-col cols="6" class="pr-12 pl-16 pb-14 d-none d-md-block">
+          <!-- Use three different image for different property Type -->
+          <div class="imageContainer">
+            <img
+              class="referenceImage"
+              loading="lazy"
+              src="../assets/sakleshpur.jpg"
+              alt="Property type reference image"
+            />
+          </div>
+        </v-col>
+
+        <!-- POST Property Router View -->
+        <v-col cols="12" md="6" class="formView pa-16 pt-0 pl-md-4">
+          <!-- {{ router.currentRoute.value.fullPath }} -->
+          <router-view></router-view>
+        </v-col>
+      </v-row>
     </v-container>
   </v-layout>
 </template>
 
 <script lang="ts" setup>
-import { ref, defineAsyncComponent, onBeforeMount, watch, Ref } from "vue";
+import { ref, defineAsyncComponent, onBeforeMount, watch } from "vue";
 // @ts-ignore
 import { usePostPropertyStore } from "@/store/postProperty";
+
+import { useRouter } from "vue-router";
 
 const navigationBar = defineAsyncComponent(
   () => import("@/layouts/default/AppBar.vue")
 );
 
-const BasicPropertyInfo = defineAsyncComponent(
-  () => import("@/components/forms/BasicPropertyInfo.vue")
-);
-const PropertyLocation = defineAsyncComponent(
-  () => import("@/components/forms/PropertyLocation.vue")
-);
-
-const PropertyDetails = defineAsyncComponent(
-  () => import("@/components/forms/PropertyDetails.vue")
-);
-
-const PropertyGallery = defineAsyncComponent(
-  () => import("@/components/forms/PropertyGallery.vue")
-);
-
-const PropertyAmenities = defineAsyncComponent(
-  () => import("@/components/forms/PropertyAmenities.vue")
-);
-
 const postProperty = usePostPropertyStore();
+const router = useRouter();
 
-// const seriesOfFormNames = ref([
-//   "basic",
-//   "location",
-//   "details",
-//   "gallery",
-//   "amenities",
-// ]);
 
-// function shouldBeDisabled(formName: string) {
-//   const index = seriesOfFormNames.value.findIndex((item) => item === formName);
-//   const isExistInFilledFormList = postProperty.filledForms.find(
-//     (item) => item === formName
-//   );
-
-//   if (
-//     postProperty.activeForm === seriesOfFormNames.value[index - 1] ||
-//     isExistInFilledFormList
-//   ) {
-//     return true;
-//   } else {
-//     return false;
-//   }
-// }
-
-function isFormFilled(formName: string) {
-  const isExist = postProperty.filledForms.find((item) => item === formName);
-  return isExist ? true : false;
+function handleIcon() {
+  // create a function in which test if 
+  // if the form is filled but inactive show icon -> "mdi-check-circle-outline" ---> with green color
+  // the from is already filled and active show "mdi-home-edit" icon. -> to check the form is filled : check in postProperty.filledFormPathList --->  with green color
+  // if the form is not filled but active 
 }
 
-onBeforeMount(() => {
-  // @ts-ignore
-  const filledFormList = JSON.parse(localStorage.getItem("filledForms"));
-  
-  if (filledFormList && filledFormList?.length > 0) {
-    postProperty.initializeFilledForms(filledFormList);
-  } else {
-    localStorage.setItem("filledForms", JSON.stringify(["basic"]));
-    postProperty.initializeFilledForms(["basic"]);
-  }
-  postProperty.checkActiveForm();
-  // console.log("activePropertyType : ", localStorage.getItem('activePropertyType'))
-});
+onBeforeMount(() => {});
 </script>
 
 <style scoped>
 .postContainer {
   margin-top: 56px;
-  height: calc(100vh - 56px);
+  height: calc(100vh - 57px);
   overflow: hidden;
 }
 
 .imageContainer {
-  height: calc(100vh - 160px);
-}
-
-.imageContainer > div {
   height: 100%;
-  box-shadow: 5px 5px 20px rgb(207, 205, 205);
   border-radius: 20px;
-  background-image: url("../assets/sakleshpur.jpg");
-  background-size: cover;
+  box-shadow: 5px 5px 20px rgb(207, 205, 205);
 }
 
 .referenceImage {
+  border-radius: 20px;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
 .formView {
-  height: calc(100vh - 180px);
+  height: calc(100vh - 170px);
   overflow-y: scroll;
 }
 .formView::-webkit-scrollbar {

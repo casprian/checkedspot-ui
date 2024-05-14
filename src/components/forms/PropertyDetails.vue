@@ -1,7 +1,7 @@
 <template>
   <div class="px-0">
     <v-btn
-      @click="handleBack"
+      @click="handleback"
       variant="text"
       prepend-icon="mdi-arrow-left"
       class="ml-n4 text-none text-body-1"
@@ -12,16 +12,16 @@
     </p>
     <!-- <p class="mt-2"> An accurate location helps you to connect with right buyer.</p> -->
 
-    <plot-or-land-details v-if="type === 'plot'" @onContinue="handleDetailsContinueBtnClick" />
-    <flat-or-apartment-details v-if="type === 'flat'" @onContinue="handleDetailsContinueBtnClick" />
-    <farmland-or-farmhouse-details v-if="type === 'farmland'" @onContinue="handleDetailsContinueBtnClick" />
+    <plot-or-land-details v-if="type == 'plot'" @onContinue="handleDetailsContinue" />
+    <flat-or-apartment-details v-if="type == 'flat'" @onContinue="handleDetailsContinue" />
+    <farmland-or-farmhouse-details v-if="type == 'farmland'" @onContinue="handleDetailsContinue" />
   </div>
 </template>
   
 <script lang="ts" setup>
 import { ref, defineAsyncComponent, onMounted } from "vue";
 import { useRouter } from "vue-router";
-// @ts-ignore
+import { useCookies } from "vue3-cookies";
 import { usePostPropertyStore } from "@/store/postProperty";
 
 const PlotOrLandDetails = defineAsyncComponent(
@@ -42,24 +42,28 @@ const FarmlandOrFarmhouseDetails = defineAsyncComponent(
 );
 
 const router = useRouter();
-const postProperty = usePostPropertyStore();
+const postproperty = usePostPropertyStore();
+
+const { cookies } = useCookies();
+if (!cookies.get("token")) {
+  router.push({ path: "/signin", query: { message: "createProperty" } });
+}
+
+function handleback() {
+  router.back();
+  postproperty.handleFormRouting('location');
+}
+
+function handleDetailsContinue() {
+ postproperty.addFilledFormPath('/postproperty/details');
+  postproperty.handleFormRouting("gallery");
+}
 
 const type = ref("");
 
-function handleBack() {
-  postProperty.removeFromFilledForms("location");
-  postProperty.updateActiveForm("location");
-}
-
-function handleDetailsContinueBtnClick() {
-  postProperty.addToFilledForms("details");
-  postProperty.updateActiveForm("gallery");
-}
-
 onMounted(() => {
   // @ts-ignore
-  type.value = localStorage.getItem("activePropertyType");
-  console.log("DETAILS type.value : ", type.value)
+  type.value = localStorage.getItem("activeForm");
 });
 </script>
   
