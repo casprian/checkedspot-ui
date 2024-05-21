@@ -189,20 +189,19 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const postProperty = usePostPropertyStore();
 
-  console.log(to.path === '/postproperty', from.path, to.path);
   to.path === '/postproperty' ? postProperty.basicActive = true : "";
-
-  if (to.path.includes('/postproperty') && to.path !== '/postproperty') {
-    // if route if next route in the series then allow routing
-    // and if the route exist in the filled form list then allow the routing.
-    if ((from.path === postProperty.getPreviousPath(to.path) && postProperty.isFormFilled(from.path)) || (postProperty.isFormFilled(to.path))) {
+  to.path === '/postproperty' ? postProperty.activeFormName = 'basic' : '';
+  if (to.path.includes('/postproperty')) {
+    if (to.path === '/postproperty'){
+      postProperty.handleFormActiveRouting(to.path);
+      next();
+    } else if ((from.path === postProperty.getPreviousPath(to.path) && postProperty.isFormFilled(from.path)) || (postProperty.isFormFilled(to.path)) || postProperty.isFormFilled(postProperty.getPreviousPath(to.path))) {
       postProperty.handleFormActiveRouting(to.path);
       next();
     } else {
       postProperty.handleFormActiveRouting(from.path);
-      alert('This path is not directly available.');
+      // alert('This path is not directly available.');
     }
-    console.log(from.path, to.path);
   } else {
     next();
   }

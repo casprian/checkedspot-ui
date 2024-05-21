@@ -83,7 +83,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch, onBeforeMount } from "vue";
 import { useRouter } from "vue-router";
 import { useField, useForm } from "vee-validate";
 import { useCookies } from "vue3-cookies";
@@ -138,8 +138,7 @@ const state = useField<any>("state");
 const locality = useField<string>("locality");
 
 function handleback() {
-  router.back();
-  postProperty.handleFormRouting('location');
+  postProperty.handleFormRouting('basic');
 }
 
 //@ts-ignore
@@ -181,6 +180,10 @@ function onInvalidSubmit(invalidData: any) {
 }
 
 const handleFormSubmit = handleSubmit(onSuccess, onInvalidSubmit);
+
+onBeforeMount(() => {
+
+})
 
 onMounted(() => {
   //@ts-ignore

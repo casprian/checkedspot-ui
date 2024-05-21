@@ -4,61 +4,170 @@
 
     <v-container fluid class="pa-0 postContainer">
       <v-row no-gutters class="pa-0">
-        <v-col cols="12" class="pa-5 pa-md-10 text-h6 d-flex justify-space-between">
+        <v-col
+          cols="12"
+          class="pa-5 pa-md-10 text-h6 d-flex justify-space-between formNavigation"
+        >
           <span>
             <v-btn
-            variant="text"
-              :color="postProperty.basicActive ? 'green' : 'red'"
-              :prepend-icon="postProperty.basicActive ? 'mdi-check-circle-outline' : 'mdi-home-edit'"
+              height="auto"
+              variant="text"
+              :color="
+                postProperty.basicActive
+                  ? 'amber-darken-2'
+                  : postProperty.isFormFilled('/postproperty')
+                  ? 'green'
+                  : 'grey'
+              "
+              :prepend-icon="
+                postProperty.basicActive
+                  ? 'mdi-pencil'
+                  : postProperty.isFormFilled('/postproperty')
+                  ? 'mdi-check-circle-outline'
+                  : 'mdi-pencil'
+              "
               @click="postProperty.handleFormRouting('basic')"
-              >Basic</v-btn
             >
+              <span class="d-flex flex-column justify-start align-start">
+                <span
+                  :class="[
+                    postProperty.basicActive
+                      ? 'text-body-1 activeFont font-weight-medium'
+                      : 'text-body-1 font-weight-regular',
+                  ]"
+                  >Basic</span
+                >
+                <span class="text-none text-caption text-grey-darken-2">{{
+                  postProperty.activePropertyType
+                }}</span>
+              </span>
+            </v-btn>
           </span>
-          <v-divider class="mt-4" thickness="4"></v-divider>
+          <v-divider class="mt-4 horizontalDivider" thickness="2"></v-divider>
           <span>
             <v-btn
-            variant="text"
-              :color="postProperty.locationActive ? 'green' : 'red'"
-              :prepend-icon="postProperty.locationActive ? 'mdi-check-circle-outline' : 'mdi-home-edit'"
+              variant="text"
+              :color="
+                postProperty.locationActive
+                  ? 'amber-darken-2'
+                  : postProperty.isFormFilled('/postproperty/location')
+                  ? 'green'
+                  : 'grey'
+              "
+              :prepend-icon="
+                postProperty.locationActive
+                  ? 'mdi-pencil'
+                  : postProperty.isFormFilled('/postproperty/location')
+                  ? 'mdi-check-circle-outline'
+                  : 'mdi-pencil'
+              "
               @click="postProperty.handleFormRouting('location')"
-              >location</v-btn
             >
-          </span>          
-          <v-divider class="mt-4" thickness="4"></v-divider>
+              <span
+                :class="[
+                  postProperty.locationActive
+                    ? 'text-body-1 activeFont font-weight-medium'
+                    : 'text-body-1 font-weight-regular',
+                ]"
+                >Location</span
+              >
+            </v-btn>
+          </span>
+          <v-divider class="mt-4 horizontalDivider" thickness="2"></v-divider>
           <span>
             <v-btn
-            variant="text"
-              :color="postProperty.detailsActive ? 'green' : 'red'"
-              :prepend-icon="postProperty.detailsActive ? 'mdi-check-circle-outline' : 'mdi-home-edit'"
+              variant="text"
+              :color="
+                postProperty.detailsActive
+                  ? 'amber-darken-2'
+                  : postProperty.isFormFilled('/postproperty/details')
+                  ? 'green'
+                  : 'grey'
+              "
+              :prepend-icon="
+                postProperty.detailsActive
+                  ? 'mdi-pencil'
+                  : postProperty.isFormFilled('/postproperty/details')
+                  ? 'mdi-check-circle-outline'
+                  : 'mdi-pencil'
+              "
               @click="postProperty.handleFormRouting('details')"
-              >details</v-btn
             >
+              <span
+                :class="[
+                  postProperty.detailsActive
+                    ? 'text-body-1 activeFont font-weight-medium'
+                    : 'text-body-1 font-weight-regular',
+                ]"
+                >Details</span
+              >
+            </v-btn>
           </span>
-          <v-divider class="mt-4" thickness="4"></v-divider>
+          <v-divider class="mt-4 horizontalDivider" thickness="2"></v-divider>
           <span>
             <v-btn
-            variant="text"
-              :color="postProperty.galleryActive ? 'green' : 'red'"
-              :prepend-icon="postProperty.galleryActive ? 'mdi-check-circle-outline' : 'mdi-home-edit'"
+              variant="text"
+              :color="
+                postProperty.galleryActive
+                  ? 'amber-darken-2'
+                  : postProperty.isFormFilled('/postproperty/gallery')
+                  ? 'green'
+                  : 'grey'
+              "
+              :prepend-icon="
+                postProperty.galleryActive
+                  ? 'mdi-pencil'
+                  : postProperty.isFormFilled('/postproperty/gallery')
+                  ? 'mdi-check-circle-outline'
+                  : 'mdi-pencil'
+              "
               @click="postProperty.handleFormRouting('gallery')"
-              >gallery</v-btn
             >
+              <span
+                :class="[
+                  postProperty.galleryActive
+                    ? 'text-body-1 activeFont font-weight-medium'
+                    : 'text-body-1 font-weight-regular',
+                ]"
+                >Gallery</span
+              >
+            </v-btn>
           </span>
-          <v-divider class="mt-4" thickness="4"></v-divider>
+          <v-divider class="mt-4 horizontalDivider" thickness="2"></v-divider>
           <span>
             <v-btn
-            variant="text"
-              :color="postProperty.amenitiesActive ? 'green' : 'red'"
-              :prepend-icon="postProperty.amenitiesActive ? 'mdi-check-circle-outline' : 'mdi-home-edit'"
+              variant="text"
+              :color="
+                postProperty.amenitiesActive
+                  ? 'amber-darken-2'
+                  : postProperty.isFormFilled('/postproperty/amenities')
+                  ? 'green'
+                  : 'grey'
+              "
+              :prepend-icon="
+                postProperty.amenitiesActive
+                  ? 'mdi-pencil'
+                  : postProperty.isFormFilled('/postproperty/amenities')
+                  ? 'mdi-check-circle-outline'
+                  : 'mdi-pencil'
+              "
               @click="postProperty.handleFormRouting('amenities')"
-              >amenities</v-btn
             >
+              <span
+                :class="[
+                  postProperty.amenitiesActive
+                    ? 'text-body-1 activeFont font-weight-medium'
+                    : 'text-body-1 font-weight-regular',
+                ]"
+                >Amenities</span
+              >
+            </v-btn>
           </span>
         </v-col>
 
         <v-col cols="6" class="pr-12 pl-16 pb-14 d-none d-md-block">
           <!-- Use three different image for different property Type -->
-          <div class="imageContainer">
+          <div class="imageContainer" >
             <img
               class="referenceImage"
               loading="lazy"
@@ -70,7 +179,6 @@
 
         <!-- POST Property Router View -->
         <v-col cols="12" md="6" class="formView pa-16 pt-0 pl-md-4">
-          <!-- {{ router.currentRoute.value.fullPath }} -->
           <router-view></router-view>
         </v-col>
       </v-row>
@@ -92,15 +200,11 @@ const navigationBar = defineAsyncComponent(
 const postProperty = usePostPropertyStore();
 const router = useRouter();
 
+const activePropertyType = ref();
 
-function handleIcon() {
-  // create a function in which test if 
-  // if the form is filled but inactive show icon -> "mdi-check-circle-outline" ---> with green color
-  // the from is already filled and active show "mdi-home-edit" icon. -> to check the form is filled : check in postProperty.filledFormPathList --->  with green color
-  // if the form is not filled but active 
-}
-
-onBeforeMount(() => {});
+onBeforeMount(() => {
+  postProperty.handleActivePropertyType(false);
+});
 </script>
 
 <style scoped>
@@ -108,6 +212,18 @@ onBeforeMount(() => {});
   margin-top: 56px;
   height: calc(100vh - 57px);
   overflow: hidden;
+}
+
+.formNavigation {
+  overflow-x: scroll;
+}
+
+.formNavigation::-webkit-scrollbar {
+  display: none;
+}
+
+.horizontalDivider {
+  min-width: 50px;
 }
 
 .imageContainer {
@@ -121,6 +237,10 @@ onBeforeMount(() => {});
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.activeFont {
+  font-size: 17px !important;
 }
 
 .formView {

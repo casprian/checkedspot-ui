@@ -49,7 +49,6 @@ if (!cookies.get("token")) {
 }
 
 function handleback() {
-  router.back();
   postproperty.handleFormRouting('gallery');
 }
 

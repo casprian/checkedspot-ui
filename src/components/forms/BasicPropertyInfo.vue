@@ -203,6 +203,7 @@ const handleContinue = () => {
       plotData.category = category.value;
       localStorage.setItem("plotData", JSON.stringify(plotData));
       localStorage.setItem("activeForm", "plot");
+      postProperty.handleActivePropertyType(true);
     } else if (type.value === "flat or apartment" && activeForm != "flat") {
       const flatData = initializeFlatPost();
       clearlocalStoragePropertyData();
@@ -211,6 +212,7 @@ const handleContinue = () => {
       flatData.category = category.value;
       localStorage.setItem("flatData", JSON.stringify(flatData));
       localStorage.setItem("activeForm", "flat");
+      postProperty.handleActivePropertyType(true);
     } else if (
       type.value === "farmland or farmhouse" &&
       activeForm != "farmland"
@@ -222,9 +224,10 @@ const handleContinue = () => {
       farmlandData.category = category.value;
       localStorage.setItem("farmlandData", JSON.stringify(farmlandData));
       localStorage.setItem("activeForm", "farmland");
+      postProperty.handleActivePropertyType(true);
     }
-    postProperty.addFilledFormPath('/postproperty');
-    postProperty.handleFormRouting('location');
+    postProperty.addFilledFormPath("/postproperty");
+    postProperty.handleFormRouting("location");
   } else {
     errorOccured.value = true;
   }
