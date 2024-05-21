@@ -1,7 +1,7 @@
 <template>
   <v-expand-transition>
     <v-card
-      style="position: fixed; top: 56px; left: 0; z-index: 1"
+      style="position: fixed; top: 56px; left: 0; z-index: 100"
       v-show="expandFailure"
       height="60"
       width="100%"
@@ -17,7 +17,7 @@
   </v-expand-transition>
   <v-expand-transition>
     <v-card
-      style="position: fixed; top: 56px; left: 0; z-index: 1"
+      style="position: fixed; top: 56px; left: 0; z-index: 100"
       v-show="expandSuccess"
       height="60"
       width="100%"
@@ -238,33 +238,36 @@
             <v-text-field
               v-model="name.value.value"
               density="comfortable"
+              hint="Name needs to be at least 2 and maximum 40 characters."
               bg-color="white"
               variant="filled"
-              class="ma-2"
+              class="ma-2 mb-0"
               counter="40"
               placeholder="Devid johnson"
-            ></v-text-field>
-
-            <p class="text-body-3 ml-2 mb-2">Phone Number*</p>
-            <v-text-field
-              v-model="mobile.value.value"
-              density="comfortable"
-              bg-color="white"
-              variant="filled"
-              class="ma-2"
-              counter="10"
-              placeholder="9567676767"
             ></v-text-field>
 
             <p class="text-body-3 ml-2 mb-2">Email*</p>
             <v-text-field
               v-model="email.value.value"
               density="comfortable"
+              hint="Must be a valid e-mail. Example: abc@gmail.com"
               bg-color="white"
               variant="filled"
-              class="ma-2"
+              class="ma-2 mb-0"
               counter="30"
               placeholder="abc@gmail.com"
+            ></v-text-field>
+
+            <p class="text-body-3 ml-2 mb-2">Phone Number*</p>
+            <v-text-field
+              v-model="mobile.value.value"
+              density="comfortable"
+              hint="Phone number needs to be exactly 10 digits."
+              bg-color="white"
+              variant="filled"
+              class="ma-2 mb-0"
+              counter="10"
+              placeholder="9567676767"
             ></v-text-field>
 
             <p class="text-body-3 ml-2 mb-2">Message</p>
@@ -272,6 +275,7 @@
               v-model="enquiryMessage.value.value"
               counter="750"
               density="comfortable"
+              hint="Please wrap you message in 750 characters."
               bg-color="white"
               variant="filled"
               class="mx-2"
@@ -280,23 +284,17 @@
             ></v-textarea>
 
             <v-checkbox
-              class="acceptCheckbox mb-4 ml-2"
+              class="acceptCheckbox ml-2"
               density="comfortable"
               v-model="acceptpolicy.value.value"
-              :error-messages="acceptpolicy.errorMessage.value"
               :true-value="true"
               :false-value="false"
               label="You agree to our friendly privacy policy."
             >
-              <!-- <template v-slot:label>
-                You agree to our friendly&nbsp;
-                <a href="/termsofservices">terms & conditions</a>
-                &nbsp;and&nbsp; <a to="/privacypolicy">privacy policy</a>*
-              </template> -->
             </v-checkbox>
 
             <div
-              class="d-flex flex-column justify-center align-center bg-transparent"
+              class="px-2 d-flex flex-column justify-center align-start bg-transparent"
             >
               <v-btn
                 type="submit"
@@ -311,32 +309,9 @@
                 Send message
               </v-btn>
 
-              <v-btn
-                @click.prevent="handleReset"
-                density="default"
-                variant="elevated"
-                color="grey-lighten-3"
-                elevation="2"
-                width="100%"
-                class="mb-6 mt-3"
-              >
+              <button @click.prevent="handleReset" class="mt-3 resetButton">
                 Reset Form
-              </v-btn>
-
-              <div class="d-flex justify-end w-100">
-                <v-btn
-                  type="submit"
-                  variant="elevated"
-                  density="default"
-                  elevation="1"
-                  width="280px"
-                  class="my-1 mb-2 text-none text-body-2 whatsappMsgBtn"
-                  @click.prevent="callWhatsappCloudApi"
-                >
-                  <v-icon class="whatsappIcon" icon="mdi-whatsapp"></v-icon
-                  >&nbsp; Contact us on Whatsapp
-                </v-btn>
-              </div>
+              </button>
             </div>
           </form>
         </div>
@@ -350,21 +325,26 @@
       >
       <v-col cols="12" class="mt-10 mb-15">
         <div class="d-flex justify-center align-center flex-wrap">
-          <div
-            class="socialContainer mx-6 my-4 d-flex flex-column justify-center align-center"
+          <a
             v-for="social in socials"
             :key="social.id"
+            :href="social.followUrl"
+            target="_blank"
           >
-            <img
-              :src="social.logo"
-              alt="Instagram logo"
-              class="socialLogo"
-              style="height: 95px; width: 95px"
-            />
-            <span class="socialUserId" :id="social.id">{{
-              social.userId
-            }}</span>
-          </div>
+            <div
+              class="socialContainer mx-6 my-4 d-flex flex-column justify-center align-center"
+            >
+              <img
+                :src="social.logo"
+                alt="Instagram logo"
+                class="socialLogo"
+                style="height: 95px; width: 95px"
+              />
+              <span class="socialUserId" :id="social.id">{{
+                social.userId
+              }}</span>
+            </div>
+          </a>
         </div>
       </v-col>
     </v-row>
@@ -394,8 +374,8 @@
           ></v-icon>
 
           <div class="text-h5">
-            Name, Mobile number, Email are mandatory fields. Please fill these
-            fields to send message!!!
+            Name, Mobile number, Email and privacy policy are mandatory fields.
+            Please fill these fields to send message!!!
           </div>
         </div>
 
@@ -463,7 +443,7 @@ const { meta, handleSubmit, handleReset } = useForm({
         if (value?.length === 10 && /^\d+$/.test(value)) {
           return true;
         } else if (value?.length > 10 && /^\d+$/.test(value)) {
-          return "Phone number needs to be at exactly 10 digits.";
+          return "Phone number needs to be exactly 10 digits.";
         } else {
           return "Phone number needs to be exactly 10 digits.";
         }
@@ -522,35 +502,35 @@ const socials = ref([
     id: "instagram",
     logo: instagramlogo,
     userId: "@checkedspot",
-    followUrl: "",
+    followUrl: "https://www.instagram.com/checkedspot/",
     actionBtn: "follow",
   },
   {
     id: "facebook",
     logo: facebooklogo,
     userId: "@checkedspot",
-    followUrl: "",
+    followUrl: "https://www.facebook.com/profile.php?id=100087798638318",
     actionBtn: "follow",
   },
   {
     id: "linkedin",
     logo: linkedinlogo,
     userId: "@checkedspot",
-    followUrl: "",
+    followUrl: "https://www.linkedin.com/company/checked-spot/",
     actionBtn: "follow",
   },
   {
     id: "twitter",
     logo: twitterlogo,
     userId: "@checked_spot",
-    followUrl: "",
+    followUrl: "https://x.com/checked_spot",
     actionBtn: "follow",
   },
   {
     id: "whatsapp",
     logo: whatsapplogo,
     userId: "Join Community",
-    followUrl: "",
+    followUrl: "https://chat.whatsapp.com/Ly6VXwJhfoj95yjLTlxbpU",
     actionBtn: "click to join",
   },
 ]);
@@ -623,14 +603,13 @@ function handleRightBtnClick() {
   visitOfficeCards.value[activeIndex.value].isActive = true;
 }
 
-// function redirectToWhatsAppGroup() {
-//   // Construct the API link
-//   var whatsappGroupLink =
-//     "https://wa.me/<phone_number_or_group_id>?text=<encoded_message>";
+function redirectToWhatsAppGroup() {
+  // Construct the API link
+  var whatsappGroupLink = "https://wa.me/Ly6VXwJhfoj95yjLTlxbpU";
 
-//   // Redirect the user to the WhatsApp group
-//   window.location.href = whatsappGroupLink;
-// }
+  // Redirect the user to the WhatsApp group
+  window.location.href = whatsappGroupLink;
+}
 
 onMounted(() => {});
 </script>
@@ -761,6 +740,15 @@ a {
   padding-right: 20px;
 }
 
+.resetButton {
+  width: 130px;
+  height: 37px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 6px rgb(208, 208, 208);
+  background: white;
+  color: black;
+}
+
 .socialContainer:hover {
   cursor: pointer;
 }
@@ -768,9 +756,9 @@ a {
 .socialLogo {
   width: 95px;
   height: 95px;
+  margin-bottom: 24px;
 }
 .socialUserId {
-  margin-top: 24px;
   color: white;
   padding: 5px 15px;
   border-radius: 12px;
