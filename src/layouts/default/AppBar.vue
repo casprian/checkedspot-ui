@@ -120,7 +120,7 @@
   </v-navigation-drawer>
 
 
-  <a :href=webWhatsapphref style="text-decoration: none;" target="_blank" v-if="!isMobileDevice">
+  <a :href="webWhatsapphref" style="text-decoration: none; z-index: 100;" target="_blank" v-if="!isMobileDevice">
     <v-btn class="whatsapp1" density="comfortable" size="large" color="green" icon="mdi-whatsapp"></v-btn>
   </a>
 
@@ -133,11 +133,11 @@
 
     <v-card class="rounded-pill">
       <div class="d-flex pa-3 py-7 pt-10 justify-space-around">
-        <a :href=mobileContacthref style="text-decoration: none; width: 35%;" class="d-flex flex-column align-center">
+        <a :href="mobileContacthref" style="text-decoration: none; width: 35%;" class="d-flex flex-column align-center">
           <v-btn class="phone" size="small" color="blue" icon="mdi-phone"></v-btn>
           <div class="text-center mt-1" style="font-size: 20px; color: grey; cursor: pointer;">Call</div>
         </a>
-        <a :href=webWhatsapphref target="_blank" style="text-decoration: none; width: 45%;"
+        <a :href="webWhatsapphref" target="_blank" style="text-decoration: none; width: 45%;"
           class="d-flex flex-column align-center">
           <v-btn class="whatsapp2" size="small" color="green" icon="mdi-whatsapp"></v-btn>
           <div class="text-center mt-1" style="font-size: 20px; color: grey; cursor: pointer;">Whatsapp</div>
@@ -270,7 +270,7 @@ onMounted(async () => {
   font-size: 16px;
   bottom: 20px;
   right: 20px;
-  z-index: 1;
+  z-index: 100;
 }
 
 .phone {
