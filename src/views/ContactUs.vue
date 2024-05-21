@@ -746,10 +746,15 @@ a {
   border-radius: 5px;
   box-shadow: 2px 2px 6px rgb(208, 208, 208);
   background: white;
-  color: black;
+  color: black; 
+  transform: scale(1,1);
+  transition: transform .2s ease-in-out;
+}
+.resetButton:hover {
+  transform: scale(1.1,1.1);
 }
 
-.socialContainer:hover {
+.socialContainer {  
   cursor: pointer;
 }
 
@@ -757,11 +762,22 @@ a {
   width: 95px;
   height: 95px;
   margin-bottom: 24px;
+  transform: scale(1,1);
+  transition: transform .2s ease-in-out;
+}
+.socialContainer:hover > .socialLogo {
+  cursor: pointer;
+  transform: scale(1.1,1.1);
 }
 .socialUserId {
   color: white;
   padding: 5px 15px;
-  border-radius: 12px;
+  border-radius: 12px;  
+  transform: translate(0,0);
+  transition: transform .2s ease-in-out;
+}
+.socialContainer:hover > .socialUserId {
+  transform: translate(0,10px);
 }
 
 #instagram {
