@@ -1175,7 +1175,8 @@
 <script lang="ts" setup>
 import { onMounted, onBeforeMount, ref, watch } from "vue";
 import { useRouter } from "vue-router";
-import axios from "axios";
+// @ts-ignore
+import api from "@/data/api/index";
 // @ts-ignore
 import { convertToSqft, convertTofeet } from "@/composables/area";
 
@@ -1427,6 +1428,7 @@ function saveDataTolocalStorage() {
     propertyData.value.totalAreaUnit,
     propertyData.value.totalArea
   );
+
   propertyData.value.builtupArea = convertToSqft(
     propertyData.value.builtupAreaUnit,
     propertyData.value.builtupArea
@@ -1435,6 +1437,7 @@ function saveDataTolocalStorage() {
     propertyData.value.carpetAreaUnit,
     propertyData.value.carpetArea
   );
+
   propertyData.value.facingRoadWidth = convertTofeet(
     facingRoadWidthUnit.value,
     facingRoadWidth.value
@@ -1452,13 +1455,8 @@ async function handleSubmit() {
   delete postPropertyData.facingRoadWidthUnit;
 
   // Submit data to Backend
-  const res = await axios.post(
-    "http://localhost:8080/property/post",
-    propertyData,
-    {
-      withCredentials: true,
-    }
-  );
+  const res = await api.property.postProperty(propertyData.value);
+  
   if (res.status === 200) {
     localStorage.removeItem("activeForm");
     localStorage.removeItem("flatData");

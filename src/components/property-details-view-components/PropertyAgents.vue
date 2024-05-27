@@ -93,7 +93,6 @@ const agents = ref([{
 
 async function agentdata() {
     agents.value = [];
-
     const res = await api?.property?.getPropertyAgents({
         params: {
             propertyId: props.propertyId,

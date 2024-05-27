@@ -127,4 +127,4 @@ export const usePostPropertyStore = defineStore('property', () => {
         getPreviousPath,
         handleActivePropertyType
     }
-})
+});

@@ -16,7 +16,7 @@
             Only Verified Properties
           </h1>
           <p>
-            We are a profession real estate service and construction company
+            We are a professional real estate service and construction company
             associated with partners in pan India and global spectrum.
           </p>
           <p>

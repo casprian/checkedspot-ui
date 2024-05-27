@@ -328,6 +328,132 @@
       </p>
     </div>
 
+    <!-- No. of kitchen (Required) -->
+    <div class="mt-7">
+      <p class="fieldheading">*No. of Kitchens</p>
+
+      <div class="radioGroup">
+        <input
+          type="radio"
+          id="kitchenone"
+          class="radioInput"
+          name="kitchens"
+          value="1"
+          :disabled="kitchensMoreThanFour || propertyData.kitchens > 4"
+          v-model="kitchens.value.value"
+        />
+        <label
+          :class="[
+            'kitchensLabel',
+            kitchensMoreThanFour || propertyData.kitchens > 4
+              ? 'disabled-mask'
+              : '',
+          ]"
+          for="kitchenone"
+          title="one"
+          >1</label
+        >
+
+        <input
+          type="radio"
+          id="kitchentwo"
+          class="radioInput"
+          name="kitchens"
+          value="2"
+          :disabled="kitchensMoreThanFour || propertyData.kitchens > 4"
+          v-model="kitchens.value.value"
+        />
+        <label
+          :class="[
+            'kitchensLabel',
+            kitchensMoreThanFour || propertyData.kitchens > 4
+              ? 'disabled-mask'
+              : '',
+          ]"
+          for="kitchentwo"
+          title="Two"
+          >2</label
+        >
+
+        <input
+          type="radio"
+          id="kitchenthree"
+          class="radioInput"
+          name="kitchens"
+          value="3"
+          :disabled="kitchensMoreThanFour || propertyData.kitchens > 4"
+          v-model="kitchens.value.value"
+        />
+        <label
+          :class="[
+            'kitchensLabel',
+            kitchensMoreThanFour || propertyData.kitchens > 4
+              ? 'disabled-mask'
+              : '',
+          ]"
+          for="kitchenthree"
+          title="Three"
+          >3</label
+        >
+
+        <input
+          type="radio"
+          id="kitchenfour"
+          class="radioInput"
+          name="kitchens"
+          value="4"
+          :disabled="kitchensMoreThanFour || propertyData.kitchens > 4"
+          v-model="kitchens.value.value"
+        />
+        <label
+          :class="[
+            'kitchensLabel',
+            kitchensMoreThanFour || propertyData.kitchens > 4
+              ? 'disabled-mask'
+              : '',
+          ]"
+          for="kitchenfour"
+          title="4"
+          >4</label
+        >
+      </div>
+
+      <!-- Add More kitchens -->
+      <div>
+        <button
+          class="mt-2 text-pink-darken-2"
+          @click="
+            () => {
+              kitchensMoreThanFour = !kitchensMoreThanFour;
+              propertyData.kitchens = null;
+            }
+          "
+        >
+          <v-icon
+            class="mt-n1"
+            icon="mdi-plus-circle-outline"
+            size="18"
+          ></v-icon>
+          Add other
+        </button>
+        <v-text-field
+          class="mt-4"
+          label="Enter number of kitchens"
+          type="number"
+          variant="outlined"
+          v-model="kitchens.value.value"
+          v-if="kitchensMoreThanFour"
+        >
+        </v-text-field>
+      </div>
+      <p
+        v-if="kitchens.errorMessage.value"
+        class="pl-2 text-body-2 text-pink-darken-2"
+      >
+        This field is required! Please choose.
+      </p>
+    </div>
+
     <!-- No. of Balconies (Required) -->
     <div class="mt-5">
       <p class="fieldheading">*No. of Balconies</p>
@@ -683,8 +809,8 @@
         <v-col cols="6" class="pa-0 px-1">
           <v-text-field
             type="number"
-            v-model="costPerSqFt.value.value"
-            :error-messages="costPerSqFt.errorMessage.value"
+            v-model="costPerSqft.value.value"
+            :error-messages="costPerSqft.errorMessage.value"
             variant="outlined"
             label="₹ Price per sq.ft"
           ></v-text-field>
@@ -766,7 +892,7 @@ import { Ref, watch, onBeforeMount, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useForm, useField } from "vee-validate";
 
-const emits = defineEmits(['onContinue']);
+const emits = defineEmits(["onContinue"]);
 const router = useRouter();
 
 const propertyData = ref();
@@ -825,6 +951,7 @@ const possessions = ref([
 const ownershipType = ref("");
 const bedroomsMoreThanFour = ref(false);
 const bathroomsMoreThanFour = ref(false);
+const kitchensMoreThanFour = ref(false);
 const otherChargesIncluded = ref(false);
 const isNegotiable = ref(false);
 const addMoreAuthorities = ref(false);
@@ -902,6 +1029,13 @@ const { meta, handleSubmit, handleReset } = useForm({
         return false;
       }
     },
+    kitchens(value: any) {
+      if (value && value > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     balconies(value: any) {
       if (value) {
         return true;
@@ -917,7 +1051,7 @@ const { meta, handleSubmit, handleReset } = useForm({
       }
       return "cost should be greater than 0.";
     },
-    costPerSqFt(value: any) {
+    costPerSqft(value: any) {
       if (!value) {
         return "Required.";
       } else if (value > 0 && /^[0.0-9.0]*$/.test(value)) {
@@ -937,9 +1071,10 @@ const { meta, handleSubmit, handleReset } = useForm({
 const totalArea = useField("totalArea");
 const bedrooms = useField("bedrooms");
 const bathrooms = useField("bathrooms");
+const kitchens = useField("kitchens");
 const balconies = useField("balconies");
 const cost = useField("cost");
-const costPerSqFt = useField("costPerSqFt");
+const costPerSqft = useField("costPerSqft");
 const description = useField("description");
 
 const onSuccess = () => {
@@ -951,6 +1086,7 @@ const onSuccess = () => {
   propertyData.value.carpetAreaUnit = carpetAreaUnit.value;
   propertyData.value.bedrooms = bedrooms.value.value;
   propertyData.value.bathrooms = bathrooms.value.value;
+  propertyData.value.kitchens = kitchens.value.value;
   propertyData.value.balconies = balconies.value.value;
   propertyData.value.floors = floors.value;
   propertyData.value.floorNumber = floorNumber.value;
@@ -967,14 +1103,14 @@ const onSuccess = () => {
   propertyData.value.ownershipType = ownershipType.value;
   propertyData.value.approvedByAuthorities = approvedByAuthorities.value;
   propertyData.value.cost = cost.value.value;
-  propertyData.value.costPerSqFt = costPerSqFt.value.value;
+  propertyData.value.costPerSqft = costPerSqft.value.value;
   propertyData.value.otherChargesIncluded = otherChargesIncluded.value;
   propertyData.value.isNegotiable = isNegotiable.value;
   propertyData.value.description = description.value.value;
 
   localStorage.setItem("flatData", JSON.stringify(propertyData.value));
 
-  emits('onContinue');
+  emits("onContinue");
   router.push({ path: "/postproperty/gallery" });
 };
 
@@ -1024,9 +1160,12 @@ onBeforeMount(() => {
     carpetAreaUnit.value = propertyData.value.carpetAreaUnit;
     bedrooms.value.value = propertyData.value.bedrooms;
     bathrooms.value.value = propertyData.value.bathrooms;
+    kitchens.value.value = propertyData.value.kitchens;
     bedroomsMoreThanFour.value = propertyData.value.bedrooms > 4 ? true : false;
     bathroomsMoreThanFour.value =
       propertyData.value.bathrooms > 4 ? true : false;
+    kitchensMoreThanFour.value =
+      propertyData.value.kitchens > 4 ? true : false;
     balconies.value.value = propertyData.value.balconies;
     floors.value = propertyData.value.floors;
     floorNumber.value = propertyData.value.floorNumber;
@@ -1041,7 +1180,7 @@ onBeforeMount(() => {
     ownershipType.value = propertyData.value.ownershipType;
     approvedByAuthorities.value = propertyData.value.approvedByAuthorities;
     cost.value.value = propertyData.value.cost;
-    costPerSqFt.value.value = propertyData.value.costPerSqFt;
+    costPerSqft.value.value = propertyData.value.costPerSqft;
     otherChargesIncluded.value = propertyData.value.otherChargesIncluded;
     isNegotiable.value = propertyData.value.isNegotiable;
     description.value.value = propertyData.value.description;
@@ -1100,6 +1239,7 @@ onMounted(() => {
 }
 .radioInput + label.bedroomsLabel,
 .radioInput + label.bathroomsLabel,
+.radioInput + label.kitchensLabel,
 .radioInput + label.propertyAgeLabel {
   width: 32px;
 }

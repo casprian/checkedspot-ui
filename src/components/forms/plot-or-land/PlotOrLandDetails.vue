@@ -419,8 +419,8 @@
         <v-col cols="6" class="pa-0 px-1">
           <v-text-field
             type="number"
-            v-model="costPerSqFt.value.value"
-            :error-messages="costPerSqFt.errorMessage.value"
+            v-model="costPerSqft.value.value"
+            :error-messages="costPerSqft.errorMessage.value"
             variant="outlined"
             label="₹ Price per sq.ft"
           ></v-text-field>
@@ -662,7 +662,7 @@ const { meta, handleSubmit, handleReset } = useForm({
       }
       return "cost should be greater than 0.";
     },
-    costPerSqFt(value: any) {
+    costPerSqft(value: any) {
       if (!value) {
         return "Required.";
       } else if (value > 0 && /^[0.0-9.0]*$/.test(value)) {
@@ -688,7 +688,7 @@ const noOfOpenSide = useField("noOfOpenSide");
 const isConstructionDoneOnProperty = useField("isConstructionDoneOnProperty");
 const possessionBy = useField<string>("possessionBy");
 const cost = useField("cost");
-const costPerSqFt = useField("costPerSqFt");
+const costPerSqft = useField("costPerSqft");
 const description = useField("description");
 
 watch(isConstructionDoneOnProperty.value, (newValue) => {
@@ -714,7 +714,7 @@ function onSuccess() {
     isConstructionDoneOnProperty.value.value;
   propertyData.value.possessionBy = possessionBy.value.value;
   propertyData.value.cost = cost.value.value;
-  propertyData.value.costPerSqFt = costPerSqFt.value.value;
+  propertyData.value.costPerSqft = costPerSqft.value.value;
   propertyData.value.description = description.value.value;
 
   localStorage.setItem("plotData", JSON.stringify(propertyData.value));
@@ -790,7 +790,7 @@ onBeforeMount(() => {
       propertyData.value.isConstructionDoneOnProperty;
     possessionBy.value.value = propertyData.value.possessionBy;
     cost.value.value = propertyData.value.cost;
-    costPerSqFt.value.value = propertyData.value.costPerSqFt;
+    costPerSqft.value.value = propertyData.value.costPerSqft;
     description.value.value = propertyData.value.description;
   }
 

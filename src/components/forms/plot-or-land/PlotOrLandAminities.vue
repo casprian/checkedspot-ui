@@ -444,13 +444,14 @@
 </template>
 
 <script lang="ts" setup>
-import axios from "axios";
 import { ref, onBeforeMount, onMounted } from "vue";
 import { useRouter } from "vue-router";
+// @ts-ignore
+import api from "@/data/api/index";
 //@ts-ignore
 import { convertToSqft, convertTofeet } from "@/composables/area";
 
-const emits = defineEmits(['onContinue']);
+const emits = defineEmits(["onContinue"]);
 const router = useRouter();
 
 const propertyData = ref();
@@ -527,13 +528,8 @@ async function handleSubmit() {
   delete postPropertyData.facingRoadWidthUnit;
 
   // Submit data to Backend
-  const res = await axios.post(
-    "http://localhost:8080/property/post",
-    propertyData,
-    {
-      withCredentials: true,
-    }
-  );
+  const res = await api.property.postProperty(propertyData.value);
+  
   if (res.status === 200) {
     localStorage.removeItem("activeForm");
     localStorage.removeItem("plotData");

@@ -12,15 +12,85 @@ const getProperties = async (params) => {
     }
 };
 
+// NEW V2 DONE
 const getProperty = async (params) => {
     try {
-        const baseURL = "/property";
+        const baseURL = "/v2/property";
         const response = await call.callWithoutToken('get', baseURL, params);
         return { status: 200, data: response?.data };
     } catch (e) {
         return { error: true, status: e?.response?.status, message: e?.response?.data?.message };
     }
 };
+
+// NEW V2 DONE
+const getPropertyImage = async (params) => {
+    try {
+        const baseURL = '/v2/property/image';
+        const response = await call.callWithoutToken('get', baseURL, params);
+        return { status: 200, data: response?.data };
+    } catch (e) {
+        return { error: true, status: e?.response?.status, message: e?.response?.data?.message };
+    }
+}
+
+// NEW V2 DONE
+const getPropertyVideo = async (params) => {
+    try {
+        const baseURL = '/v2/property/video';
+        const response = await call.callWithoutToken('get', baseURL, params);
+        return { status: 200, data: response?.data };
+    } catch (e) {
+        return { error: true, status: e?.response?.status, message: e?.response?.data?.message };
+    }
+}
+
+// NEW V2 DONE
+const getPropertyDocument = async (params) => {
+    try {
+        const baseURL = '/v2/property/document';
+        const response = await call.callWithoutToken('get', baseURL, params);
+        return { status: 200, data: response?.data };
+    } catch (e) {
+        return { error: true, status: e?.response?.status, message: e?.response?.data?.message };
+    }
+}
+
+// NEW V2 DONE
+const getPropertyAgents = async (params) => {
+    try {
+        const baseURL = "/v2/property/agent";
+        const response = await call.callWithoutToken('get', baseURL, params)
+        return { status: 200, data: response?.data };
+    } catch (e) {
+        return { error: true, status: e?.response?.status, message: e?.response?.data?.message };
+    }
+};
+
+// NEW V2 DONE
+const getRecentProperties = async (params) => {
+    try {
+        const baseURL = '/v2/property/recent';
+        const response = await call.callWithoutToken('get', baseURL, params);
+        return { status: 200, data: response?.data };
+    } catch (e) {
+        return { error: true, status: e?.response?.status, message: e?.response?.data?.message };
+    }
+}
+
+// NEW V2 DONE
+const postProperty = async (params) => {
+    try {
+        const baseURL = "/v2/property";
+        const response = await call.callWithToken('post', baseURL, params);
+        return { status: 200, data: response }
+    } catch (e) {
+        return { error: true, status: e?.response?.status, message: e?.response?.data?.message }
+    }
+}
+
+
+
 
 const getUserProperty = async (params) => {
     try {
@@ -43,16 +113,6 @@ const getUserProperty = async (params) => {
 //     }
 // }
 
-const getPropertyAgents = async (params) => {
-    try {
-        const baseURL = "/property/agent";
-        const response = await call.callWithoutToken('get', baseURL, params)
-        return { status: 200, data: response?.data };
-    } catch (e) {
-        return { error: true, status: e?.response?.status, message: e?.response?.data?.message };
-    }
-};
-
 const getPropertiesForUser = async (params) => {
     try {
         const baseURL = "/property/user/properties";
@@ -63,45 +123,7 @@ const getPropertiesForUser = async (params) => {
     }
 };
 
-const getPropertyImage = async (params) => {
-    try {
-        const baseURL = '/property/image';
-        const response = await call.callWithoutToken('get', baseURL, params);
-        return { status: 200, data: response?.data };
-    } catch (e) {
-        return { error: true, status: e?.response?.status, message: e?.response?.data?.message };
-    }
-}
 
-const getPropertyVideo = async (params) => {
-    try {
-        const baseURL = '/property/video';
-        const response = await call.callWithoutToken('get', baseURL, params);
-        return { status: 200, data: response?.data };
-    } catch (e) {
-        return { error: true, status: e?.response?.status, message: e?.response?.data?.message };
-    }
-}
-
-const getPropertyDocument = async (params) => {
-    try {
-        const baseURL = '/property/document';
-        const response = await call.callWithoutToken('get', baseURL, params);
-        return { status: 200, data: response?.data };
-    } catch (e) {
-        return { error: true, status: e?.response?.status, message: e?.response?.data?.message };
-    }
-}
-
-const getRecentProperties = async (params) => {
-    try {
-        const baseURL = '/property/recent';
-        const response = await call.callWithoutToken('get', baseURL, params);
-        return { status: 200, data: response?.data };
-    } catch (e) {
-        return { error: true, status: e?.response?.status, message: e?.response?.data?.message };
-    }
-}
 
 const createProperty = async (params) => {
     try {
@@ -112,6 +134,8 @@ const createProperty = async (params) => {
         return { error: true, status: e?.response?.status, message: e?.response?.data?.message }
     }
 }
+
+
 
 const addImage = async (params) => {
     try {
@@ -296,6 +320,7 @@ export default {
     getPropertyDocument,
     getRecentProperties,
     createProperty,
+    postProperty,
     addImage,
     addVideo,
     addDocument,

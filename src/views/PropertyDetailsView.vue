@@ -408,6 +408,7 @@ async function propertydata() {
       res?.data?.totalArea !== 0
         ? Math.ceil(res?.data?.cost / res?.data?.totalArea)
         : 0;
+        
     //@ts-ignore
     isSold.value = property?.data?.propertyStatus?.includes("sold");
   } else {

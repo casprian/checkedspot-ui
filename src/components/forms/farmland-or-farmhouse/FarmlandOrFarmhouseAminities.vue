@@ -281,7 +281,7 @@
           value="Garden"
           v-model="amenities.garden"
         />
-        <label class="overlookingLabel" for="park_garden" title="Garden"
+        <label class="overlookingLabel" for="garden" title="Garden"
           >Garden</label
         >
 
@@ -874,7 +874,8 @@
 <script lang="ts" setup>
 import { onMounted, onBeforeMount, ref } from "vue";
 import { useRouter } from "vue-router";
-import axios from "axios";
+// @ts-ignore
+import api from "@/data/api/index";
 // @ts-ignore
 import { convertToSqft, convertTofeet } from "@/composables/area";
 
@@ -1018,8 +1019,6 @@ function saveDataTolocalStorage() {
   propertyData.value.nearMall = amenities.value.nearMall;
   propertyData.value.nearHighway = amenities.value.nearHighway;
 
-  console.log("SAFASDF SAF : ", propertyData.value);
-
   localStorage.setItem("farmlandData", JSON.stringify(propertyData.value));
 
   propertyData.value.totalArea = convertToSqft(
@@ -1053,19 +1052,14 @@ async function handleSubmit() {
   delete postPropertyData.addCarpetArea;
 
   // Submit data to Backend
-  const res = await axios.post(
-    "http://localhost:8080/property/post",
-    propertyData,
-    {
-      withCredentials: true,
-    }
-  );
+  const res = await api.property.postProperty(propertyData.value);
+
   if (res.status === 200) {
-    localStorage.removeItem('activeForm');
-    localStorage.removeItem('farmlandData');
+    localStorage.removeItem("activeForm");
+    localStorage.removeItem("farmlandData");
 
     //  Redirect user to the posted property's Details page.
-    router.push(`/propertydetails/${res.data.propertyId}`)
+    router.push(`/propertydetails/${res.data.propertyId}`);
   } else {
     alert("Property Posting Failed!");
   }
