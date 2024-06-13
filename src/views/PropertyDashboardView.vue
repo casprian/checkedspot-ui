@@ -317,6 +317,7 @@ async function fetchPropertydetails() {
   const res = await api?.property?.getUserProperty({
     params: { propertyId: route?.query?.propertyId },
   });
+  console.log(res);
 
   if (res.status === 200) {
     property.value.details = res?.data;
