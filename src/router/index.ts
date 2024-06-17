@@ -148,17 +148,17 @@ const routes = [
     component: () => import('@/views/ProfileView.vue'),
     children: [
       {
-        path: '/profile',
+        path: '',
         name: 'Profile Home',
         component: () => import('@/components/profile/Profile.vue'),
       },
       {
-        path: '/profile/editprofile',
+        path: 'editprofile',
         name: 'Edit Profile',
         component: () => import('@/components/profile/EditProfile.vue'),
       },
       {
-        path: '/profile/properties',
+        path: 'properties',
         name: 'Properties',
         component: () => import('@/components/profile/Properties.vue'),
       }
@@ -189,14 +189,19 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const postProperty = usePostPropertyStore();
 
-  to.path === '/postproperty' ? postProperty.basicActive = true : "";
-  to.path === '/postproperty' ? postProperty.activeFormName = 'basic' : '';
-  if (to.path.includes('/postproperty')) {
-    if (to.path === '/postproperty'){
-      postProperty.handleFormActiveRouting(to.path);
+  const normalizedPath = to.path.replace(/\/$/, '');
+  
+  if (normalizedPath === '/postproperty') {
+    postProperty.basicActive = true;
+    postProperty.activeFormName = 'basic';
+  }
+
+  if (normalizedPath.startsWith('/postproperty')) {
+    if (normalizedPath === '/postproperty') {
+      postProperty.handleFormActiveRouting(normalizedPath);
       next();
-    } else if ((from.path === postProperty.getPreviousPath(to.path) && postProperty.isFormFilled(from.path)) || (postProperty.isFormFilled(to.path)) || postProperty.isFormFilled(postProperty.getPreviousPath(to.path))) {
-      postProperty.handleFormActiveRouting(to.path);
+    } else if ((from.path === postProperty.getPreviousPath(normalizedPath) && postProperty.isFormFilled(from.path)) || postProperty.isFormFilled(normalizedPath) || postProperty.isFormFilled(postProperty.getPreviousPath(normalizedPath))) {
+      postProperty.handleFormActiveRouting(normalizedPath);
       next();
     } else {
       postProperty.handleFormActiveRouting(from.path);
@@ -206,6 +211,5 @@ router.beforeEach((to, from, next) => {
     next();
   }
 });
-
 
 export default router;

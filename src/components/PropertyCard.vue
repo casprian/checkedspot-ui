@@ -184,9 +184,9 @@
             </v-col>
 
             <v-col cols="12" class="px-4 pb-1">
-                <div v-if="property?.address" class="text-body-2 text-grey-darken-2 overflowText" title="Property address">
+                <div v-if="address" class="text-body-2 text-grey-darken-2 overflowText" :title="address">
                     Address: {{
-                        property?.address
+                        address
                     }}
                 </div>
                 <div v-else class="text-body-2 text-grey-darken-2">&nbsp;</div>
@@ -290,7 +290,7 @@
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
-import { ref, reactive, computed } from 'vue';
+import { ref, reactive, computed, onMounted } from 'vue';
 import { useField, useForm } from 'vee-validate';
 //@ts-ignore
 import api from '@/data/api/index.js';
@@ -307,6 +307,7 @@ const expandSuccess = ref(false);
 
 const props = defineProps(['property', 'listingPath']);
 
+const address = ref('');
 const dialog = ref(false);
 const propertyCost = ref(props?.property?.cost < 10000000 ? `${props?.property?.cost / 100000.0} Lac` : `${props?.property?.cost / 10000000.0} Cr`);
 
@@ -409,6 +410,17 @@ function onInvalidSubmit(invalidData: any) {
 // This handles both valid and invalid submissions
 const handleEnquiry = handleSubmit(onSuccess, onInvalidSubmit);
 
+onMounted(() => {
+    if(props?.property?.address) {
+        address.value = props?.property?.address;
+    } else {
+        const locality = props?.property?.locality ? `${props?.property?.locality},`: '';
+        const city = props?.property?.city ? `${props?.property?.city},`: '';
+        const state = props?.property?.state ? `${props?.property?.state},`: '';
+        const country = props?.property?.country ? `${props?.property?.country}`: '';
+        address.value = `${locality} ${city} ${state} ${country}`;
+    }
+})
 </script>
 
 <style scoped>

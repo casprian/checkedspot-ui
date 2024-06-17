@@ -199,6 +199,7 @@ const handleContinue = () => {
       const plotData = initializePlotPost();
       clearlocalStoragePropertyData();
       plotData.ownerName = ownerName.value;
+      plotData.status = status.value;
       plotData.type = type.value;
       plotData.category = category.value;
       localStorage.setItem("plotData", JSON.stringify(plotData));
@@ -208,6 +209,7 @@ const handleContinue = () => {
       const flatData = initializeFlatPost();
       clearlocalStoragePropertyData();
       flatData.ownerName = ownerName.value;
+      flatData.status = status.value;
       flatData.type = type.value;
       flatData.category = category.value;
       localStorage.setItem("flatData", JSON.stringify(flatData));
@@ -220,6 +222,7 @@ const handleContinue = () => {
       const farmlandData = initializeFarmlandPost();
       clearlocalStoragePropertyData();
       farmlandData.ownerName = ownerName.value;
+      farmlandData.status = status.value;
       farmlandData.type = type.value;
       farmlandData.category = category.value;
       localStorage.setItem("farmlandData", JSON.stringify(farmlandData));
