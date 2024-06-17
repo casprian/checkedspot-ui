@@ -178,6 +178,39 @@ const addDocument = async (params) => {
 }
 
 // NEW V2 DONE
+const allocateNewAgent = async (params) => {
+    try {
+        const baseURL = "/v2/property/allocate/agent";
+        const response = await call.callWithToken('post', baseURL, params);
+        return { status: 200, data: response }
+    } catch (e) {
+        return { error: true, status: e?.response?.status, message: e?.response?.data?.message }
+    }
+}
+
+// NEW V2 DONE
+const allocateNewPrimaryAgent = async (params) => {
+    try {
+        const baseURL = "/v2/property/allocate/primary/agent";
+        const response = await call.callWithToken('post', baseURL, params);
+        return { status: 200, data: response }
+    } catch (e) {
+        return { error: true, status: e?.response?.status, message: e?.response?.data?.message }
+    }
+}
+
+// NEW V2 DONE
+const removeAgent = async (params) => {
+    try {
+        const baseURL = "/v2/property/remove/agent";
+        const response = await call.callWithToken('post', baseURL, params);
+        return { status: 200, data: response }
+    } catch (e) {
+        return { error: true, status: e?.response?.status, message: e?.response?.data?.message }
+    }
+}
+
+// NEW V2 DONE
 const updateDetails = async (params) => {
     try {
         const baseURL = "/v2/property/details";
@@ -221,41 +254,10 @@ const updateDocument = async (params) => {
     }
 }
 
-
-
-const allocateNewAgent = async (params) => {
-    try {
-        const baseURL = "/property/allocate/agent";
-        const response = await call.callWithToken('post', baseURL, params);
-        return { status: 200, data: response }
-    } catch (e) {
-        return { error: true, status: e?.response?.status, message: e?.response?.data?.message }
-    }
-}
-
-const allocateNewPrimaryAgent = async (params) => {
-    try {
-        const baseURL = "/property/allocate/primary/agent";
-        const response = await call.callWithToken('post', baseURL, params);
-        return { status: 200, data: response }
-    } catch (e) {
-        return { error: true, status: e?.response?.status, message: e?.response?.data?.message }
-    }
-}
-
-const removeAgent = async (params) => {
-    try {
-        const baseURL = "/property/remove/agent";
-        const response = await call.callWithToken('post', baseURL, params);
-        return { status: 200, data: response }
-    } catch (e) {
-        return { error: true, status: e?.response?.status, message: e?.response?.data?.message }
-    }
-}
-
+// NEW V2 DONE
 const deleteProperty = async (params) => {
     try {
-        const baseURL = "/property";
+        const baseURL = "/v2/property";
         const response = await call.callWithToken('delete', baseURL, params);
         return { status: 200, data: response }
     } catch (e) {
@@ -263,9 +265,10 @@ const deleteProperty = async (params) => {
     }
 }
 
+// NEW V2 DONE
 const deleteImage = async (params) => {
     try {
-        const baseURL = "/property/image";
+        const baseURL = "/v2/property/image";
         const response = await call.callWithToken('delete', baseURL, params);
         return { status: 200, data: response }
     } catch (e) {
@@ -273,9 +276,10 @@ const deleteImage = async (params) => {
     }
 }
 
+// NEW V2 DONE
 const deleteVideo = async (params) => {
     try {
-        const baseURL = "/property/video";
+        const baseURL = "/v2/property/video";
         const response = await call.callWithToken('delete', baseURL, params);
         return { status: 200, data: response }
     } catch (e) {
@@ -283,9 +287,10 @@ const deleteVideo = async (params) => {
     }
 }
 
+// NEW V2 DONE
 const deleteDocument = async (params) => {
     try {
-        const baseURL = "/property/document";
+        const baseURL = "/v2/property/document";
         const response = await call.callWithToken('delete', baseURL, params);
         return { status: 200, data: response }
     } catch (e) {
