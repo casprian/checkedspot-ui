@@ -226,7 +226,7 @@ if (cookies.get("token")) {
 }
 
 async function getUser() {
-    const res = await api?.user?.getUserData({ params: { email: user?.email } });
+    const res = await api?.user?.getUserData();
     if (res?.status === 200) {        
         for(let data in userdata.value) {
             if(res?.data?.data[data] === false || res?.data?.data[data] === "" || res?.data?.data[data] === undefined) {
