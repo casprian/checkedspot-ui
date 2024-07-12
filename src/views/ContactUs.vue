@@ -34,10 +34,11 @@
     </v-card>
   </v-expand-transition>
 
-  <v-container class="pa-0 bg-background" fluid>
-    <!-- First/Top Section google map Iframe -->
-    <v-row no-gutters>
-      <v-col cols="12" style="height: 306px">
+  <v-container fluid class="pa-0">
+    <!-- First Section - Map and contact form -->
+    <v-row no-gutters class="firstSection">
+      <!-- Google map For Bengaluru Office Location -->
+      <v-col cols="12" sm="6" class="mapContainer">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62196.23239355108!2d77.54196080038798!3d13.018819600000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae176833e3bcd1%3A0x488afbbb30c99b24!2sChecked%20Spot!5e0!3m2!1sen!2sin!4v1714024279303!5m2!1sen!2sin"
           width="100%"
@@ -48,244 +49,88 @@
           referrerpolicy="no-referrer-when-downgrade"
         ></iframe>
       </v-col>
-    </v-row>
-  </v-container>
-
-  <!-- Second Section - Visit our Offices AND Get in Touch Form -->
-  <v-container fluid class="px-0 px-md-5 mt-0 px-sm-10">
-    <v-row no-gutters class="pa-0 d-flex flex-column flex-md-row">
-      <!-- Visit our Offices -->
-      <v-col
-        cols="12"
-        md="6"
-        class="cardsContainer pa-10 mb-5 position-relative d-flex flex-column justify-start align-center"
-      >
-        <div class="text-h4 text-center mb-7 text-none text-md-block">
-          Visit Our Offices
-        </div>
-
-        <div class="position-relative cardsSubContainer">
-          <v-btn
-            id="leftBtn"
-            color="#EBEBEB"
-            elevation="4"
-            icon="mdi-arrow-left"
-            size="large"
-            @click="handleLeftBtnClick"
-          ></v-btn>
-          <v-btn
-            id="rightBtn"
-            color="#EBEBEB"
-            elevation="4"
-            icon="mdi-arrow-right"
-            size="large"
-            @click="handleRightBtnClick"
-          ></v-btn>
-
-          <!-- Bengaluru Card -->
-          <v-card
-            v-for="office in visitOfficeCards"
-            :key="office.locationName"
-            :id="office.id"
-            elevation="8"
-            position="relative"
-            class="mb-4 pa-4 rounded-lg"
-            :class="[office.isActive ? 'activeCard' : 'inactiveCard']"
-          >
-            <v-parallax
-              :src="office.images[0]"
-              position="relative"
-              cover
-              class="hoverPointer rounded parallaxImage"
-            >
-            </v-parallax>
-
-            <div class="d-flex flex-column justify-space-between cardContent">
-              <div>
-                <!-- Location name -->
-                <p
-                  class="my-3 font-weight-medium"
-                  :class="[
-                    office.isActive ? 'activeCardText' : 'inactiveCardText',
-                  ]"
-                >
-                  {{ office.locationName }}
-                </p>
-
-                <!-- Contact Number -->
-                <div class="d-flex my-3">
-                  <v-icon
-                    class="mt-1"
-                    color="pink-darken-2"
-                    size="18"
-                    icon="mdi-phone"
-                  ></v-icon>
-                  <p
-                    :class="[
-                      office.isActive ? 'activeCardText' : 'inactiveCardText',
-                      'pl-3',
-                    ]"
-                  >
-                    {{ office.mobile }}
-                  </p>
-                </div>
-
-                <!-- Email -->
-                <div class="d-flex my-3">
-                  <v-icon
-                    class="mt-1"
-                    color="pink-darken-2"
-                    size="18"
-                    icon="mdi-email"
-                  ></v-icon>
-                  <p
-                    :class="[
-                      office.isActive ? 'activeCardText' : 'inactiveCardText ',
-                      'pl-3',
-                    ]"
-                  >
-                    {{ office.email }}
-                  </p>
-                </div>
-
-                <!-- Office Address -->
-                <div class="d-flex my-3">
-                  <v-icon
-                    class="mt-1"
-                    color="pink-darken-2"
-                    size="18"
-                    icon="mdi-map-marker"
-                  ></v-icon>
-                  <p
-                    :class="[
-                      office.isActive ? 'activeCardText' : 'inactiveCardText',
-                      'pl-3',
-                    ]"
-                  >
-                    {{ office.address }}
-                  </p>
-                </div>
-              </div>
-
-              <div>
-                <v-card-actions class="pa-0">
-                  <v-btn
-                    block
-                    class="text-none"
-                    :disabled="!office.isActive"
-                    :id="[
-                      office.isActive
-                        ? 'activeViewMapBtn'
-                        : 'inactiveViewMapBtn',
-                    ]"
-                    variant="outlined"
-                    color="#C2185B"
-                    prepend-icon="mdi-navigation-variant"
-                    @click.prevent.stop="office.dialog = !office.dialog"
-                    >View Map</v-btn
-                  >
-                </v-card-actions>
-              </div>
-            </div>
-
-            <v-dialog
-              v-model="office.dialog"
-              transition="dialog-bottom-transition"
-              width="70%"
-            >
-              <v-card class="rounded-xl pa-5">
-                <v-card-title class="pt-0"
-                  >Checked Spot -
-                  {{ office.locationName }} location</v-card-title
-                >
-                <v-btn
-                  icon="mdi-close"
-                  size="small"
-                  color="red"
-                  @click="office.dialog = false"
-                  style="position: absolute; right: 10px; top: 10px"
-                ></v-btn>
-                <iframe
-                  :src="office.map"
-                  width="100%"
-                  height="400"
-                  style="border: 0"
-                  allowfullscreen
-                  loading="lazy"
-                  referrerpolicy="no-referrer-when-downgrade"
-                ></iframe>
-              </v-card>
-            </v-dialog>
-          </v-card>
-        </div>
-      </v-col>
 
       <!-- Contanct us Form -->
       <v-col
         cols="12"
-        md="6"
-        class="px-5 mt-n4 formCardCont d-flex justify-center align-start"
+        sm="6"
+        class="pa-0 pl-sm-8 pl-md-15 pt-8 pt-sm-0 formCardContainer d-flex justify-center align-start"
       >
-        <div class="mx-2 rounded-xl formCard text-white" color="">
-          <p class="pa-3 pl-2 pb-2 pt-0 text-h5 text-sm-h4 font-weight-medium">
-            Get in touch
-          </p>
-          <p class="pa-3 pl-2 pt-0 mb-3 text-h6 font-weight-medium">
-            Send Enquiry to Checked Spot
-          </p>
+        <div class="formCard">
+          <p class="heading">Get in touch</p>
+          <p class="subHeading">Send Enquiry to Checked Spot</p>
           <form>
-            <p class="text-body-3 ml-2 mb-2">Name*</p>
+            <p class="inputFieldTitle">Name*</p>
             <v-text-field
+              id="name"
               v-model="name.value.value"
-              density="comfortable"
+              :density="
+                screenWidth > 600 && screenWidth < 960
+                  ? 'compact'
+                  : 'comfortable'
+              "
               hint="Name needs to be at least 2 and maximum 40 characters."
               bg-color="white"
-              variant="filled"
-              class="ma-2 mb-0"
+              variant="outlined"
               counter="40"
               placeholder="Devid johnson"
             ></v-text-field>
 
-            <p class="text-body-3 ml-2 mb-2">Email*</p>
+            <p class="inputFieldTitle">Email*</p>
             <v-text-field
+              id="email"
               v-model="email.value.value"
-              density="comfortable"
+              :density="
+                screenWidth > 600 && screenWidth < 960
+                  ? 'compact'
+                  : 'comfortable'
+              "
               hint="Must be a valid e-mail. Example: abc@gmail.com"
               bg-color="white"
-              variant="filled"
-              class="ma-2 mb-0"
-              counter="30"
+              variant="outlined"
               placeholder="abc@gmail.com"
             ></v-text-field>
 
-            <p class="text-body-3 ml-2 mb-2">Phone Number*</p>
+            <p class="inputFieldTitle">Phone Number*</p>
             <v-text-field
+              id="mobile"
               v-model="mobile.value.value"
-              density="comfortable"
-              hint="Phone number needs to be exactly 10 digits."
+              :density="
+                screenWidth > 600 && screenWidth < 960
+                  ? 'compact'
+                  : 'comfortable'
+              "
+              hint="Enter 10 digits only."
               bg-color="white"
-              variant="filled"
-              class="ma-2 mb-0"
+              variant="outlined"
               counter="10"
               placeholder="9567676767"
             ></v-text-field>
 
-            <p class="text-body-3 ml-2 mb-2">Message</p>
+            <p class="inputFieldTitle">Message</p>
             <v-textarea
+              id="message"
               v-model="enquiryMessage.value.value"
               counter="750"
-              density="comfortable"
+              :density="
+                screenWidth > 600 && screenWidth < 960
+                  ? 'compact'
+                  : 'comfortable'
+              "
               hint="Please wrap you message in 750 characters."
               bg-color="white"
-              variant="filled"
-              class="mx-2"
+              variant="outlined"
               rows="3"
               placeholder="Leave us a message..."
             ></v-textarea>
 
             <v-checkbox
-              class="acceptCheckbox ml-2"
-              density="comfortable"
+              variant="outlined"
+              :density="
+                screenWidth > 600 && screenWidth < 960
+                  ? 'compact'
+                  : 'comfortable'
+              "
               v-model="acceptpolicy.value.value"
               :true-value="true"
               :false-value="false"
@@ -294,58 +139,200 @@
             </v-checkbox>
 
             <div
-              class="px-2 d-flex flex-column justify-center align-start bg-transparent"
+              class="d-flex flex-column justify-center align-start bg-transparent"
             >
               <v-btn
+                class="sendMessageBtn text-none"
                 type="submit"
                 variant="elevated"
                 density="default"
                 elevation="1"
                 color="#C2185B"
                 width="100%"
-                class="mb-1 text-none text-body-1"
                 @click.prevent="callWhatsappCloudApi"
               >
                 Send message
               </v-btn>
-
-              <button @click.prevent="handleReset" class="mt-3 resetButton">
-                Reset Form
-              </button>
             </div>
           </form>
         </div>
       </v-col>
     </v-row>
 
-    <!-- Our Social Media -->
-    <v-row no-gutters>
-      <v-col cols="12" class="my-6 text-h4 text-center text-md-left"
-        >Our Social Media Platforms</v-col
+    <!-- Second Section -->
+    <v-row no-gutters class="secondSection">
+      <v-col
+        cols="12"
+        sm="4"
+        class="d-flex flex-column justify-center align-start"
       >
-      <v-col cols="12" class="mt-10 mb-15">
-        <div class="d-flex justify-center align-center flex-wrap">
-          <a
-            v-for="social in socials"
-            :key="social.id"
-            :href="social.followUrl"
-            target="_blank"
-          >
-            <div
-              class="socialContainer mx-6 my-4 d-flex flex-column justify-center align-center"
-            >
-              <img
-                :src="social.logo"
-                alt="Instagram logo"
-                class="socialLogo"
-                style="height: 95px; width: 95px"
-              />
-              <span class="socialUserId" :id="social.id">{{
-                social.userId
-              }}</span>
-            </div>
-          </a>
+        <div class="iconContainer">
+          <v-icon icon="mdi-email" color="#C2185B"></v-icon>
         </div>
+        <p class="iconType">Email</p>
+        <p class="description">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+          varius enim in eros elementum tristique.
+        </p>
+      </v-col>
+      <v-col
+        cols="12"
+        sm="4"
+        class="d-flex flex-column justify-center align-start"
+      >
+        <div class="iconContainer">
+          <v-icon icon="mdi-phone" color="#C2185B"></v-icon>
+        </div>
+        <p class="iconType">Phone</p>
+        <p class="description">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+          varius enim in eros elementum tristique.
+        </p>
+      </v-col>
+      <v-col
+        cols="12"
+        sm="4"
+        class="d-flex flex-column justify-center align-start"
+      >
+        <div class="iconContainer">
+          <v-icon icon="mdi-office-building" color="#C2185B"></v-icon>
+        </div>
+        <p class="iconType">Head Office</p>
+        <p class="description">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+          varius enim in eros elementum tristique.
+        </p>
+      </v-col>
+    </v-row>
+
+    <!-- Third Section - Location -->
+    <div class="thirdContainer">
+      <p class="text-center locationHeading">Location</p>
+
+      <v-row no-gutters class="d-flex justify-center align-start">
+        <!-- Bengaluru Office Card -->
+        <v-col
+          cols="11"
+          sm="5"
+          class="pa-0 pb-4 pb-sm-0 pr-sm-2 pr-md-4 locationCardContainer"
+        >
+          <v-card class="locationCard" elevation="0">
+            <v-parallax
+              class="parallax"
+              src="../assets/contactus/office in bengaluru.png"
+              cover
+            >
+            </v-parallax>
+
+            <div class="d-flex flex-column justify-space-between cardContent">
+              <div>
+                <p class="locationName text-center">Bengaluru</p>
+                <p class="phoneNumber text-center">9606937471</p>
+                <p class="address text-center">
+                  299, Main Road, 1st Block, Rahmath Nagar, RT Nagar, Bengaluru,
+                  Karnataka 560032
+                </p>
+              </div>
+
+              <div>
+                <v-card-actions class="pa-0">
+                  <v-btn
+                    block
+                    class="getDirectionBtn text-none"
+                    variant="plain"
+                    @click.prevent.stop="handleGMapInDialog('Bengaluru')"
+                  >
+                    Get Direction
+                    <v-icon icon="mdi-arrow-right" color="#C2185B"></v-icon>
+                  </v-btn>
+                </v-card-actions>
+              </div>
+            </div>
+          </v-card>
+        </v-col>
+
+        <!-- Hassan Office Card -->
+        <v-col
+          cols="11"
+          sm="5"
+          class="pa-0 pl-sm-2 pl-md-4 locationCardContainer"
+        >
+          <v-card class="locationCard" elevation="0">
+            <v-parallax
+              class="parallax"
+              src="../assets/contactus/office in Hassan.png"
+              cover
+            >
+            </v-parallax>
+
+            <div class="d-flex flex-column justify-space-between cardContent">
+              <div>
+                <p class="locationName text-center">Hassan</p>
+                <p class="phoneNumber text-center">9606937470</p>
+                <p class="address text-center">
+                  1st floor - Above Queens Collection, Subhash Square, Hassan -
+                  573201
+                </p>
+              </div>
+
+              <div>
+                <v-card-actions class="pa-0">
+                  <v-btn
+                    block
+                    class="getDirectionBtn text-none"
+                    variant="plain"
+                    @click.prevent.stop="handleGMapInDialog('Hassan')"
+                  >
+                    Get Direction
+                    <v-icon icon="mdi-arrow-right" color="#C2185B"></v-icon>
+                  </v-btn>
+                </v-card-actions>
+              </div>
+            </div>
+          </v-card>
+        </v-col>
+      </v-row>
+
+      <v-dialog
+        v-model="dialog"
+        transition="dialog-bottom-transition"
+        width="70%"
+      >
+        <v-card class="rounded-xl pa-5">
+          <v-card-title class="pt-0"
+            >Checked Spot - {{ location }} location</v-card-title
+          >
+          <v-btn
+            icon="mdi-close"
+            size="small"
+            color="red"
+            @click="dialog = false"
+            style="position: absolute; right: 10px; top: 10px"
+          ></v-btn>
+          <iframe
+            :src="mapLink"
+            width="100%"
+            height="400"
+            style="border: 0"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </v-card>
+      </v-dialog>
+    </div>
+
+    <!-- Fourth Section - CTA -->
+    <v-row no-gutters class="pa-0 ma-0 fourthContainer">
+      <v-col cols="12" class="cta">
+        <v-row no-gutters class="pl-7 pl-sm-9 pl-md-16">
+          <v-col cols="8">
+            <p class="ctaStatement">Your Dream Home Awaits - Get Started Now</p>
+            <a :href="`tel:${phoneCallhref}`">
+              <v-btn class="text-none ctaBtn" color="#C2185B">Call Now</v-btn>
+            </a>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
 
@@ -401,17 +388,42 @@
 <script lang="ts" setup>
 import { onMounted, ref } from "vue";
 import { useField, useForm } from "vee-validate";
+import axios from 'axios';
 //@ts-ignore
-import api from "@/data/api/index.js";
-import bangaloreImage from "@/assets/bengaluru.jpg";
-import instagramlogo from "@/assets/contactus/instagram.jpg";
-import facebooklogo from "@/assets/contactus/fb.jpg";
-import linkedinlogo from "@/assets/contactus/linkedin.jpg";
-import twitterlogo from "@/assets/contactus/x.jpg";
-import whatsapplogo from "@/assets/contactus/whatsapp.jpg";
+import { baseURL } from '@/data/axios/interceptor.js'
 
 const dialog = ref(false);
 const alert = ref(false);
+const expandSuccess = ref(false);
+const expandFailure = ref(false);
+
+const screenWidth = ref(window.innerWidth);
+const bengaluruMapLink =
+  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62196.23239355108!2d77.54196080038798!3d13.018819600000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae176833e3bcd1%3A0x488afbbb30c99b24!2sChecked%20Spot!5e0!3m2!1sen!2sin!4v1714024279303!5m2!1sen!2sin";
+const HassanMapLink =
+  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.508034507226!2d76.09645737328087!3d13.003287314186364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba5494763b45ee3%3A0xba5c2c3355965317!2sChecked%20Spot!5e0!3m2!1sen!2sin!4v1716197788679!5m2!1sen!2sin";
+const mapLink = ref(bengaluruMapLink);
+const location = ref("Bengaluru");
+const phoneCallhref = ref(0);
+
+function handleGMapInDialog(loc: string) {
+  if (loc == "Bengaluru") {
+    location.value = "Bengaluru";
+    mapLink.value = bengaluruMapLink;
+  } else if (loc == "Hassan") {
+    location.value = "Hassan";
+    mapLink.value = HassanMapLink;
+  }
+  dialog.value = true;
+}
+
+async function getContact() {
+  const response = await axios.get(`${baseURL}/contact`);
+
+  const contact = parseInt(response?.data?.contact);
+  phoneCallhref.value = contact;
+}
+
 //form validation
 const { meta, handleSubmit, handleReset } = useForm({
   validationSchema: {
@@ -425,10 +437,7 @@ const { meta, handleSubmit, handleReset } = useForm({
       return "Name needs to be at least 2 and maximum 40 characters.";
     },
     email(value: any) {
-      if (
-        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i.test(value) &&
-        value.length <= 30
-      ) {
+      if (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i.test(value)) {
         return true;
       }
       if (!value) {
@@ -465,75 +474,6 @@ const { meta, handleSubmit, handleReset } = useForm({
     },
   },
 });
-
-const expandSuccess = ref(false);
-const expandFailure = ref(false);
-
-const visitOfficeCards = ref([
-  {
-    id: "bengaluruCard",
-    locationName: "Bengaluru",
-    mobile: "9606937471",
-    email: "info@checkedspot.com",
-    address:
-      "299, Main Road, 1st Block, Rahmath Nagar, RT Nagar, Bengaluru, Karnataka 560032",
-    images: [bangaloreImage],
-    isActive: true,
-    dialog: false,
-    map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62196.23239355108!2d77.54196080038798!3d13.018819600000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae176833e3bcd1%3A0x488afbbb30c99b24!2sChecked%20Spot!5e0!3m2!1sen!2sin!4v1714024279303!5m2!1sen!2sin",
-  },
-  {
-    id: "hassanCard",
-    locationName: "Hassan",
-    mobile: "9606937470",
-    email: "info@checkedspot.com",
-    address:
-      "1st floor - Above Queens Collection, Subhash Square, Hassan - 573201",
-    images: ["https://checkedspot.blob.core.windows.net/assets/hassan.jpg"],
-    isActive: false,
-    dialog: false,
-    map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.508034507226!2d76.09645737328087!3d13.003287314186364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba5494763b45ee3%3A0xba5c2c3355965317!2sChecked%20Spot!5e0!3m2!1sen!2sin!4v1716197788679!5m2!1sen!2sin",
-  },
-]);
-const activeIndex = ref(0);
-
-const socials = ref([
-  {
-    id: "instagram",
-    logo: instagramlogo,
-    userId: "@checkedspot",
-    followUrl: "https://www.instagram.com/checkedspot/",
-    actionBtn: "follow",
-  },
-  {
-    id: "facebook",
-    logo: facebooklogo,
-    userId: "@checkedspot",
-    followUrl: "https://www.facebook.com/profile.php?id=100087798638318",
-    actionBtn: "follow",
-  },
-  {
-    id: "linkedin",
-    logo: linkedinlogo,
-    userId: "@checkedspot",
-    followUrl: "https://www.linkedin.com/company/checked-spot/",
-    actionBtn: "follow",
-  },
-  {
-    id: "twitter",
-    logo: twitterlogo,
-    userId: "@checked_spot",
-    followUrl: "https://x.com/checked_spot",
-    actionBtn: "follow",
-  },
-  {
-    id: "whatsapp",
-    logo: whatsapplogo,
-    userId: "Join Community",
-    followUrl: "https://chat.whatsapp.com/Ly6VXwJhfoj95yjLTlxbpU",
-    actionBtn: "click to join",
-  },
-]);
 
 const name = useField("name");
 const email = useField("email");
@@ -578,314 +518,303 @@ function onInvalidSubmit(invalidData: any) {
 
 const callWhatsappCloudApi = handleSubmit(onSuccess, onInvalidSubmit);
 
-function handleLeftBtnClick() {
-  const lastActiveIndex = activeIndex.value;
-  if (activeIndex.value === 0) {
-    activeIndex.value = visitOfficeCards.value.length - 1;
-  } else {
-    activeIndex.value -= 1;
-  }
-  // set isActive Value to false for last Active active Office Card
-  visitOfficeCards.value[lastActiveIndex].isActive = false;
-  visitOfficeCards.value[activeIndex.value].isActive = true;
-}
-
-function handleRightBtnClick() {
-  const lastActiveIndex = activeIndex.value;
-  if (activeIndex.value === visitOfficeCards.value.length - 1) {
-    activeIndex.value = 0;
-  } else {
-    activeIndex.value += 1;
-  }
-  // set isActive Value to false for last Active active Office Card
-  visitOfficeCards.value[lastActiveIndex].isActive = false;
-
-  visitOfficeCards.value[activeIndex.value].isActive = true;
-}
-
-function redirectToWhatsAppGroup() {
-  // Construct the API link
-  var whatsappGroupLink = "https://wa.me/Ly6VXwJhfoj95yjLTlxbpU";
-
-  // Redirect the user to the WhatsApp group
-  window.location.href = whatsappGroupLink;
-}
-
-onMounted(() => {});
+onMounted(async() => {
+  await getContact();
+});
 </script>
 
 <style scoped>
-#leftBtn {
-  position: absolute;
-  top: 240px;
-  left: -70px;
-  z-index: 1;
-}
-#rightBtn {
-  position: absolute;
-  top: 240px;
-  right: -70px;
-  z-index: 1;
+/* First Section Starts  */
+.firstSection {
+  margin-top: 80px !important;
+  padding-left: 47px;
+  padding-right: 47px;
 }
 
-.parallaxImage {
-  width: 100%;
-  height: 47%;
-}
-.cardContent {
-  width: 100%;
-  height: 53%;
-}
-
-.activeCard {
-  position: relative;
-  width: 350px;
-  height: 538px;
-  opacity: 1;
-}
-.activeCardText {
-  font-size: 16px;
-}
-#activeViewMapBtn {
-  border: solid 2px;
-  font-size: 16px;
-}
-.inactiveCard {
-  width: 200px;
-  height: 388px;
-  opacity: 0.4;
-  position: absolute;
-  top: 70px;
-  right: -231px;
-}
-.inactiveCardText {
-  font-size: 10px;
-}
-#inactiveViewMapBtn {
-  border: solid 2px;
-  font-size: 10px;
-  margin-top: -20px;
-  height: 25px;
-}
-
-.acceptCheckbox a {
-  color: #f5005696 !important;
-}
-.acceptCheckbox a:hover {
-  text-decoration: underline;
-}
-
-.acceptCheckboxlabel {
-  height: auto !important;
+.mapContainer > iframe {
+  border-radius: 12px;
+  min-height: 277px;
 }
 
 .formCard {
-  padding: 50px 50px !important;
-  width: 588px;
-  z-index: 1;
-  background: url("../assets/contactus/phoneHolding.jpg");
-  background-size: cover;
+  padding: 30px 62px 40px 62px;
+  background-color: #ffecf4;
+  border-radius: 12px;
+  width: 100%;
 }
 
-.cardsSubContainer {
-  width: 350px;
+.heading {
+  line-height: 44px;
+  font-size: 36px;
+  font-weight: 600;
+  margin-bottom: 20px;
 }
 
-.whatsappMsgBtn,
-.whatsappIcon {
-  color: #00ac11;
+.subHeading {
+  line-height: 18px;
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 48px;
 }
 
-.parallaxMask {
-  background-color: rgba(0, 0, 0, 0.25);
+.inputFieldTitle {
+  line-height: 18px;
+  font-size: 14px;
+  font-weight: 400;
+  margin-top: 2px;
+  margin-bottom: 6px;
 }
 
-a {
-  color: black !important;
-  text-decoration: none;
+.sendMessageBtn {
+  line-height: 18px;
+  font-size: 16px;
+  font-weight: 500;
+  height: 42px !important;
+  border-radius: 6px;
 }
 
-.contactinfo {
-  font-size: 18px;
-}
-
-.email > div > button,
-.contactinfo > div > button {
-  margin-top: -18px;
-}
-
-.formCont {
-  position: fixed;
-  right: 0;
-  height: auto;
-  overflow-y: scroll;
-  overflow-x: hidden;
-
-  /* Hide scrollbar for IE, Edge and Firefox */
-  -ms-overflow-style: none;
-  /* IE and Edge */
-  scrollbar-width: none;
-  /* Firefox */
-}
-
-/* Hide scrollbar for Chrome, Safari and Opera */
-.formCont::-webkit-scrollbar {
-  display: none;
-}
-
-.formCont > .card {
-  border: 1px solid rgb(246, 48, 94, 0.171);
-  background-color: rgba(246, 48, 94, 0.05);
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-.resetButton {
-  width: 130px;
-  height: 37px;
-  border-radius: 5px;
-  box-shadow: 2px 2px 6px rgb(208, 208, 208);
-  background: white;
-  color: black; 
-  transform: scale(1,1);
-  transition: transform .2s ease-in-out;
-}
-.resetButton:hover {
-  transform: scale(1.1,1.1);
-}
-
-.socialContainer {  
-  cursor: pointer;
-}
-
-.socialLogo {
-  width: 95px;
-  height: 95px;
-  margin-bottom: 24px;
-  transform: scale(1,1);
-  transition: transform .2s ease-in-out;
-}
-.socialContainer:hover > .socialLogo {
-  cursor: pointer;
-  transform: scale(1.1,1.1);
-}
-.socialUserId {
-  color: white;
-  padding: 5px 15px;
-  border-radius: 12px;  
-  transform: translate(0,0);
-  transition: transform .2s ease-in-out;
-}
-.socialContainer:hover > .socialUserId {
-  transform: translate(0,10px);
-}
-
-#instagram {
-  background: rgba(205, 57, 162, 1);
-  background: linear-gradient(
-    25deg,
-    rgba(255, 207, 83, 1) 0%,
-    rgba(255, 86, 62, 1) 50%,
-    rgba(205, 57, 162, 1) 100%
-  );
-}
-#facebook {
-  background: rgba(40, 128, 243, 1);
-  background: linear-gradient(
-    43deg,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(40, 128, 243, 1) 35%,
-    rgba(24, 119, 242, 1) 100%
-  );
-}
-#linkedin {
-  background: rgba(0, 119, 181, 1);
-  background: linear-gradient(
-    43deg,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(0, 119, 181, 1) 35%
-  );
-}
-#twitter {
-  background: rgb(0, 0, 0);
-  background: linear-gradient(
-    43deg,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(0, 0, 0, 1) 35%
-  );
-}
-#whatsapp {
-  background: rgb(78, 171, 82, 1);
-  background: linear-gradient(
-    43deg,
-    rgba(195, 224, 196, 1) 0%,
-    rgba(78, 171, 82, 1) 51%
-  );
-}
-
-@media only screen and (max-width: 599px) {
-  .lg {
-    display: none;
+@media only screen and (max-width: 960px) {
+  .firstSection {
+    margin-top: 40px !important;
   }
-
-  .sm {
-    display: block;
-  }
-
-  .contactinfo {
-    font-size: 16px;
-  }
-
-  #leftBtn {
-    left: -50px;
-    width: 40px;
-    height: 40px;
-  }
-  #rightBtn {
-    right: -50px;
-    width: 40px;
-    height: 40px;
-  }
-  .cardsSubContainer {
-    width: 250px;
-  }
-  .activeCard {
-    position: relative;
-    width: 250px;
-  }
-
-  .inactiveCard {
-    width: 150px;
-    top: 70px;
-    right: -180px;
-  }
-
   .formCard {
-    width: 400px;
+    padding: 20px 40px 25px 40px;
+    border-radius: 6px;
   }
 
-  .formCont {
-    position: static;
+  .heading {
+    line-height: 22px;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .subHeading {
+    line-height: 14px;
+    font-size: 12px;
+    margin-bottom: 24px;
+  }
+
+  .inputFieldTitle {
+    line-height: 14px;
+    font-size: 12px;
+  }
+
+  input::placeholder {
+    font-size: 5px !important;
   }
 }
 
-@media only screen and (min-width: 600px) {
-  .lg {
-    display: block;
-  }
+/* Second Section Starts  */
+.secondSection {
+  margin-top: 80px !important;
+  padding-left: 62.5px;
+  padding-right: 62.5px;
+}
+.secondSection > div:nth-child(1) {
+  padding-right: 32px !important;
+}
+.secondSection > div:nth-child(2) {
+  padding-right: 32px !important;
+}
+.iconContainer {
+  font-size: 27px;
+  margin-bottom: 16px;
+}
+.iconType {
+  font-size: 24px;
+  margin-bottom: 24px;
+}
+.description {
+  font-size: 16px;
+}
 
-  .sm {
-    display: none;
+@media only screen and (max-width: 960px) {
+  .secondSection {
+    margin-top: 40px !important;
+  }
+  .secondSection > div:nth-child(1) {
+    padding-right: 0 !important;
+    padding-bottom: 16px;
+  }
+  .secondSection > div:nth-child(2) {
+    padding-right: 0 !important;
+    padding-bottom: 16px;
+  }
+  .iconContainer {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+  .iconType {
+    font-size: 15px;
+    margin-bottom: 12px;
+  }
+  .description {
+    font-size: 12px;
   }
 }
 
-@media only screen and (max-width: 959px) {
-  .formCont {
-    position: static;
+@media only screen and (min-width: 601px) and (max-width: 960px) {
+  .secondSection > div:nth-child(1) {
+    padding-right: 16px !important;
+    padding-bottom: 0px;
+  }
+  .secondSection > div:nth-child(2) {
+    padding-right: 16px !important;
+    padding-bottom: 0px;
+  }
+}
+
+/* Third Section Starts  */
+.thirdContainer {
+  margin-top: 80px !important;
+  padding-left: 62.5px;
+  padding-right: 62.5px;
+  height: auto;
+}
+.locationHeading {
+  font-size: 32px;
+  font-weight: 500;
+  margin-bottom: 32px;
+}
+
+.parallax {
+  width: 100%;
+  height: auto;
+  border-radius: 7.5px;
+}
+
+.locationName {
+  margin-top: 32px;
+  line-height: 48px;
+  font-size: 32px;
+  font-weight: 600;
+  color: #c2185b;
+}
+.phoneNumber {
+  margin-top: 32px;
+  line-height: 36px;
+  font-size: 24px;
+}
+.address {
+  margin-top: 32px;
+  line-height: 36px;
+  font-size: 24px;
+}
+
+.getDirectionBtn {
+  margin-top: 32px;
+  line-height: 36px;
+  font-size: 24px;
+}
+
+@media only screen and (max-width: 960px) {
+  .thirdContainer {
+    margin-top: 40px !important;
+  }
+  .locationHeading {
+    font-size: 25px;
+    font-weight: 400;
+    margin-bottom: 16px;
+  }
+  .parallax {
+    width: 100%;
     height: auto;
+    border-radius: 3.68px;
   }
-  .cardsContainer {
-    overflow: hidden;
+  .locationName {
+    margin-top: 20px;
+    line-height: 35px;
+    font-size: 25px;
+    font-weight: 500;
+    color: #c2185b;
+  }
+  .phoneNumber {
+    margin-top: 20px;
+    line-height: 30px;
+    font-size: 20px;
+  }
+  .address {
+    margin-top: 20px;
+    line-height: 30px;
+    font-size: 20px;
+  }
+
+  .getDirectionBtn {
+    margin-top: 20px;
+    line-height: 30px;
+    font-size: 20px;
+  }
+}
+
+/* Fourth Section Starts  */
+.fourthContainer {
+  margin-top: 80px !important;
+  margin-bottom: 80px !important;
+  padding-left: 62px !important;
+  padding-right: 62px !important;
+  height: 376px;
+}
+.fourthContainer > .cta {
+  border-radius: 8px;
+  background-image: url("../assets/contactus/CTA image.png");
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.ctaStatement {
+  margin-bottom: 32px;
+  color: white;
+  font-size: 42px;
+}
+.ctaBtn {
+  font-size: 20px;
+  height: 48px !important;
+  border-radius: 8px;
+}
+
+@media only screen and (max-width: 600px) {
+  .fourthContainer {
+    margin-top: 40px !important;
+    margin-bottom: 40px !important;
+    padding: 0 !important;
+    height: 188px;
+  }
+  .fourthContainer > .cta {
+    border-radius: 0px;
+  }
+
+  .ctaStatement {
+    margin-bottom: 16px;
+    font-size: 20px;
+  }
+  .ctaBtn {
+    font-size: 14px;
+    height: 35px !important;
+    border-radius: 4px;
+  }
+}
+
+@media only screen and (min-width: 601px) and (max-width: 960px) {
+  .fourthContainer {
+    margin-top: 40px !important;
+    margin-bottom: 40px !important;
+    height: 188px;
+  }
+  .fourthContainer > .cta {
+    border-radius: 4px;
+  }
+
+  .ctaStatement {
+    margin-bottom: 16px;
+    font-size: 24px;
+  }
+  .ctaBtn {
+    font-size: 16px;
+    height: 40px !important;
+    border-radius: 6px;
   }
 }
 </style> 
