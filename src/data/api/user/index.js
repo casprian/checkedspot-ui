@@ -3,7 +3,7 @@ import * as call from "../../axios/client";
 
 const getUserData = async (params) => {
     try {
-        const URL = "/user";
+        const URL = "/v2/user";
         const response = await call.callWithoutToken('get',URL,params)
         return {status: 200, data: response};
     }catch(e) {
@@ -13,7 +13,7 @@ const getUserData = async (params) => {
 
 const isUserExist = async (params) => {
     try {
-        const URL = "/user/exist";
+        const URL = "/v2/user/exist";
         const response = await call.callWithoutToken('get', URL, params);
         return {status: 200, data: response};
     }catch(e) {
@@ -23,7 +23,7 @@ const isUserExist = async (params) => {
 
 const updatePassword = async (params) => {
     try {
-        const URL = "/user/password/update";
+        const URL = "/v2/user/password/update";
         const response = await call.callWithoutToken('put', URL, params);
         return {status: 200, data: response};
     }catch(e) {
@@ -33,7 +33,7 @@ const updatePassword = async (params) => {
 
 const resetPassword = async (params) => {
     try {
-        const URL = "/user/password/reset";
+        const URL = "/v2/user/password/reset";
         const response = await call.callWithoutToken('put', URL, params);
         return {status: 200, data: response};
     }catch(e) {
@@ -43,7 +43,7 @@ const resetPassword = async (params) => {
  
 const login = async (params) => {
     try {
-        const URL = "/user/login";
+        const URL = "/v2/user/login";
         const response = await call.callWithoutToken('post',URL,params);
         return {status: 200, data: response};
     }catch(e) {
@@ -53,7 +53,7 @@ const login = async (params) => {
 
 const signup = async (params) => {
     try {
-        const URL = "/user/register";
+        const URL = "/v2/user/register";
         const response = await call.callWithoutToken('post',URL,params)
         return {status: 200, data: response};
     }catch(e) {
@@ -63,7 +63,7 @@ const signup = async (params) => {
 
 const sendEnquiry = async (params) => {
     try {
-        const URL = "user/sendEnquiry";
+        const URL = "/v2/user/sendEnquiry";
         const response = await call.callWithoutToken('post',URL,params);
         return {status: 200, data: response};
     }catch(e) {
@@ -73,7 +73,7 @@ const sendEnquiry = async (params) => {
 
 const getAuthorizationUrl = async (params) => {
     try {
-        const URL = "/user/getAuthorizationUrl";
+        const URL = "/v2/user/getAuthorizationUrl";
         const response = await call.callWithoutToken('get',URL,params);
         return {status: 200, data: response};
     }catch(e) {
@@ -83,7 +83,7 @@ const getAuthorizationUrl = async (params) => {
 
 const updateProfile = async (params) => {
     try {
-        const URL = "/user/update/profile";
+        const URL = "/v2/user/update/profile";
         const response = await call.callWithToken('post',URL,params);
         return {status: 200, data: response};
     }catch(e) {
@@ -93,7 +93,7 @@ const updateProfile = async (params) => {
 
 const updateProfilePicture = async (params) => {
     try {
-        const URL = "/user/update/profile/picture";
+        const URL = "/v2/user/update/profile/picture";
         const response = await call.callWithTokenForMultiPart('post',URL,params);
         return {status: 200, data: response};
     }catch(e) {

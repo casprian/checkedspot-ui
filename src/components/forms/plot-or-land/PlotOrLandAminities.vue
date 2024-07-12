@@ -437,6 +437,7 @@
         class="px-10 text-none text-body-1 elevation-4"
         height="48"
         color="#C2185B"
+        :loading="loader"
         >Save and Submit</v-btn
       >
     </div>
@@ -455,6 +456,8 @@ const emits = defineEmits(["onContinue"]);
 const router = useRouter();
 
 const propertyData = ref();
+const loader = ref(false);
+
 const propertyFacing = ref("");
 const facingRoadWidth = ref(0);
 const units = ref(["feet", "meter", "yard"]);
@@ -521,6 +524,7 @@ function saveDataTolocalStorage() {
 }
 
 async function handleSubmit() {
+  loader.value = true;
   const postPropertyData = saveDataTolocalStorage();
 
   // deleting unit before sending data to backend because unit will be either sqft. for areas, and feet for length
@@ -539,6 +543,7 @@ async function handleSubmit() {
   } else {
     alert("Property Posting Failed!");
   }
+  loader.value = false;
 }
 
 onBeforeMount(() => {
