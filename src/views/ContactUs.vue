@@ -388,9 +388,9 @@
 <script lang="ts" setup>
 import { onMounted, ref } from "vue";
 import { useField, useForm } from "vee-validate";
-import axios from 'axios';
+import axios from "axios";
 //@ts-ignore
-import { baseURL } from '@/data/axios/interceptor.js'
+import { baseURL } from "@/data/axios/interceptor.js";
 
 const dialog = ref(false);
 const alert = ref(false);
@@ -405,24 +405,6 @@ const HassanMapLink =
 const mapLink = ref(bengaluruMapLink);
 const location = ref("Bengaluru");
 const phoneCallhref = ref(0);
-
-function handleGMapInDialog(loc: string) {
-  if (loc == "Bengaluru") {
-    location.value = "Bengaluru";
-    mapLink.value = bengaluruMapLink;
-  } else if (loc == "Hassan") {
-    location.value = "Hassan";
-    mapLink.value = HassanMapLink;
-  }
-  dialog.value = true;
-}
-
-async function getContact() {
-  const response = await axios.get(`${baseURL}/contact`);
-
-  const contact = parseInt(response?.data?.contact);
-  phoneCallhref.value = contact;
-}
 
 //form validation
 const { meta, handleSubmit, handleReset } = useForm({
@@ -518,7 +500,25 @@ function onInvalidSubmit(invalidData: any) {
 
 const callWhatsappCloudApi = handleSubmit(onSuccess, onInvalidSubmit);
 
-onMounted(async() => {
+function handleGMapInDialog(loc: string) {
+  if (loc == "Bengaluru") {
+    location.value = "Bengaluru";
+    mapLink.value = bengaluruMapLink;
+  } else if (loc == "Hassan") {
+    location.value = "Hassan";
+    mapLink.value = HassanMapLink;
+  }
+  dialog.value = true;
+}
+
+async function getContact() {
+  const response = await axios.get(`${baseURL}/contact`);
+
+  const contact = parseInt(response?.data?.contact);
+  phoneCallhref.value = contact;
+}
+
+onMounted(async () => {
   await getContact();
 });
 </script>

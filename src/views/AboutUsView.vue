@@ -1,304 +1,721 @@
 <template>
-    <v-container>
-        <v-row no-gutters class="mt-6">
-            <v-col cols="12" sm="7" md="8" class="pr-10">
-                <div class="pb-3 content mt-0">
-                    Launched in 2022, <a href="https://www.checkedspot.com" target="_blank">Checked Spot</a>, India’s No. 1
-                    portal which displays only verified properties, We verify each property with care and a quality
-                    checklist certified by checkedspot.
-                </div>
+  <v-container fluid class="pa-0">
+    <!-- First Section -->
+    <v-row no-gutters class="firstSection d-flex justify-center align-center">
+      <v-col cols="12" sm="10">
+        <h1 class="aboutHeading">
+          Welcome to <a href="/">Checked Spot</a> <br />
+          Your Trusted Real Estate Partner
+        </h1>
+        <h3 class="subHeading">
+          With a commitment to excellence and a passion for real estate, we are
+          here to guide you every step of the way.
+        </h3>
+        <div class="headerActionContainer">
+          <router-link to="/listing" class="browseProperty">
+            <v-btn class="text-none" :width="156" color="#C2185B"
+              >Browse Property</v-btn
+            >
+          </router-link>
+          <router-link to="/postproperty" class="postProperty">
+            <v-btn
+              class="text-none"
+              :width="156"
+              color="#C2185B"
+              variant="outlined"
+              >Post Property</v-btn
+            >
+          </router-link>
+        </div>
+      </v-col>
+    </v-row>
 
-                <div class="pb-3 content mt-0">
-                    We deal with every aspect of the consumers’ needs in the real estate industry. It is an online forum
-                    where buyers, sellers and brokers/agents can exchange information about real estate properties quickly,
-                    effectively and free. At <a href="https://www.checkedspot.com" target="_blank">www.checkedspot.com</a>,
-                    you can advertise a property, search for a property, browse through properties, build your own property
-                    microsite, and keep yourself updated with the latest news and trends making headlines in the realty
-                    sector.
-                </div>
+    <!-- Second Section -->
+    <v-row no-gutters class="secondSection px-4 px-sm-10 px-md-15">
+      <v-col cols="12" class="heroContainer">
+        <video
+          class="heroVideo"
+          poster="https://checkedspot.blob.core.windows.net/assets/headerVideoPoster.png"
+          autoplay
+          muted
+          loop
+        >
+          <source
+            src="https://checkedspot.blob.core.windows.net/assets/7.mp4"
+            type="video/mp4"
+          />
+          Your browser does not support the video tag.
+        </video>
+      </v-col>
+    </v-row>
 
-                <div class="pb-6 content mt-0">
-                    We build your dream houses with lot of care , precision and giving attention to detail using our unique
-                    methodology which ensure quality, transparency and trust.
-                </div>
-            </v-col>
-            <v-col cols="12" sm="5" md="4">
-                <video class="backgroundvideo"
-                    poster="https://checkedspot.blob.core.windows.net/assets/headerVideoPoster.png" autoplay muted loop>
-                    <source src="https://checkedspot.blob.core.windows.net/assets/7.mp4" type="video/mp4" />
-                    Your browser does not support the video tag.
-                </video>
-            </v-col>
+    <!-- Third Section -->
+    <v-row no-gutters class="pa-0 thirdSection px-4 px-sm-10 px-md-15">
+      <v-col cols="12">
+        <h3 class="whyCheckedspot">Why <a href="/">Checked Spot</a>?</h3>
+      </v-col>
+      <v-col cols="12" sm="6" class="imageContainer pr-10">
+        <img
+          src="../assets/aboutus/whyCheckedspot.png"
+          alt="Why Checked Spot"
+        />
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        class="pa-0 pl-md-10 d-flex flex-column justify-center"
+      >
+        <div class="greaterThanMd">
+          <p>
+            Launched in 2022, Checked Spot, India's No. 1 portal which displays
+            only verified properties, We verify each property with care and a
+            quality checklist certified by checkedspot.
+          </p>
+          <br />
+          <p>
+            We deal with every aspect of the consumers' needs in the real estate
+            industry. It is an online forum where buyers, sellers and
+            brokers/agents can exchange information about real estate properties
+            quickly, effectively and free. At
+            <a href="https://www.checkedspot.com">checkedspot.com</a>, you can
+            advertise a property, search for a property, browse through
+            properties, build your own property microsite, and keep yourself
+            updated with the latest news and trends making headlines in the
+            realty sector.
+          </p>
+        </div>
+        <div class="greaterThanSm">
+          <p>
+            Launched in 2022, Checked Spot, India's No. 1 portal which displays
+            only verified properties, We verify each property with care and a
+            quality checklist certified by checkedspot.
+          </p>
+          <br />
+          <p>
+            We deal with every aspect of the consumers' needs in the real estate
+            industry. It is an online forum where buyers, sellers and
+            brokers/agents can exchange information about real estate properties
+            quickly, effectively and free.
+          </p>
+        </div>
+      </v-col>
+
+      <v-col cols="12" class="mt-5 mt-md-10">
+        <div class="greaterThanMd">
+          <p>
+            We build your dream houses with lot of care , precision and giving
+            attention to detail using our unique methodology which ensure
+            quality, transparency and trust.
+          </p>
+          <br />
+          <p>
+            At present,
+            <a href="https://www.checkedspot.com">checkedspot.com</a> prides
+            itself for having farmhouses, farmlands, and plots listings spanning
+            across multiple cities in South India. Of all, In addition to
+            providing an online platform to real estate developers, brokers and
+            property owners for listing their property for sale, purchase we are
+            also construction specialist with most competitive price at top
+            quality for your home dreams.
+          </p>
+          <br />
+          <p>
+            With the ever-evolving online search behaviour,
+            <a href="https://www.checkedspot.com">checkedspot.com</a> shares
+            updated information pertinent to real estate activities, assisting
+            prospective buyers to make informed buying decision. We make online
+            property search easier, quicker and smarter!
+          </p>
+        </div>
+
+        <div class="greaterThanSm">
+          <p>
+            At
+            <a href="https://www.checkedspot.com">checkedspot.com</a>, you can
+            advertise a property, search for a property, browse through
+            properties, build your own property microsite, and keep yourself
+            updated with the latest news and trends making headlines in the
+            realty sector.
+          </p>
+          <br />
+          <p>
+            We build your dream houses with lot of care , precision and giving
+            attention to detail using our unique methodology which ensure
+            quality, transparency and trust. At present,
+            <a href="https://www.checkedspot.com">checkedspot.com</a> prides
+            itself for having farmhouses, farmlands, and plots listings spanning
+            across multiple cities in South India. Of all, In addition to
+            providing an online platform to real estate developers, brokers and
+            property owners for listing their property for sale, purchase we are
+            also construction specialist with most competitive price at top
+            quality for your home dreams.
+          </p>
+          <br />
+          <p>
+            With the ever-evolving online search behaviour,
+            <a href="https://www.checkedspot.com">checkedspot.com</a> shares
+            updated information pertinent to real estate activities, assisting
+            prospective buyers to make informed buying decision. We make online
+            property search easier, quicker and smarter!
+          </p>
+        </div>
+      </v-col>
+    </v-row>
+
+    <!-- Fourth Section -->
+    <v-row no-gutters class="fourthSection px-4 px-sm-10 px-md-15">
+      <!-- Left -->
+      <v-col cols="12" sm="6" class="pr-sm-6 pr-md-10">
+        <h2 class="journeyHeading">
+          Share your journey from <br />
+          the beginning to now
+        </h2>
+
+        <div class="journeyImage">
+          <img
+            src="../assets/aboutus/journey.png"
+            alt="Journey of Your Dream House"
+          />
+        </div>
+      </v-col>
+
+      <!-- right -->
+      <v-col
+        cols="12"
+        sm="6"
+        class="pl-sm-6 pl-md-10 d-flex justify-end align-end"
+      >
+        <v-row no-gutters class="">
+          <v-col cols="12" class="mb-4 d-flex">
+            <div
+              class="activeStepIndicator d-flex flex-column justify-start align-center"
+            >
+              <span class="activeStepIconContainer">
+                <v-icon
+                  class="mdIcon"
+                  icon="mdi-cube"
+                  color="#c2185b"
+                  size="40"
+                ></v-icon>
+                <v-icon
+                  class="smIcon"
+                  icon="mdi-cube"
+                  color="#c2185b"
+                  size="22"
+                ></v-icon>
+              </span>
+              <span class="activeStepVerticalLine"></span>
+            </div>
+            <div class="activeStepAgenda">
+              <h4>Construct your dream</h4>
+              <p>
+                Experience modern design, Thoughtful layout, and top-notch
+                craftsmanship.
+              </p>
+            </div>
+          </v-col>
+
+          <v-col cols="12" class="mb-4 d-flex">
+            <div
+              class="stepIndicator d-flex flex-column justify-start align-center"
+            >
+              <span class="stepIconContainer">
+                <v-icon class="mdIcon" icon="mdi-cube" size="40"></v-icon>
+                <v-icon class="smIcon" icon="mdi-cube" size="22"></v-icon>
+              </span>
+              <span class="stepVerticalLine"></span>
+            </div>
+            <div class="stepAgenda">
+              <h4>Construct your dream</h4>
+              <p>
+                Experience modern design, Thoughtful layout, and top-notch
+                craftsmanship.
+              </p>
+            </div>
+          </v-col>
+
+          <v-col cols="12" class="mb-4 d-flex">
+            <div
+              class="stepIndicator d-flex flex-column justify-start align-center"
+            >
+              <span class="stepIconContainer">
+                <v-icon class="mdIcon" icon="mdi-cube" size="40"></v-icon>
+                <v-icon class="smIcon" icon="mdi-cube" size="22"></v-icon>
+              </span>
+            </div>
+            <div class="stepAgenda">
+              <h4>Construct your dream</h4>
+              <p>
+                Experience modern design, Thoughtful layout, and top-notch
+                craftsmanship.
+              </p>
+            </div>
+          </v-col>
         </v-row>
+      </v-col>
+    </v-row>
 
-        <v-row no-gutters>
-            <v-col cols="12">
-                <div class="py-6">
-                    <h2 class="heading2">Why Checked Spot?</h2>
+    <!-- Fifth Section -->
+    <v-row no-gutters class="fifthSection px-4 px-sm-10 px-md-15">
+      <!-- Testimonials heading -->
+      <v-col cols="12">
+        <h2 class="testimonialHeading">Our <span>Testimonials</span></h2>
+      </v-col>
+      <v-col cols="12">
+        <testimonial />
+      </v-col>
+    </v-row>
 
-                    <div class="content">
-                        At present, <a href="https://www.checkedspot.com" target="_blank">checkedspot.com</a> prides itself for having farmhouses, farmlands, and plots listings spanning
-                        across multiple cities in South India. Of all, In addition to providing an online platform to real
-                        estate developers, brokers and property owners for listing their property for sale, purchase we are
-                        also construction specialist with most competitive price at top quality for your home dreams.
-                    </div>
-
-                    <div class="content">
-                        With the ever-evolving online search behaviour, <a href="https://www.checkedspot.com" target="_blank">checkedspot.com</a> shares updated information pertinent
-                        to real estate activities, assisting prospective buyers to make informed buying decision. We make
-                        online property search easier, quicker and smarter!
-                    </div>
-                </div>
-            </v-col>
+    <!-- Sixth Section - CTA -->
+    <v-row no-gutters class="pa-0 ma-0 px-4 px-sm-10 px-md-15 sixthSection">
+      <v-col cols="12" class="cta">
+        <v-row no-gutters class="pl-7 pl-sm-9 pl-md-16">
+          <v-col cols="8">
+            <p class="ctaStatement">Your Dream Home Awaits - Get Started Now</p>
+            <a :href="`tel:${phoneCallhref}`">
+              <v-btn class="text-none ctaBtn" color="#C2185B">Call Now</v-btn>
+            </a>
+          </v-col>
         </v-row>
-
-        <v-row no-gutters class="pa-0 mt-8">
-            <v-col cols="12">
-                <h2 class="heading2 mb-0">What we do?</h2>
-                <v-row no-gutters class="py-3 pt-5 mx-n2">
-                    <v-col cols="12" sm="6" md="4" class="pa-2">
-                        <v-img width="100%" height="100%" src="../assets/aboutusconstruction.jpg"></v-img>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4" class="pa-2">
-                        <v-img width="100%" height="100%" src="../assets/aboutusplot.jpg"></v-img>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4" class="pa-2">
-                        <v-img width="100%" height="100%" src="../assets/aboutusfarmland.jpg"></v-img>
-                    </v-col>
-                </v-row>
-            </v-col>
-        </v-row>
-
-        <v-row no-gutters>
-            <v-col class="pt-12" cols="12">
-
-                <h2 class="heading2">Customers testimonial</h2>
-
-                <v-sheet class="mx-auto mb-6">
-                    <v-slide-group class="py-4 mx-n5" show-arrows>
-                        <v-slide-group-item v-for="customer in customers" :key="customer.id">
-                            <v-hover v-slot="{ isHovering, props }">
-                                <v-card class="ma-4" :elevation="isHovering ? 12 : 4" v-bind="props" width="350"
-                                    height="170" color="grey-lighten-1">
-                                    <v-row no-gutters class="px-4" style="height: 100%;">
-                                        <v-col cols="3" class="d-flex justify-center align-center">
-                                            <v-sheet class="rounded-circle"
-                                                style="height: 60px; width: 60px; overflow: hidden;">
-                                                <v-img :src="customer.img ? customer.img : 'https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light'" width="100%" height="100%" cover></v-img>
-                                            </v-sheet>
-                                        </v-col>
-                                        <v-col cols="9" class="py-4 pl-4 text-body-2 d-flex flex-column align-start justify-center">
-                                            <div class="text-left text-body-2 font-weight-medium mb-1">{{ customer.name }}</div>
-                                            <span class="text-body-2">{{ customer.feedback }}</span>
-                                        </v-col>
-                                    </v-row>
-                                </v-card>
-                            </v-hover>
-                        </v-slide-group-item>
-                    </v-slide-group>
-                </v-sheet>
-            </v-col>
-        </v-row>
-
-        <v-row no-gutters>
-            <v-col class="pt-4" cols="12">
-
-                <h2 class="heading2">Investors testimonial</h2>
-
-                <v-sheet class="mx-auto mb-10">
-                    <v-slide-group class="py-4 mx-n5" show-arrows>
-                        <v-slide-group-item v-for="investor in investors" :key="investor.id">
-                            <v-hover v-slot="{ isHovering, props }">
-                                <v-card class="ma-4" :elevation="isHovering ? 12 : 4" v-bind="props" width="350"
-                                    height="170" color="grey-lighten-1">
-                                    <v-row no-gutters class="px-4" style="height: 100%;">
-                                        <v-col cols="3" class="d-flex  justify-center align-center">
-                                            <v-sheet class="rounded-circle"
-                                                style="height: 60px; width: 60px; overflow: hidden;">
-                                                <v-img :src="investor.img ? investor.img : 'https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light'" width="100%" height="100%" cover></v-img>
-                                            </v-sheet>
-                                        </v-col>
-                                        <v-col cols="9" class="py-4 pl-4 text-body-2 d-flex flex-column align-start justify-center">
-                                            <div class="text-left text-body-2 font-weight-medium mb-1">{{ investor.name }}</div>
-                                            <span class="text-body-2">{{ investor.feedback }}</span>
-                                        </v-col>
-                                    </v-row>
-                                </v-card>
-                            </v-hover>
-                        </v-slide-group-item>
-                    </v-slide-group>
-                </v-sheet>
-            </v-col>
-        </v-row>
-    </v-container>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
-import IqbalAhmed from '@/assets/customers/IqbalAhmed.jpeg';
-import MashoodAhmed from '@/assets/customers/MashoodAhmed.jpeg';
+import { ref, defineAsyncComponent, onMounted } from "vue";
+import axios from "axios";
+//@ts-ignore
+import { baseURL } from "@/data/axios/interceptor.js";
 
-const icons = ref(['mdi-rewind', 'mdi-play', 'mdi-fast-forward']);
+const testimonial = defineAsyncComponent(
+  () => import("@/components/aboutus/testimonial.vue")
+);
 
-const customers = ref([
-    {
-        id: "1",
-        name: "Iqbal Ahmed",
-        img: IqbalAhmed,
-        feedback: "Checked Spot's proactive and personalized approach ensures a smooth real estate journey. Trustworthy professionals for any property!"
-    },
-    {
-        id: "2",
-        name: "Mahantesh Elemmi",
-        img: "",
-        feedback: "Seamless property purchase with Checked Spot - their commitment to satisfaction is unmatched. Highly recommended!"
-    },
-    {
-        id: "3",
-        name: "Shakuntla",
-        img: '',
-        feedback: "Checked Spot's dedication and expertise shine in every real estate transaction, making it smooth and satisfying."
-    },
-    {
-        id: "4",
-        name: "Nagina Kausar",
-        img: '',
-        feedback: "Checked Spot's professionalism ensured a smooth farmhouse purchase. Highly recommend for a satisfying real estate experience!"
-    },
-    {
-        id: "5",
-        name: "Mashood Ahmed",
-        img: MashoodAhmed,
-        feedback: "Checked Spot's commitment to customer satisfaction made my property purchase stress-free. Trustworthy and highly recommended!"
-    },
-    {
-        id: "6",
-        name: "Naveed Pasha",
-        img: '',
-        feedback: "Seamless transaction with Checked Spot, making my farmhouse dream a reality. Professionalism and satisfaction guaranteed!"
-    },
-    {
-        id: "7",
-        name: "Hina Kausar",
-        img: '',
-        feedback: "Smooth real estate journey with Checked Spot - their dedication and personalized guidance shine. Highly recommended!"
-    },
-    {
-        id: "8",
-        name: "Shifa Aleem",
-        img: '',
-        feedback: "Checked Spot's proactive approach and expertise ensured a smooth purchase of my dream property. Highly satisfied!"
-    },
-    {
-        id: "9",
-        name: "Imdad",
-        img: '',
-        feedback: "A stress-free transaction with Checked Spot - their professionalism and dedication shine."
-    },
-    {
-        id: "10",
-        name: "Mudassir Pasha",
-        img: '',
-        feedback: "Checked Spot's expertise and guidance made my farmland purchase seamless. Highly recommend for any property!"
-    },
-    {
-        id: "11",
-        name: "Naziya Akthar",
-        img: '',
-        feedback: "Smooth sailing with Checked Spot—stellar service and expert guidance made my property purchase truly extraordinary."
-    },
-    {
-        id: "12",
-        name: "Shaziya Waheed",
-        img: '',
-        feedback: "Checked Spot's dedication and proficiency ensured a seamless experience, transforming my property dreams into reality."
-    },
-])
+const phoneCallhref = ref(0);
+async function getContact() {
+  const response = await axios.get(`${baseURL}/contact`);
 
-const investors = ref([
-    {
-        id: "1",
-        name: "Mohammed Saad",
-        img: "",
-        feedback: "Investing with Checked Spot was a game-changer—expert advice, solid returns, and reliable professionalism. Remarkably satisfied!"
-    },
-    {
-        id: "4",
-        name: "Aleem Shariff",
-        img: "",
-        feedback: "Investing with Checked Spot brings peace of mind—smart decisions, steady growth, and unparalleled professionalism."
-    },
-    {
-        id: "2",
-        name: "Mohammed Shuhib",
-        img: "",
-        feedback: "Checked Spot maximized my investment success—proactive, strategic, and consistently delivering outstanding returns. Impressive!"
-    },
-    {
-        id: "3",
-        name: "Siddharth",
-        img: "",
-        feedback: "Checked Spot's investment wisdom stands out—astute decisions, transparent communication, and a focus on lasting success."
-    },
-])
+  const contact = parseInt(response?.data?.contact);
+  phoneCallhref.value = contact;
+}
 
-const transparent = ref('rgba(255, 255, 255, 0)');
+onMounted(async () => {
+  await getContact();
+});
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
-
 a {
-    text-decoration: none;
+  text-decoration: none;
+  color: #c2185b !important;
 }
 
-.heading {
-    border-bottom: solid 1px rgb(63, 63, 63);
-    color: rgb(63, 63, 63);
-    font-size: 40px;
+/* First Section Starts */
+.firstSection {
+  margin-top: 80px !important;
+  padding: 0 60px !important;
+}
+.aboutHeading {
+  font-size: 56px;
+  line-height: 1.2;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 24px;
+}
+.subHeading {
+  font-size: 18px;
+  line-height: 1.5;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 24px;
+}
+.headerActionContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.browseProperty {
+  margin-right: 26px;
 }
 
-.backgroundvideo {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-}
-
-.content {
-    margin-top: 20px;
-    color: rgb(63, 63, 63);
-    line-height: 30px;
+@media only screen and (max-width: 600px) {
+  .firstSection {
+    margin-top: 23px !important;
+    padding: 0 16px !important;
+  }
+  .aboutHeading {
     font-size: 16px;
+  }
+  .subHeading {
+    font-size: 12px;
+  }
+  .headerActionContainer {
+    flex-direction: column;
+  }
+  .browseProperty {
+    margin-right: 0;
+    margin-bottom: 14px;
+  }
+}
+@media only screen and (min-width: 601px) and (max-width: 960px) {
+  .firstSection {
+    margin-top: 40px !important;
+    padding: 0 30px !important;
+  }
+  .aboutHeading {
+    font-size: 32px;
+  }
+  .subHeading {
+    font-size: 16px;
+  }
+}
+
+/* Second Section Starts */
+.secondSection {
+  margin-top: 80px !important;
+}
+.heroContainer {
+  height: 480px;
+}
+.heroVideo {
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media only screen and (max-width: 600px) {
+  .secondSection {
+    margin-top: 30px !important;
+  }
+  .heroContainer {
+    height: 277px;
+  }
+}
+@media only screen and (min-width: 601px) and (max-width: 960px) {
+  .secondSection {
+    margin-top: 40px !important;
+  }
+  .heroContainer {
+    height: 350px;
+  }
+}
+
+/* Third Section Starts */
+.thirdSection {
+  margin-top: 60px !important;
+}
+.whyCheckedspot {
+  line-height: 1.2;
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+.imageContainer {
+  height: 357px;
+}
+.imageContainer > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.greaterThanMd {
+  font-size: 18px;
+  line-height: 1.5;
+  text-align: justify;
+}
+.greaterThanSm {
+  display: none;
+}
+
+@media only screen and (max-width: 600px) {
+  .thirdSection {
+    margin-top: 40px !important;
+  }
+  .whyCheckedspot {
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+  .imageContainer {
+    display: none;
+  }
+  .greaterThanMd {
+    font-size: 14px;
+    line-height: 1.5;
     text-align: justify;
+  }
 }
 
-.heading2 {
-    border-bottom: solid 1px rgb(63, 63, 63);
-    color: rgb(63, 63, 63);
-    font-size: 20px;
-    font-weight: 500;
+@media only screen and (min-width: 601px) and (max-width: 960px) {
+  .thirdSection {
+    margin-top: 40px !important;
+  }
+  .whyCheckedspot {
+    font-size: 16px;
+    margin-bottom: 24px;
+  }
+  .imageContainer {
+    height: 245px;
+  }
+  .greaterThanMd {
+    display: none;
+  }
+  .greaterThanSm {
+    display: block;
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: justify;
+  }
+}
+
+/* Fourth Section Starts */
+.fourthSection {
+  margin-top: 80px !important;
+}
+/* Left */
+.journeyHeading {
+  font-size: 48px;
+  margin-bottom: 64px;
+  line-height: 1.2;
+}
+.journeyImage {
+  height: 481px;
+}
+.journeyImage > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+/* Right */
+.activeStepIndicator,
+.stepIndicator {
+  margin-right: 40px;
+}
+.activeStepIconContainer > .smIcon,
+.stepIconContainer > .smIcon {
+  display: none;
+}
+.activeStepVerticalLine,
+.stepVerticalLine {
+  margin-top: 16px;
+  width: 2px;
+  height: 100px;
+  border: solid 1px #c2185b;
+}
+.activeStepAgenda > h4,
+.stepAgenda > h4 {
+  font-size: 32px;
+  line-height: 1.3;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #c2185b;
+}
+.activeStepAgenda > p,
+.stepAgenda > p {
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+.stepVerticalLine {
+  border: solid 1px #000;
+}
+.stepAgenda > h4 {
+  color: #000;
+}
+
+@media only screen and (max-width: 600px) {
+  .fourthSection {
+    margin-top: 40px !important;
+  }
+  /* Left */
+  .journeyHeading {
+    font-size: 18px;
+    margin-bottom: 32px;
+  }
+  .journeyImage {
+    height: 256px;
+    margin-bottom: 32px;
+  }
+  .journeyImage > img {
+    border-radius: 5px;
+  }
+  /* Right */
+  .activeStepIndicator,
+  .stepIndicator {
+    margin-right: 24px;
+  }
+  .activeStepIconContainer > .mdIcon,
+  .stepIconContainer > .mdIcon {
+    display: none;
+  }
+  .activeStepIconContainer > .smIcon,
+  .stepIconContainer > .smIcon {
+    display: block;
+  }
+  .activeStepVerticalLine,
+  .stepVerticalLine {
+    margin-top: 7px;
+    width: 1px;
+    height: 50px;
+    border: solid 1px #c2185b;
+  }
+  .activeStepAgenda > h4,
+  .stepAgenda > h4 {
+    font-size: 16px;
+    line-height: 1.3;
+    font-weight: 700;
     margin-bottom: 10px;
+    color: #c2185b;
+  }
+  .activeStepAgenda > p,
+  .stepAgenda > p {
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+  .stepVerticalLine {
+    border: solid 1px #000;
+  }
+  .stepAgenda > h4 {
+    color: #000;
+  }
+}
+@media only screen and (min-width: 601px) and (max-width: 960px) {
+  .fourthSection {
+    margin-top: 40px !important;
+  }
+  /* Left */
+  .journeyHeading {
+    font-size: 24px;
+    margin-bottom: 32px;
+  }
+  .journeyImage {
+    height: 256px;
+  }
+  .journeyImage > img {
+    border-radius: 5px;
+  }
+  /* Right */
+  .activeStepIndicator,
+  .stepIndicator {
+    margin-right: 35px;
+  }
+  .activeStepIconContainer > .mdIcon,
+  .stepIconContainer > .mdIcon {
+    display: none;
+  }
+  .activeStepIconContainer > .smIcon,
+  .stepIconContainer > .smIcon {
+    display: block;
+  }
+  .activeStepVerticalLine,
+  .stepVerticalLine {
+    margin-top: 7px;
+    width: 1px;
+    height: 50px;
+    border: solid 1px #c2185b;
+  }
+  .activeStepAgenda > h4,
+  .stepAgenda > h4 {
+    font-size: 20px;
+    line-height: 1.3;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #c2185b;
+  }
+  .activeStepAgenda > p,
+  .stepAgenda > p {
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+  .stepVerticalLine {
+    border: solid 1px #000;
+  }
+  .stepAgenda > h4 {
+    color: #000;
+  }
 }
 
-.imageCont1 {
-    background-image: url('../assets/aboutusconstruction.jpg');
-    background-size: cover;
-    background-position-y: -50px;
+/* Fifth Section Starts */
+.fifthSection {
+  margin-top: 80px !important;
+}
+.testimonialHeading {
+  font-size: 48px;
+  line-height: 1.2;
+  font-weight: 500;
+  margin-bottom: 60px;
+}
+.testimonialHeading > span {
+  color: #c2185b;
 }
 
-.imageCont2 {
-    background-image: url('../assets/aboutusplot.jpg');
-    background-size: cover;
-    background-position-y: -50px;
+/* Sixth Section Starts */
+.sixthSection {
+  margin-top: 80px !important;
+  margin-bottom: 80px !important;
+  height: 376px;
+}
+.sixthSection > .cta {
+  border-radius: 8px;
+  background-image: url("../assets/contactus/CTA image.png");
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+.ctaStatement {
+  margin-bottom: 32px;
+  color: white;
+  font-size: 42px;
+}
+.ctaBtn {
+  font-size: 20px;
+  height: 48px !important;
+  border-radius: 8px;
 }
 
-.imageCont3 {
-    background-image: url('../assets/aboutusfarmland.jpg');
-    background-size: cover;
-    background-position-y: -50px;
+@media only screen and (max-width: 600px) {
+  .sixthSection {
+    margin-top: 40px !important;
+    margin-bottom: 40px !important;
+    padding: 0 !important;
+    height: 188px;
+  }
+  .sixthSection > .cta {
+    border-radius: 0px;
+  }
+  .ctaStatement {
+    margin-bottom: 16px;
+    font-size: 20px;
+  }
+  .ctaBtn {
+    font-size: 14px;
+    height: 35px !important;
+    border-radius: 4px;
+  }
 }
-
-.merriweatherFont {
-    font-size: 30px;
-    font-family: 'Merriweather', serif !important;
-}</style>
+@media only screen and (min-width: 601px) and (max-width: 960px) {
+  .sixthSection {
+    margin-top: 40px !important;
+    margin-bottom: 40px !important;
+    height: 188px;
+  }
+  .sixthSection > .cta {
+    border-radius: 4px;
+  }
+  .ctaStatement {
+    margin-bottom: 16px;
+    font-size: 24px;
+  }
+  .ctaBtn {
+    font-size: 16px;
+    height: 40px !important;
+    border-radius: 6px;
+  }
+}
+</style>
