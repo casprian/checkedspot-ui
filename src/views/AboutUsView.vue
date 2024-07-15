@@ -653,6 +653,25 @@ a {
 .testimonialHeading > span {
   color: #c2185b;
 }
+@media only screen and (max-width: 600px) {
+  .fifthSection {
+    margin-top: 32px !important;
+  }
+  .testimonialHeading {
+    text-align: center;
+    font-size: 26px;
+    margin-bottom: 24px;
+  }
+}
+@media only screen and (min-width: 601px) and (max-width: 960px) {
+  .fifthSection {
+    margin-top: 40px !important;
+  }
+  .testimonialHeading {
+    font-size: 26px;
+    margin-bottom: 32px;
+  }
+}
 
 /* Sixth Section Starts */
 .sixthSection {

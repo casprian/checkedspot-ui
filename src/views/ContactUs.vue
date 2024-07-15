@@ -36,7 +36,7 @@
 
   <v-container fluid class="pa-0">
     <!-- First Section - Map and contact form -->
-    <v-row no-gutters class="firstSection">
+    <v-row no-gutters class="firstSection px-4 px-sm-10 px-md-15">
       <!-- Google map For Bengaluru Office Location -->
       <v-col cols="12" sm="6" class="mapContainer">
         <iframe
@@ -160,7 +160,7 @@
     </v-row>
 
     <!-- Second Section -->
-    <v-row no-gutters class="secondSection">
+    <v-row no-gutters class="secondSection px-6 px-sm-10 px-md-15">
       <v-col
         cols="12"
         sm="4"
@@ -206,7 +206,7 @@
     </v-row>
 
     <!-- Third Section - Location -->
-    <div class="thirdContainer">
+    <div class="thirdContainer px-4 px-sm-10 px-md-15">
       <p class="text-center locationHeading">Location</p>
 
       <v-row no-gutters class="d-flex justify-center align-start">
@@ -323,7 +323,7 @@
     </div>
 
     <!-- Fourth Section - CTA -->
-    <v-row no-gutters class="pa-0 ma-0 fourthContainer">
+    <v-row no-gutters class="pa-0 ma-0 fourthContainer px-4 px-sm-10 px-md-15">
       <v-col cols="12" class="cta">
         <v-row no-gutters class="pl-7 pl-sm-9 pl-md-16">
           <v-col cols="8">
@@ -527,8 +527,6 @@ onMounted(async () => {
 /* First Section Starts  */
 .firstSection {
   margin-top: 80px !important;
-  padding-left: 47px;
-  padding-right: 47px;
 }
 
 .mapContainer > iframe {
@@ -608,8 +606,6 @@ onMounted(async () => {
 /* Second Section Starts  */
 .secondSection {
   margin-top: 80px !important;
-  padding-left: 62.5px;
-  padding-right: 62.5px;
 }
 .secondSection > div:nth-child(1) {
   padding-right: 32px !important;
@@ -668,8 +664,6 @@ onMounted(async () => {
 /* Third Section Starts  */
 .thirdContainer {
   margin-top: 80px !important;
-  padding-left: 62.5px;
-  padding-right: 62.5px;
   height: auto;
 }
 .locationHeading {
@@ -751,8 +745,6 @@ onMounted(async () => {
 .fourthContainer {
   margin-top: 80px !important;
   margin-bottom: 80px !important;
-  padding-left: 62px !important;
-  padding-right: 62px !important;
   height: 376px;
 }
 .fourthContainer > .cta {

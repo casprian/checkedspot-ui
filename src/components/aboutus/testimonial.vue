@@ -7,10 +7,11 @@
       >
         <!-- Review Cards -->
         <div
-          class="testimonialCard mx-4 pa-8 d-flex flex-column justify-space-between align-start"
+          class="testimonialCard mb-1 mx-4 pa-8 d-flex flex-column justify-space-between align-start"
         >
           <v-rating
-            class="ma-0 ml-n2 mt-n2 rating"
+            density="compact"
+            class="ma-0 ml-n1 rating"
             color="yellow-darken-3"
             v-model="testimonial.rating"
             readonly
@@ -18,7 +19,25 @@
           <p class="testimonial">{{ testimonial.testimonial }}</p>
 
           <div class="d-flex justify-start align-end">
-            <v-avatar class="avatar mr-4" color="surface-variant" size="56">
+            <v-avatar
+              class="d-none d-md-block avatar mr-4"
+              color="surface-variant"
+              size="56"
+            >
+              <v-img
+                :src="
+                  testimonial.img
+                    ? testimonial.img
+                    : 'https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light'
+                "
+                :alt="'Image of' + testimonial.name"
+              ></v-img>
+            </v-avatar>
+            <v-avatar
+              class="d-md-none avatar mr-4"
+              color="surface-variant"
+              size="42"
+            >
               <v-img
                 :src="
                   testimonial.img
@@ -51,11 +70,74 @@
         ></v-btn>
       </template>
     </v-slide-group>
+
+    <!-- Mobile Screen -->
+    <!-- Review Cards -->
+    <div class="testimonialCardMobileContainer">
+      <div
+        v-for="testimonial in mobileViewtestimonials"
+        :key="testimonial.id"
+        class="testimonialCardMobile pa-8 d-flex flex-column justify-space-between align-start"
+      >
+        <v-rating
+          density="compact"
+          class="ma-0 ml-n1 mb-3 rating"
+          color="yellow-darken-3"
+          v-model="testimonial.rating"
+          readonly
+        ></v-rating>
+        <p class="testimonial">{{ testimonial.testimonial }}</p>
+
+        <div class="d-flex justify-start align-end">
+          <v-avatar
+            class="d-none d-md-block avatar mr-4"
+            color="surface-variant"
+            size="56"
+          >
+            <v-img
+              :src="
+                testimonial.img
+                  ? testimonial.img
+                  : 'https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light'
+              "
+              :alt="'Image of' + testimonial.name"
+            ></v-img>
+          </v-avatar>
+          <v-avatar
+            class="d-md-none avatar mr-4"
+            color="surface-variant"
+            size="42"
+          >
+            <v-img
+              :src="
+                testimonial.img
+                  ? testimonial.img
+                  : 'https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light'
+              "
+              :alt="'Image of' + testimonial.name"
+            ></v-img>
+          </v-avatar>
+          <div>
+            <h3 class="testimonialBy">{{ testimonial.name }}</h3>
+            <p class="testimonialByType">{{ testimonial.type }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-end align-center">
+        <v-btn
+          class="viewMoreBtn text-none"
+          :disabled="viewMoreBtn"
+          @click="addMoreTestimonials"
+          color="#c2185b"
+          >View More</v-btn
+        >
+      </div>
+    </div>
   </v-sheet>
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import IqbalAhmed from "@/assets/customers/IqbalAhmed.jpeg";
 import MashoodAhmed from "@/assets/customers/MashoodAhmed.jpeg";
 
@@ -205,12 +287,44 @@ const testimonials = ref([
       "Checked Spot's dedication and proficiency ensured a seamless experience, transforming my property dreams into reality.",
   },
 ]);
+
+const mobileViewtestimonials = ref([
+  {
+    id: "",
+    rating: 0,
+    testimonial: "",
+    img: "",
+    name: "",
+    type: "",
+  },
+]);
+let testimonialPerClick = 0;
+const viewMoreBtn = ref(false);
+function addMoreTestimonials() {
+  for (let i = testimonialPerClick; i < testimonialPerClick + 3; i++) {
+    if (i === testimonials.value.length) {
+      viewMoreBtn.value = true;
+      break;
+    }
+    mobileViewtestimonials.value[i] = testimonials.value[i];
+  }
+  testimonialPerClick += 3;
+}
+
+onMounted(() => {
+  addMoreTestimonials();
+});
 </script>
 
 <style scoped>
 .slideGroupContainer {
   position: relative;
   padding-bottom: 84px;
+  background-color: rgb(249, 251, 255);
+}
+
+.testimonialCardMobileContainer {
+  display: none !important;
 }
 .testimonialCard {
   border: solid 1px rgba(194, 24, 92, 0.408);
@@ -239,14 +353,72 @@ const testimonials = ref([
 
 .buttonnext {
   position: absolute;
-  top: 344px;
-  right: 70px;
+  top: 320px;
+  right: 0px;
   color: #1f6fa8;
 }
 .buttonprev {
   position: absolute;
-  top: 344px;
-  right: 140px;
+  top: 320px;
+  right: 70px;
   color: #1f6fa8;
+}
+
+@media only screen and (max-width: 600px) {
+  .slideGroupContainer {
+    padding-bottom: 0px;
+  }
+  .slideGroup {
+    display: none;
+  }
+  .testimonialCardMobileContainer {
+    display: block !important;
+  }
+  .testimonialCardMobile {
+    margin-bottom: 24px !important;
+    border: solid 1px rgba(194, 24, 92, 0.408);
+    border-radius: 6px;
+    width: 100%;
+    min-height: 212px;
+  }
+  .rating {
+    margin-bottom: 18px;
+  }
+  .testimonial {
+    margin-bottom: 15px;
+  }
+  .testimonialBy {
+    font-size: 13.5px;
+    line-height: 21px;
+  }
+  .testimonialByType {
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .viewMoreBtn {
+    background-color: rgb(249, 251, 255);
+  }
+}
+@media only screen and (min-width: 601px) and (max-width: 960px) {
+  .testimonialCard {
+    border-radius: 6px;
+    width: 315px;
+    min-height: 212px;
+  }
+  .rating {
+    margin-bottom: 18px;
+  }
+  .testimonial {
+    font-size: 13.5px;
+    margin-bottom: 15px;
+  }
+  .testimonialBy {
+    font-size: 13.5px;
+    line-height: 21px;
+  }
+  .testimonialByType {
+    font-size: 12px;
+    line-height: 18px;
+  }
 }
 </style>
