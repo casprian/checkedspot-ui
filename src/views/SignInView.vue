@@ -157,15 +157,16 @@ const loginHandler = handleSubmit(async (values: any) => {
         email: values.email,
         password: values.password,
     });
+    
 
-    if (res?.data?.status === 200) {
+    if (res?.status === 200) {
         retrySignIn.value = false;
         loader.value = false;
         location.replace(window.origin);
-    } else if (res?.data?.status === 404) {
+    } else if (res?.status === 404) {
         notFound.value = true;
         loader.value = false;
-    } else if (res?.data?.status === 409) {
+    } else if (res?.status === 409) {
         retrySignIn.value = true;
         loader.value = false;
     } else {
