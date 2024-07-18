@@ -60,9 +60,6 @@
         </form>
       </v-col>
     </v-row>
-    <a href="https://checkedspot57.wordpress.com/our-completed-projects/" style="padding:10px; font-size: 30px;color: black !important;">our projects</a>
-    <a href="https://checkedspot57.wordpress.com/under-construction-projects/" style="padding:10px; font-size: 30px;color: black !important;">under construction projects</a>
-
   </v-container>
 </template>
 
