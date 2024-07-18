@@ -3,13 +3,13 @@
     <template v-slot:prepend>
       <v-app-bar-nav-icon class="smNav" variant="text" @click.stop="drawer = !drawer">
       </v-app-bar-nav-icon>
-      <v-img @click="router.push('/home')" class="logo" width="150" height="20"
+      <v-img @click="router.push('/')" class="logo" width="150" height="20"
         :src="logo" />
     </template>
 
     <template v-slot:append>
       <div class="lgNav">
-        <v-btn @click="router.push('/home')" variant="text" height="32">
+        <v-btn @click="router.push('/')" variant="text" height="32">
           HOME
         </v-btn>
         <v-btn @click="router.push('/aboutus')" variant="text" height="32">
@@ -42,7 +42,7 @@
 
   <v-navigation-drawer color="red-lighten-1" v-model="drawer" location="left" temporary class="pt-3">
     <div class="px-5">
-      <v-btn width="100%" @click="router.push('/home')" variant="text" class="my-2" height="32">
+      <v-btn width="100%" @click="router.push('/')" variant="text" class="my-2" height="32">
         HOME
       </v-btn>
     </div>

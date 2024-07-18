@@ -103,7 +103,7 @@ const { cookies } = useCookies();
 const router = useRouter();
 
 if (cookies.get('token')) {
-    router.push('/home');
+    router.push('/');
 }
 
 const route = useRoute();

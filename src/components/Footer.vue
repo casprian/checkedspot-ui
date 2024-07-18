@@ -32,7 +32,7 @@
                 </v-col>
                 <v-col cols="12" sm="6" class="d-flex flex-column align-start align-sm-center mt-5 mt-sm-0">
                     <div style="padding: 0px 0px 15px 30px;">
-                        <v-img @click="router.push('/home')" style="width: 150px; height: 25px;" class="logo" :src="logo" alt="logo"></v-img>
+                        <v-img @click="router.push('/')" style="width: 150px; height: 25px;" class="logo" :src="logo" alt="logo"></v-img>
                     </div>
                     <div class="pl-6">
                         <v-btn class="text-none " variant="outlined" color="pink-darken-2" @click="router.push('/contactus')">Contact Us</v-btn>

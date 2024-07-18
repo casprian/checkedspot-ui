@@ -107,7 +107,7 @@ const otp = useField('otp');
 
 
 if (route?.query?.q === 'reset' && !cookies.get('token')) {
-    router.push('/home');
+    router.push('/');
 } else if (route?.query?.q === 'reset' && cookies.get('token')) {
     verifiedUser.value = true;
     //@ts-ignore

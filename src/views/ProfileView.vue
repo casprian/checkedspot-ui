@@ -5,7 +5,7 @@
                 <v-sheet height="85" class="pl-5 d-flex align-center bg-transparent">
                     <div class="d-flex">
                         <v-img width="30"
-                            src="https://checkedspot.blob.core.windows.net/assets/checkedspotfavicon.ico"></v-img>
+                            src="../assets/plotwalalogoIcon.png"></v-img>
                         <h2 class="ml-3 mt-2 mt-md-1 mr-3 text-body-1 text-md-h5 font-weight-medium text-grey-darken-3">User
                             Dashboard</h2>
                     </div>
@@ -26,7 +26,7 @@
                 <v-row no-gutters>
                     <v-col cols="12"
                         class="d-flex justify-space-between align-center bg-grey-lighten-5 rightTopNaigation pt-2 px-5">
-                        <v-btn @click="router.push('/home')" variant="outlined" prepend-icon="mdi-home">Home</v-btn>
+                        <v-btn @click="router.push('/')" variant="outlined" prepend-icon="mdi-home">Home</v-btn>
                         <profile-avatar />
                     </v-col>
 
