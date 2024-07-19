@@ -81,7 +81,7 @@
       >
         <v-col cols="4">
           <v-progress-linear
-            color="red-darken-3"
+            color="pink-accent-3"
             indeterminate
             rounded
             height="10"
@@ -104,7 +104,7 @@ import UserPropertyCard from "@/components/user-dashboard/UserPropertyCard.vue";
 
 const { cookies } = useCookies();
 const router = useRouter();
-const jwt = cookies?.get("token")?.split("Bearer ")[1];
+const jwt = cookies?.get("token");
 
 if (!cookies.get("token")) {
   router.back();
@@ -122,6 +122,7 @@ async function getUsersProperties() {
   //@ts-ignore
   const res = await api?.property?.getPropertiesForUser({
     params: {
+      // @ts-ignore
       email: jwtDecode(jwt)?.userData?.email,
       pageNumber: pageNum.value,
       limit: limit.value,
@@ -143,7 +144,6 @@ onMounted(async () => {
 
 <style scoped>
 a {
-  color: #c62828 !important;
   text-decoration: none !important;
 }
 
@@ -161,7 +161,7 @@ a:hover {
   border-top: solid 1px rgb(217, 216, 216);
   height: 85px;
   /* position: absolute;
-    bottom: 0; */
+  bottom: 0; */
 }
 
 .hoverPointer:hover {
