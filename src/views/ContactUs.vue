@@ -40,31 +40,19 @@
 
             <v-row class="mx-0 mt-0 px-6 pb-4 d-flex justify-space-between align-end parallaxMask"
               style="height: calc(100% - 75%);">
-              <div class="d-flex justify-start align-center">
-                <v-rating class="lg" :model-value="item.rating" color="amber" density="compact" half-increments readonly
-                  size="large"></v-rating>
-                <v-rating class="sm" :model-value="item.rating" color="amber" density="compact" half-increments readonly
-                  size="small"></v-rating>
-                <span class="ml-4 mt-1 text-body-1 text-sm-h6 text-white">{{ item.rating }} ({{ item.noOfRating }})</span>
-              </div>
-
-              <div>
-                <v-icon class="lg" color="pink-darken-2" icon="mdi-fire-circle" size="30"></v-icon>
-                <v-icon class="sm" color="pink-darken-2" icon="mdi-fire-circle" size="25"></v-icon>
-              </div>
             </v-row>
           </v-parallax>
 
           <v-card-text class="px-0 pl-3">
             <h3 class="mt-2 mb-3 pl-3 text-h6 text-sm-h5 font-weight-bold">Reach Us At</h3>
             <div class="contact">
-              <v-btn size="large" class="mt-n1" variant="text" icon="mdi-phone" color="pink-darken-2"></v-btn>
+              <v-btn size="large" class="mt-n1" variant="text" icon="mdi-phone" color="red-darken-3"></v-btn>
               <p v-for="(number, i) in item.mobiles" :key="i" class="d-inline contactinfo">{{ number }}</p>
             </div>
 
             <div class="email pt-2 d-flex align-start">
               <div>
-                <v-btn size="large" variant="text" icon="mdi-email" color="pink-darken-2"></v-btn>
+                <v-btn size="large" variant="text" icon="mdi-email" color="red-darken-3"></v-btn>
               </div>
               <div>
                 <a v-for="(email, i) in item.email" :key="i" class="contactinfo" :href="`mailto:${email}`">{{ email }}
@@ -75,7 +63,7 @@
             <div class="contactinfo pt-2 address d-flex align-start">
               <div>
                 <v-btn size="large" variant="text" icon="mdi-office-building-marker-outline"
-                  color="pink-darken-2"></v-btn>
+                  color="red-darken-3"></v-btn>
               </div>
               <div>
                 {{ item.address }}
@@ -107,7 +95,7 @@
                 class="my-1 mb-2 text-green" @click.prevent="callWhatsappCloudApi">
                 <v-icon color="green" icon="mdi-whatsapp"></v-icon>&nbsp; Contact us on Whatsapp
               </v-btn>
-              <v-btn @click.prevent="handleReset" density="default" variant="elevated" elevation="4" color="pink-darken-2" width="280px"
+              <v-btn @click.prevent="handleReset" density="default" variant="elevated" elevation="4" color="red-darken-3" width="280px"
                 class="my-1">
                 Reset Form
               </v-btn>

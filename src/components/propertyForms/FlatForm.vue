@@ -16,7 +16,7 @@
       </v-col>
       <v-row no-gutters class="py-3 mt-7 type">
         <v-col cols="12" class="pt-2 pb-7 px-4">
-          <div class="text-h5 font-weight-medium text-decoration-underline text-pink-accent-1">
+          <div class="text-h5 font-weight-medium text-decoration-underline text-red-darken-3">
             Flat Details
           </div>
         </v-col>
@@ -98,7 +98,7 @@
         <v-col cols="12" sm="6" class="py-1 px-3" style="position: relative">
           <v-row no-gutters @mouseover="expand = true" @mouseout="expand = false">
             <v-switch v-model="bodyData.isFreeHold" true-value="true" false-value="false" label="Is Free Hold"
-              color="pink-accent-3" hide-details>
+              color="red-darken-3" hide-details>
             </v-switch>
           </v-row>
           <v-expand-transition style="position: absolute">
@@ -114,63 +114,63 @@
 
         <v-row no-gutters>
           <v-col cols="12" sm="3" md="2" class="checkheight py-1 px-2">
-            <v-checkbox class="pa-0" label="Lobby" v-model="bodyData.lobby" false-value="unavailable"
+            <v-checkbox class="pa-0" label="Lobby" color="red-darken-3" v-model="bodyData.lobby" false-value="unavailable"
               true-value="available"></v-checkbox>
           </v-col>
           <v-col cols="12" sm="3" md="2" class="checkheight py-1 px-2">
-            <v-checkbox class="pa-0" label="Balcony" v-model="bodyData.balcony" false-value="unavailable"
+            <v-checkbox class="pa-0" label="Balcony" color="red-darken-3" v-model="bodyData.balcony" false-value="unavailable"
               true-value="available"></v-checkbox>
           </v-col>
           <v-col cols="12" sm="3" md="2" class="checkheight py-1 px-2">
-            <v-checkbox class="pa-0" label="Garden" v-model="bodyData.garden" false-value="unavailable"
+            <v-checkbox class="pa-0" label="Garden" color="red-darken-3" v-model="bodyData.garden" false-value="unavailable"
               true-value="available"></v-checkbox>
           </v-col>
           <v-col cols="12" sm="3" md="2" class="checkheight py-1 px-2">
-            <v-checkbox class="pa-0" label="Dining Area" v-model="bodyData.diningArea" false-value="unavailable"
+            <v-checkbox class="pa-0" label="Dining Area" color="red-darken-3" v-model="bodyData.diningArea" false-value="unavailable"
               true-value="available"></v-checkbox>
           </v-col>
           <v-col cols="12" sm="3" md="2" class="checkheight py-1 px-2">
-            <v-checkbox class="pa-0" label="Parking Lot" v-model="bodyData.parkingLot" false-value="unavailable"
+            <v-checkbox class="pa-0" label="Parking Lot" color="red-darken-3" v-model="bodyData.parkingLot" false-value="unavailable"
               true-value="available"></v-checkbox>
           </v-col>
           <v-col cols="12" sm="3" md="2" class="checkheight py-1 px-2">
-            <v-checkbox class="pa-0" label="Elivator" v-model="bodyData.elivator" false-value="unavailable"
+            <v-checkbox class="pa-0" label="Elivator" color="red-darken-3" v-model="bodyData.elivator" false-value="unavailable"
               true-value="available"></v-checkbox>
           </v-col>
           <v-col cols="12" sm="3" md="2" class="checkheight py-1 px-2">
-            <v-checkbox class="pa-0" label="Air Conditioning" v-model="bodyData.airConditioning" false-value="unavailable"
+            <v-checkbox class="pa-0" label="Air Conditioning" color="red-darken-3" v-model="bodyData.airConditioning" false-value="unavailable"
               true-value="available"></v-checkbox>
           </v-col>
           <v-col cols="12" sm="3" md="2" class="checkheight py-1 px-2">
-            <v-checkbox class="pa-0" label="Swimming Pool" v-model="bodyData.swimmingPool" false-value="unavailable"
+            <v-checkbox class="pa-0" label="Swimming Pool" color="red-darken-3" v-model="bodyData.swimmingPool" false-value="unavailable"
               true-value="available"></v-checkbox>
           </v-col>
           <v-col cols="12" sm="3" md="2" class="checkheight py-1 px-2">
-            <v-checkbox class="pa-0" label="Laundry Room" v-model="bodyData.laundryRoom" false-value="unavailable"
+            <v-checkbox class="pa-0" label="Laundry Room" color="red-darken-3" v-model="bodyData.laundryRoom" false-value="unavailable"
               true-value="available"></v-checkbox>
           </v-col>
           <v-col cols="12" sm="3" md="2" class="checkheight py-1 px-2">
-            <v-checkbox class="pa-0" label="Gym" v-model="bodyData.gym" false-value="unavailable"
+            <v-checkbox class="pa-0" label="Gym" color="red-darken-3" v-model="bodyData.gym" false-value="unavailable"
               true-value="available"></v-checkbox>
           </v-col>
           <v-col cols="12" sm="3" md="2" class="checkheight py-1 px-2">
-            <v-checkbox class="pa-0" label="Wifi" v-model="bodyData.wifi" false-value="unavailable"
+            <v-checkbox class="pa-0" label="Wifi" color="red-darken-3" v-model="bodyData.wifi" false-value="unavailable"
               true-value="available"></v-checkbox>
           </v-col>
           <v-col cols="12" sm="3" md="2" class="checkheight py-1 px-2">
-            <v-checkbox class="pa-0" label="TV Cable" v-model="bodyData.tvCable" false-value="unavailable"
+            <v-checkbox class="pa-0" label="TV Cable" color="red-darken-3" v-model="bodyData.tvCable" false-value="unavailable"
               true-value="available"></v-checkbox>
           </v-col>
           <v-col cols="12" sm="3" md="2" class="checkheight py-1 px-2">
-            <v-checkbox class="pa-0" label="Dishwasher" v-model="bodyData.dishWasher" false-value="unavailable"
+            <v-checkbox class="pa-0" label="Dishwasher" color="red-darken-3" v-model="bodyData.dishWasher" false-value="unavailable"
               true-value="available"></v-checkbox>
           </v-col>
           <v-col cols="12" sm="3" md="2" class="checkheight py-1 px-2">
-            <v-checkbox class="pa-0" label="Refrigerator" v-model="bodyData.refrigerator" false-value="unavailable"
+            <v-checkbox class="pa-0" label="Refrigerator"  color="red-darken-3" v-model="bodyData.refrigerator" false-value="unavailable"
               true-value="available"></v-checkbox>
           </v-col>
           <v-col cols="12" sm="3" md="2" class="checkheight py-1 px-2">
-            <v-checkbox class="pa-0" label="Outdoor Shower" v-model="bodyData.outdoorShower" false-value="unavailable"
+            <v-checkbox class="pa-0" label="Outdoor Shower" color="red-darken-3" v-model="bodyData.outdoorShower" false-value="unavailable"
               true-value="available"></v-checkbox>
           </v-col>
           <v-col cols="12" class="py-1 px-3">
@@ -183,7 +183,7 @@
       <!-- Upload image, video section -->
       <v-row no-gutters class="py-3 mt-7 type">
         <v-col cols="12" class="pt-2 pb-7 px-14">
-          <div class="text-h5 font-weight-medium text-decoration-underline text-pink-accent-1">
+          <div class="text-h5 font-weight-medium text-decoration-underline text-red-darken-3">
             Upload Property Images
           </div>
         </v-col>
@@ -194,7 +194,7 @@
         </v-col>
 
         <v-col cols="12" class="pt-2 pb-7 px-14">
-          <div class="text-h5 font-weight-medium text-decoration-underline text-pink-accent-1">
+          <div class="text-h5 font-weight-medium text-decoration-underline text-red-darken-3">
             Upload Property Videos
           </div>
         </v-col>
@@ -204,7 +204,7 @@
         </v-col>
 
         <v-col cols="12" class="pt-2 pb-7 px-14">
-          <div class="text-h5 font-weight-medium text-decoration-underline text-pink-accent-1">
+          <div class="text-h5 font-weight-medium text-decoration-underline text-red-darken-3">
             Upload Property Documents
           </div>
         </v-col>
@@ -213,7 +213,7 @@
     </v-row>
     <v-row no-gutters class="ma-6">
       <v-col cols="12" class="d-flex justify-center">
-        <v-btn width="300px" color="pink-darken-2" :loading="loading" @click.prevent="addProperty">submit</v-btn>
+        <v-btn width="300px" color="red-darken-3" :loading="loading" @click.prevent="addProperty">submit</v-btn>
       </v-col>
     </v-row>
     <v-dialog v-model="alert" width="auto">

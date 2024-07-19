@@ -74,7 +74,7 @@
                         <v-row no-gutters class="pr-10 pt-5">
                             <v-col cols="12" class="pa-0">
                                 <v-btn type="submit" @click="loginHandler" density="default" prepend-icon="mdi-login"
-                                    elevation="4" variant="flat" color="green" width="100%">
+                                    elevation="4" variant="flat" color="#c62828" width="100%">
                                     Sign In
                                 </v-btn>
                             </v-col>
@@ -225,9 +225,9 @@ async function getAuthorizationUrl() {
     padding: 9px 10px;
     width: 100%;
     margin-right: 40px;
-    border: solid #2196F3 1px;
+    border: solid #c62828 1px;
     border-radius: 2px;
-    color: #2196F3;
+    color: #c62828;
     font-size: 14px;
     font-weight: 500;
     text-transform: uppercase;

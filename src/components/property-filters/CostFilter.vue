@@ -6,7 +6,7 @@
                 <div class="">
                     <h3 class="text-body-1 font-weight-regular textColor">Choose Budget</h3>
                 </div>
-                <v-range-slider v-model="costRange" strict color="#c46d9a" :max="500" :min="0" :step="5" hide-details
+                <v-range-slider v-model="costRange" strict color="red-darken-3" :max="500" :min="0" :step="5" hide-details
                     justify="align-center">
                 </v-range-slider>
             </v-col>

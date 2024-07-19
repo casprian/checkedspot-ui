@@ -17,7 +17,7 @@
 
             <v-row no-gutters class="py-3 mt-7 type">
                 <v-col cols="12" class="pt-2 pb-7 px-4">
-                    <div class="text-h5 font-weight-medium text-decoration-underline text-pink-accent-1">
+                    <div class="text-h5 font-weight-medium text-decoration-underline text-red-darken-3">
                         Farmland Details
                     </div>
                 </v-col>
@@ -55,7 +55,7 @@
                 <v-col cols="12" sm="6" class="py-1 px-3" style="position: relative">
                     <v-row no-gutters @mouseover="expand = true" @mouseout="expand = false">
                         <v-switch v-model="bodyData.isFreeHold" true-value="true" false-value="false" label="Is Free Hold"
-                            color="pink-accent-3" hide-details>
+                            color="red-darken-3" hide-details>
                         </v-switch>
                     </v-row>
                     <v-expand-transition style="position: absolute">
@@ -77,7 +77,7 @@
             <!-- Upload image, video section -->
             <v-row no-gutters class="py-3 mt-7 type">
                 <v-col cols="12" class="pt-2 pb-7 px-14">
-                    <div class="text-h5 font-weight-medium text-decoration-underline text-pink-accent-1">
+                    <div class="text-h5 font-weight-medium text-decoration-underline text-red-darken-3">
                         Upload Property Images
                     </div>
                 </v-col>
@@ -88,7 +88,7 @@
                 </v-col>
 
                 <v-col cols="12" class="pt-2 pb-7 px-14">
-                    <div class="text-h5 font-weight-medium text-decoration-underline text-pink-accent-1">
+                    <div class="text-h5 font-weight-medium text-decoration-underline text-red-darken-3">
                         Upload Property Videos
                     </div>
                 </v-col>
@@ -98,7 +98,7 @@
                 </v-col>
 
                 <v-col cols="12" class="pt-2 pb-7 px-14">
-                    <div class="text-h5 font-weight-medium text-decoration-underline text-pink-accent-1">
+                    <div class="text-h5 font-weight-medium text-decoration-underline text-red-darken-3">
                         Upload Property Documents
                     </div>
                 </v-col>
@@ -107,7 +107,7 @@
         </v-row>
         <v-row no-gutters class="ma-6">
             <v-col cols="12" class="d-flex justify-center">
-                <v-btn width="300px" color="pink-darken-2" :loading="loading" @click.prevent="addProperty">submit</v-btn>
+                <v-btn width="300px" color="red-darken-3" :loading="loading" @click.prevent="addProperty">submit</v-btn>
             </v-col>
         </v-row>
 

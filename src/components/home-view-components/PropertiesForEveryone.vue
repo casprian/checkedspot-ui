@@ -14,7 +14,7 @@
                 <div class="pb-0 pb-3">
                   <v-icon :icon="card.icon" color="deep-purple-lighten-1" size="50"></v-icon>
                   <div v-if="!card.numbers" class="pt-2 pb-1 pl-2">
-                    <v-progress-circular :width="3" color="pink-accent-3" indeterminate></v-progress-circular>
+                    <v-progress-circular :width="3" color="red-darken-3" indeterminate></v-progress-circular>
                   </div>
                   <div v-else class="text-h5 font-weight-bold mt-3">{{ card.numbers }}</div>
                   <div class="text-body-1 text-grey-darken-1">

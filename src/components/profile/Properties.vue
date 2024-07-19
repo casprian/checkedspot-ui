@@ -85,7 +85,7 @@
     >
       <v-col cols="4" class="loader">
         <v-progress-linear
-          color="pink-accent-3"
+          color="red-darken-3"
           indeterminate
           rounded
           height="10"

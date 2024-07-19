@@ -26,7 +26,7 @@
             <!-- Add More Sets Button -->
             <v-hover v-slot="{ isHovering, props }" open-delay="10">
                 <v-btn v-bind="props" :elevation="isHovering ? 10 : 2" :class="{ 'on-hover': isHovering }" height="100%"
-                    color="pink-darken-2" @click="addInputSet" :disabled="!isLastSetFilled" title="Add more"><v-icon
+                    color="red-darken-3" @click="addInputSet" :disabled="!isLastSetFilled" title="Add more"><v-icon
                         size="30" icon="mdi-plus"></v-icon></v-btn>
             </v-hover>
         </v-col>

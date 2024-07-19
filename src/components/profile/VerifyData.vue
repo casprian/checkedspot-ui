@@ -15,7 +15,7 @@
         </v-menu>
         <v-dialog transition="dialog-bottom-transition" fullscreen width="100%" v-model="dialog">
             <v-card>
-                <v-toolbar color="primary">
+                <v-toolbar color="red-darken-3">
                     <v-btn icon class="hidden-xs-only">
                         <v-icon>mdi-check-decagram</v-icon>
                     </v-btn>
@@ -35,22 +35,22 @@
                             <div class="text-caption mb-5 text-center">if not received OTP on click of SEND OTP Button.
                                 Click on RESEND OTP Button which will appear after 30 seconds.</div>
                             <div>
-                                <v-btn v-if="sendBtn" class="mb-5" color="green" width="300" variant="elevated"
+                                <v-btn v-if="sendBtn" class="mb-5" color="red-darken-3" width="300" variant="elevated"
                                     @click="sendOTP">Send OTP</v-btn>
                                 <div v-if="timer <= 30 && !sendBtn" class="text-body-1" style="width:300;">Resend OTP in
                                     00:{{ timer < 10 ? `0${timer}` : timer }} sec</div>
                                 </div>
                                 <div>
-                                    <v-btn v-if="!sendBtn" class="mb-5" color="green" width="300" variant="elevated"
+                                    <v-btn v-if="!sendBtn" class="mb-5" color="blue" width="300" variant="elevated"
                                         @click="verifyEmail">Verify {{ props.name }}</v-btn>
                                 </div>
                                 <div>
-                                    <v-btn v-if="!sendBtn && timer >= 31" class="mb-5" color="blue" width="300"
+                                    <v-btn v-if="!sendBtn && timer >= 31" class="mb-5" color="red-darken-3" width="300"
                                         variant="elevated" @click="sendOTP">Resend
                                         OTP</v-btn>
                                 </div>
                                 <div>
-                                    <v-btn color="red" width="300" variant="tonal" @click="dialog = false">Close</v-btn>
+                                    <v-btn color="red-darken-3" width="300" variant="tonal" @click="dialog = false">Close</v-btn>
                                 </div>
                             </div>
                     </v-col>
@@ -148,7 +148,6 @@ const verifyEmail = handleSubmit(async (values) => {
     } else {
         router.push({ path: '/error', query: { status: res?.data?.status } })
     }
-
 })
 
 </script>

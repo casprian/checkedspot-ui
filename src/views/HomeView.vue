@@ -3,44 +3,47 @@
     <header-component />
     <recent-property :properties="recent20Properties.data" />
     <Construction />
-    <all-property-needs />
     <property-services />
   </div>
 </template>
 
 <script lang="ts" setup>
-//@ts-ignore
-import HeaderComponent from "@/components/home-view-components/HeaderComponent.vue";
-//@ts-ignore
-import RecentProperty from "@/components/home-view-components/RecentProperty.vue";
-//@ts-ignore
-import AllPropertyNeeds from "@/components/home-view-components/AllPropertyNeeds.vue";
-//@ts-ignore
-import PropertyServices from "@/components/home-view-components/PropertyServices.vue";
-//@ts-ignore
-import Construction from "@/components/home-view-components/Construction.vue";
+import { defineAsyncComponent, onMounted, reactive } from "vue";
+import { useRouter } from "vue-router";
+
 //@ts-ignore
 import api from "@/data/api/index.js";
-import { onMounted, reactive } from "vue";
-import { useRouter } from "vue-router";
+
+const HeaderComponent = defineAsyncComponent(
+  () => import("@/components/home-view-components/HeaderComponent.vue")
+);
+const RecentProperty = defineAsyncComponent(
+  () => import("@/components/home-view-components/RecentProperty.vue")
+);
+const Construction = defineAsyncComponent(
+  () => import("@/components/home-view-components/Construction.vue")
+);
+const PropertyServices = defineAsyncComponent(
+  () => import("@/components/home-view-components/PropertyServices.vue")
+);
 
 const router = useRouter();
 const recent20Properties = reactive({
-  data: null,
+  data: {},
 });
 
-async function getAllVerifiedProperties() {
+async function recentproperties() {
   const res = await api?.property?.getRecentProperties({
     params: { limit: 20 },
   });
-  if (res.status === 200) {
-    recent20Properties.data = res?.data;
+  if (res?.status === 200) {
+    recent20Properties.data = res;
   } else {
-    recent20Properties.data = res.status;
+    recent20Properties.data = res;
   }
 }
 
 onMounted(async () => {
-  await getAllVerifiedProperties();
+  await recentproperties();
 });
 </script>

@@ -33,8 +33,8 @@
                                 <input id="agent" class="roleRadio" type="radio" name="role" value="agent" v-model="role">
                                 <label for="agent" title="agent">Agent</label>
     
-                                <input id="builder" class="roleRadio" type="radio" name="role" value="developer" v-model="role">
-                                <label for="builder" title="developer/builder">Developer</label>
+                                <!-- <input id="builder" class="roleRadio" type="radio" name="role" value="developer" v-model="role">
+                                <label for="builder" title="developer/builder">Developer</label> -->
                             </v-col>
                             <v-col cols="12" class="pa-1">
                                 <v-text-field v-model="name.value.value" :error-messages="name.errorMessage.value"
@@ -73,7 +73,7 @@
                         <v-row no-gutters class="pr-10 pt-6">
                             <v-col cols="12" class="pa-0">
                                 <v-btn @click="createUser" type="submit" density="default" prepend-icon="mdi-account"
-                                    elevation="4" variant="flat" color="green" width="100%">
+                                    elevation="4" variant="flat" color="#c62828" width="100%">
                                     Sign Up
                                 </v-btn>
                             </v-col>
@@ -220,9 +220,9 @@ async function getAuthorizationUrl() {
     padding: 9px 10px;
     width: 100%;
     margin-right: 40px;
-    border: solid #2196F3 1px;
+    border: solid #c62828 1px;
     border-radius: 2px;
-    color: #2196F3;
+    color: #c62828;
     font-size: 14px;
     font-weight: 500;
     text-transform: uppercase;
@@ -262,18 +262,17 @@ async function getAuthorizationUrl() {
 
 .radioGroup {
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
     flex-wrap: wrap;
     margin-bottom: 5px;
 }
 
 .roleRadio + label {
-    margin: 10px 10px 10px 0;
-    border: solid 1px #d7d7d7;
+    margin: 10px 20px 10px 0;
+    border: solid 1.2px #c62828;
+    color: #c62828;
     padding: 8px 25px;
     border-top-left-radius: 15px;
-    /* border-top-right-radius: 5px;
-    border-bottom-left-radius: 5px; */
     border-bottom-right-radius: 15px;
 }
 
@@ -286,8 +285,9 @@ async function getAuthorizationUrl() {
 }
 
 .roleRadio:checked + label {
-    background-color: #c2185c3f;
-    border-color: #c2185b
+    background-color: #c62828;
+    border-color: #c62828;
+    color: white;
 }
 
 @media only screen and (max-width: 800px) {

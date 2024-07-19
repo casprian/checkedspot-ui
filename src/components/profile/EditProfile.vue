@@ -47,7 +47,7 @@
                   <v-progress-linear
                     v-if="loading"
                     indeterminate
-                    color="pink-accent-2"
+                    color="red-darken-3"
                   >
                   </v-progress-linear>
                 </template>
@@ -67,7 +67,7 @@
                   <v-progress-linear
                     v-if="loading"
                     indeterminate
-                    color="pink-accent-2"
+                    color="red-darken-3"
                   >
                   </v-progress-linear>
                 </template>
@@ -87,7 +87,7 @@
                   <v-progress-linear
                     v-if="loading"
                     indeterminate
-                    color="pink-accent-2"
+                    color="red-darken-3"
                   >
                   </v-progress-linear>
                 </template>
@@ -106,7 +106,7 @@
                   <v-progress-linear
                     v-if="loading"
                     indeterminate
-                    color="pink-accent-2"
+                    color="red-darken-3"
                   >
                   </v-progress-linear>
                 </template>
@@ -126,7 +126,7 @@
                   <v-progress-linear
                     v-if="loading"
                     indeterminate
-                    color="pink-accent-2"
+                    color="red-darken-3"
                   >
                   </v-progress-linear>
                 </template>
@@ -146,7 +146,7 @@
                   <v-progress-linear
                     v-if="loading"
                     indeterminate
-                    color="pink-accent-2"
+                    color="red-darken-3"
                   >
                   </v-progress-linear>
                 </template>
@@ -166,7 +166,7 @@
                   <v-progress-linear
                     v-if="loading"
                     indeterminate
-                    color="pink-accent-2"
+                    color="red-darken-3"
                   >
                   </v-progress-linear>
                 </template>
@@ -179,7 +179,7 @@
                 @click.prevent="uploadData"
                 width="100%"
                 height="40"
-                color="blue"
+                color="red-darken-3"
                 variant="flat"
                 >Save</v-btn
               >

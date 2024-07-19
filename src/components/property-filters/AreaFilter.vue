@@ -10,7 +10,7 @@
                 <div class="">
                     <h3 class="text-body-1 font-weight-regular textColor">Choose Area</h3>
                 </div>
-                <v-range-slider class="" v-model="areaRange" strict color="#c46d9a" :max="50000" :min="0"
+                <v-range-slider class="" v-model="areaRange" strict color="red-darken-3" :max="50000" :min="0"
                     :step="areaStep" hide-details justify="align-center">
                 </v-range-slider>
                 <div class="d-flex justify-space-between">

@@ -49,7 +49,7 @@
           <small>*indicates required field</small>
 
           <v-sheet class="d-flex flex-column justify-center align-center">
-            <v-btn type="submit" variant="flat" color="pink-darken-2" width="300px" class="my-2"
+            <v-btn type="submit" variant="flat" color="red-darken-3" width="300px" class="my-2"
               @click.prevent="callWhatsappCloudApi">
               book free consultation
             </v-btn>
@@ -157,6 +157,9 @@ const callWhatsappCloudApi = handleSubmit(async (values) => {
 </script>
 
 <style scoped>
+a {
+  color: #c62828 !important;
+}
 .bgConstruction {
   background-image: url("https://images.pexels.com/photos/176342/pexels-photo-176342.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
   background-position: 0% 70%;

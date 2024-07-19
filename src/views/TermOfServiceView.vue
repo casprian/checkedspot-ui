@@ -2,7 +2,7 @@
     <v-container class="py-16">
         <v-row no-gutters>
             <v-col cols="12" class="d-flex justify-center">
-                <h1 class="text-h2 font-weight-medium"><span class="text-pink">Terms Of</span> Service</h1>
+                <h1 class="text-h2 font-weight-medium"><span class="text-red-darken-3">Terms Of</span> Service</h1>
             </v-col>
             <v-col cols="12" class="pt-10">
                 <p class="pb-4">Thank you for visiting Plotwala Subscriptions.</p>

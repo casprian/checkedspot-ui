@@ -59,7 +59,7 @@
             <!-- Verified Property Filter -->
             <v-col class="py-0 px-2 px-md-4 my-3 my-sm-0" cols="12" sm="6" md="3">
                 <v-switch class="px-4" v-model="isVerified" :true-value="true" :false-value="false"
-                    label="Verified Properties" color="pink-accent-3" hide-details
+                    label="Verified Properties" color="red-darken-3" hide-details
                     style="border: solid 1px grey; border-radius: 5px; height: 59px;"></v-switch>
             </v-col>
 
@@ -82,7 +82,7 @@
                                     <fieldset class="rounded-xl">
                                         <legend class="ml-6 legendText textColor">Properties Posted By:</legend>
                                         <div class="mb-3">
-                                            <v-radio-group v-model="ownershipType" inline color="#c46d9a"
+                                            <v-radio-group v-model="ownershipType" inline color="red-darken-3"
                                                 class="d-flex justify-center">
                                                 <v-radio label="All" value="" class="mr-2"></v-radio>
                                                 <v-radio label="Owners" value="owner" class="mr-2"></v-radio>
@@ -97,7 +97,7 @@
                                 <v-col class="py-0 px-2 mb-4 mt-md-3 d-flex justify-center align-center" cols="12" md="4">
                                     <v-switch class="px-3 textColor font-weight-medium text-body-2" v-model="isFreeHold"
                                         :true-value="true" :false-value="false" label="Freehold Properties"
-                                        color="pink-accent-3" hide-details
+                                        color="red-darken-3" hide-details
                                         style="border: solid 1px grey; border-radius: 5px;"
                                         append-icon="mdi-information"></v-switch>
                                     <v-tooltip location="bottom center" origin="top center" activator="parent">
@@ -143,7 +143,7 @@
                                         </div>
                                     </template>
 
-                                    <v-card class="pa-0 ma-0 py-1" color="#c46d9a">
+                                    <v-card class="pa-0 ma-0 py-1" color="red-darken-3">
                                         <div>
                                             <div class="pl-3 py-1 text-text-body-1 font-weight-medium text-white">Sort By
                                             </div>
@@ -186,7 +186,7 @@
                             </div>
 
                             <div class="py-0 px-2 pt-7 d-flex justify-center">
-                                <v-btn @click="handleSubmit" class="text-white" variant="elevated" color="#880e4f"
+                                <v-btn @click="handleSubmit" class="" variant="elevated" color="red-darken-3"
                                     width="100%" height="45">Submit</v-btn>
                             </div>
                         </v-col>
@@ -194,7 +194,7 @@
                 </v-card>
             </v-col>
             <v-col cols="12" class="py-0 px-2 pl-4 mt-4 mt-md-0 d-flex justify-center">
-                <v-btn @click="handleSubmit" class="text-white" variant="elevated" color="#880e4f" width="100%"
+                <v-btn @click="handleSubmit" class="" variant="elevated" color="red-darken-2" width="100%"
                     height="45">Submit</v-btn>
             </v-col>
         </v-row>
@@ -210,7 +210,7 @@
         <v-row v-else-if="!(propertiesData?.data?.length > 0)" no-gutters class="d-flex justify-center align-center"
             style="height: calc(100% - 287px);">
             <v-col cols="4">
-                <v-progress-linear color="pink-accent-3" indeterminate rounded height="10"></v-progress-linear>
+                <v-progress-linear color="red-darken-3" indeterminate rounded height="10"></v-progress-linear>
             </v-col>
         </v-row>
 
@@ -222,7 +222,7 @@
             </v-col>
         </v-row>
 
-        <v-snackbar v-model="isFetchingData" color="pink">
+        <v-snackbar v-model="isFetchingData" color="red-darken-3">
             {{ 'Loading properties...' }}
 
             <template v-slot:actions>

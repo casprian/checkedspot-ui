@@ -87,7 +87,7 @@
             v-if="loading"
             indeterminate
             location="left"
-            color="pink-accent-2"
+            color="red-darken-3"
           >
           </v-progress-linear>
           <span v-else style="text-transform: capitalize">
@@ -104,7 +104,7 @@
             v-if="loading"
             indeterminate
             location="left"
-            color="pink-accent-2"
+            color="red-darken-3"
           >
           </v-progress-linear>
           <span v-else>
@@ -126,7 +126,7 @@
             v-if="loading"
             indeterminate
             location="left"
-            color="pink-accent-2"
+            color="red-darken-3"
           >
           </v-progress-linear>
           <span v-else>
@@ -169,7 +169,7 @@
             v-if="loading"
             indeterminate
             location="left"
-            color="pink-accent-2"
+            color="red-darken-3"
           >
           </v-progress-linear>
           <span v-else>
@@ -206,7 +206,7 @@
             v-if="loading"
             indeterminate
             location="left"
-            color="pink-accent-2"
+            color="red-darken-3"
           >
           </v-progress-linear>
           <span v-else>
@@ -226,7 +226,7 @@
             v-if="loading"
             indeterminate
             location="left"
-            color="pink-accent-2"
+            color="red-darken-3"
           >
           </v-progress-linear>
           <span v-else>
@@ -246,7 +246,7 @@
             v-if="loading"
             indeterminate
             location="left"
-            color="pink-accent-2"
+            color="red-darken-3"
           >
           </v-progress-linear>
           <span v-else>
@@ -268,7 +268,7 @@
             v-if="loading"
             indeterminate
             location="left"
-            color="pink-accent-2"
+            color="red-darken-3"
           >
           </v-progress-linear>
           <span v-else>
@@ -281,7 +281,7 @@
         class="my-7"
         width="100%"
         height="40"
-        color="blue"
+        color="red-darken-3"
         @click="router.push('/profile/editprofile')"
         >Edit Details</v-btn
       >

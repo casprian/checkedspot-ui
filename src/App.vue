@@ -24,7 +24,7 @@ onMounted(async() => {
 }
 
 a {
-  color: #f5005696 !important;
+  color: #c62828 !important;
 }
 
 .textColor {

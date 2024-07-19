@@ -3,7 +3,7 @@
         <v-card style="position: fixed; top: 56px; left: 0; z-index: 1" v-show="expandFailure" height="60" width="100%"
             class="mx-auto bg-red">
             <div style="height: 100%" class="text-h5 text-center d-flex align-center justify-center">
-                <h5>Deletion Cancled!</h5>
+                <h5>Deletion Canceled!</h5>
             </div>
         </v-card>
     </v-expand-transition>
@@ -25,21 +25,32 @@
             <v-toolbar v-if="property?.title && property?.title !== 'unavailable'" class="propertyTitle" theme="dark"
                 height="35" style="background-color: rgba(0, 0, 0, 0.466);">
                 <div class="w-100 text-body-1 text-center px-3">
-                    {{ property?.title ? property?.title : "Property title - like, Fit for home etc." }}
+                    {{ 
+                        property?.title ? 
+                        property?.title : 
+                        "Property title - like, Fit for home etc." 
+                    }}
                 </div>
             </v-toolbar>
-            <v-card-title v-if="property?.isVerifiedByCheckedSpot" title="verified by Plotwala"
-                class="px-4 py-1 verifiedTag">
-                <v-chip variant="elevated" color="green-darken-2" density="comfortable">
-                    Plotwala verified <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon>
-                </v-chip>
-            </v-card-title>
+            <div class="verifiedTagContainer">
+                <v-card-title title="verified by Plotwala" v-if="property?.isVerifiedByCheckedSpot"
+                    class="px-0 py-1">
+                    <v-chip variant="elevated" color="green" density="comfortable">
+                        Plotwala verified <v-icon size="16" class="ml-2" icon="mdi-shield-check" color="white"></v-icon>
+                    </v-chip>
+                </v-card-title>
+                <v-card-title title="Freehold Property" v-if="property?.isFreeHold" class="px-0 py-1 verifiedTag">
+                    <v-chip variant="elevated" color="blue-grey-lighten-5" density="comfortable">
+                        Freehold
+                    </v-chip>
+                </v-card-title>
+            </div>
             <v-row no-gutters>
                 <v-col cols="12" class="d-flex justify-space-between">
-                    <v-btn @click="router.push({ path: '/propertydashboard', query: { propertyId: property.propertyId } })"
+                    <v-btn @click="router.push({ path: `/propertydashboard`, query: { propertyId: property.propertyId } })"
                         height="30" class="ma-2" variant="flat" elevation="4" color="green-darken-2">Edit</v-btn>
 
-                    <v-btn height="30" class="ma-2" variant="flat" elevation="4" color="pink-darken-3">Delete
+                    <v-btn height="30" class="ma-2" variant="flat" elevation="4" color="red-darken-3">Delete
                         <v-dialog v-model="confirmDialog" width="auto" activator="parent">
                             <v-card class="pa-5 pt-2">
                                 <v-card-text class="text-h6">
@@ -49,7 +60,7 @@
                                     <v-btn width="100" color="red-darken-2" variant="flat"
                                         @click="confirmDeletion(property.propertyId)" :loading="loader">Delete</v-btn>
                                     <v-btn width="100" color="green-darken-2" variant="outlined"
-                                        @click="cancleDeletion">Cancle</v-btn>
+                                        @click="cancelDeletion">Cancel</v-btn>
                                 </v-card-actions>
                             </v-card>
                         </v-dialog>
@@ -58,8 +69,8 @@
             </v-row>
             <v-row no-gutters>
                 <v-col cols="auto" class="showDetailsBtnContainer">
-                    <v-btn @click="router.push(`/propertydetails/${property?.propertyId}`)" density="default"
-                        variant="elevated" class="text-none" color="pink-darken-3"
+                    <v-btn @click="router.push({path: `/propertydetails/${property?.propertyId}`, query: { isPrivate: props.isprivate  } })" density="default"
+                        variant="elevated" class="text-none" color="red-darken-3"
                         append-icon="mdi-cursor-default-click">Preview Details</v-btn>
                 </v-col>
             </v-row>
@@ -164,11 +175,11 @@
 
         <v-row class="cardBottom pa-0 mx-6 my-2 d-flex justify-space-between align-center">
             <v-col cols="auto" class="px-0 my-1 d-flex justify-center align-center">
-                <v-avatar class="pa-0 mr-2" image="https://checkedspot.blob.core.windows.net/assets/parvez1.jpeg"
+                <v-avatar color="red-darken-3" class="pa-0 mr-2" :image="property?.agent?.picture ? property?.agent?.picture : 'https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light'"
                     size="45"></v-avatar>
                 <div class="text-body-2 mt-1 ml-0 text-uppercase text-center text-grey-darken-2">
-                    <p class="text-start pa-0 ma-0">{{ property?.agentName }}</p>
-                    <p class="text-start pa-0 ma-0">{{ property?.agentMobile }}</p>
+                    <p class="text-start pa-0 ma-0">{{ property?.agent?.name }}</p>
+                    <p class="text-start pa-0 ma-0">{{ property?.agent?.mobile }}</p>
                 </div>
             </v-col>
             <v-col v-if="property?.propertyAddedDate" cols="auto" class="px-0">
@@ -187,7 +198,7 @@ import { ref, reactive, computed } from 'vue';
 //@ts-ignore
 import api from '@/data/api/index.js';
 
-const props = defineProps(['property', 'getUsersProperties']);
+const props = defineProps(['property', 'getUsersProperties', 'isprivate']);
 const router = useRouter();
 const loader = ref(false);
 const dialog = ref(false);
@@ -216,7 +227,7 @@ const computedDate = computed((postedDate) => {
     return `${yyyyddmm[2]}-${months[mm - 1].name}-${yyyyddmm[0]}`;
 });
 
-async function cancleDeletion() {
+async function cancelDeletion() {
     confirmDialog.value = false;
     expandFailure.value = true;
     setTimeout(() => {
@@ -230,7 +241,7 @@ async function confirmDeletion(propertyId: String) {
     expandFailure.value = false;
     const res = await api?.property?.deleteProperty({ params: { propertyId } });
 
-    if (res?.data?.status === 200) {
+    if (res?.status === 200) {
         expandSuccess.value = true;
         confirmDialog.value = false;
         setTimeout(async () => {
@@ -257,11 +268,15 @@ a:hover {
     text-decoration: underline !important;
 }
 
-.verifiedTag {
-    height: 42px;
+.verifiedTagContainer {
+    width: 100%;
+    padding: 0 12px;
     position: absolute;
     bottom: 0;
+    display: flex;
+    justify-content: space-between;
 }
+
 
 .cardBottom {
     border-top: solid 1px rgb(217, 216, 216);
@@ -290,7 +305,6 @@ a:hover {
     left: 50%;
     top: 60%;
     transform: translate(-50%, -50%);
-
 }
 
 
