@@ -125,9 +125,6 @@ import { useField, useForm } from "vee-validate";
 //@ts-ignore
 import api from "@/data/api/index.js";
 import bangaloreImage from '@/assets/bengaluru.jpg';
-import mysoreImage from '@/assets/mysorePalace.jpg';
-import sakleshpurImage from '@/assets/sakleshpur.jpg';
-import tumkurImage from '@/assets/tumkurCentralLibrary.jpg';
 
 const items = reactive([
   {
@@ -135,9 +132,9 @@ const items = reactive([
     name: "Bangalore",
     rating: 4.9,
     noOfRating: 413,
-    mobiles: ["9606937470, ", "9606937471"],
+    mobiles: ["9606937471"],
     email: ['info@checkedspot.com'],
-    address: "1st floor - Next To Fame Diagnostics - RK Hegde Nagar, Bangalore - 560077"
+    address: "299, Main Road, 1st Block, Rahmath Nagar, RT Nagar, Bengaluru, Karnataka 560032"
   },
   {
     parallaxSrc: "https://checkedspot.blob.core.windows.net/assets/hassan.jpg",
@@ -148,33 +145,6 @@ const items = reactive([
     email: ['info@checkedspot.com'],
     address: "1st floor - Above Queens Collection, Subhash Square, Hassan - 573201"
   },
-  {
-    parallaxSrc: mysoreImage,
-    name: "Mysore",
-    rating: 4.9,
-    noOfRating: 413,
-    mobiles: ["9606937470"],
-    email: ['info@checkedspot.com'],
-    address: "Mysore - 570001"
-  },
-  {
-    parallaxSrc: sakleshpurImage,
-    name: "Sakleshpur",
-    rating: 4.9,
-    noOfRating: 413,
-    mobiles: ["9606937470"],
-    email: ['info@checkedspot.com'],
-    address: "Sakleshpur - 573134"
-  },
-  {
-    parallaxSrc: tumkurImage,
-    name: "Tumkur",
-    rating: 4.9,
-    noOfRating: 413,
-    mobiles: ["9606937470"],
-    email: ['info@checkedspot.com'],
-    address: "Tumkur - 572101"
-  }
 ])
 
 const dialog = ref(false);

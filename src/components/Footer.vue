@@ -81,7 +81,7 @@ const links = reactive([
         routeTo: '/'
     },
     {
-        name: 'Who we are',
+        name: 'About Us',
         routeTo: '/aboutus'
     }
 ])

@@ -45,7 +45,7 @@
             </v-col>
         </v-row>
 
-        <v-row no-gutters class="px-16 py-5">
+        <v-row no-gutters class="px-16 py-5 pb-sm-8 pb-md-16">
             <v-col cols="12" md="6" class="pt-10 pr-0 pr-md-5">
                 <v-img src="https://checkedspot.blob.core.windows.net/assets/warning.jpg"></v-img>
             </v-col>
@@ -58,17 +58,6 @@
                         immediately flagged.
                     </p>
                 </div>
-            </v-col>
-        </v-row>
-
-        <v-row no-gutters class="px-8 pt-8 mb-16">
-            <v-col cols="12">
-                <p class="my-4 text-body-1 font-weight-light pl-8">
-                    To see a sample report on each of property listed is verified who
-                    can click here to see a
-                    <a href="#">Sample Report - Checked Spots</a>
-                    , Otherwise, you're done!
-                </p>
             </v-col>
         </v-row>
     </v-container>

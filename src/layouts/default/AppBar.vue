@@ -13,7 +13,7 @@
           HOME
         </v-btn>
         <v-btn @click="router.push('/aboutus')" variant="text" height="32">
-          WHO WE ARE
+          About Us
         </v-btn>
         <v-btn @click="router.push('/contactus')" variant="text" class="ml-1" height="32">
           Contact
@@ -48,7 +48,7 @@
     </div>
     <div class="px-5">
       <v-btn width="100%" @click="router.push('/aboutus')" variant="text" class="my-2" height="32">
-        WHO WE ARE
+        About Us
       </v-btn>
     </div>
     <div class="px-5">
