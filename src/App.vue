@@ -5,8 +5,11 @@
 <script lang="ts" setup>
 import axios from 'axios';
 import { onMounted } from 'vue';
+// @ts-ignore
+import { baseURL } from './data/axios/interceptor';
+
 onMounted(async() => {
-  const res = await axios.get('http://localhost:8080/location');
+  const res = await axios.get(`${baseURL}/location`);
   localStorage.setItem('location', JSON.stringify(res?.data[0]));
 })
 </script>

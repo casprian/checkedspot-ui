@@ -73,7 +73,7 @@
                         <v-row no-gutters class="pr-10 pt-6">
                             <v-col cols="12" class="pa-0">
                                 <v-btn @click="createUser" type="submit" density="default" prepend-icon="mdi-account"
-                                    elevation="4" variant="flat" color="#c62828" width="100%">
+                                    elevation="4" variant="flat" color="red-darken-3" width="100%">
                                     Sign Up
                                 </v-btn>
                             </v-col>

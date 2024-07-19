@@ -74,7 +74,7 @@
                         <v-row no-gutters class="pr-10 pt-5">
                             <v-col cols="12" class="pa-0">
                                 <v-btn type="submit" @click="loginHandler" density="default" prepend-icon="mdi-login"
-                                    elevation="4" variant="flat" color="#c62828" width="100%">
+                                    elevation="4" variant="flat" color="red-darken-3" width="100%">
                                     Sign In
                                 </v-btn>
                             </v-col>
