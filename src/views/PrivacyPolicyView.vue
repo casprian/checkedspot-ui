@@ -67,7 +67,7 @@
                         visit).</li>
 
                     <li><strong>Website</strong> refers to Plotwala, accessible from <a
-                            href="https://www.checkedspot.com" target="_blank">https://www.checkedspot.com</a>
+                            href="https://www.plotwala.com" target="_blank">www.plotwala.com</a>
                     </li>
 
                     <li><strong>You</strong> means the individual accessing or using the Service, or the company, or
@@ -344,8 +344,8 @@
                 <p>If you have any questions about this Privacy Policy, You can contact us:</p>
                 <br />        
                 <ul>
-                    <li>By email: <a href="mailto:info@checkedspot.com" target="_blank">info@checkedspot.com</a></li>
-                    <li>By visiting this page on our website: <a href="https://www.checkedspot.com" target="_blank">https://www.checkedspot.com</a></li>
+                    <li>By email: <a href="mailto:plotwala.dev@gmail.com" target="_blank">plotwala@gmail.com</a></li>
+                    <li>By visiting this page on our website: <a href="https://www.plotwala.com" target="_blank">www.plotwala.com</a></li>
                 </ul>
                 <br />
             </v-col>
