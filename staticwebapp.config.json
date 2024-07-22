@@ -2,5 +2,9 @@
   "navigationFallback": {
     "rewrite": "index.html",
     "exclude": ["/images/*.{png,jpg,gif,ico}", "/*.{css,scss,js}"]
+  },
+  "globalHeaders": {
+    "Access-Control-Allow-Origin": "api.checkedspot.com",
+    "Access-Control-Allow-Methods": "POST, GET, OPTIONS"
   }
 }
