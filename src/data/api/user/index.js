@@ -74,7 +74,7 @@ const sendEnquiry = async (params) => {
 
 const getAuthorizationUrl = async (params) => {
     try {
-        const URL = "/user/plotwala/getAuthorizationUrl";
+        const URL = "/user/getAuthorizationUrl";
         const response = await call.callWithoutToken('get',URL,params);
         return {status: 200, data: response};
     }catch(e) {
