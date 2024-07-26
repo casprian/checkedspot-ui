@@ -5,17 +5,13 @@
                 <v-card-title class="title">Document</v-card-title>
             </v-card-item>
             
-            <v-row v-if="documents.length > 0" no-gutters class="px-4 pb-5">
+            <v-row no-gutters class="px-4 pb-5">
                 <v-cols cols="12" style="height: 500px; width: 100%;">
                     <PDFViewer style="min-width: 300px !important;" :rendering-text="'Loading Plan PDF'"
-                        :source="documents ? documents[0]?.fileUrl : ''"
+                        :source="documents.length > 0 ? documents[0]?.fileUrl : 'https://checkedspot.blob.core.windows.net/assets/defaultdocument.pdf'"
                         @download="handleDownload" :controls="['download', 'print', 'zoom', 'switchPage', 'catalog']" />
                 </v-cols>
             </v-row>
-
-            <div v-else class="text-h4 text-center pa-8">
-                No Document has been uploaded for property.
-            </div>
         </v-card>
     </v-col>
 </template>
